@@ -1,1 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARONIA Admin</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #fffaf8;
+      color: #3d3030;
+    }
+
+    header {
+      background: white;
+      padding: 18px 20px;
+      border-bottom: 1px solid #f0dddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: #c77d7d;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .admin {
+      color: #776565;
+      font-size: 14px;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .welcome {
+      background: linear-gradient(135deg, #f8e2df, #f7eee8);
+      padding: 25px;
+      border-radius: 22px;
+      margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #765f5f;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: white;
+      border: 1px solid #f0dddd;
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .stat-icon {
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .stat h3 {
+      font-size: 14px;
+      color: #776565;
+      margin-bottom: 7px;
+    }
+
+    .stat strong {
+      font-size: 22px;
+      color: #b86f6f;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid #f0dddd;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .panel-header h2 {
+      font-size: 19px;
+    }
+
+    .add-button {
+      border: none;
+      background: #c77d7d;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .menu button {
+      background: #fffaf8;
+      border: 1px solid #f0dddd;
+      border-radius: 16px;
+      padding: 18px 10px;
+      cursor: pointer;
+      color: #594848;
+    }
+
+    .menu-icon {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    @media (min-width: 700px) {
+
+      .stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .menu {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    ARONIA
+  </div>
+
+  <div class="admin">
+    👨‍💼 لوحة المدير
+  </div>
+
+</header>
+
+<main>
+
+  <div class="welcome">
+
+    <h1>
+      مرحبًا بك في لوحة التحكم 👋
+    </h1>
+
+    <p>
+      من هنا يمكنك إدارة متجر ARONIA بالكامل.
+    </p>
+
+  </div>
+
+
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">📦</div>
+      <h3>المنتجات</h3>
+      <strong id="productsCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🛒</div>
+      <h3>الطلبات</h3>
+      <strong>0</strong>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">👥</div>
+      <h3>العملاء</h3>
+      <strong>0</strong>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">💰</div>
+      <h3>المبيعات</h3>
+      <strong>0 د.ع</strong>
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="panel-header">
+
+      <h2>
+        إدارة المتجر
+      </h2>
+
+    </div>
+
+
+    <div class="menu">
+
+      <button>
+        <span class="menu-icon">📦</span>
+        المنتجات
+      </button>
+
+      <button>
+        <span class="menu-icon">📂</span>
+        الأقسام
+      </button>
+
+      <button>
+        <span class="menu-icon">🛒</span>
+        الطلبات
+      </button>
+
+      <button>
+        <span class="menu-icon">👥</span>
+        العملاء
+      </button>
+<button>
+        <span class="menu-icon">🎁</span>
+        العروض
+      </button>
+
+      <button>
+        <span class="menu-icon">📊</span>
+        الإحصائيات
+      </button>
+
+      <button>
+        <span class="menu-icon">⚙️</span>
+        الإعدادات
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="panel-header">
+
+      <h2>
+        المنتجات
+      </h2>
+
+      <button
+        class="add-button"
+        onclick="addProduct()">
+        + إضافة منتج
+      </button>
+
+    </div>
+
+    <p>
+      سيتم هنا عرض وإدارة جميع منتجات ARONIA.
+    </p>
+
+  </div>
+
+</main>
+
+
+<script>
+
+  const productsCount =
+    document.getElementById("productsCount");
+
+  /*
+    products.js سيُربط هنا لاحقًا
+  */
+
+  function addProduct() {
+
+    alert(
+      "سنضيف الآن نظام إضافة المنتجات 👌"
+    );
+
+  }
+
+</script>
+
+</body>
+</html>
