@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-      <script src="products.js"></script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARONIA | متجر العناية والجمال</title>
+  <title>ARONIA | متجر الجمال والعناية</title>
 
-  <meta name="theme-color" content="#f6e8e5">
+  <script src="products.js"></script>
 
   <style>
     * {
@@ -23,31 +22,30 @@
     }
 
     header {
-      background: #fff;
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #f1dddd;
       position: sticky;
       top: 0;
       z-index: 10;
+      background: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f0dddd;
     }
 
     .logo {
       font-size: 25px;
       font-weight: bold;
-      color: #c77d7d;
       letter-spacing: 2px;
+      color: #c77d7d;
     }
 
     .cart {
-      background: #f8e3e0;
       border: none;
-      padding: 10px 14px;
+      background: #f8e3e0;
+      padding: 9px 14px;
       border-radius: 20px;
-      font-size: 18px;
-      cursor: pointer;
+      font-size: 17px;
     }
 
     .hero {
@@ -58,23 +56,22 @@
     }
 
     .hero h1 {
-      font-size: 30px;
+      font-size: 29px;
       margin-bottom: 10px;
     }
 
     .hero p {
       color: #765f5f;
-      line-height: 1.7;
+      line-height: 1.8;
       margin-bottom: 18px;
     }
 
     .hero button {
+      border: none;
       background: #c77d7d;
       color: white;
-      border: none;
-      padding: 12px 22px;
+      padding: 12px 23px;
       border-radius: 25px;
-      font-size: 15px;
       cursor: pointer;
     }
 
@@ -82,18 +79,17 @@
       padding: 10px 20px 25px;
     }
 
-    .section-title {
+    .title {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       margin-bottom: 15px;
     }
 
-    .section-title h2 {
+    .title h2 {
       font-size: 21px;
     }
 
-    .section-title span {
+    .title span {
       color: #c77d7d;
       font-size: 14px;
     }
@@ -102,21 +98,20 @@
       display: flex;
       gap: 12px;
       overflow-x: auto;
-      padding-bottom: 8px;
     }
 
     .category {
-      min-width: 95px;
+      min-width: 100px;
       background: white;
-      border: 1px solid #f1dddd;
+      border: 1px solid #f0dddd;
       border-radius: 18px;
       padding: 15px 10px;
       text-align: center;
     }
 
-    .category .icon {
+    .category-icon {
       font-size: 30px;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .category p {
@@ -131,19 +126,16 @@
 
     .product {
       background: white;
+      border: 1px solid #f0dddd;
       border-radius: 20px;
       overflow: hidden;
-      border: 1px solid #f1dddd;
-      position: relative;
     }
 
-    .product-image {
+    .product img {
+      width: 100%;
       height: 150px;
+      object-fit: cover;
       background: #f8eee9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 55px;
     }
 
     .product-info {
@@ -156,8 +148,8 @@
     }
 
     .product-info p {
-      font-size: 13px;
       color: #8a7777;
+      font-size: 13px;
       margin-bottom: 10px;
     }
 
@@ -181,14 +173,14 @@
     nav {
       position: fixed;
       bottom: 0;
-      right: 0;
       left: 0;
+      right: 0;
+      z-index: 20;
       background: white;
-      border-top: 1px solid #f1dddd;
+      border-top: 1px solid #f0dddd;
       display: flex;
       justify-content: space-around;
-      padding: 10px 5px;
-      z-index: 20;
+      padding: 9px 4px;
     }
 
     nav div {
@@ -211,14 +203,14 @@
         grid-template-columns: repeat(4, 1fr);
       }
 
-      .hero {
-        max-width: 900px;
-        margin: 25px auto;
-      }
-
       section {
         max-width: 1000px;
         margin: auto;
+      }
+
+      .hero {
+        max-width: 900px;
+        margin: 25px auto;
       }
     }
   </style>
@@ -226,144 +218,160 @@
 
 <body>
 
-  <header>
-    <div class="logo">ARONIA</div>
-    <button class="cart">🛒 <span id="cartCount">0</span></button>
-  </header>
+<header>
+  <div class="logo">ARONIA</div>
 
-  <main>
-<div class="hero">
-      <h1>جمالك يبدأ من هنا ✨</h1>
-      <p>
-        اكتشفي منتجات العناية بالبشرة والجمال المختارة بعناية
-        لتناسب روتينك اليومي.
-      </p>
-      <button>تسوقي الآن</button>
+  <button class="cart">
+    🛒 <span id="cartCount">0</span>
+  </button>
+</header>
+
+<main>
+
+  <div class="hero">
+    <h1>جمالك يبدأ من هنا ✨</h1>
+
+    <p>
+      اكتشفي منتجات العناية بالبشرة والجمال
+      المختارة بعناية لتناسب روتينك اليومي.
+    </p>
+    <button onclick="scrollToProducts()">
+      تسوقي الآن
+    </button>
+  </div>
+
+  <section>
+
+    <div class="title">
+      <h2>الأقسام</h2>
+      <span>عرض الكل</span>
     </div>
 
-    <section>
-      <div class="section-title">
-        <h2>الأقسام</h2>
-        <span>عرض الكل</span>
+    <div class="categories">
+
+      <div class="category">
+        <div class="category-icon">🧴</div>
+        <p>العناية بالبشرة</p>
       </div>
 
-      <div class="categories">
-
-        <div class="category">
-          <div class="icon">🧴</div>
-          <p>العناية بالبشرة</p>
-        </div>
-
-        <div class="category">
-          <div class="icon">💄</div>
-          <p>المكياج</p>
-        </div>
-
-        <div class="category">
-          <div class="icon">🧖‍♀️</div>
-          <p>العناية بالشعر</p>
-        </div>
-
-        <div class="category">
-          <div class="icon">🌸</div>
-          <p>العطور</p>
-        </div>
-
-      </div>
-    </section>
-
-    <section>
-
-      <div class="section-title">
-        <h2>منتجات مميزة</h2>
-        <span>عرض الكل</span>
+      <div class="category">
+        <div class="category-icon">💄</div>
+        <p>المكياج</p>
       </div>
 
-      <div class="products">
+      <div class="category">
+        <div class="category-icon">🧖‍♀️</div>
+        <p>العناية بالشعر</p>
+      </div>
 
-        <div class="product">
-          <div class="product-image">🧴</div>
+      <div class="category">
+        <div class="category-icon">🌸</div>
+        <p>العطور</p>
+      </div>
 
-          <div class="product-info">
-            <h3>Hydrating Serum</h3>
-            <p>سيروم ترطيب للبشرة</p>
+    </div>
 
-            <div class="price">25,000 د.ع</div>
+  </section>
 
-            <button class="add" onclick="addToCart()">
-              أضف للسلة
-            </button>
-          </div>
+  <section id="productsSection">
+
+    <div class="title">
+      <h2>منتجات مميزة</h2>
+      <span>عرض الكل</span>
+    </div>
+
+    <div class="products" id="productsContainer"></div>
+
+  </section>
+
+</main>
+
+<nav>
+
+  <div>🏠<br>الرئيسية</div>
+
+  <div>🛍️<br>الأقسام</div>
+
+  <div>❤️<br>المفضلة</div>
+
+  <div>🛒<br>السلة</div>
+
+  <div>👤<br>حسابي</div>
+
+</nav>
+
+<script>
+
+let cartCount = 0;
+
+function addToCart() {
+
+  cartCount++;
+
+  document.getElementById("cartCount").textContent = cartCount;
+
+}
+
+function displayProducts() {
+
+  const container =
+    document.getElementById("productsContainer");
+
+  container.innerHTML = "";
+
+  products.forEach(product => {
+
+    const card = document.createElement("div");
+
+    card.className = "product";
+
+    card.innerHTML = 
+
+      <img
+        src="${product.image}"
+        alt="${product.nameAr}"
+      >
+
+      <div class="product-info">
+
+        <h3>${product.nameAr}</h3>
+
+        <p>${product.category}</p>
+
+        <div class="price">
+          ${product.price.toLocaleString("ar-IQ")} د.ع
         </div>
 
-        <div class="product">
-          <div class="product-image">🧴</div>
-
-          <div class="product-info">
-            <h3>Gentle Cleanser</h3>
-            <p>غسول لطيف للوجه</p>
-
-            <div class="price">18,000 د.ع</div>
-
-            <button class="add" onclick="addToCart()">
-              أضف للسلة
-            </button>
-          </div>
-        </div>
-
-        <div class="product">
-          <div class="product-image">🌸</div>
-
-          <div class="product-info">
-            <h3>Beauty Cream</h3>
-            <p>كريم للعناية اليومية</p>
-
-            <div class="price">22,000 د.ع</div>
-
-            <button class="add" onclick="addToCart()">
-              أضف للسلة
-            </button>
-          </div>
-        </div>
-
-        <div class="product">
-          <div class="product-image">💄</div>
-
-          <div class="product-info">
-            <h3>Beauty Essentials</h3>
-            <p>منتجات أساسية للجمال</p>
-
-            <div class="price">30,000 د.ع</div>
-
-            <button class="add" onclick="addToCart()">
-              أضف للسلة
-            </button>
-          </div>
-        </div>
+        <button
+          class="add"
+          onclick="addToCart()"
+        >
+          أضف للسلة
+        </button>
 
       </div>
-    </section>
 
-  </main>
+    ;
 
-  <nav>
-    <div>🏠<br>الرئيسية</div>
-    <div>🛍️<br>الأقسام</div>
-    <div>❤️<br>المفضلة</div>
-    <div>🛒<br>السلة</div>
-    <div>👤<br>حسابي</div>
-  </nav>
+    container.appendChild(card);
 
-  <script>
+  });
 
-    let cart = 0;
+}
 
-    function addToCart() {
-      cart++;
-      document.getElementById("cartCount").textContent = cart;
-    }
+function scrollToProducts() {
 
-  </script>
+  document
+    .getElementById("productsSection")
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+
+}
+
+displayProducts();
+
+</script>
 
 </body>
 </html>
