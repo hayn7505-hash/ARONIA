@@ -1,0 +1,135 @@
+<div class="hero">
+      <h1>جمالك يبدأ من هنا ✨</h1>
+      <p>
+        اكتشفي منتجات العناية بالبشرة والجمال المختارة بعناية
+        لتناسب روتينك اليومي.
+      </p>
+      <button>تسوقي الآن</button>
+    </div>
+
+    <section>
+      <div class="section-title">
+        <h2>الأقسام</h2>
+        <span>عرض الكل</span>
+      </div>
+
+      <div class="categories">
+
+        <div class="category">
+          <div class="icon">🧴</div>
+          <p>العناية بالبشرة</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">💄</div>
+          <p>المكياج</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">🧖‍♀️</div>
+          <p>العناية بالشعر</p>
+        </div>
+
+        <div class="category">
+          <div class="icon">🌸</div>
+          <p>العطور</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+
+      <div class="section-title">
+        <h2>منتجات مميزة</h2>
+        <span>عرض الكل</span>
+      </div>
+
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🧴</div>
+
+          <div class="product-info">
+            <h3>Hydrating Serum</h3>
+            <p>سيروم ترطيب للبشرة</p>
+
+            <div class="price">25,000 د.ع</div>
+
+            <button class="add" onclick="addToCart()">
+              أضف للسلة
+            </button>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🧴</div>
+
+          <div class="product-info">
+            <h3>Gentle Cleanser</h3>
+            <p>غسول لطيف للوجه</p>
+
+            <div class="price">18,000 د.ع</div>
+
+            <button class="add" onclick="addToCart()">
+              أضف للسلة
+            </button>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🌸</div>
+
+          <div class="product-info">
+            <h3>Beauty Cream</h3>
+            <p>كريم للعناية اليومية</p>
+
+            <div class="price">22,000 د.ع</div>
+
+            <button class="add" onclick="addToCart()">
+              أضف للسلة
+            </button>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">💄</div>
+
+          <div class="product-info">
+            <h3>Beauty Essentials</h3>
+            <p>منتجات أساسية للجمال</p>
+
+            <div class="price">30,000 د.ع</div>
+
+            <button class="add" onclick="addToCart()">
+              أضف للسلة
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <nav>
+    <div>🏠<br>الرئيسية</div>
+    <div>🛍️<br>الأقسام</div>
+    <div>❤️<br>المفضلة</div>
+    <div>🛒<br>السلة</div>
+    <div>👤<br>حسابي</div>
+  </nav>
+
+  <script>
+
+    let cart = 0;
+
+    function addToCart() {
+      cart++;
+      document.getElementById("cartCount").textContent = cart;
+    }
+
+  </script>
+
+</body>
+</html>
