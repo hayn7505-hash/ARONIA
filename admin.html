@@ -1,322 +1,780 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARONIA | لوحة المدير</title>
 
-  <title>ARONIA Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #fffaf8;
-      color: #3d3030;
-    }
-
-    header {
-      background: white;
-      padding: 18px 20px;
-      border-bottom: 1px solid #f0dddd;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      color: #c77d7d;
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-
-    .admin {
-      color: #776565;
-      font-size: 14px;
-    }
-
-    main {
-      padding: 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .welcome {
-      background: linear-gradient(135deg, #f8e2df, #f7eee8);
-      padding: 25px;
-      border-radius: 22px;
-      margin-bottom: 25px;
-    }
-
-    .welcome h1 {
-      margin-bottom: 8px;
-    }
-
-    .welcome p {
-      color: #765f5f;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-bottom: 25px;
-    }
-
-    .stat {
-      background: white;
-      border: 1px solid #f0dddd;
-      border-radius: 18px;
-      padding: 20px;
-    }
-
-    .stat-icon {
-      font-size: 25px;
-      margin-bottom: 10px;
-    }
-
-    .stat h3 {
-      font-size: 14px;
-      color: #776565;
-      margin-bottom: 7px;
-    }
-
-    .stat strong {
-      font-size: 22px;
-      color: #b86f6f;
-    }
-
-    .panel {
-      background: white;
-      border: 1px solid #f0dddd;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-    }
-
-    .panel-header h2 {
-      font-size: 19px;
-    }
-
-    .add-button {
-      border: none;
-      background: #c77d7d;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 15px;
-      cursor: pointer;
-    }
-
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .menu button {
-      background: #fffaf8;
-      border: 1px solid #f0dddd;
-      border-radius: 16px;
-      padding: 18px 10px;
-      cursor: pointer;
-      color: #594848;
-    }
-
-    .menu-icon {
-      font-size: 28px;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    @media (min-width: 700px) {
-
-      .stats {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .menu {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f8f5f2;
+  color:#333;
+}
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+.card{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 5px 20px #0000000d;
+}
+.logo{
+  font-size:28px;
+  font-weight:bold;
+  color:#b78383;
+  text-align:center;
+  margin-bottom:20px;
+}
+input,select,textarea{
+  width:100%;
+  padding:13px;
+  margin:7px 0;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:15px;
+}
+button{
+  border:0;
+  padding:12px 18px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:15px;
+}
+.primary{
+  background:#b78383;
+  color:white;
+}
+.danger{
+  background:#d9534f;
+  color:white;
+}
+.edit{
+  background:#eee;
+}
+.hidden{display:none}
+.login{
+  max-width:420px;
+  margin:70px auto;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+.stat{
+  text-align:center;
+  background:#faf7f5;
+  padding:20px;
+  border-radius:15px;
+}
+.stat b{
+  display:block;
+  font-size:28px;
+  color:#b78383;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+th,td{
+  padding:12px 8px;
+  border-bottom:1px solid #eee;
+  text-align:right;
+}
+.product-img{
+  width:55px;
+  height:55px;
+  object-fit:cover;
+  border-radius:10px;
+}
+.actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.message{
+  margin-top:10px;
+  color:#b33;
+}
+@media(max-width:700px){
+  .stats{grid-template-columns:1fr}
+  table{font-size:13px}
+  th:nth-child(1),td:nth-child(1){display:none}
+}
+</style>
 </head>
 
 <body>
 
-<header>
+<!-- تسجيل الدخول -->
+<div id="loginPage" class="login container">
+  <div class="card">
+    <div class="logo">ARONIA</div>
 
-  <div class="logo">
-    ARONIA
+    <h2>لوحة المدير</h2>
+
+    <input id="email" type="email" placeholder="البريد الإلكتروني">
+    <input id="password" type="password" placeholder="كلمة المرور">
+
+    <button class="primary" style="width:100%" onclick="login()">
+      تسجيل الدخول
+    </button>
+
+    <div id="loginMessage" class="message"></div>
+  </div>
+</div>
+
+
+<!-- لوحة التحكم -->
+<div id="dashboard" class="container hidden">
+
+  <div class="top card">
+    <div>
+      <div class="logo" style="margin:0;text-align:right">ARONIA</div>
+      <small>لوحة إدارة المتجر</small>
+    </div>
+
+    <button class="danger" onclick="logout()">تسجيل الخروج</button>
   </div>
 
-  <div class="admin">
-    👨‍💼 لوحة المدير
-  </div>
 
-</header>
-
-<main>
-
-  <div class="welcome">
-
-    <h1>
-      مرحبًا بك في لوحة التحكم 👋
-    </h1>
-
-    <p>
-      من هنا يمكنك إدارة متجر ARONIA بالكامل.
-    </p>
-
-  </div>
-
-
+  <!-- الإحصائيات -->
   <div class="stats">
 
     <div class="stat">
-      <div class="stat-icon">📦</div>
-      <h3>المنتجات</h3>
-      <strong id="productsCount">0</strong>
+      <span>المنتجات</span>
+      <b id="productCount">0</b>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">🛒</div>
-      <h3>الطلبات</h3>
-      <strong>0</strong>
+      <span>إجمالي المخزون</span>
+      <b id="stockCount">0</b>
     </div>
 
     <div class="stat">
-      <div class="stat-icon">👥</div>
-      <h3>العملاء</h3>
-      <strong>0</strong>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">💰</div>
-      <h3>المبيعات</h3>
-      <strong>0 د.ع</strong>
+      <span>قيمة المنتجات</span>
+      <b id="valueCount">0</b>
     </div>
 
   </div>
 
 
-  <div class="panel">
+  <!-- إضافة / تعديل -->
+  <div class="card">
 
-    <div class="panel-header">
+    <h2 id="formTitle">إضافة منتج</h2>
 
-      <h2>
-        إدارة المتجر
-      </h2>
+    <input id="productName" placeholder="اسم المنتج بالإنجليزية">
 
+    <input id="productNameAr" placeholder="اسم المنتج بالعربية">
+
+    <select id="productCategory">
+      <option value="العناية بالبشرة">العناية بالبشرة</option>
+      <option value="المكياج">المكياج</option>
+      <option value="العناية بالشعر">العناية بالشعر</option>
+      <option value="العطور">العطور</option>
+    </select>
+
+    <input id="productPrice" type="number" placeholder="السعر بالدينار العراقي">
+
+    <input id="productStock" type="number" placeholder="الكمية">
+
+    <input id="productImage" placeholder="رابط صورة المنتج">
+
+    <textarea id="productDescription" placeholder="وصف المنتج"></textarea>
+
+    <button class="primary" onclick="saveProduct()">
+      حفظ المنتج
+    </button>
+
+    <button class="edit hidden" id="cancelBtn" onclick="cancelEdit()">
+      إلغاء التعديل
+    </button>
+
+    <div id="formMessage" class="message"></div>
+
+  </div>
+
+
+  <!-- المنتجات -->
+  <div class="card">
+    <div class="top">
+      <h2>المنتجات</h2>
+
+      <button class="primary" onclick="loadProducts()">
+        تحديث
+      </button>
     </div>
 
+    <div style="overflow-x:auto">
 
-    <div class="menu">
+      <table>
 
-      <button>
-        <span class="menu-icon">📦</span>
-        المنتجات
-      </button>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>الصورة</th>
+            <th>المنتج</th>
+            <th>الفئة</th>
+            <th>السعر</th>
+            <th>المخزون</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
 
-      <button>
-        <span class="menu-icon">📂</span>
-        الأقسام
-      </button>
+        <tbody id="productsTable"></tbody>
 
-      <button>
-        <span class="menu-icon">🛒</span>
-        الطلبات
-      </button>
-
-      <button>
-        <span class="menu-icon">👥</span>
-        العملاء
-      </button>
-<button>
-        <span class="menu-icon">🎁</span>
-        العروض
-      </button>
-
-      <button>
-        <span class="menu-icon">📊</span>
-        الإحصائيات
-      </button>
-
-      <button>
-        <span class="menu-icon">⚙️</span>
-        الإعدادات
-      </button>
+      </table>
 
     </div>
 
   </div>
 
-
-  <div class="panel">
-
-    <div class="panel-header">
-
-      <h2>
-        المنتجات
-      </h2>
-
-      <button
-        class="add-button"
-        onclick="addProduct()">
-        + إضافة منتج
-      </button>
-
-    </div>
-
-    <p>
-      سيتم هنا عرض وإدارة جميع منتجات ARONIA.
-    </p>
-
-  </div>
-
-</main>
+</div>
 
 
 <script>
 
-  const productsCount =
-    document.getElementById("productsCount");
+/* =========================
+   بيانات Supabase
+========================= */
 
-  /*
-    products.js سيُربط هنا لاحقًا
-  */
-
-  function addProduct() {
-
-    alert(
-      "سنضيف الآن نظام إضافة المنتجات 👌"
-    );
-
-  }
-
-</script>
-<script>
 const SUPABASE_URL = "https://hlnbnczvmdgqsaldfqyw.supabase.co/rest/v1/";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_ZIO0-w4_OIfsS1DumgaMJQ_Z_G5DIvV";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_ZIO0-w4_OIfsS1DumgaMJQ_Z_G5DIvV";
+
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
+
+
+/* =========================
+   تسجيل الدخول
+========================= */
+
+async function login(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const message =
+    document.getElementById("loginMessage");
+
+  message.textContent = "جاري تسجيل الدخول...";
+
+
+  const { error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+
+  if(error){
+
+    message.textContent =
+      "فشل تسجيل الدخول: " + error.message;
+
+    return;
+  }
+
+
+  await checkAdmin();
+
+}
+
+
+/* =========================
+   التحقق من المدير
+========================= */
+
+async function checkAdmin(){
+
+  const { data:{ session } } =
+    await supabaseClient.auth.getSession();
+
+
+  if(!session){
+
+    document
+      .getElementById("loginPage")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("dashboard")
+      .classList.add("hidden");
+
+    return;
+  }
+
+
+  const { data, error } =
+    await supabaseClient.rpc("is_admin");
+
+
+  if(error || data !== true){
+
+    await supabaseClient.auth.signOut();
+
+    document
+      .getElementById("loginMessage")
+      .textContent =
+      "هذا الحساب ليس مديراً.";
+
+    return;
+  }
+
+
+  document
+    .getElementById("loginPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("dashboard")
+    .classList.remove("hidden");
+
+
+  loadProducts();
+
+}
+
+
+/* =========================
+   تسجيل الخروج
+========================= */
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  location.reload();
+
+}
+
+
+/* =========================
+   تحميل المنتجات
+========================= */
+
+let products = [];
+let editingId = null;
+
+
+async function loadProducts(){
+
+  const { data, error } =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .order("id", {ascending:false});
+
+
+  if(error){
+
+    alert("خطأ في تحميل المنتجات: " + error.message);
+
+    return;
+  }
+
+
+  products = data || [];
+
+  renderProducts();
+
+}
+
+
+/* =========================
+   عرض المنتجات
+========================= */
+
+function renderProducts(){
+
+  const table =
+    document.getElementById("productsTable");
+
+  table.innerHTML = "";
+
+
+  let totalStock = 0;
+  let totalValue = 0;
+
+
+  products.forEach(product => {
+
+    totalStock += Number(product.stock || 0);
+
+    totalValue +=
+      Number(product.price || 0) *
+      Number(product.stock || 0);
+
+
+    const row =
+      document.createElement("tr");
+
+
+    const id =
+      document.createElement("td");
+
+    id.textContent = product.id;
+
+
+    const imageCell =
+      document.createElement("td");
+
+    const image =
+      document.createElement("img");
+
+    image.src =
+      product.image ||
+      "https://placehold.co/100";
+
+    image.className =
+      "product-img";
+
+    imageCell.appendChild(image);
+
+
+    const name =
+      document.createElement("td");
+
+    name.textContent =
+      product.name_ar ||
+      product.name ||
+      "-";
+
+
+    const category =
+      document.createElement("td");
+
+    category.textContent =
+      product.category || "-";
+
+
+    const price =
+      document.createElement("td");
+
+    price.textContent =
+      Number(product.price || 0)
+      .toLocaleString("ar-IQ") + " د.ع";
+const stock =
+      document.createElement("td");
+
+    stock.textContent =
+      product.stock ?? 0;
+
+
+    const actions =
+      document.createElement("td");
+
+    const actionBox =
+      document.createElement("div");
+
+    actionBox.className = "actions";
+
+
+    const editButton =
+      document.createElement("button");
+
+    editButton.className = "edit";
+
+    editButton.textContent = "تعديل";
+
+    editButton.onclick =
+      () => editProduct(product.id);
+
+
+    const deleteButton =
+      document.createElement("button");
+
+    deleteButton.className = "danger";
+
+    deleteButton.textContent = "حذف";
+
+    deleteButton.onclick =
+      () => deleteProduct(product.id);
+
+
+    actionBox.appendChild(editButton);
+
+    actionBox.appendChild(deleteButton);
+
+    actions.appendChild(actionBox);
+
+
+    row.appendChild(id);
+    row.appendChild(imageCell);
+    row.appendChild(name);
+    row.appendChild(category);
+    row.appendChild(price);
+    row.appendChild(stock);
+    row.appendChild(actions);
+
+
+    table.appendChild(row);
+
+  });
+
+
+  document.getElementById("productCount")
+    .textContent = products.length;
+
+
+  document.getElementById("stockCount")
+    .textContent = totalStock.toLocaleString("ar-IQ");
+
+
+  document.getElementById("valueCount")
+    .textContent =
+      totalValue.toLocaleString("ar-IQ") + " د.ع";
+
+}
+
+
+/* =========================
+   إضافة / تعديل
+========================= */
+
+async function saveProduct(){
+
+  const name =
+    document.getElementById("productName").value.trim();
+
+  const nameAr =
+    document.getElementById("productNameAr").value.trim();
+
+  const category =
+    document.getElementById("productCategory").value;
+
+  const price =
+    Number(document.getElementById("productPrice").value);
+
+  const stock =
+    Number(document.getElementById("productStock").value);
+
+  const image =
+    document.getElementById("productImage").value.trim();
+
+  const description =
+    document.getElementById("productDescription").value.trim();
+
+
+  if(!nameAr || !price){
+
+    document.getElementById("formMessage")
+      .textContent =
+      "أدخل اسم المنتج والسعر.";
+
+    return;
+  }
+
+
+  const productData = {
+
+    name,
+    name_ar: nameAr,
+    category,
+    price,
+    stock,
+    image,
+    description
+
+  };
+
+
+  let result;
+
+
+  if(editingId){
+
+    result =
+      await supabaseClient
+        .from("products")
+        .update(productData)
+        .eq("id", editingId);
+
+  }else{
+
+    result =
+      await supabaseClient
+        .from("products")
+        .insert(productData);
+
+  }
+
+
+  if(result.error){
+
+    document.getElementById("formMessage")
+      .textContent =
+      "حدث خطأ: " + result.error.message;
+
+    return;
+  }
+
+
+  document.getElementById("formMessage")
+    .textContent =
+    editingId
+      ? "تم تعديل المنتج ✅"
+      : "تمت إضافة المنتج ✅";
+
+
+  cancelEdit();
+
+  loadProducts();
+
+}
+
+
+/* =========================
+   تعديل المنتج
+========================= */
+
+function editProduct(id){
+
+  const product =
+    products.find(p => p.id === id);
+
+
+  if(!product) return;
+
+
+  editingId = id;
+
+
+  document.getElementById("formTitle")
+    .textContent = "تعديل المنتج";
+
+
+  document.getElementById("productName")
+    .value = product.name || "";
+
+
+  document.getElementById("productNameAr")
+    .value = product.name_ar || "";
+
+
+  document.getElementById("productCategory")
+    .value = product.category || "العناية بالبشرة";
+
+
+  document.getElementById("productPrice")
+    .value = product.price || "";
+
+
+  document.getElementById("productStock")
+    .value = product.stock || 0;
+
+
+  document.getElementById("productImage")
+    .value = product.image || "";
+
+
+  document.getElementById("productDescription")
+    .value = product.description || "";
+
+
+  document.getElementById("cancelBtn")
+    .classList.remove("hidden");
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   إلغاء التعديل
+========================= */
+
+function cancelEdit(){
+
+  editingId = null;
+
+
+  document.getElementById("formTitle")
+    .textContent = "إضافة منتج";
+
+
+  document.getElementById("productName").value = "";
+  document.getElementById("productNameAr").value = "";
+
+  document.getElementById("productPrice").value = "";
+
+  document.getElementById("productStock").value = "";
+
+  document.getElementById("productImage").value = "";
+
+  document.getElementById("productDescription").value = "";
+
+
+  document.getElementById("cancelBtn")
+    .classList.add("hidden");
+
+}
+
+
+/* =========================
+   حذف المنتج
+========================= */
+
+async function deleteProduct(id){
+
+  if(!confirm("هل تريد حذف هذا المنتج؟")) return;
+
+
+  const { error } =
+    await supabaseClient
+      .from("products")
+      .delete()
+      .eq("id", id);
+
+
+  if(error){
+
+    alert("فشل الحذف: " + error.message);
+
+    return;
+  }
+
+
+  loadProducts();
+
+}
+
+
+/* =========================
+   تشغيل الصفحة
+========================= */
+
+checkAdmin();
+
 </script>
+
 </body>
 </html>
