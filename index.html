@@ -374,5 +374,44 @@ displayProducts();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://hlnbnczvmdgqsaldfqyw.supabase.co/rest/v1/";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_ZIO0-w4_OIfsS1DumgaMJQ_Z_G5DIvV";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+supabaseClient.auth.onAuthStateChange(async (event, session) => {
+
+  if (event === "PASSWORD_RECOVERY") {
+
+    const newPassword = prompt("🔐 أدخل كلمة السر الجديدة:");
+
+    if (!newPassword) return;
+
+    if (newPassword.length < 6) {
+      alert("كلمة السر يجب أن تكون 6 أحرف أو أكثر.");
+      return;
+    }
+
+    const { error } =
+      await supabaseClient.auth.updateUser({
+        password: newPassword
+      });
+
+    if (error) {
+      alert("حدث خطأ: " + error.message);
+    } else {
+      alert("تم تغيير كلمة السر بنجاح ✅");
+      window.location.href = "admin.html";
+    }
+  }
+
+});
+</script>
 </body>
 </html>
