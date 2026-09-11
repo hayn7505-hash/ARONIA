@@ -1126,8 +1126,7 @@ document.createElement("div");
 card.className =
 "product-card";
 
-const image =
-getImageURL(product.image);
+const image = "https://hlnbnczvmdgqsaldfqyw.supabase.co/storage/v1/object/public/product-images/IMG_4101.png";
 
 console.log(
 "PRODUCT IMAGE:",
@@ -1156,17 +1155,9 @@ class="product-image"
 onclick="openProduct(${product.id})">
 
 <img
-
-src="${escapeHTML(image)}"
-
-alt="${escapeHTML(name)}"
-
-loading="lazy"
-
-referrerpolicy="no-referrer"
-
-onerror="handleImageError(this)"
-
+  src="https://hlnbnczvmdgqsaldfqyw.supabase.co/storage/v1/object/public/product-images/IMG_4101.png"
+  alt="ARONIA Product"
+  style="width:100%;height:100%;object-fit:contain;display:block;"
 >
 
 </div>
