@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARONIA - تغيير كلمة المرور</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body {
+      margin: 0;
+      background: #f8f5f2;
+      font-family: Arial, sans-serif;
+    }
+
+    .box {
+      max-width: 400px;
+      margin: 80px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 5px 25px #00000015;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      color: #b78383;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 10px;
+      background: #b78383;
+      color: white;
+      font-size: 16px;
+    }
+
+    #message {
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <div class="logo">ARONIA</div>
+
+  <h2>تغيير كلمة المرور</h2>
+
+  <input
+    id="password"
+    type="password"
+    placeholder="كلمة المرور الجديدة"
+  >
+
+  <input
+    id="confirmPassword"
+    type="password"
+    placeholder="تأكيد كلمة المرور"
+  >
+
+  <button onclick="changePassword()">
+    حفظ كلمة المرور
+  </button>
+
+  <div id="message"></div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL = "https://hlnbnczvmdgqsaldfqyw.supabase.co/rest/v1/";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_ZIO0-w4_OIfsS1DumgaMJQ_Z_G5DIvV";
+
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+
+async function changePassword() {
+
+  const password =
+    document.getElementById("password").value;
+
+  const confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+  const message =
+    document.getElementById("message");
+
+
+  if (password.length < 6) {
+    message.textContent =
+      "كلمة المرور يجب أن تكون 6 أحرف أو أكثر.";
+    return;
+  }
+
+
+  if (password !== confirmPassword) {
+    message.textContent =
+      "كلمتا المرور غير متطابقتين.";
+    return;
+  }
+
+
+  message.textContent =
+    "جاري تغيير كلمة المرور...";
+
+
+  const { error } =
+    await supabaseClient.auth.updateUser({
+      password: password
+    });
+
+
+  if (error) {
+
+    message.textContent =
+      "حدث خطأ: " + error.message;
+
+    return;
+  }
+
+
+  message.textContent =
+    "تم تغيير كلمة المرور بنجاح ✅";
+
+
+  setTimeout(() => {
+    window.location.href = "admin.html";
+  }, 1500);
+
+}
+
+</script>
+
+</body>
+</html>
