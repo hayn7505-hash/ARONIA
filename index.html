@@ -1155,8 +1155,8 @@ class="product-image"
 onclick="openProduct(${product.id})">
 
 <img
-  src="https://hlnbnczvmdgqsaldfqyw.supabase.co/storage/v1/object/public/product-images/IMG_4101.png"
-  alt="ARONIA Product"
+  src="${escapeHTML(image)}"
+  alt="${escapeHTML(name)}"
   style="width:100%;height:100%;object-fit:contain;display:block;"
 >
 
