@@ -1126,7 +1126,7 @@ document.createElement("div");
 card.className =
 "product-card";
 
-const image = "https://hlnbnczvmdgqsaldfqyw.supabase.co/storage/v1/object/public/product-images/IMG_4101.png";
+const image = String(product.image || "").trim();
 
 console.log(
 "PRODUCT IMAGE:",
