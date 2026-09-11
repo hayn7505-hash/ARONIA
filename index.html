@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>ARONIA | متجر الجمال والعناية</title>
 
-  <script src="products.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * {
@@ -21,10 +22,15 @@
       color: #3d3030;
     }
 
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
     header {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 50;
       background: white;
       padding: 16px 20px;
       display: flex;
@@ -72,7 +78,6 @@
       color: white;
       padding: 12px 23px;
       border-radius: 25px;
-      cursor: pointer;
     }
 
     section {
@@ -82,6 +87,7 @@
     .title {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 15px;
     }
 
@@ -92,12 +98,14 @@
     .title span {
       color: #c77d7d;
       font-size: 14px;
+      cursor: pointer;
     }
 
     .categories {
       display: flex;
       gap: 12px;
       overflow-x: auto;
+      padding-bottom: 5px;
     }
 
     .category {
@@ -107,6 +115,12 @@
       border-radius: 18px;
       padding: 15px 10px;
       text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category:active {
+      transform: scale(0.96);
     }
 
     .category-icon {
@@ -125,6 +139,7 @@
     }
 
     .product {
+      position: relative;
       background: white;
       border: 1px solid #f0dddd;
       border-radius: 20px;
@@ -150,7 +165,7 @@
     .product-info p {
       color: #8a7777;
       font-size: 13px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .price {
@@ -167,7 +182,19 @@
       background: #f3d6d2;
       color: #694b4b;
       border-radius: 12px;
-      cursor: pointer;
+    }
+
+    .favorite-btn {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      border: none;
+      background: white;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 18px;
+      box-shadow: 0 2px 8px #00000015;
     }
 
     nav {
@@ -175,7 +202,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 20;
+      z-index: 100;
       background: white;
       border-top: 1px solid #f0dddd;
       display: flex;
@@ -187,15 +214,197 @@
       text-align: center;
       font-size: 12px;
       color: #776565;
+      cursor: pointer;
+      min-width: 55px;
     }
 
-    nav div:first-child {
+    nav div.active {
       color: #c77d7d;
       font-weight: bold;
     }
 
     main {
       padding-bottom: 75px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .message {
+      text-align: center;
+      padding: 35px 15px;
+      color: #8a7777;
+    }
+
+    .back-btn {
+      border: none;
+      background: #f3d6d2;
+      color: #694b4b;
+      padding: 10px 18px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .cart-item {
+      background: white;
+      border: 1px solid #f0dddd;
+      border-radius: 18px;
+      padding: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .cart-item img {
+      width: 75px;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-info h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .cart-price {
+      color: #b86f6f;
+      font-weight: bold;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 7px;
+    }
+
+    .quantity button {
+      border: none;
+      background: #f3d6d2;
+      width: 27px;
+      height: 27px;
+      border-radius: 8px;
+    }
+
+    .remove {
+      border: none;
+      background: transparent;
+      color: #b86f6f;
+      font-size: 18px;
+    }
+
+    .cart-total {
+      background: white;
+      border: 1px solid #f0dddd;
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px 20px;
+      color: #8a7777;
+    }
+
+    .search-box {
+      margin: 15px 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 13px 18px;
+      border: 1px solid #f0dddd;
+      border-radius: 20px;
+      outline: none;
+      background: white;
+      font-size: 14px;
+    }
+
+    .profile-box {
+      background: white;
+      border: 1px solid #f0dddd;
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .profile-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #00000055;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: 25px 25px 0 0;
+      padding: 22px;
+    }
+
+    .modal-close {
+      border: none;
+      background: #f3d6d2;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      float: left;
+      font-size: 18px;
+    }
+
+    .modal-product img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 18px;
+      background: #f8eee9;
+      margin-bottom: 15px;
+    }
+
+    .modal-product h2 {
+      margin-bottom: 10px;
+    }
+
+    .modal-product p {
+      color: #765f5f;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .modal-price {
+      color: #b86f6f;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
     }
 
     @media (min-width: 700px) {
@@ -221,197 +430,989 @@
 <header>
   <div class="logo">ARONIA</div>
 
-  <button class="cart">
+  <button class="cart" onclick="showCart()">
     🛒 <span id="cartCount">0</span>
   </button>
 </header>
 
 <main>
 
-  <div class="hero">
-    <h1>جمالك يبدأ من هنا ✨</h1>
+  <!-- الرئيسية -->
+  <div id="homePage" class="page active">
 
-    <p>
-      اكتشفي منتجات العناية بالبشرة والجمال
-      المختارة بعناية لتناسب روتينك اليومي.
-    </p>
-    <button onclick="scrollToProducts()">
-      تسوقي الآن
-    </button>
-  </div>
+    <div class="hero">
+      <h1>جمالك يبدأ من هنا ✨</h1>
 
-  <section>
+      <p>
+        اكتشفي منتجات العناية بالبشرة والجمال
+        المختارة بعناية لتناسب روتينك اليومي.
+      </p>
 
-    <div class="title">
-      <h2>الأقسام</h2>
-      <span>عرض الكل</span>
+      <button onclick="showAllProducts()">
+        تسوقي الآن
+      </button>
     </div>
 
-    <div class="categories">
+    <section>
 
-      <div class="category">
-        <div class="category-icon">🧴</div>
-        <p>العناية بالبشرة</p>
+      <div class="title">
+        <h2>الأقسام</h2>
+        <span onclick="showCategories()">عرض الكل</span>
       </div>
 
-      <div class="category">
-        <div class="category-icon">💄</div>
-        <p>المكياج</p>
-      </div>
+      <div class="categories">
 
-      <div class="category">
-        <div class="category-icon">🧖‍♀️</div>
-        <p>العناية بالشعر</p>
-      </div>
-
-      <div class="category">
-        <div class="category-icon">🌸</div>
-        <p>العطور</p>
-      </div>
-
-    </div>
-
-  </section>
-
-  <section id="productsSection">
-
-    <div class="title">
-      <h2>منتجات مميزة</h2>
-      <span>عرض الكل</span>
-    </div>
-
-    <div class="products" id="productsContainer"></div>
-
-  </section>
-
-</main>
-
-<nav>
-
-  <div>🏠<br>الرئيسية</div>
-
-  <div>🛍️<br>الأقسام</div>
-
-  <div>❤️<br>المفضلة</div>
-
-  <div>🛒<br>السلة</div>
-
-  <div>👤<br>حسابي</div>
-
-</nav>
-
-<script>
-
-let cartCount = 0;
-
-function addToCart() {
-
-  cartCount++;
-
-  document.getElementById("cartCount").textContent = cartCount;
-
-}
-
-function displayProducts() {
-
-  const container =
-    document.getElementById("productsContainer");
-
-  container.innerHTML = "";
-
-  products.forEach(product => {
-
-    const card = document.createElement("div");
-
-    card.className = "product";
-
-    card.innerHTML = 
-
-      <img
-        src="${product.image}"
-        alt="${product.nameAr}"
-      >
-
-      <div class="product-info">
-
-        <h3>${product.nameAr}</h3>
-
-        <p>${product.category}</p>
-
-        <div class="price">
-          ${product.price.toLocaleString("ar-IQ")} د.ع
+        <div class="category"
+             onclick="filterProducts('العناية بالبشرة')">
+          <div class="category-icon">🧴</div>
+          <p>العناية بالبشرة</p>
         </div>
 
+        <div class="category"
+             onclick="filterProducts('المكياج')">
+          <div class="category-icon">💄</div>
+          <p>المكياج</p>
+        </div>
+
+        <div class="category"
+             onclick="filterProducts('العناية بالشعر')">
+          <div class="category-icon">🧖‍♀️</div>
+          <p>العناية بالشعر</p>
+        </div>
+
+        <div class="category"
+             onclick="filterProducts('العطور')">
+          <div class="category-icon">🌸</div>
+          <p>العطور</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="productsSection">
+
+      <div class="title">
+        <h2 id="productsTitle">منتجات مميزة</h2>
+        <span onclick="showAllProducts()">عرض الكل</span>
+      </div>
+
+      <div class="products" id="productsContainer">
+        <div class="message">
+          جاري تحميل المنتجات...
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- الأقسام -->
+  <div id="categoriesPage" class="page">
+
+    <section>
+
+      <div class="title">
+        <h2>الأقسام</h2>
+      </div>
+
+      <div class="categories">
+
+        <div class="category"
+             onclick="filterProducts('العناية بالبشرة')">
+          <div class="category-icon">🧴</div>
+          <p>العناية بالبشرة</p>
+        </div>
+
+        <div class="category"
+             onclick="filterProducts('المكياج')">
+          <div class="category-icon">💄</div>
+          <p>المكياج</p>
+        </div>
+
+        <div class="category"
+             onclick="filterProducts('العناية بالشعر')">
+          <div class="category-icon">🧖‍♀️</div>
+          <p>العناية بالشعر</p>
+        </div>
+
+        <div class="category"
+             onclick="filterProducts('العطور')">
+          <div class="category-icon">🌸</div>
+          <p>العطور</p>
+        </div>
+
+      </div>
+
+      <div style="margin-top:25px">
+        <div class="title">
+          <h2 id="categoryTitle">كل المنتجات</h2>
+        </div>
+
+        <div class="products" id="categoryProducts"></div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- المفضلة -->
+  <div id="favoritesPage" class="page">
+
+    <section>
+
+      <div class="title">
+        <h2>❤️ المفضلة</h2>
+      </div>
+
+      <div class="products" id="favoritesContainer"></div>
+
+    </section>
+
+  </div>
+
+  <!-- السلة -->
+  <div id="cartPage" class="page">
+
+    <section>
+
+      <div class="title">
+        <h2>🛒 السلة</h2>
+      </div>
+
+      <div id="cartContainer"></div>
+
+    </section>
+
+  </div>
+
+  <!-- الحساب -->
+  <div id="accountPage" class="page">
+
+    <section>
+
+      <div class="profile-box">
+
+        <div class="profile-icon">👤</div>
+
+        <h2>حسابي</h2>
+
+        <p style="margin-top:10px;color:#8a7777;">
+          أهلاً بكِ في ARONIA ✨
+        </p>
+
         <button
-          class="add"
-          onclick="addToCart()"
+          onclick="openAdmin()"
+          style="
+            margin-top:20px;
+            border:none;
+            background:#f3d6d2;
+            color:#694b4b;
+            padding:12px 22px;
+            border-radius:15px;
+          "
         >
-          أضف للسلة
+          لوحة المدير
         </button>
 
       </div>
 
-    ;
+    </section>
 
-    container.appendChild(card);
+  </div>
 
-  });
+</main>
 
-}
+<!-- البحث -->
+<div class="search-box">
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="🔎 ابحثي عن منتج..."
+    oninput="searchProducts()"
+  >
+</div>
 
-function scrollToProducts() {
+<!-- التنقل -->
+<nav>
 
-  document
-    .getElementById("productsSection")
-    .scrollIntoView({
-      behavior: "smooth"
-    });
+  <div id="navHome"
+       class="active"
+       onclick="goHome()">
+    🏠<br>الرئيسية
+  </div>
 
-}
+  <div id="navCategories"
+       onclick="showCategories()">
+    🛍️<br>الأقسام
+  </div>
 
-displayProducts();
+  <div id="navFavorites"
+       onclick="showFavorites()">
+    ❤️<br>المفضلة
+  </div>
 
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <div id="navCart"
+       onclick="showCart()">
+    🛒<br>السلة
+  </div>
+
+  <div id="navAccount"
+       onclick="showAccount()">
+    👤<br>حسابي
+  </div>
+
+</nav>
+
+<!-- تفاصيل المنتج -->
+<div id="productModal" class="modal">
+
+  <div class="modal-content">
+
+    <button class="modal-close"
+            onclick="closeModal()">
+      ✕
+    </button>
+
+    <div id="modalProduct"></div>
+
+  </div>
+
+</div>
 
 <script>
-const SUPABASE_URL = "https://hlnbnczvmdgqsaldfqyw.supabase.co/rest/v1/";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_ZIO0-w4_OIfsS1DumgaMJQ_Z_G5DIvV";
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+  /* =========================
+     SUPABASE
+  ========================= */
 
-supabaseClient.auth.onAuthStateChange(async (event, session) => {
+  const SUPABASE_URL =
+    "https://hlnbnczvmdgqsaldfqyw.supabase.co";
 
-  if (event === "PASSWORD_RECOVERY") {
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_ZIO0-w4_OIfsS1DumgaMJQ_Z_G5DIvV";
 
-    const newPassword = prompt("🔐 أدخل كلمة السر الجديدة:");
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
-    if (!newPassword) return;
+  /* =========================
+     DATA
+  ========================= */
 
-    if (newPassword.length < 6) {
-      alert("كلمة السر يجب أن تكون 6 أحرف أو أكثر.");
+  let allProducts = [];
+
+  let cart = JSON.parse(
+    localStorage.getItem("aronia_cart") || "[]"
+  );
+
+  let favorites = JSON.parse(
+    localStorage.getItem("aronia_favorites") || "[]"
+  );
+
+  /* =========================
+     LOAD PRODUCTS
+  ========================= */
+
+  async function loadProducts() {
+
+    const container =
+      document.getElementById("productsContainer");
+
+    container.innerHTML =
+      '<div class="message">جاري تحميل المنتجات...</div>';
+
+    const { data, error } = await db
+      .from("products")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (error) {
+
+      console.error(error);
+
+      container.innerHTML =
+        '<div class="message">حدث خطأ في تحميل المنتجات ❌</div>';
+
       return;
     }
 
-    const { error } =
-      await supabaseClient.auth.updateUser({
-        password: newPassword
-      });
+    allProducts = data || [];
 
-    if (error) {
-      alert("حدث خطأ: " + error.message);
-    } else {
-      alert("تم تغيير كلمة السر بنجاح ✅");
-      window.location.href = "admin.html";
-    }
+    displayProducts(allProducts);
+
+    updateCartCount();
   }
 
-});
+  /* =========================
+     DISPLAY PRODUCTS
+  ========================= */
+
+  function displayProducts(productsList, containerId = "productsContainer") {
+
+    const container =
+      document.getElementById(containerId);
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (!productsList || productsList.length === 0) {
+
+      container.innerHTML =
+        '<div class="message">لا توجد منتجات حالياً.</div>';
+
+      return;
+    }
+
+    productsList.forEach(product => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "product";
+
+      const image =
+        product.image ||
+        "https://placehold.co/600x600/f8eee9/8a7777?text=ARONIA";
+
+      const name =
+        product.name_ar ||
+        product.name ||
+        "منتج ARONIA";
+
+      const category =
+        product.category || "";
+
+      const price =
+        Number(product.price || 0);
+
+      const isFavorite =
+        favorites.includes(product.id);
+
+      card.innerHTML = `
+        <button
+          class="favorite-btn"
+          onclick="toggleFavorite(${product.id})"
+        >
+          ${isFavorite ? "❤️" : "♡"}
+        </button>
+
+        <img
+          src="${image}"
+          alt="ARONIA"
+          onclick="showProduct(${product.id})"
+        >
+
+        <div class="product-info">
+
+          <h3 onclick="showProduct(${product.id})"
+              style="cursor:pointer">
+            ${escapeHTML(name)}
+          </h3>
+
+          <p>${escapeHTML(category)}</p>
+
+          <div class="price">
+            ${price.toLocaleString("ar-IQ")} د.ع
+          </div>
+
+          <button
+            class="add"
+            onclick="addToCart(${product.id})"
+          >
+            أضف للسلة 🛒
+          </button>
+
+        </div>
+      `;
+
+      container.appendChild(card);
+
+    });
+
+  }
+
+  /* =========================
+     SECURITY
+  ========================= */
+
+  function escapeHTML(text) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      text == null ? "" : String(text);
+
+    return div.innerHTML;
+  }
+
+  /* =========================
+     CART
+  ========================= */
+
+  function addToCart(id) {
+
+    const product =
+      allProducts.find(p => p.id == id);
+
+    if (!product) return;
+
+    const existing =
+      cart.find(item => item.id == id);
+
+    if (existing) {
+
+      existing.quantity++;
+
+    } else {
+
+      cart.push({
+        id: product.id,
+        name: product.name_ar || product.name,
+        price: Number(product.price || 0),
+        image: product.image || "",
+        quantity: 1
+      });
+
+    }
+
+    saveCart();
+
+    updateCartCount();
+
+    alert("تمت إضافة المنتج إلى السلة 🛒");
+
+  }
+
+  function saveCart() {
+
+    localStorage.setItem(
+      "aronia_cart",
+      JSON.stringify(cart)
+    );
+
+  }
+
+  function updateCartCount() {
+
+    const count =
+      cart.reduce(
+        (total, item) =>
+          total + item.quantity,
+        0
+      );
+
+    document.getElementById(
+      "cartCount"
+    ).textContent = count;
+
+  }
+
+  function changeQuantity(id, change) {
+
+    const item =
+      cart.find(item => item.id == id);
+
+    if (!item) return;
+
+    item.quantity += change;
+
+    if (item.quantity <= 0) {
+
+      cart =
+        cart.filter(item => item.id != id);
+
+    }
+
+    saveCart();
+
+    updateCartCount();
+
+    renderCart();
+
+  }
+
+  function renderCart() {
+
+    const container =
+      document.getElementById("cartContainer");
+
+    if (!container) return;
+
+    if (cart.length === 0) {
+
+      container.innerHTML = `
+        <div class="empty">
+          🛒<br><br>
+          السلة فارغة حالياً
+        </div>
+      `;
+
+      return;
+    }
+
+    container.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach(item => {
+
+      total +=
+        item.price * item.quantity;
+
+      const div =
+        document.createElement("div");
+
+      div.className = "cart-item";
+
+      div.innerHTML = `
+
+        <img
+          src="${item.image ||
+          "https://placehold.co/300x300/f8eee9/8a7777?text=ARONIA"}"
+          alt="ARONIA"
+        >
+
+        <div class="cart-item-info">
+
+          <h3>
+            ${escapeHTML(item.name)}
+          </h3>
+
+          <div class="cart-price">
+            ${item.price.toLocaleString("ar-IQ")} د.ع
+          </div>
+
+          <div class="quantity">
+
+            <button
+              onclick="changeQuantity(${item.id}, 1)"
+            >
+              +
+            </button>
+
+            <span>${item.quantity}</span>
+
+            <button
+              onclick="changeQuantity(${item.id}, -1)"
+            >
+              −
+            </button>
+
+          </div>
+
+        </div>
+
+        <button
+          class="remove"
+          onclick="removeFromCart(${item.id})"
+        >
+          🗑️
+        </button>
+
+      `;
+
+      container.appendChild(div);
+
+    });
+
+    const totalBox =
+      document.createElement("div");
+
+    totalBox.className = "cart-total";
+
+    totalBox.innerHTML = `
+      المجموع:
+      ${total.toLocaleString("ar-IQ")} د.ع
+      <br><br>
+
+      <button
+        onclick="checkout()"
+        style="
+          width:100%;
+          border:none;
+          background:#c77d7d;
+          color:white;
+          padding:13px;
+          border-radius:15px;
+          font-size:15px;
+        "
+      >
+        إتمام الطلب
+      </button>
+    `;
+
+    container.appendChild(totalBox);
+
+  }
+
+  function removeFromCart(id) {
+
+    cart =
+      cart.filter(item => item.id != id);
+
+    saveCart();
+
+    updateCartCount();
+
+    renderCart();
+
+  }
+
+  function checkout() {
+
+    if (cart.length === 0) {
+
+      alert("السلة فارغة.");
+
+      return;
+    }
+
+    alert(
+      "تم تجهيز السلة للطلب ✅\n\n" +
+      "المرحلة القادمة نربطها بنظام الطلبات والتوصيل."
+    );
+
+  }
+
+  /* =========================
+     FAVORITES
+  ========================= */
+
+  function toggleFavorite(id) {
+
+    if (favorites.includes(id)) {
+
+      favorites =
+        favorites.filter(item => item != id);
+
+    } else {
+
+      favorites.push(id);
+
+    }
+
+    localStorage.setItem(
+      "aronia_favorites",
+      JSON.stringify(favorites)
+    );
+
+    displayProducts(allProducts);
+
+  }
+
+  function showFavorites() {
+
+    showPage("favoritesPage");
+
+    const favoriteProducts =
+      allProducts.filter(product =>
+        favorites.includes(product.id)
+      );
+
+    displayProducts(
+      favoriteProducts,
+      "favoritesContainer"
+    );
+
+  }
+
+  /* =========================
+     CATEGORIES
+  ========================= */
+
+  function filterProducts(category) {
+
+    showPage("categoriesPage");
+
+    document.getElementById(
+      "categoryTitle"
+    ).textContent = category;
+
+    const filtered =
+      allProducts.filter(product =>
+        product.category === category
+      );
+
+    displayProducts(
+      filtered,
+      "categoryProducts"
+    );
+
+  }
+
+  function showCategories() {
+
+    showPage("categoriesPage");
+
+    document.getElementById(
+      "categoryTitle"
+    ).textContent = "كل المنتجات";
+
+    displayProducts(
+      allProducts,
+      "categoryProducts"
+    );
+
+  }
+
+  /* =========================
+     SHOW ALL
+  ========================= */
+
+  function showAllProducts() {
+
+    goHome();
+
+    document.getElementById(
+      "productsTitle"
+    ).textContent = "كل المنتجات";
+
+    displayProducts(
+      allProducts
+    );
+
+    document.getElementById(
+      "productsSection"
+    ).scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }
+
+  /* =========================
+     SEARCH
+  ========================= */
+
+  function searchProducts() {
+
+    const value =
+      document.getElementById(
+        "searchInput"
+      ).value.trim().toLowerCase();
+
+    if (!value) {
+
+      displayProducts(allProducts);
+
+      return;
+    }
+
+    const results =
+      allProducts.filter(product => {
+
+        const name =
+          (
+            product.name_ar ||
+            product.name ||
+            ""
+          ).toLowerCase();
+
+        const category =
+          (
+            product.category ||
+            ""
+          ).toLowerCase();
+
+        return (
+          name.includes(value) ||
+          category.includes(value)
+        );
+
+      });
+
+    goHome();
+
+    document.getElementById(
+      "productsTitle"
+    ).textContent =
+      "نتائج البحث";
+
+    displayProducts(results);
+
+    document.getElementById(
+      "productsSection"
+    ).scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }
+
+  /* =========================
+     PRODUCT DETAILS
+  ========================= */
+
+  function showProduct(id) {
+
+    const product =
+      allProducts.find(p => p.id == id);
+
+    if (!product) return;
+
+    const image =
+      product.image ||
+      "https://placehold.co/600x600/f8eee9/8a7777?text=ARONIA";
+
+    const name =
+      product.name_ar ||
+      product.name ||
+      "منتج ARONIA";
+
+    const price =
+      Number(product.price || 0);
+
+    document.getElementById(
+      "modalProduct"
+    ).innerHTML = `
+
+      <div class="modal-product">
+
+        <img
+          src="${image}"
+          alt="ARONIA"
+        >
+
+        <h2>
+          ${escapeHTML(name)}
+        </h2>
+
+        <p>
+          ${escapeHTML(product.category || "")}
+        </p>
+
+        <div class="modal-price">
+          ${price.toLocaleString("ar-IQ")} د.ع
+        </div>
+
+        <p>
+          ${escapeHTML(
+            product.description ||
+            "لا يوجد وصف للمنتج حالياً."
+          )}
+        </p>
+
+        <button
+          class="add"
+          onclick="addToCart(${product.id}); closeModal();"
+        >
+          أضف للسلة 🛒
+        </button>
+
+      </div>
+
+    `;
+
+    document.getElementById(
+      "productModal"
+    ).classList.add("show");
+
+  }
+
+  function closeModal() {
+
+    document.getElementById(
+      "productModal"
+    ).classList.remove("show");
+
+  }
+
+  /* =========================
+     NAVIGATION
+  ========================= */
+
+  function showPage(pageId) {
+
+    document
+      .querySelectorAll(".page")
+      .forEach(page => {
+        page.classList.remove("active");
+      });
+
+    const page =
+      document.getElementById(pageId);
+
+    if (page) {
+      page.classList.add("active");
+    }
+
+    document
+      .querySelectorAll("nav div")
+      .forEach(item => {
+        item.classList.remove("active");
+      });
+
+  }
+
+  function goHome() {
+
+    showPage("homePage");
+
+    document.getElementById(
+      "navHome"
+    ).classList.add("active");
+
+  }
+
+  function showCart() {
+
+    showPage("cartPage");
+
+    document.getElementById(
+      "navCart"
+    ).classList.add("active");
+
+    renderCart();
+
+  }
+
+  function showAccount() {
+
+    showPage("accountPage");
+
+    document.getElementById(
+      "navAccount"
+    ).classList.add("active");
+
+  }
+
+  /* =========================
+     ADMIN
+  ========================= */
+
+  function openAdmin() {
+
+    window.location.href =
+      "admin.html";
+
+  }
+
+  /* =========================
+     START
+  ========================= */
+
+  loadProducts();
+
+  updateCartCount();
+
+  /* إغلاق النافذة عند الضغط خارجها */
+
+  document.getElementById(
+    "productModal"
+  ).addEventListener(
+    "click",
+    function(event) {
+
+      if (event.target === this) {
+        closeModal();
+      }
+
+    }
+  );
+
 </script>
+
 </body>
 </html>
