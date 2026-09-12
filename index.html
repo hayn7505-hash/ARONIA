@@ -546,18 +546,6 @@ margin-top:10px;
 
 }
 
-.apple-btn{
-
-width:100%;
-padding:13px;
-border-radius:14px;
-background:#111;
-color:white;
-font-size:15px;
-margin-top:10px;
-
-}
-
 .auth-divider{
 
 display:flex;
@@ -683,14 +671,6 @@ onclick="appleLogin()">
 <div class="auth-divider">
 أو
 </div>
-
-<button
-class="auth-secondary-btn"
-onclick="continueAsGuest()">
-
-👤 المتابعة كضيف
-
-</button>
 
 <button
 class="auth-secondary-btn"
@@ -1587,44 +1567,6 @@ if(error){
 
 setAuthMessage(
 "فشل تسجيل الدخول باستخدام Google: " +
-error.message
-);
-
-}
-
-}
-
-/* =========================
-   APPLE LOGIN
-========================= */
-
-async function appleLogin(){
-
-setAuthMessage(
-"جاري فتح تسجيل الدخول باستخدام Apple..."
-);
-
-const {
-error
-} =
-await db.auth.signInWithOAuth({
-
-provider:"apple",
-
-options:{
-
-redirectTo:
-window.location.origin +
-window.location.pathname
-
-}
-
-});
-
-if(error){
-
-setAuthMessage(
-"فشل تسجيل الدخول باستخدام Apple: " +
 error.message
 );
 
