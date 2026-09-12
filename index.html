@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 
 <head>
@@ -380,6 +381,15 @@ background:#eee1dd;
 color:#745d58;
 }
 
+.logout-btn{
+margin-top:12px;
+padding:12px 25px;
+border-radius:20px;
+background:#f3dfdc;
+color:#a15e5e;
+display:none;
+}
+
 .modal{
 display:none;
 position:fixed;
@@ -431,6 +441,171 @@ color:#766966;
 margin:10px 0 20px;
 }
 
+/* =========================
+   LOGIN PAGE
+========================= */
+
+.auth-overlay{
+
+position:fixed;
+inset:0;
+background:#fffaf8;
+z-index:10000;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+overflow:auto;
+
+}
+
+.auth-box{
+
+width:100%;
+max-width:430px;
+background:white;
+border-radius:28px;
+padding:28px 22px;
+box-shadow:0 8px 35px rgba(0,0,0,.08);
+text-align:center;
+
+}
+
+.auth-logo{
+
+font-size:32px;
+font-weight:bold;
+letter-spacing:3px;
+color:#b17b72;
+margin-bottom:8px;
+
+}
+
+.auth-subtitle{
+
+color:#888;
+font-size:14px;
+margin-bottom:25px;
+
+}
+
+.auth-input{
+
+width:100%;
+padding:14px 15px;
+border:1px solid #eaded9;
+border-radius:13px;
+margin-bottom:10px;
+font-size:15px;
+outline:none;
+background:#fff;
+
+}
+
+.auth-input:focus{
+
+border-color:#c78d82;
+
+}
+
+.auth-main-btn{
+
+width:100%;
+padding:14px;
+border-radius:14px;
+background:#b9867d;
+color:white;
+font-size:16px;
+font-weight:bold;
+margin-top:5px;
+
+}
+
+.auth-secondary-btn{
+
+width:100%;
+padding:13px;
+border-radius:14px;
+background:#f5ebe8;
+color:#755d59;
+font-size:15px;
+margin-top:10px;
+
+}
+
+.google-btn{
+
+width:100%;
+padding:13px;
+border-radius:14px;
+background:white;
+border:1px solid #ddd;
+color:#444;
+font-size:15px;
+margin-top:10px;
+
+}
+
+.apple-btn{
+
+width:100%;
+padding:13px;
+border-radius:14px;
+background:#111;
+color:white;
+font-size:15px;
+margin-top:10px;
+
+}
+
+.auth-divider{
+
+display:flex;
+align-items:center;
+gap:10px;
+margin:18px 0;
+color:#aaa;
+font-size:12px;
+
+}
+
+.auth-divider::before,
+.auth-divider::after{
+
+content:"";
+height:1px;
+background:#eee;
+flex:1;
+
+}
+
+.auth-message{
+
+min-height:22px;
+margin-top:12px;
+font-size:13px;
+color:#a15e5e;
+
+}
+
+.auth-user{
+
+font-size:13px;
+color:#777;
+margin-top:8px;
+word-break:break-word;
+
+}
+
+.guest-note{
+
+font-size:12px;
+color:#999;
+margin-top:14px;
+line-height:1.7;
+
+}
+
 @media(max-width:380px){
 
 .categories{
@@ -449,18 +624,154 @@ height:160px;
 
 <body>
 
+<!-- =========================
+     LOGIN / SIGN UP
+========================= -->
+
+<div
+id="authOverlay"
+class="auth-overlay">
+
+<div class="auth-box">
+
+<div class="auth-logo">
+ARONIA
+</div>
+
+<div class="auth-subtitle">
+متجر الجمال والعناية
+</div>
+
+<div id="authLoginForm">
+
+<input
+id="authEmail"
+class="auth-input"
+type="email"
+placeholder="البريد الإلكتروني">
+
+<input
+id="authPassword"
+class="auth-input"
+type="password"
+placeholder="كلمة المرور">
+
+<button
+class="auth-main-btn"
+onclick="emailLogin()">
+
+تسجيل الدخول
+
+</button>
+
+<button
+class="google-btn"
+onclick="googleLogin()">
+
+🟢 المتابعة باستخدام Google
+
+</button>
+
+<button
+class="apple-btn"
+onclick="appleLogin()">
+
+ المتابعة باستخدام Apple
+
+</button>
+
+<div class="auth-divider">
+أو
+</div>
+
+<button
+class="auth-secondary-btn"
+onclick="continueAsGuest()">
+
+👤 المتابعة كضيف
+
+</button>
+
+<button
+class="auth-secondary-btn"
+style="background:white;border:1px solid #eaded9"
+onclick="showSignup()">
+
+إنشاء حساب جديد
+
+</button>
+
+</div>
+
+<div
+id="authSignupForm"
+style="display:none;">
+
+<input
+id="signupEmail"
+class="auth-input"
+type="email"
+placeholder="البريد الإلكتروني">
+
+<input
+id="signupPassword"
+class="auth-input"
+type="password"
+placeholder="كلمة المرور">
+
+<button
+class="auth-main-btn"
+onclick="emailSignup()">
+
+إنشاء الحساب
+
+</button>
+
+<button
+class="auth-secondary-btn"
+onclick="showLogin()">
+
+العودة لتسجيل الدخول
+
+</button>
+
+</div>
+
+<div
+id="authMessage"
+class="auth-message">
+</div>
+
+<div class="guest-note">
+
+يمكنك التسوق كضيف بدون إنشاء حساب.
+<br>
+ويمكنك إنشاء حساب لاحقاً للاحتفاظ بطلباتك.
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
 
 <div class="logo">
 ARONIA
 </div>
 
-<div class="cart-top"
+<div
+class="cart-top"
 onclick="showPage('cart')">
 
 🛒
 
-<div class="cart-count"
+<div
+class="cart-count"
 id="cartCount">
 0
 </div>
@@ -469,9 +780,13 @@ id="cartCount">
 
 </header>
 
-<!-- HOME -->
+<!-- =========================
+     HOME
+========================= -->
 
-<div id="homePage" class="page active">
+<div
+id="homePage"
+class="page active">
 
 <section class="hero">
 
@@ -606,9 +921,13 @@ id="productsContainer">
 
 </div>
 
-<!-- CATEGORIES -->
+<!-- =========================
+     CATEGORIES
+========================= -->
 
-<div id="categoriesPage" class="page">
+<div
+id="categoriesPage"
+class="page">
 
 <section class="section">
 
@@ -710,9 +1029,13 @@ id="categoryProducts">
 
 </div>
 
-<!-- SEARCH -->
+<!-- =========================
+     SEARCH
+========================= -->
 
-<div id="searchPage" class="page">
+<div
+id="searchPage"
+class="page">
 
 <section class="section">
 
@@ -744,9 +1067,13 @@ id="searchProductsContainer">
 
 </div>
 
-<!-- FAVORITES -->
+<!-- =========================
+     FAVORITES
+========================= -->
 
-<div id="favoritesPage" class="page">
+<div
+id="favoritesPage"
+class="page">
 
 <section class="section">
 
@@ -768,9 +1095,13 @@ id="favoritesContainer">
 
 </div>
 
-<!-- CART -->
+<!-- =========================
+     CART
+========================= -->
 
-<div id="cartPage" class="page">
+<div
+id="cartPage"
+class="page">
 
 <section class="section">
 
@@ -782,16 +1113,21 @@ id="favoritesContainer">
 
 </div>
 
-<div id="cartContainer">
+<div
+id="cartContainer">
 </div>
 
 </section>
 
 </div>
 
-<!-- ACCOUNT -->
+<!-- =========================
+     ACCOUNT
+========================= -->
 
-<div id="accountPage" class="page">
+<div
+id="accountPage"
+class="page">
 
 <div class="account-box">
 
@@ -803,9 +1139,27 @@ id="favoritesContainer">
 حسابي
 </h2>
 
-<p style="margin-top:10px;color:#888;">
+<p
+id="accountWelcome"
+style="margin-top:10px;color:#888;">
+
 أهلاً بكِ في ARONIA
+
 </p>
+
+<div
+id="accountUserEmail"
+class="auth-user">
+</div>
+
+<button
+id="accountLogout"
+class="logout-btn"
+onclick="logoutUser()">
+
+تسجيل الخروج
+
+</button>
 
 <button
 class="admin-btn"
@@ -819,7 +1173,9 @@ onclick="openAdmin()">
 
 </div>
 
-<!-- NAV -->
+<!-- =========================
+     NAV
+========================= -->
 
 <div class="bottom-nav">
 
@@ -885,7 +1241,9 @@ onclick="showPage('account')">
 
 </div>
 
-<!-- MODAL -->
+<!-- =========================
+     PRODUCT MODAL
+========================= -->
 
 <div
 class="modal"
@@ -908,7 +1266,8 @@ src=""
 alt=""
 referrerpolicy="no-referrer">
 
-<h2 id="modalName">
+<h2
+id="modalName">
 </h2>
 
 <div
@@ -936,7 +1295,7 @@ class="checkout-btn">
 <script>
 
 /* =========================
-SUPABASE
+   SUPABASE
 ========================= */
 
 const SUPABASE_URL =
@@ -952,7 +1311,7 @@ SUPABASE_PUBLISHABLE_KEY
 );
 
 /* =========================
-DATA
+   DATA
 ========================= */
 
 let allProducts = [];
@@ -968,14 +1327,506 @@ localStorage.getItem("aronia_favorites") || "[]"
 );
 
 /* =========================
-DEFAULT IMAGE
+   AUTH
+========================= */
+
+let currentUser = null;
+
+let isGuest = false;
+
+/* =========================
+   DEFAULT IMAGE
 ========================= */
 
 const DEFAULT_IMAGE =
 "https://placehold.co/600x600/f8eee9/8a7777?text=ARONIA";
 
 /* =========================
-IMAGE URL
+   AUTH MESSAGE
+========================= */
+
+function setAuthMessage(message){
+
+const element =
+document.getElementById(
+"authMessage"
+);
+
+if(element){
+
+element.textContent =
+message || "";
+
+}
+
+}
+
+/* =========================
+   SHOW LOGIN
+========================= */
+
+function showLogin(){
+
+document.getElementById(
+"authLoginForm"
+).style.display =
+"block";
+
+document.getElementById(
+"authSignupForm"
+).style.display =
+"none";
+
+setAuthMessage("");
+
+}
+
+/* =========================
+   SHOW SIGNUP
+========================= */
+
+function showSignup(){
+
+document.getElementById(
+"authLoginForm"
+).style.display =
+"none";
+
+document.getElementById(
+"authSignupForm"
+).style.display =
+"block";
+
+setAuthMessage("");
+
+}
+
+/* =========================
+   EMAIL LOGIN
+========================= */
+
+async function emailLogin(){
+
+const email =
+document.getElementById(
+"authEmail"
+).value.trim();
+
+const password =
+document.getElementById(
+"authPassword"
+).value;
+
+if(!email || !password){
+
+setAuthMessage(
+"أدخل البريد الإلكتروني وكلمة المرور."
+);
+
+return;
+
+}
+
+setAuthMessage(
+"جاري تسجيل الدخول..."
+);
+
+const {
+data,
+error
+} =
+await db.auth.signInWithPassword({
+
+email,
+password
+
+});
+
+if(error){
+
+setAuthMessage(
+"فشل تسجيل الدخول: " +
+error.message
+);
+
+return;
+
+}
+
+currentUser =
+data.user;
+
+isGuest = false;
+
+hideAuthOverlay();
+
+updateAccountUI();
+
+}
+
+/* =========================
+   EMAIL SIGNUP
+========================= */
+
+async function emailSignup(){
+
+const email =
+document.getElementById(
+"signupEmail"
+).value.trim();
+
+const password =
+document.getElementById(
+"signupPassword"
+).value;
+
+if(!email || !password){
+
+setAuthMessage(
+"أدخل البريد الإلكتروني وكلمة المرور."
+);
+
+return;
+
+}
+
+if(password.length < 6){
+
+setAuthMessage(
+"كلمة المرور يجب أن تكون 6 أحرف على الأقل."
+);
+
+return;
+
+}
+
+setAuthMessage(
+"جاري إنشاء الحساب..."
+);
+
+const {
+data,
+error
+} =
+await db.auth.signUp({
+
+email,
+password
+
+});
+
+if(error){
+
+setAuthMessage(
+"فشل إنشاء الحساب: " +
+error.message
+);
+
+return;
+
+}
+
+/*
+   إذا كان تأكيد البريد مفعلاً في Supabase،
+   user قد يكون موجوداً لكن session تكون null.
+*/
+
+if(data.session && data.user){
+
+currentUser =
+data.user;
+
+isGuest = false;
+
+hideAuthOverlay();
+
+updateAccountUI();
+
+alert(
+"تم إنشاء الحساب بنجاح ✅"
+);
+
+}else{
+
+setAuthMessage(
+"تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيد الحساب ثم سجل الدخول."
+);
+
+}
+
+}
+
+/* =========================
+   GOOGLE LOGIN
+========================= */
+
+async function googleLogin(){
+
+setAuthMessage(
+"جاري فتح تسجيل الدخول باستخدام Google..."
+);
+
+const {
+error
+} =
+await db.auth.signInWithOAuth({
+
+provider:"google",
+
+options:{
+
+redirectTo:
+window.location.origin +
+window.location.pathname
+
+}
+
+});
+
+if(error){
+
+setAuthMessage(
+"فشل تسجيل الدخول باستخدام Google: " +
+error.message
+);
+
+}
+
+}
+
+/* =========================
+   APPLE LOGIN
+========================= */
+
+async function appleLogin(){
+
+setAuthMessage(
+"جاري فتح تسجيل الدخول باستخدام Apple..."
+);
+
+const {
+error
+} =
+await db.auth.signInWithOAuth({
+
+provider:"apple",
+
+options:{
+
+redirectTo:
+window.location.origin +
+window.location.pathname
+
+}
+
+});
+
+if(error){
+
+setAuthMessage(
+"فشل تسجيل الدخول باستخدام Apple: " +
+error.message
+);
+
+}
+
+}
+
+/* =========================
+   GUEST
+========================= */
+
+function continueAsGuest(){
+
+currentUser = null;
+
+isGuest = true;
+
+hideAuthOverlay();
+
+updateAccountUI();
+
+}
+
+/* =========================
+   HIDE AUTH
+========================= */
+
+function hideAuthOverlay(){
+
+const overlay =
+document.getElementById(
+"authOverlay"
+);
+
+if(overlay){
+
+overlay.style.display =
+"none";
+
+}
+
+}
+
+/* =========================
+   SHOW AUTH
+========================= */
+
+function showAuthOverlay(){
+
+const overlay =
+document.getElementById(
+"authOverlay"
+);
+
+if(overlay){
+
+overlay.style.display =
+"flex";
+
+}
+
+}
+
+/* =========================
+   ACCOUNT UI
+========================= */
+
+function updateAccountUI(){
+
+const emailElement =
+document.getElementById(
+"accountUserEmail"
+);
+
+const logoutButton =
+document.getElementById(
+"accountLogout"
+);
+
+const welcome =
+document.getElementById(
+"accountWelcome"
+);
+
+if(currentUser){
+
+welcome.textContent =
+"أهلاً بكِ في ARONIA 🌸";
+
+emailElement.textContent =
+currentUser.email || "";
+
+logoutButton.style.display =
+"inline-block";
+
+}else{
+
+welcome.textContent =
+isGuest
+?
+"أنتِ تتسوقين كضيف 👤"
+:
+"أهلاً بكِ في ARONIA";
+
+emailElement.textContent =
+"";
+
+logoutButton.style.display =
+"none";
+
+}
+
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logoutUser(){
+
+await db.auth.signOut();
+
+currentUser = null;
+
+isGuest = true;
+
+updateAccountUI();
+
+showAuthOverlay();
+
+showLogin();
+
+}
+
+/* =========================
+   CHECK AUTH SESSION
+========================= */
+
+async function checkAuth(){
+
+const {
+data
+} =
+await db.auth.getSession();
+
+if(data && data.session){
+
+currentUser =
+data.session.user;
+
+isGuest = false;
+
+hideAuthOverlay();
+
+updateAccountUI();
+
+}else{
+
+currentUser = null;
+
+isGuest = false;
+
+showAuthOverlay();
+
+showLogin();
+
+}
+
+/*
+   مراقبة تغييرات تسجيل الدخول
+*/
+
+db.auth.onAuthStateChange(
+(event,session) => {
+
+if(session){
+
+currentUser =
+session.user;
+
+isGuest = false;
+
+hideAuthOverlay();
+
+updateAccountUI();
+
+}else if(
+event === "SIGNED_OUT"
+){
+
+currentUser = null;
+
+updateAccountUI();
+
+}
+
+});
+
+}
+
+/* =========================
+   IMAGE URL
 ========================= */
 
 function getImageURL(url){
@@ -1021,7 +1872,7 @@ return DEFAULT_IMAGE;
 }
 
 /* =========================
-IMAGE ERROR
+   IMAGE ERROR
 ========================= */
 
 function handleImageError(img){
@@ -1031,14 +1882,16 @@ console.error(
 img.src
 );
 
-img.style.objectFit="contain";
+img.style.objectFit =
+"contain";
 
-img.style.background="#f8eee9";
+img.style.background =
+"#f8eee9";
 
 }
 
 /* =========================
-LOAD PRODUCTS
+   LOAD PRODUCTS
 ========================= */
 
 async function loadProducts(){
@@ -1058,7 +1911,8 @@ container.innerHTML =
 const {
 data,
 error
-} = await db
+} =
+await db
 .from("products")
 .select("*")
 .order("id",{
@@ -1110,7 +1964,7 @@ allProducts,
 }
 
 /* =========================
-RENDER PRODUCTS
+   RENDER PRODUCTS
 ========================= */
 
 function renderProducts(
@@ -1152,12 +2006,6 @@ String(
 product.image || ""
 ).trim();
 
-console.log(
-"PRODUCT IMAGE:",
-product.name_ar,
-product.image
-);
-
 const name =
 product.name_ar ||
 product.name ||
@@ -1183,7 +2031,12 @@ onclick="openProduct(${product.id})">
 <img
 src="${escapeHTML(image || DEFAULT_IMAGE)}"
 alt="${escapeHTML(name)}"
-style="width:100%;height:100%;object-fit:contain;display:block;"
+style="
+width:100%;
+height:100%;
+object-fit:contain;
+display:block;
+"
 referrerpolicy="no-referrer"
 onerror="handleImageError(this)"
 >
@@ -1191,7 +2044,9 @@ onerror="handleImageError(this)"
 </div>
 
 <h3>
+
 ${escapeHTML(name)}
+
 </h3>
 
 <div class="price">
@@ -1229,7 +2084,7 @@ container.appendChild(card);
 }
 
 /* =========================
-ESCAPE HTML
+   ESCAPE HTML
 ========================= */
 
 function escapeHTML(text){
@@ -1239,15 +2094,17 @@ document.createElement("div");
 
 div.textContent =
 text == null
-? ""
-: String(text);
+?
+""
+:
+String(text);
 
 return div.innerHTML;
 
 }
 
 /* =========================
-SHOW ALL
+   SHOW ALL
 ========================= */
 
 function showAllProducts(){
@@ -1266,7 +2123,9 @@ document
 "productsContainer"
 )
 ?.scrollIntoView({
+
 behavior:"smooth"
+
 });
 
 },100);
@@ -1274,7 +2133,7 @@ behavior:"smooth"
 }
 
 /* =========================
-FILTER
+   FILTER
 ========================= */
 
 function filterProducts(category){
@@ -1309,7 +2168,9 @@ document
 "categoryProducts"
 )
 ?.scrollIntoView({
+
 behavior:"smooth"
+
 });
 
 },100);
@@ -1317,7 +2178,7 @@ behavior:"smooth"
 }
 
 /* =========================
-SEARCH
+   SEARCH
 ========================= */
 
 function searchProducts(){
@@ -1372,7 +2233,7 @@ result,
 }
 
 /* =========================
-FAVORITES
+   FAVORITES
 ========================= */
 
 function toggleFavorite(id){
@@ -1436,7 +2297,7 @@ result,
 }
 
 /* =========================
-CART
+   CART
 ========================= */
 
 function addToCart(id){
@@ -1482,7 +2343,7 @@ alert(
 }
 
 /* =========================
-SAVE CART
+   SAVE CART
 ========================= */
 
 function saveCart(){
@@ -1495,7 +2356,7 @@ JSON.stringify(cart)
 }
 
 /* =========================
-UPDATE CART COUNT
+   UPDATE CART COUNT
 ========================= */
 
 function updateCartCount(){
@@ -1525,7 +2386,7 @@ count;
 }
 
 /* =========================
-RENDER CART
+   RENDER CART
 ========================= */
 
 function renderCart(){
@@ -1696,7 +2557,7 @@ totalBox
 }
 
 /* =========================
-CHANGE QUANTITY
+   CHANGE QUANTITY
 ========================= */
 
 function changeQuantity(
@@ -1733,7 +2594,7 @@ renderCart();
 }
 
 /* =========================
-REMOVE
+   REMOVE
 ========================= */
 
 function removeFromCart(id){
@@ -1753,7 +2614,7 @@ renderCart();
 }
 
 /* =========================
-CHECKOUT
+   CHECKOUT
 ========================= */
 
 function checkout(){
@@ -1782,10 +2643,6 @@ document.createElement("div");
 
 modal.id =
 "checkoutModal";
-
-/* FIXED:
-HTML must be inside backticks
-*/
 
 modal.innerHTML = `
 
@@ -1994,7 +2851,7 @@ button.textContent =
 "جاري إرسال الطلب...";
 
 /* =========================
-تجهيز المنتجات
+   تجهيز المنتجات
 ========================= */
 
 const orderItems =
@@ -2032,7 +2889,7 @@ item.quantity || 1
 }).filter(Boolean);
 
 /* =========================
-حساب المجموع
+   حساب المجموع
 ========================= */
 
 let total = 0;
@@ -2046,7 +2903,28 @@ item.quantity;
 });
 
 /* =========================
-حفظ الطلب في Supabase
+   المستخدم الحالي
+========================= */
+
+let userId = null;
+
+const {
+data:userData
+} =
+await db.auth.getUser();
+
+if(
+userData &&
+userData.user
+){
+
+userId =
+userData.user.id;
+
+}
+
+/* =========================
+   حفظ الطلب
 ========================= */
 
 const { error } =
@@ -2054,19 +2932,19 @@ await db
 .from("orders")
 .insert([{
 
-user_id: null,
+user_id:userId,
 
-customer_name: name,
+customer_name:name,
 
-phone: phone,
+phone:phone,
 
-shipping_address: address,
+shipping_address:address,
 
-total_amount: total,
+total_amount:total,
 
-status: "جديد",
+status:"جديد",
 
-items: {
+items:{
 
 products:
 orderItems,
@@ -2079,7 +2957,7 @@ notes
 }]);
 
 /* =========================
-فشل الإرسال
+   فشل الإرسال
 ========================= */
 
 if(error){
@@ -2104,7 +2982,7 @@ return;
 }
 
 /* =========================
-نجاح الطلب
+   نجاح الطلب
 ========================= */
 
 cart = [];
@@ -2127,7 +3005,7 @@ alert(
 }
 
 /* =========================
-PRODUCT DETAILS
+   PRODUCT DETAILS
 ========================= */
 
 function openProduct(id){
@@ -2208,7 +3086,7 @@ document
 }
 
 /* =========================
-CLOSE MODAL
+   CLOSE MODAL
 ========================= */
 
 function closeModal(){
@@ -2223,7 +3101,7 @@ document
 }
 
 /* =========================
-NAVIGATION
+   NAVIGATION
 ========================= */
 
 function showPage(page){
@@ -2303,6 +3181,12 @@ document
 
 }
 
+if(page === "account"){
+
+updateAccountUI();
+
+}
+
 window.scrollTo({
 
 top:0,
@@ -2314,7 +3198,7 @@ behavior:"smooth"
 }
 
 /* =========================
-ADMIN
+   ADMIN
 ========================= */
 
 function openAdmin(){
@@ -2325,7 +3209,7 @@ window.location.href =
 }
 
 /* =========================
-MODAL CLICK OUTSIDE
+   MODAL CLICK OUTSIDE
 ========================= */
 
 document
@@ -2348,8 +3232,10 @@ closeModal();
 );
 
 /* =========================
-START
+   START
 ========================= */
+
+checkAuth();
 
 loadProducts();
 
