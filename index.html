@@ -484,7 +484,8 @@ id="cartCount">
 المختارة بعناية لتناسب روتينك اليومي.
 </p>
 
-<button class="shop-btn"
+<button
+class="shop-btn"
 onclick="showAllProducts()">
 
 تسوقي الآن
@@ -501,7 +502,8 @@ onclick="showAllProducts()">
 الأقسام
 </h2>
 
-<span class="view-all"
+<span
+class="view-all"
 onclick="showPage('categories')">
 
 عرض الكل
@@ -512,7 +514,8 @@ onclick="showPage('categories')">
 
 <div class="categories">
 
-<div class="category"
+<div
+class="category"
 onclick="filterProducts('العناية بالبشرة')">
 
 <div class="category-icon">
@@ -525,7 +528,8 @@ onclick="filterProducts('العناية بالبشرة')">
 
 </div>
 
-<div class="category"
+<div
+class="category"
 onclick="filterProducts('المكياج')">
 
 <div class="category-icon">
@@ -538,7 +542,8 @@ onclick="filterProducts('المكياج')">
 
 </div>
 
-<div class="category"
+<div
+class="category"
 onclick="filterProducts('العناية بالشعر')">
 
 <div class="category-icon">
@@ -551,7 +556,8 @@ onclick="filterProducts('العناية بالشعر')">
 
 </div>
 
-<div class="category"
+<div
+class="category"
 onclick="filterProducts('العطور')">
 
 <div class="category-icon">
@@ -576,7 +582,8 @@ onclick="filterProducts('العطور')">
 منتجات مميزة
 </h2>
 
-<span class="view-all"
+<span
+class="view-all"
 onclick="showAllProducts()">
 
 عرض الكل
@@ -585,7 +592,8 @@ onclick="showAllProducts()">
 
 </div>
 
-<div class="products"
+<div
+class="products"
 id="productsContainer">
 
 <div class="empty">
@@ -614,7 +622,8 @@ id="productsContainer">
 
 <div class="categories">
 
-<div class="category"
+<div
+class="category"
 onclick="filterProducts('العناية بالبشرة')">
 
 <div class="category-icon">
@@ -627,7 +636,8 @@ onclick="filterProducts('العناية بالبشرة')">
 
 </div>
 
-<div class="category"
+<div
+class="category"
 onclick="filterProducts('المكياج')">
 
 <div class="category-icon">
@@ -640,7 +650,8 @@ onclick="filterProducts('المكياج')">
 
 </div>
 
-<div class="category"
+<div
+class="category"
 onclick="filterProducts('العناية بالشعر')">
 
 <div class="category-icon">
@@ -653,7 +664,8 @@ onclick="filterProducts('العناية بالشعر')">
 
 </div>
 
-<div class="category"
+<div
+class="category"
 onclick="filterProducts('العطور')">
 
 <div class="category-icon">
@@ -678,7 +690,8 @@ onclick="filterProducts('العطور')">
 كل المنتجات
 </h2>
 
-<span class="view-all"
+<span
+class="view-all"
 onclick="showAllProducts()">
 
 الكل
@@ -687,8 +700,10 @@ onclick="showAllProducts()">
 
 </div>
 
-<div class="products"
+<div
+class="products"
 id="categoryProducts">
+
 </div>
 
 </section>
@@ -719,8 +734,10 @@ oninput="searchProducts()">
 
 </div>
 
-<div class="products"
+<div
+class="products"
 id="searchProductsContainer">
+
 </div>
 
 </section>
@@ -741,8 +758,10 @@ id="searchProductsContainer">
 
 </div>
 
-<div class="products"
+<div
+class="products"
 id="favoritesContainer">
+
 </div>
 
 </section>
@@ -804,7 +823,8 @@ onclick="openAdmin()">
 
 <div class="bottom-nav">
 
-<div class="nav-item active"
+<div
+class="nav-item active"
 id="navHome"
 onclick="showPage('home')">
 
@@ -813,7 +833,8 @@ onclick="showPage('home')">
 
 </div>
 
-<div class="nav-item"
+<div
+class="nav-item"
 id="navCategories"
 onclick="showPage('categories')">
 
@@ -822,7 +843,8 @@ onclick="showPage('categories')">
 
 </div>
 
-<div class="nav-item"
+<div
+class="nav-item"
 id="navSearch"
 onclick="showPage('search')">
 
@@ -831,7 +853,8 @@ onclick="showPage('search')">
 
 </div>
 
-<div class="nav-item"
+<div
+class="nav-item"
 id="navFavorites"
 onclick="showPage('favorites')">
 
@@ -840,7 +863,8 @@ onclick="showPage('favorites')">
 
 </div>
 
-<div class="nav-item"
+<div
+class="nav-item"
 id="navCart"
 onclick="showPage('cart')">
 
@@ -849,7 +873,8 @@ onclick="showPage('cart')">
 
 </div>
 
-<div class="nav-item"
+<div
+class="nav-item"
 id="navAccount"
 onclick="showPage('account')">
 
@@ -862,7 +887,8 @@ onclick="showPage('account')">
 
 <!-- MODAL -->
 
-<div class="modal"
+<div
+class="modal"
 id="productModal">
 
 <div class="modal-box">
@@ -885,11 +911,13 @@ referrerpolicy="no-referrer">
 <h2 id="modalName">
 </h2>
 
-<div id="modalPrice"
+<div
+id="modalPrice"
 class="price">
 </div>
 
-<div id="modalDescription"
+<div
+id="modalDescription"
 class="modal-description">
 </div>
 
@@ -969,8 +997,6 @@ return DEFAULT_IMAGE;
 
 }
 
-/* دعم روابط Supabase Storage */
-
 if(
 imageURL.includes(
 "/storage/v1/object/public/"
@@ -980,8 +1006,6 @@ imageURL.includes(
 return imageURL;
 
 }
-
-/* دعم الروابط العادية */
 
 if(
 imageURL.startsWith("https://") ||
@@ -1006,11 +1030,6 @@ console.error(
 "ARONIA IMAGE ERROR:",
 img.src
 );
-
-/*
-نترك الصورة واضحة حتى نعرف المشكلة
-بدلاً من استبدالها مباشرة
-*/
 
 img.style.objectFit="contain";
 
@@ -1056,6 +1075,7 @@ error
 if(container){
 
 container.innerHTML = `
+
 <div class="empty">
 
 حدث خطأ في تحميل المنتجات ❌
@@ -1065,6 +1085,7 @@ container.innerHTML = `
 ${escapeHTML(error.message)}
 
 </div>
+
 `;
 
 }
@@ -1126,7 +1147,10 @@ document.createElement("div");
 card.className =
 "product-card";
 
-const image = String(product.image || "").trim();
+const image =
+String(
+product.image || ""
+).trim();
 
 console.log(
 "PRODUCT IMAGE:",
@@ -1146,7 +1170,9 @@ product.price || 0
 .toLocaleString("ar-IQ");
 
 const isFavorite =
-favorites.includes(product.id);
+favorites.includes(
+product.id
+);
 
 card.innerHTML = `
 
@@ -1155,9 +1181,9 @@ class="product-image"
 onclick="openProduct(${product.id})">
 
 <img
-  src="${escapeHTML(image)}"
-  alt="${escapeHTML(name)}"
-  style="width:100%;height:100%;object-fit:contain;display:block;"
+src="${escapeHTML(image)}"
+alt="${escapeHTML(name)}"
+style="width:100%;height:100%;object-fit:contain;display:block;"
 >
 
 </div>
@@ -1355,7 +1381,8 @@ favorites.includes(id)
 
 favorites =
 favorites.filter(
-item => item !== id
+item =>
+item !== id
 );
 
 }else{
@@ -1473,12 +1500,17 @@ item.quantity || 0
 0
 );
 
-document
-.getElementById(
+const cartCount =
+document.getElementById(
 "cartCount"
-)
-.textContent =
+);
+
+if(cartCount){
+
+cartCount.textContent =
 count;
+
+}
 
 }
 
@@ -1713,204 +1745,272 @@ renderCart();
 /* =========================
 CHECKOUT
 ========================= */
+
 function checkout(){
 
-  if(cart.length === 0){
-    alert("السلة فارغة.");
-    return;
-  }
+if(cart.length === 0){
 
-  const oldForm = document.getElementById("checkoutModal");
+alert("السلة فارغة.");
 
-  if(oldForm){
-    oldForm.remove();
-  }
-
-  const modal = document.createElement("div");
-
-  modal.id = "checkoutModal";
-
-  modal.innerHTML = 
-    <div style="
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.45);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:99999;
-      padding:20px;
-    ">
-
-      <div style="
-        background:#fff;
-        width:100%;
-        max-width:500px;
-        max-height:90vh;
-        overflow:auto;
-        border-radius:22px;
-        padding:25px;
-        direction:rtl;
-        box-shadow:0 15px 50px rgba(0,0,0,0.2);
-      ">
-
-        <div style="
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          margin-bottom:20px;
-        ">
-
-          <h2 style="
-            margin:0;
-            color:#8a6666;
-          ">
-            إتمام الطلب
-          </h2>
-
-          <button
-            type="button"
-            onclick="document.getElementById('checkoutModal').remove()"
-            style="
-              border:0;
-              background:#f5eeee;
-              width:38px;
-              height:38px;
-              border-radius:50%;
-              font-size:22px;
-              cursor:pointer;
-            "
-          >
-            ×
-          </button>
-
-        </div>
-
-        <form id="checkoutForm">
-
-          <label>الاسم الكامل</label>
-
-          <input
-            id="customerName"
-            type="text"
-            required
-            placeholder="اكتب اسمك الكامل"
-            style="
-              width:100%;
-              padding:13px;
-              margin:8px 0 16px;
-              border:1px solid #ddd;
-              border-radius:12px;
-              font-size:16px;
-            "
-          >
-
-          <label>رقم الهاتف</label>
-
-          <input
-            id="customerPhone"
-            type="tel"
-            required
-            placeholder="07xxxxxxxxx"
-            style="
-              width:100%;
-              padding:13px;
-              margin:8px 0 16px;
-              border:1px solid #ddd;
-              border-radius:12px;
-              font-size:16px;
-            "
-          >
-
-          <label>العنوان</label>
-
-          <textarea
-            id="customerAddress"
-            required
-            placeholder="المحافظة، المنطقة، الشارع..."
-            style="
-              width:100%;
-              padding:13px;
-              margin:8px 0 16px;
-              border:1px solid #ddd;
-              border-radius:12px;
-              font-size:16px;
-              min-height:90px;
-              resize:vertical;
-            "
-          ></textarea>
-
-          <label>ملاحظات الطلب</label>
-
-          <textarea
-            id="customerNotes"
-            placeholder="أي ملاحظة إضافية..."
-            style="
-              width:100%;
-              padding:13px;
-              margin:8px 0 20px;
-              border:1px solid #ddd;
-              border-radius:12px;
-              font-size:16px;
-              min-height:70px;
-              resize:vertical;
-            "
-          ></textarea>
-
-          <button
-            type="submit"
-            style="
-              width:100%;
-              padding:15px;
-              border:0;
-              border-radius:14px;
-              background:#c98f8f;
-              color:white;
-              font-size:17px;
-              font-weight:bold;
-              cursor:pointer;
-            "
-          >
-            تأكيد الطلب
-          </button>
-
-        </form>
-
-      </div>
-    </div>
-  ;
-
-  document.body.appendChild(modal);
-
-  document
-    .getElementById("checkoutForm")
-    .addEventListener("submit", function(e){
-
-      e.preventDefault();
-
-      const name =
-        document.getElementById("customerName").value.trim();
-
-      const phone =
-        document.getElementById("customerPhone").value.trim();
-
-      const address =
-        document.getElementById("customerAddress").value.trim();
-      const notes =
-        document.getElementById("customerNotes").value.trim();
-
-      alert(
-        "تم استلام بيانات الطلب مبدئيًا ✅\n\n" +
-        "الاسم: " + name + "\n" +
-        "الهاتف: " + phone + "\n" +
-        "العنوان: " + address +
-        (notes ? "\nملاحظات: " + notes : "")
-      );
-
-    });
+return;
 
 }
-  
+
+const oldForm =
+document.getElementById(
+"checkoutModal"
+);
+
+if(oldForm){
+
+oldForm.remove();
+
+}
+
+const modal =
+document.createElement(
+"div"
+);
+
+modal.id =
+"checkoutModal";
+
+modal.innerHTML = `
+
+<div style="
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.45);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:99999;
+padding:20px;
+">
+
+<div style="
+background:#fff;
+width:100%;
+max-width:500px;
+max-height:90vh;
+overflow:auto;
+border-radius:22px;
+padding:25px;
+direction:rtl;
+box-shadow:0 15px 50px rgba(0,0,0,0.2);
+">
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+">
+
+<h2 style="
+margin:0;
+color:#8a6666;
+">
+
+إتمام الطلب
+
+</h2>
+
+<button
+type="button"
+onclick="document.getElementById('checkoutModal').remove()"
+style="
+border:0;
+background:#f5eeee;
+width:38px;
+height:38px;
+border-radius:50%;
+font-size:22px;
+cursor:pointer;
+">
+
+×
+
+</button>
+
+</div>
+
+<form id="checkoutForm">
+
+<label>
+الاسم الكامل
+</label>
+
+<input
+id="customerName"
+type="text"
+required
+placeholder="اكتب اسمك الكامل"
+style="
+width:100%;
+padding:13px;
+margin:8px 0 16px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:16px;
+">
+
+<label>
+رقم الهاتف
+</label>
+
+<input
+id="customerPhone"
+type="tel"
+required
+placeholder="07xxxxxxxxx"
+style="
+width:100%;
+padding:13px;
+margin:8px 0 16px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:16px;
+">
+
+<label>
+العنوان
+</label>
+
+<textarea
+id="customerAddress"
+required
+placeholder="المحافظة، المنطقة، الشارع..."
+style="
+width:100%;
+padding:13px;
+margin:8px 0 16px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:16px;
+min-height:90px;
+resize:vertical;
+"></textarea>
+
+<label>
+ملاحظات الطلب
+</label>
+
+<textarea
+id="customerNotes"
+placeholder="أي ملاحظة إضافية..."
+style="
+width:100%;
+padding:13px;
+margin:8px 0 20px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:16px;
+min-height:70px;
+resize:vertical;
+"></textarea>
+
+<button
+type="submit"
+style="
+width:100%;
+padding:15px;
+border:0;
+border-radius:14px;
+background:#c98f8f;
+color:white;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+">
+
+تأكيد الطلب
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+`;
+
+document.body.appendChild(
+modal
+);
+
+document
+.getElementById(
+"checkoutForm"
+)
+.addEventListener(
+"submit",
+function(e){
+
+e.preventDefault();
+
+const name =
+document
+.getElementById(
+"customerName"
+)
+.value
+.trim();
+
+const phone =
+document
+.getElementById(
+"customerPhone"
+)
+.value
+.trim();
+
+const address =
+document
+.getElementById(
+"customerAddress"
+)
+.value
+.trim();
+
+const notes =
+document
+.getElementById(
+"customerNotes"
+)
+.value
+.trim();
+
+alert(
+
+"تم استلام بيانات الطلب مبدئيًا ✅\n\n" +
+
+"الاسم: " +
+name +
+"\n" +
+
+"الهاتف: " +
+phone +
+"\n" +
+
+"العنوان: " +
+address +
+
+(notes
+?
+"\nملاحظات: " +
+notes
+:
+"")
+
+);
+
+}
+);
+
+}
+
 /* =========================
 PRODUCT DETAILS
 ========================= */
@@ -1941,7 +2041,9 @@ image;
 modalImage.onerror =
 function(){
 
-handleImageError(this);
+handleImageError(
+this
+);
 
 };
 
@@ -2087,8 +2189,11 @@ document
 }
 
 window.scrollTo({
+
 top:0,
+
 behavior:"smooth"
+
 });
 
 }
