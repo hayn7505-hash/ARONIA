@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 
 <head>
@@ -390,6 +389,138 @@ color:#a15e5e;
 display:none;
 }
 
+/* =========================
+   MY ORDERS
+========================= */
+
+.orders-section{
+margin-top:25px;
+text-align:right;
+}
+
+.orders-title{
+font-size:19px;
+color:#5d4d4a;
+margin-bottom:12px;
+}
+
+.order-card{
+background:#fffaf8;
+border:1px solid #f0e2de;
+border-radius:18px;
+padding:15px;
+margin-bottom:12px;
+text-align:right;
+}
+
+.order-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:12px;
+}
+
+.order-id{
+font-weight:bold;
+color:#665451;
+font-size:14px;
+}
+
+.order-date{
+font-size:11px;
+color:#999;
+}
+
+.order-status{
+display:inline-block;
+padding:6px 11px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
+margin-bottom:12px;
+}
+
+.status-new{
+background:#fff0dc;
+color:#a96d2d;
+}
+
+.status-preparing{
+background:#f5e8df;
+color:#8b6253;
+}
+
+.status-shipped{
+background:#e4f0f7;
+color:#4e7890;
+}
+
+.status-completed{
+background:#e3f3e6;
+color:#4e8056;
+}
+
+.status-cancelled{
+background:#f8e2e2;
+color:#a65b5b;
+}
+
+.order-products{
+border-top:1px solid #eee2df;
+border-bottom:1px solid #eee2df;
+padding:10px 0;
+margin:5px 0 10px;
+}
+
+.order-product{
+display:flex;
+justify-content:space-between;
+gap:10px;
+font-size:13px;
+padding:5px 0;
+}
+
+.order-product-name{
+flex:1;
+}
+
+.order-product-price{
+color:#8a6c66;
+white-space:nowrap;
+}
+
+.order-total{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-weight:bold;
+color:#5d4d4a;
+font-size:14px;
+}
+
+.orders-loading{
+text-align:center;
+padding:20px;
+color:#999;
+font-size:13px;
+}
+
+.orders-empty{
+background:#fffaf8;
+border:1px solid #f0e2de;
+border-radius:18px;
+padding:25px 15px;
+text-align:center;
+color:#999;
+font-size:13px;
+line-height:1.8;
+}
+
+/* =========================
+   MODAL
+========================= */
+
 .modal{
 display:none;
 position:fixed;
@@ -446,7 +577,6 @@ margin:10px 0 20px;
 ========================= */
 
 .auth-overlay{
-
 position:fixed;
 inset:0;
 background:#fffaf8;
@@ -456,11 +586,9 @@ align-items:center;
 justify-content:center;
 padding:20px;
 overflow:auto;
-
 }
 
 .auth-box{
-
 width:100%;
 max-width:430px;
 background:white;
@@ -468,29 +596,23 @@ border-radius:28px;
 padding:28px 22px;
 box-shadow:0 8px 35px rgba(0,0,0,.08);
 text-align:center;
-
 }
 
 .auth-logo{
-
 font-size:32px;
 font-weight:bold;
 letter-spacing:3px;
 color:#b17b72;
 margin-bottom:8px;
-
 }
 
 .auth-subtitle{
-
 color:#888;
 font-size:14px;
 margin-bottom:25px;
-
 }
 
 .auth-input{
-
 width:100%;
 padding:14px 15px;
 border:1px solid #eaded9;
@@ -499,17 +621,13 @@ margin-bottom:10px;
 font-size:15px;
 outline:none;
 background:#fff;
-
 }
 
 .auth-input:focus{
-
 border-color:#c78d82;
-
 }
 
 .auth-main-btn{
-
 width:100%;
 padding:14px;
 border-radius:14px;
@@ -518,11 +636,9 @@ color:white;
 font-size:16px;
 font-weight:bold;
 margin-top:5px;
-
 }
 
 .auth-secondary-btn{
-
 width:100%;
 padding:13px;
 border-radius:14px;
@@ -530,11 +646,9 @@ background:#f5ebe8;
 color:#755d59;
 font-size:15px;
 margin-top:10px;
-
 }
 
 .google-btn{
-
 width:100%;
 padding:13px;
 border-radius:14px;
@@ -543,55 +657,37 @@ border:1px solid #ddd;
 color:#444;
 font-size:15px;
 margin-top:10px;
-
 }
 
 .auth-divider{
-
 display:flex;
 align-items:center;
 gap:10px;
 margin:18px 0;
 color:#aaa;
 font-size:12px;
-
 }
 
 .auth-divider::before,
 .auth-divider::after{
-
 content:"";
 height:1px;
 background:#eee;
 flex:1;
-
 }
 
 .auth-message{
-
 min-height:22px;
 margin-top:12px;
 font-size:13px;
 color:#a15e5e;
-
 }
 
 .auth-user{
-
 font-size:13px;
 color:#777;
 margin-top:8px;
 word-break:break-word;
-
-}
-
-.guest-note{
-
-font-size:12px;
-color:#999;
-margin-top:14px;
-line-height:1.7;
-
 }
 
 @media(max-width:380px){
@@ -712,14 +808,6 @@ onclick="showLogin()">
 <div
 id="authMessage"
 class="auth-message">
-</div>
-
-<div class="guest-note">
-
-يمكنك التسوق كضيف بدون إنشاء حساب.
-<br>
-ويمكنك إنشاء حساب لاحقاً للاحتفاظ بطلباتك.
-
 </div>
 
 </div>
@@ -994,7 +1082,6 @@ onclick="showAllProducts()">
 <div
 class="products"
 id="categoryProducts">
-
 </div>
 
 </section>
@@ -1032,7 +1119,6 @@ oninput="searchProducts()">
 <div
 class="products"
 id="searchProductsContainer">
-
 </div>
 
 </section>
@@ -1060,7 +1146,6 @@ class="page">
 <div
 class="products"
 id="favoritesContainer">
-
 </div>
 
 </section>
@@ -1140,6 +1225,26 @@ onclick="openAdmin()">
 لوحة المدير
 
 </button>
+
+<!-- =========================
+     MY ORDERS
+========================= -->
+
+<div class="orders-section">
+
+<div class="orders-title">
+طلباتي 🛍️
+</div>
+
+<div id="ordersContainer">
+
+<div class="orders-loading">
+جاري تحميل الطلبات...
+</div>
+
+</div>
+
+</div>
 
 </div>
 
@@ -1304,8 +1409,6 @@ localStorage.getItem("aronia_favorites") || "[]"
 
 let currentUser = null;
 
-let isGuest = false;
-
 /* =========================
    DEFAULT IMAGE
 ========================= */
@@ -1428,8 +1531,6 @@ return;
 currentUser =
 data.user;
 
-isGuest = false;
-
 hideAuthOverlay();
 
 updateAccountUI();
@@ -1508,8 +1609,6 @@ if(data.session && data.user){
 currentUser =
 data.user;
 
-isGuest = false;
-
 hideAuthOverlay();
 
 updateAccountUI();
@@ -1563,22 +1662,6 @@ error.message
 );
 
 }
-
-}
-
-/* =========================
-   GUEST
-========================= */
-
-function continueAsGuest(){
-
-currentUser = null;
-
-isGuest = true;
-
-hideAuthOverlay();
-
-updateAccountUI();
 
 }
 
@@ -1657,10 +1740,6 @@ logoutButton.style.display =
 }else{
 
 welcome.textContent =
-isGuest
-?
-"أنتِ تتسوقين كضيف 👤"
-:
 "أهلاً بكِ في ARONIA";
 
 emailElement.textContent =
@@ -1683,8 +1762,6 @@ await db.auth.signOut();
 
 currentUser = null;
 
-isGuest = true;
-
 updateAccountUI();
 
 showAuthOverlay();
@@ -1704,12 +1781,13 @@ data
 } =
 await db.auth.getSession();
 
-if(data && data.session){
+if(
+data &&
+data.session
+){
 
 currentUser =
 data.session.user;
-
-isGuest = false;
 
 hideAuthOverlay();
 
@@ -1718,8 +1796,6 @@ updateAccountUI();
 }else{
 
 currentUser = null;
-
-isGuest = false;
 
 showAuthOverlay();
 
@@ -1738,8 +1814,6 @@ if(session){
 
 currentUser =
 session.user;
-
-isGuest = false;
 
 hideAuthOverlay();
 
@@ -2561,6 +2635,24 @@ return;
 
 }
 
+/*
+   التأكد من تسجيل الدخول
+*/
+
+if(!currentUser){
+
+alert(
+"يجب تسجيل الدخول أولاً لإتمام الطلب."
+);
+
+showAuthOverlay();
+
+showLogin();
+
+return;
+
+}
+
 const oldForm =
 document.getElementById(
 "checkoutModal"
@@ -2750,6 +2842,34 @@ async function(e){
 
 e.preventDefault();
 
+/*
+   التأكد مرة ثانية من المستخدم
+*/
+
+const {
+data:userData
+} =
+await db.auth.getUser();
+
+if(
+!userData ||
+!userData.user
+){
+
+alert(
+"انتهت جلسة تسجيل الدخول. يرجى تسجيل الدخول مرة أخرى."
+);
+
+modal.remove();
+
+showAuthOverlay();
+
+showLogin();
+
+return;
+
+}
+
 const name =
 document
 .getElementById("customerName")
@@ -2837,46 +2957,34 @@ item.quantity;
 });
 
 /* =========================
-   المستخدم الحالي
-========================= */
-
-let userId = null;
-
-const {
-data:userData
-} =
-await db.auth.getUser();
-
-if(
-userData &&
-userData.user
-){
-
-userId =
-userData.user.id;
-
-}
-
-/* =========================
    حفظ الطلب
 ========================= */
 
-const { error } =
+const {
+data:orderData,
+error
+} =
 await db
 .from("orders")
 .insert([{
 
-user_id:userId,
+user_id:
+userData.user.id,
 
-customer_name:name,
+customer_name:
+name,
 
-phone:phone,
+phone:
+phone,
 
-shipping_address:address,
+shipping_address:
+address,
 
-total_amount:total,
+total_amount:
+total,
 
-status:"جديد",
+status:
+"جديد",
 
 items:{
 
@@ -2888,7 +2996,9 @@ notes
 
 }
 
-}]);
+}])
+.select("id")
+.single();
 
 /* =========================
    فشل الإرسال
@@ -2929,10 +3039,306 @@ modal.remove();
 
 renderCart();
 
+await loadMyOrders();
+
 alert(
 "تم إرسال طلبك بنجاح ✅\n\n" +
+"رقم الطلب: #" +
+orderData.id +
+"\n\n" +
 "شكراً لتسوقك من ARONIA 🌸"
 );
+
+});
+
+}
+
+/* =========================
+   MY ORDERS
+========================= */
+
+async function loadMyOrders(){
+
+const container =
+document.getElementById(
+"ordersContainer"
+);
+
+if(!container) return;
+
+if(!currentUser){
+
+container.innerHTML = `
+<div class="orders-empty">
+يجب تسجيل الدخول لعرض طلباتك.
+</div>
+`;
+
+return;
+
+}
+
+container.innerHTML = `
+<div class="orders-loading">
+جاري تحميل طلباتك...
+</div>
+`;
+
+const {
+data,
+error
+} =
+await db
+.from("orders")
+.select("*")
+.eq("user_id",currentUser.id)
+.order("created_at",{
+ascending:false
+});
+
+if(error){
+
+console.error(
+"MY ORDERS ERROR:",
+error
+);
+
+container.innerHTML = `
+<div class="orders-empty">
+
+حدث خطأ في تحميل الطلبات ❌
+
+<br><br>
+
+${escapeHTML(error.message)}
+
+</div>
+`;
+
+return;
+
+}
+
+if(!data || data.length === 0){
+
+container.innerHTML = `
+<div class="orders-empty">
+
+لا توجد لديك طلبات حالياً 🛍️
+
+<br>
+
+ابدأ التسوق من منتجات ARONIA.
+
+</div>
+`;
+
+return;
+
+}
+
+renderMyOrders(data);
+
+}
+
+/* =========================
+   RENDER MY ORDERS
+========================= */
+
+function renderMyOrders(orders){
+
+const container =
+document.getElementById(
+"ordersContainer"
+);
+
+if(!container) return;
+
+container.innerHTML = "";
+
+orders.forEach(order => {
+
+const card =
+document.createElement("div");
+
+card.className =
+"order-card";
+
+const date =
+order.created_at
+?
+new Date(
+order.created_at
+).toLocaleString(
+"ar-IQ",
+{
+year:"numeric",
+month:"numeric",
+day:"numeric",
+hour:"2-digit",
+minute:"2-digit"
+}
+)
+:
+"";
+
+const status =
+order.status ||
+"جديد";
+
+let statusClass =
+"status-new";
+
+if(status === "قيد التجهيز"){
+
+statusClass =
+"status-preparing";
+
+}else if(status === "تم الشحن"){
+
+statusClass =
+"status-shipped";
+
+}else if(status === "مكتمل"){
+
+statusClass =
+"status-completed";
+
+}else if(status === "ملغي"){
+
+statusClass =
+"status-cancelled";
+
+}
+
+/* =========================
+   المنتجات
+========================= */
+
+let productsHTML = "";
+
+const orderProducts =
+order.items &&
+Array.isArray(order.items.products)
+?
+order.items.products
+:
+[];
+
+if(orderProducts.length === 0){
+
+productsHTML = `
+<div
+style="
+font-size:12px;
+color:#999;
+padding:5px 0;
+">
+تفاصيل المنتجات غير متوفرة.
+</div>
+`;
+
+}else{
+
+orderProducts.forEach(item => {
+
+const itemName =
+item.name ||
+"منتج";
+
+const itemQuantity =
+Number(
+item.quantity || 1
+);
+
+const itemPrice =
+Number(
+item.price || 0
+);
+
+productsHTML += `
+
+<div class="order-product">
+
+<div class="order-product-name">
+
+${escapeHTML(itemName)}
+
+ × ${itemQuantity}
+
+</div>
+
+<div class="order-product-price">
+
+${(
+itemPrice *
+itemQuantity
+).toLocaleString("ar-IQ")}
+
+د.ع
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+card.innerHTML = `
+
+<div class="order-header">
+
+<div>
+
+<div class="order-id">
+
+طلب #${escapeHTML(order.id)}
+
+</div>
+
+<div class="order-date">
+
+${escapeHTML(date)}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="order-status ${statusClass}">
+
+${escapeHTML(status)}
+
+</div>
+
+<div class="order-products">
+
+${productsHTML}
+
+</div>
+
+<div class="order-total">
+
+<span>
+المجموع
+</span>
+
+<span>
+${Number(
+order.total_amount || 0
+).toLocaleString("ar-IQ")}
+د.ع
+</span>
+
+</div>
+
+`;
+
+container.appendChild(card);
 
 });
 
@@ -3118,6 +3524,8 @@ document
 if(page === "account"){
 
 updateAccountUI();
+
+loadMyOrders();
 
 }
 
