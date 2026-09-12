@@ -1,268 +1,659 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>ARONIA | لوحة المدير</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box;
+}
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f8f5f2;
-  color:#333;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f8f5f2;
+color:#333;
 }
+
 .container{
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
+max-width:1100px;
+margin:auto;
+padding:20px;
 }
+
 .card{
-  background:white;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 5px 20px #0000000d;
+background:white;
+border-radius:18px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 5px 20px #0000000d;
 }
+
 .logo{
-  font-size:28px;
-  font-weight:bold;
-  color:#b78383;
-  text-align:center;
-  margin-bottom:20px;
+font-size:28px;
+font-weight:bold;
+color:#b78383;
+text-align:center;
+margin-bottom:20px;
 }
-input,select,textarea{
-  width:100%;
-  padding:13px;
-  margin:7px 0;
-  border:1px solid #ddd;
-  border-radius:10px;
-  font-size:15px;
+
+input,
+select,
+textarea{
+
+width:100%;
+padding:13px;
+margin:7px 0;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:15px;
+
 }
+
 button{
-  border:0;
-  padding:12px 18px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:15px;
+
+border:0;
+padding:12px 18px;
+border-radius:10px;
+cursor:pointer;
+font-size:15px;
+
 }
+
 .primary{
-  background:#b78383;
-  color:white;
+
+background:#b78383;
+color:white;
+
 }
+
 .danger{
-  background:#d9534f;
-  color:white;
+
+background:#d9534f;
+color:white;
+
 }
+
 .edit{
-  background:#eee;
+
+background:#eee;
+
 }
-.hidden{display:none}
+
+.hidden{
+
+display:none;
+
+}
+
 .login{
-  max-width:420px;
-  margin:70px auto;
+
+max-width:420px;
+margin:70px auto;
+
 }
+
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+
 }
+
 .stat{
-  text-align:center;
-  background:#faf7f5;
-  padding:20px;
-  border-radius:15px;
+
+text-align:center;
+background:#faf7f5;
+padding:20px;
+border-radius:15px;
+
 }
+
 .stat b{
-  display:block;
-  font-size:28px;
-  color:#b78383;
+
+display:block;
+font-size:28px;
+color:#b78383;
+
 }
+
 table{
-  width:100%;
-  border-collapse:collapse;
+
+width:100%;
+border-collapse:collapse;
+
 }
-th,td{
-  padding:12px 8px;
-  border-bottom:1px solid #eee;
-  text-align:right;
+
+th,
+td{
+
+padding:12px 8px;
+border-bottom:1px solid #eee;
+text-align:right;
+vertical-align:top;
+
 }
+
 .product-img{
-  width:55px;
-  height:55px;
-  object-fit:cover;
-  border-radius:10px;
+
+width:55px;
+height:55px;
+object-fit:cover;
+border-radius:10px;
+
 }
+
 .actions{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
+
+display:flex;
+gap:6px;
+flex-wrap:wrap;
+
 }
+
 .top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+
 }
+
 .message{
-  margin-top:10px;
-  color:#b33;
+
+margin-top:10px;
+color:#b33;
+
 }
+
+.order-card{
+
+border:1px solid #eee;
+border-radius:16px;
+padding:16px;
+margin-top:15px;
+background:#fff;
+
+}
+
+.order-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:12px;
+flex-wrap:wrap;
+
+}
+
+.order-id{
+
+font-weight:bold;
+color:#8d6868;
+
+}
+
+.order-info{
+
+line-height:1.9;
+color:#555;
+
+}
+
+.order-items{
+
+background:#faf7f5;
+border-radius:12px;
+padding:12px;
+margin-top:12px;
+
+}
+
+.order-item{
+
+padding:8px 0;
+border-bottom:1px solid #eee;
+
+}
+
+.order-item:last-child{
+
+border-bottom:0;
+
+}
+
+.order-total{
+
+font-size:18px;
+font-weight:bold;
+color:#b78383;
+margin-top:12px;
+
+}
+
+.status-select{
+
+width:auto;
+min-width:150px;
+margin:0;
+
+}
+
+.new-badge{
+
+display:inline-block;
+background:#fff0ed;
+color:#b45f5f;
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+
+}
+
 @media(max-width:700px){
-  .stats{grid-template-columns:1fr}
-  table{font-size:13px}
-  th:nth-child(1),td:nth-child(1){display:none}
+
+.stats{
+
+grid-template-columns:repeat(2,1fr);
+
 }
+
+table{
+
+font-size:13px;
+
+}
+
+th:nth-child(1),
+td:nth-child(1){
+
+display:none;
+
+}
+
+.order-header{
+
+align-items:flex-start;
+
+}
+
+.status-select{
+
+width:100%;
+
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<!-- تسجيل الدخول -->
+
+<!-- =========================
+     تسجيل الدخول
+========================= -->
+
 <div id="loginPage" class="login container">
-  <div class="card">
-    <div class="logo">ARONIA</div>
 
-    <h2>لوحة المدير</h2>
+<div class="card">
 
-    <input id="email" type="email" placeholder="البريد الإلكتروني">
-    <input id="password" type="password" placeholder="كلمة المرور">
+<div class="logo">
+ARONIA
+</div>
 
-    <button class="primary" style="width:100%" onclick="login()">
-      تسجيل الدخول
-    </button>
+<h2>
+لوحة المدير
+</h2>
 
-    <div id="loginMessage" class="message"></div>
-  </div>
+<input
+id="email"
+type="email"
+placeholder="البريد الإلكتروني">
+
+<input
+id="password"
+type="password"
+placeholder="كلمة المرور">
+
+<button
+class="primary"
+style="width:100%"
+onclick="login()">
+
+تسجيل الدخول
+
+</button>
+
+<div
+id="loginMessage"
+class="message">
+</div>
+
+</div>
+
 </div>
 
 
-<!-- لوحة التحكم -->
-<div id="dashboard" class="container hidden">
+<!-- =========================
+     لوحة التحكم
+========================= -->
 
-  <div class="top card">
-    <div>
-      <div class="logo" style="margin:0;text-align:right">ARONIA</div>
-      <small>لوحة إدارة المتجر</small>
-    </div>
-
-    <button class="danger" onclick="logout()">تسجيل الخروج</button>
-  </div>
+<div
+id="dashboard"
+class="container hidden">
 
 
-  <!-- الإحصائيات -->
-  <div class="stats">
+<!-- HEADER -->
 
-    <div class="stat">
-      <span>المنتجات</span>
-      <b id="productCount">0</b>
-    </div>
+<div class="top card">
 
-    <div class="stat">
-      <span>إجمالي المخزون</span>
-      <b id="stockCount">0</b>
-    </div>
+<div>
 
-    <div class="stat">
-      <span>قيمة المنتجات</span>
-      <b id="valueCount">0</b>
-    </div>
+<div
+class="logo"
+style="margin:0;text-align:right">
 
-  </div>
+ARONIA
 
+</div>
 
-  <!-- إضافة / تعديل -->
-  <div class="card">
+<small>
+لوحة إدارة المتجر
+</small>
 
-    <h2 id="formTitle">إضافة منتج</h2>
+</div>
 
-    <input id="productName" placeholder="اسم المنتج بالإنجليزية">
+<button
+class="danger"
+onclick="logout()">
 
-    <input id="productNameAr" placeholder="اسم المنتج بالعربية">
+تسجيل الخروج
 
-    <select id="productCategory">
-      <option value="العناية بالبشرة">العناية بالبشرة</option>
-      <option value="المكياج">المكياج</option>
-      <option value="العناية بالشعر">العناية بالشعر</option>
-      <option value="العطور">العطور</option>
-    </select>
+</button>
 
-    <input id="productPrice" type="number" placeholder="السعر بالدينار العراقي">
-
-    <input id="productStock" type="number" placeholder="الكمية">
-
-    <input id="productImage" placeholder="رابط صورة المنتج">
-
-    <textarea id="productDescription" placeholder="وصف المنتج"></textarea>
-
-    <button class="primary" onclick="saveProduct()">
-      حفظ المنتج
-    </button>
-
-    <button class="edit hidden" id="cancelBtn" onclick="cancelEdit()">
-      إلغاء التعديل
-    </button>
-
-    <div id="formMessage" class="message"></div>
-
-  </div>
+</div>
 
 
-  <!-- المنتجات -->
-  <div class="card">
-    <div class="top">
-      <h2>المنتجات</h2>
+<!-- =========================
+     الإحصائيات
+========================= -->
 
-      <button class="primary" onclick="loadProducts()">
-        تحديث
-      </button>
-    </div>
+<div class="stats">
 
-    <div style="overflow-x:auto">
+<div class="stat">
 
-      <table>
+<span>
+المنتجات
+</span>
 
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>الصورة</th>
-            <th>المنتج</th>
-            <th>الفئة</th>
-            <th>السعر</th>
-            <th>المخزون</th>
-            <th>إجراءات</th>
-          </tr>
-        </thead>
+<b id="productCount">
+0
+</b>
 
-        <tbody id="productsTable"></tbody>
+</div>
 
-      </table>
 
-    </div>
+<div class="stat">
 
-  </div>
+<span>
+إجمالي المخزون
+</span>
+
+<b id="stockCount">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+قيمة المنتجات
+</span>
+
+<b id="valueCount">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+الطلبات الجديدة
+</span>
+
+<b id="newOrdersCount">
+0
+</b>
+
+</div>
+</div>
+
+
+<!-- =========================
+     إضافة / تعديل المنتج
+========================= -->
+
+<div class="card">
+
+<h2 id="formTitle">
+إضافة منتج
+</h2>
+
+<input
+id="productName"
+placeholder="اسم المنتج بالإنجليزية">
+
+<input
+id="productNameAr"
+placeholder="اسم المنتج بالعربية">
+
+<select id="productCategory">
+
+<option value="العناية بالبشرة">
+العناية بالبشرة
+</option>
+
+<option value="المكياج">
+المكياج
+</option>
+
+<option value="العناية بالشعر">
+العناية بالشعر
+</option>
+
+<option value="العطور">
+العطور
+</option>
+
+</select>
+
+<input
+id="productPrice"
+type="number"
+placeholder="السعر بالدينار العراقي">
+
+<input
+id="productStock"
+type="number"
+placeholder="الكمية">
+
+<input
+id="productImage"
+placeholder="رابط صورة المنتج">
+
+<textarea
+id="productDescription"
+placeholder="وصف المنتج">
+</textarea>
+
+<button
+class="primary"
+onclick="saveProduct()">
+
+حفظ المنتج
+
+</button>
+
+<button
+class="edit hidden"
+id="cancelBtn"
+onclick="cancelEdit()">
+
+إلغاء التعديل
+
+</button>
+
+<div
+id="formMessage"
+class="message">
+</div>
+
+</div>
+
+
+<!-- =========================
+     المنتجات
+========================= -->
+
+<div class="card">
+
+<div class="top">
+
+<h2>
+المنتجات
+</h2>
+
+<button
+class="primary"
+onclick="loadProducts()">
+
+تحديث
+
+</button>
+
+</div>
+
+
+<div style="overflow-x:auto">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>الصورة</th>
+
+<th>المنتج</th>
+
+<th>الفئة</th>
+
+<th>السعر</th>
+
+<th>المخزون</th>
+
+<th>إجراءات</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="productsTable">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     الطلبيات
+========================= -->
+
+<div class="card">
+
+<div class="top">
+
+<h2>
+📦 الطلبيات
+</h2>
+
+<button
+class="primary"
+onclick="loadOrders()">
+
+تحديث الطلبيات
+
+</button>
+
+</div>
+
+<div
+id="ordersContainer">
+
+<div
+style="
+text-align:center;
+padding:30px;
+color:#888;
+">
+
+جاري تحميل الطلبيات...
+
+</div>
+
+</div>
+
+</div>
+
 
 </div>
 
 
 <script>
 
+
 /* =========================
-   بيانات Supabase
+   SUPABASE
 ========================= */
 
-const SUPABASE_URL = "https://hlnbnczvmdgqsaldfqyw.supabase.co";
+const SUPABASE_URL =
+"https://hlnbnczvmdgqsaldfqyw.supabase.co";
+
 
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_ZIO0-w4_OIfsS1DumgaMJQ_Z_G5DIvV";
 
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
 );
 
 
@@ -272,35 +663,46 @@ const supabaseClient = window.supabase.createClient(
 
 async function login(){
 
-  const email =
-    document.getElementById("email").value.trim();
+const email =
+document
+.getElementById("email")
+.value
+.trim();
 
-  const password =
-    document.getElementById("password").value;
+const password =
+document
+.getElementById("password")
+.value;
 
-  const message =
-    document.getElementById("loginMessage");
+const message =
+document
+.getElementById("loginMessage");
 
-  message.textContent = "جاري تسجيل الدخول...";
-
-
-  const { error } =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
-
-
-  if(error){
-
-    message.textContent =
-      "فشل تسجيل الدخول: " + error.message;
-
-    return;
-  }
+message.textContent =
+"جاري تسجيل الدخول...";
 
 
-  await checkAdmin();
+const { error } =
+await supabaseClient.auth.signInWithPassword({
+
+email,
+password
+
+});
+
+
+if(error){
+
+message.textContent =
+"فشل تسجيل الدخول: " +
+error.message;
+
+return;
+
+}
+
+
+await checkAdmin();
 
 }
 
@@ -311,51 +713,67 @@ async function login(){
 
 async function checkAdmin(){
 
-  const { data:{ session } } =
-    await supabaseClient.auth.getSession();
+const {
+data:{
+session
+}
+} =
+await supabaseClient.auth.getSession();
 
 
-  if(!session){
+if(!session){
 
-    document
-      .getElementById("loginPage")
-      .classList.remove("hidden");
+document
+.getElementById("loginPage")
+.classList
+.remove("hidden");
 
-    document
-      .getElementById("dashboard")
-      .classList.add("hidden");
+document
+.getElementById("dashboard")
+.classList
+.add("hidden");
 
-    return;
-  }
+return;
 
-
-  const { data, error } =
-    await supabaseClient.rpc("is_admin");
-
-
-  if(error || data !== true){
-
-    await supabaseClient.auth.signOut();
-
-    document
-      .getElementById("loginMessage")
-      .textContent =
-      "هذا الحساب ليس مديراً.";
-
-    return;
-  }
+}
 
 
-  document
-    .getElementById("loginPage")
-    .classList.add("hidden");
-
-  document
-    .getElementById("dashboard")
-    .classList.remove("hidden");
+const {
+data,
+error
+} =
+await supabaseClient.rpc("is_admin");
 
 
-  loadProducts();
+if(error || data !== true){
+
+await supabaseClient.auth.signOut();
+
+document
+.getElementById("loginMessage")
+.textContent =
+"هذا الحساب ليس مديراً.";
+
+return;
+
+}
+
+
+document
+.getElementById("loginPage")
+.classList
+.add("hidden");
+
+
+document
+.getElementById("dashboard")
+.classList
+.remove("hidden");
+
+
+loadProducts();
+
+loadOrders();
 
 }
 
@@ -366,41 +784,52 @@ async function checkAdmin(){
 
 async function logout(){
 
-  await supabaseClient.auth.signOut();
+await supabaseClient.auth.signOut();
 
-  location.reload();
+location.reload();
 
 }
 
 
 /* =========================
-   تحميل المنتجات
+   المنتجات
 ========================= */
 
 let products = [];
+
 let editingId = null;
 
 
 async function loadProducts(){
 
-  const { data, error } =
-    await supabaseClient
-      .from("products")
-      .select("*")
-      .order("id", {ascending:false});
+const {
+data,
+error
+} =
+await supabaseClient
+.from("products")
+.select("*")
+.order("id",{
+ascending:false
+});
 
 
-  if(error){
+if(error){
 
-    alert("خطأ في تحميل المنتجات: " + error.message);
+alert(
+"خطأ في تحميل المنتجات: " +
+error.message
+);
 
-    return;
-  }
+return;
+
+}
 
 
-  products = data || [];
+products =
+data || [];
 
-  renderProducts();
+renderProducts();
 
 }
 
@@ -408,242 +837,349 @@ async function loadProducts(){
 /* =========================
    عرض المنتجات
 ========================= */
+  function renderProducts(){
 
-function renderProducts(){
+const table =
+document
+.getElementById("productsTable");
 
-  const table =
-    document.getElementById("productsTable");
-
-  table.innerHTML = "";
-
-
-  let totalStock = 0;
-  let totalValue = 0;
+table.innerHTML = "";
 
 
-  products.forEach(product => {
+let totalStock = 0;
 
-    totalStock += Number(product.stock || 0);
-
-    totalValue +=
-      Number(product.price || 0) *
-      Number(product.stock || 0);
+let totalValue = 0;
 
 
-    const row =
-      document.createElement("tr");
+products.forEach(product => {
 
 
-    const id =
-      document.createElement("td");
-
-    id.textContent = product.id;
+totalStock +=
+Number(product.stock || 0);
 
 
-    const imageCell =
-      document.createElement("td");
-
-    const image =
-      document.createElement("img");
-
-    image.src =
-      product.image ||
-      "https://placehold.co/100";
-
-    image.className =
-      "product-img";
-
-    imageCell.appendChild(image);
+totalValue +=
+Number(product.price || 0) *
+Number(product.stock || 0);
 
 
-    const name =
-      document.createElement("td");
-
-    name.textContent =
-      product.name_ar ||
-      product.name ||
-      "-";
+const row =
+document.createElement("tr");
 
 
-    const category =
-      document.createElement("td");
+const id =
+document.createElement("td");
 
-    category.textContent =
-      product.category || "-";
+id.textContent =
+product.id;
 
 
-    const price =
-      document.createElement("td");
+const imageCell =
+document.createElement("td");
 
-    price.textContent =
-      Number(product.price || 0)
-      .toLocaleString("ar-IQ") + " د.ع";
+
+const image =
+document.createElement("img");
+
+
+image.src =
+product.image ||
+"https://placehold.co/100";
+
+
+image.className =
+"product-img";
+
+
+image.onerror =
+function(){
+
+this.src =
+"https://placehold.co/100";
+
+};
+
+
+imageCell.appendChild(image);
+
+
+const name =
+document.createElement("td");
+
+
+name.textContent =
+product.name_ar ||
+product.name ||
+"-";
+
+
+const category =
+document.createElement("td");
+
+
+category.textContent =
+product.category ||
+"-";
+
+
+const price =
+document.createElement("td");
+
+
+price.textContent =
+Number(
+product.price || 0
+)
+.toLocaleString("ar-IQ")
++
+" د.ع";
+
+
 const stock =
-      document.createElement("td");
-
-    stock.textContent =
-      product.stock ?? 0;
+document.createElement("td");
 
 
-    const actions =
-      document.createElement("td");
-
-    const actionBox =
-      document.createElement("div");
-
-    actionBox.className = "actions";
+stock.textContent =
+product.stock ?? 0;
 
 
-    const editButton =
-      document.createElement("button");
-
-    editButton.className = "edit";
-
-    editButton.textContent = "تعديل";
-
-    editButton.onclick =
-      () => editProduct(product.id);
+const actions =
+document.createElement("td");
 
 
-    const deleteButton =
-      document.createElement("button");
-
-    deleteButton.className = "danger";
-
-    deleteButton.textContent = "حذف";
-
-    deleteButton.onclick =
-      () => deleteProduct(product.id);
+const actionBox =
+document.createElement("div");
 
 
-    actionBox.appendChild(editButton);
-
-    actionBox.appendChild(deleteButton);
-
-    actions.appendChild(actionBox);
+actionBox.className =
+"actions";
 
 
-    row.appendChild(id);
-    row.appendChild(imageCell);
-    row.appendChild(name);
-    row.appendChild(category);
-    row.appendChild(price);
-    row.appendChild(stock);
-    row.appendChild(actions);
+const editButton =
+document.createElement("button");
 
 
-    table.appendChild(row);
-
-  });
-
-
-  document.getElementById("productCount")
-    .textContent = products.length;
+editButton.className =
+"edit";
 
 
-  document.getElementById("stockCount")
-    .textContent = totalStock.toLocaleString("ar-IQ");
+editButton.textContent =
+"تعديل";
 
 
-  document.getElementById("valueCount")
-    .textContent =
-      totalValue.toLocaleString("ar-IQ") + " د.ع";
+editButton.onclick =
+() =>
+editProduct(product.id);
+
+
+const deleteButton =
+document.createElement("button");
+
+
+deleteButton.className =
+"danger";
+
+
+deleteButton.textContent =
+"حذف";
+
+
+deleteButton.onclick =
+() =>
+deleteProduct(product.id);
+
+
+actionBox.appendChild(
+editButton
+);
+
+
+actionBox.appendChild(
+deleteButton
+);
+
+
+actions.appendChild(
+actionBox
+);
+
+
+row.appendChild(id);
+
+row.appendChild(imageCell);
+
+row.appendChild(name);
+
+row.appendChild(category);
+
+row.appendChild(price);
+
+row.appendChild(stock);
+
+row.appendChild(actions);
+
+
+table.appendChild(row);
+
+});
+
+
+document
+.getElementById("productCount")
+.textContent =
+products.length;
+
+
+document
+.getElementById("stockCount")
+.textContent =
+totalStock.toLocaleString("ar-IQ");
+
+
+document
+.getElementById("valueCount")
+.textContent =
+totalValue.toLocaleString("ar-IQ")
++
+" د.ع";
 
 }
 
 
 /* =========================
-   إضافة / تعديل
+   إضافة / تعديل المنتج
 ========================= */
 
 async function saveProduct(){
 
-  const name =
-    document.getElementById("productName").value.trim();
-
-  const nameAr =
-    document.getElementById("productNameAr").value.trim();
-
-  const category =
-    document.getElementById("productCategory").value;
-
-  const price =
-    Number(document.getElementById("productPrice").value);
-
-  const stock =
-    Number(document.getElementById("productStock").value);
-
-  const image =
-    document.getElementById("productImage").value.trim();
-
-  const description =
-    document.getElementById("productDescription").value.trim();
+const name =
+document
+.getElementById("productName")
+.value
+.trim();
 
 
-  if(!nameAr || !price){
-
-    document.getElementById("formMessage")
-      .textContent =
-      "أدخل اسم المنتج والسعر.";
-
-    return;
-  }
+const nameAr =
+document
+.getElementById("productNameAr")
+.value
+.trim();
 
 
-  const productData = {
-
-    name,
-    name_ar: nameAr,
-    category,
-    price,
-    stock,
-    image,
-    description
-
-  };
+const category =
+document
+.getElementById("productCategory")
+.value;
 
 
-  let result;
+const price =
+Number(
+document
+.getElementById("productPrice")
+.value
+);
 
 
-  if(editingId){
-
-    result =
-      await supabaseClient
-        .from("products")
-        .update(productData)
-        .eq("id", editingId);
-
-  }else{
-
-    result =
-      await supabaseClient
-        .from("products")
-        .insert(productData);
-
-  }
+const stock =
+Number(
+document
+.getElementById("productStock")
+.value
+);
 
 
-  if(result.error){
-
-    document.getElementById("formMessage")
-      .textContent =
-      "حدث خطأ: " + result.error.message;
-
-    return;
-  }
+const image =
+document
+.getElementById("productImage")
+.value
+.trim();
 
 
-  document.getElementById("formMessage")
-    .textContent =
-    editingId
-      ? "تم تعديل المنتج ✅"
-      : "تمت إضافة المنتج ✅";
+const description =
+document
+.getElementById("productDescription")
+.value
+.trim();
 
 
-  cancelEdit();
+if(!nameAr || !price){
 
-  loadProducts();
+document
+.getElementById("formMessage")
+.textContent =
+"أدخل اسم المنتج والسعر.";
+
+return;
+
+}
+
+
+const productData = {
+
+name,
+
+name_ar:nameAr,
+
+category,
+
+price,
+
+stock,
+
+image,
+
+description
+
+};
+
+
+let result;
+
+
+if(editingId){
+
+result =
+await supabaseClient
+.from("products")
+.update(productData)
+.eq("id",editingId);
+
+}else{
+
+result =
+await supabaseClient
+.from("products")
+.insert(productData);
+
+}
+
+
+if(result.error){
+
+document
+.getElementById("formMessage")
+.textContent =
+"حدث خطأ: " +
+result.error.message;
+
+return;
+
+}
+
+
+document
+.getElementById("formMessage")
+.textContent =
+editingId
+?
+"تم تعديل المنتج ✅"
+:
+"تمت إضافة المنتج ✅";
+
+
+cancelEdit();
+
+loadProducts();
 
 }
 
@@ -654,56 +1190,79 @@ async function saveProduct(){
 
 function editProduct(id){
 
-  const product =
-    products.find(p => p.id === id);
+const product =
+products.find(
+p => p.id === id
+);
 
 
-  if(!product) return;
+if(!product) return;
 
 
-  editingId = id;
+editingId = id;
 
 
-  document.getElementById("formTitle")
-    .textContent = "تعديل المنتج";
+document
+.getElementById("formTitle")
+.textContent =
+"تعديل المنتج";
 
 
-  document.getElementById("productName")
-    .value = product.name || "";
+document
+.getElementById("productName")
+.value =
+product.name || "";
 
 
-  document.getElementById("productNameAr")
-    .value = product.name_ar || "";
+document
+.getElementById("productNameAr")
+.value =
+product.name_ar || "";
 
 
-  document.getElementById("productCategory")
-    .value = product.category || "العناية بالبشرة";
+document
+.getElementById("productCategory")
+.value =
+product.category ||
+"العناية بالبشرة";
+
+  document
+.getElementById("productPrice")
+.value =
+product.price || "";
 
 
-  document.getElementById("productPrice")
-    .value = product.price || "";
+document
+.getElementById("productStock")
+.value =
+product.stock || 0;
 
 
-  document.getElementById("productStock")
-    .value = product.stock || 0;
+document
+.getElementById("productImage")
+.value =
+product.image || "";
 
 
-  document.getElementById("productImage")
-    .value = product.image || "";
+document
+.getElementById("productDescription")
+.value =
+product.description || "";
 
 
-  document.getElementById("productDescription")
-    .value = product.description || "";
+document
+.getElementById("cancelBtn")
+.classList
+.remove("hidden");
 
 
-  document.getElementById("cancelBtn")
-    .classList.remove("hidden");
+window.scrollTo({
 
+top:0,
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+behavior:"smooth"
+
+});
 
 }
 
@@ -714,27 +1273,49 @@ function editProduct(id){
 
 function cancelEdit(){
 
-  editingId = null;
+editingId = null;
 
 
-  document.getElementById("formTitle")
-    .textContent = "إضافة منتج";
+document
+.getElementById("formTitle")
+.textContent =
+"إضافة منتج";
 
 
-  document.getElementById("productName").value = "";
-  document.getElementById("productNameAr").value = "";
-
-  document.getElementById("productPrice").value = "";
-
-  document.getElementById("productStock").value = "";
-
-  document.getElementById("productImage").value = "";
-
-  document.getElementById("productDescription").value = "";
+document
+.getElementById("productName")
+.value = "";
 
 
-  document.getElementById("cancelBtn")
-    .classList.add("hidden");
+document
+.getElementById("productNameAr")
+.value = "";
+
+
+document
+.getElementById("productPrice")
+.value = "";
+
+
+document
+.getElementById("productStock")
+.value = "";
+
+
+document
+.getElementById("productImage")
+.value = "";
+
+
+document
+.getElementById("productDescription")
+.value = "";
+
+
+document
+.getElementById("cancelBtn")
+.classList
+.add("hidden");
 
 }
 
@@ -745,25 +1326,601 @@ function cancelEdit(){
 
 async function deleteProduct(id){
 
-  if(!confirm("هل تريد حذف هذا المنتج؟")) return;
+if(
+!confirm(
+"هل تريد حذف هذا المنتج؟"
+)
+) return;
 
 
-  const { error } =
-    await supabaseClient
-      .from("products")
-      .delete()
-      .eq("id", id);
+const {
+error
+} =
+await supabaseClient
+.from("products")
+.delete()
+.eq("id",id);
 
 
-  if(error){
+if(error){
 
-    alert("فشل الحذف: " + error.message);
+alert(
+"فشل الحذف: " +
+error.message
+);
 
-    return;
-  }
+return;
+
+}
 
 
-  loadProducts();
+loadProducts();
+
+}
+
+
+/* ==================================================
+   الطلبيات
+================================================== */
+
+let orders = [];
+
+
+/* =========================
+   تحميل الطلبيات
+========================= */
+
+async function loadOrders(){
+
+const container =
+document
+.getElementById(
+"ordersContainer"
+);
+
+
+container.innerHTML = 
+
+<div style="
+text-align:center;
+padding:30px;
+color:#888;
+">
+
+جاري تحميل الطلبيات...
+
+</div>
+
+;
+
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("orders")
+.select("*")
+.order("created_at",{
+ascending:false
+});
+
+
+if(error){
+
+console.error(
+"ORDERS ERROR:",
+error
+);
+
+
+container.innerHTML = 
+
+<div style="
+padding:20px;
+text-align:center;
+color:#b33;
+">
+
+فشل تحميل الطلبيات ❌
+
+<br><br>
+
+${escapeHTML(error.message)}
+
+</div>
+
+;
+
+
+return;
+
+}
+
+
+orders =
+data || [];
+
+
+renderOrders();
+
+}
+
+
+/* =========================
+   عرض الطلبيات
+========================= */
+
+function renderOrders(){
+
+const container =
+document
+.getElementById(
+"ordersContainer"
+);
+
+
+if(
+!orders ||
+orders.length === 0
+){
+
+container.innerHTML = 
+
+<div style="
+text-align:center;
+padding:40px;
+color:#888;
+">
+
+لا توجد طلبيات حالياً 📦
+
+</div>
+
+;
+
+document
+.getElementById(
+"newOrdersCount"
+)
+.textContent = "0";
+
+return;
+
+}
+
+
+let newCount = 0;
+
+
+container.innerHTML = "";
+
+
+orders.forEach(order => {
+
+
+if(
+order.status === "جديد"
+){
+
+newCount++;
+
+}
+
+
+const card =
+document.createElement("div");
+
+
+card.className =
+"order-card";
+
+
+const createdDate =
+order.created_at
+?
+new Date(
+order.created_at
+).toLocaleString(
+"ar-IQ"
+)
+:
+"-";
+
+
+let itemsHTML = "";
+
+
+let itemsData =
+order.items;
+
+
+if(
+typeof itemsData === "string"
+){
+
+try{
+
+itemsData =
+JSON.parse(itemsData);
+
+}catch(e){
+
+itemsData = null;
+
+}
+
+}
+
+
+const productsList =
+itemsData &&
+Array.isArray(
+itemsData.products
+)
+?
+itemsData.products
+:
+Array.isArray(itemsData)
+?
+itemsData
+:
+[];
+
+
+if(
+productsList.length === 0
+){
+
+itemsHTML =
+"<div>لا توجد تفاصيل للمنتجات.</div>";
+
+}else{
+
+
+productsList.forEach(item => {
+
+const itemName =
+item.name ||
+item.name_ar ||
+"منتج";
+
+
+const quantity =
+Number(
+item.quantity || 1
+);
+
+
+const itemPrice =
+Number(
+item.price || 0
+);
+
+
+itemsHTML += 
+
+<div class="order-item">
+
+<div>
+
+${escapeHTML(itemName)}
+
+</div>
+
+<div style="
+color:#888;
+font-size:13px;
+margin-top:4px;
+">
+
+الكمية:
+${quantity}
+
+×
+
+${itemPrice.toLocaleString("ar-IQ")}
+د.ع
+
+</div>
+
+</div>
+
+;
+
+});
+
+}
+
+
+const notes =
+itemsData &&
+!Array.isArray(itemsData)
+?
+itemsData.notes || ""
+:
+"";
+
+
+card.innerHTML = `
+
+<div class="order-header">
+
+<div>
+
+<div class="order-id">
+
+طلب #${order.id}
+
+</div>
+
+<div style="
+font-size:12px;
+color:#999;
+margin-top:5px;
+">
+
+${createdDate}
+
+</div>
+
+</div>
+${order.status === "جديد"
+?
+<span class="new-badge">
+طلب جديد
+</span>
+:
+""}
+
+</div>
+
+
+<div class="order-info">
+
+<strong>
+👤 الاسم:
+</strong>
+
+${escapeHTML(
+order.customer_name || "-"
+)}
+
+<br>
+
+
+<strong>
+📱 الهاتف:
+</strong>
+
+${escapeHTML(
+order.phone || "-"
+)}
+
+<br>
+
+
+<strong>
+📍 العنوان:
+</strong>
+
+${escapeHTML(
+order.shipping_address || "-"
+)}
+
+</div>
+
+
+<div class="order-items">
+
+<strong>
+🛍️ المنتجات
+</strong>
+
+${itemsHTML}
+
+</div>
+
+
+${
+notes
+?
+
+<div style="
+margin-top:12px;
+padding:10px;
+background:#fffaf8;
+border-radius:10px;
+">
+
+<strong>
+📝 ملاحظات:
+</strong>
+
+<br>
+
+${escapeHTML(notes)}
+
+</div>
+
+:
+""
+}
+
+
+<div class="order-total">
+
+المجموع:
+
+${Number(
+order.total_amount || 0
+)
+.toLocaleString("ar-IQ")}
+
+د.ع
+
+</div>
+
+
+<div style="
+margin-top:15px;
+">
+
+<label>
+حالة الطلب
+</label>
+
+<select
+class="status-select"
+data-order-id="${order.id}"
+onchange="updateOrderStatus(this)">
+
+<option
+value="جديد"
+${order.status === "جديد" ? "selected" : ""}>
+
+جديد
+
+</option>
+
+<option
+value="قيد التجهيز"
+${order.status === "قيد التجهيز" ? "selected" : ""}>
+
+قيد التجهيز
+
+</option>
+
+<option
+value="تم الشحن"
+${order.status === "تم الشحن" ? "selected" : ""}>
+
+تم الشحن
+
+</option>
+
+<option
+value="مكتمل"
+${order.status === "مكتمل" ? "selected" : ""}>
+
+مكتمل
+
+</option>
+
+<option
+value="ملغي"
+${order.status === "ملغي" ? "selected" : ""}>
+
+ملغي
+
+</option>
+
+</select>
+
+</div>
+
+`;
+
+
+container.appendChild(card);
+
+});
+
+
+document
+.getElementById(
+"newOrdersCount"
+)
+.textContent =
+newCount;
+
+}
+
+
+/* =========================
+   تحديث حالة الطلب
+========================= */
+
+async function updateOrderStatus(select){
+
+const orderId =
+Number(
+select.dataset.orderId
+);
+
+
+const newStatus =
+select.value;
+
+
+select.disabled = true;
+
+
+const {
+error
+} =
+await supabaseClient
+.from("orders")
+.update({
+status:newStatus
+})
+.eq("id",orderId);
+
+
+select.disabled = false;
+
+
+if(error){
+
+alert(
+"فشل تحديث حالة الطلب ❌\n\n" +
+error.message
+);
+
+return;
+
+}
+
+
+const order =
+orders.find(
+item =>
+item.id === orderId
+);
+
+
+if(order){
+
+order.status =
+newStatus;
+
+}
+
+
+renderOrders();
+
+}
+
+
+/* =========================
+   حماية HTML
+========================= */
+
+function escapeHTML(text){
+
+const div =
+document.createElement("div");
+
+
+div.textContent =
+text == null
+?
+""
+:
+String(text);
+
+
+return div.innerHTML;
 
 }
 
@@ -777,4 +1934,5 @@ checkAdmin();
 </script>
 
 </body>
+
 </html>
