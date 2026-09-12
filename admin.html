@@ -304,7 +304,6 @@ width:100%;
 
 <body>
 
-
 <!-- =========================
      تسجيل الدخول
 ========================= -->
@@ -349,7 +348,6 @@ class="message">
 
 </div>
 
-
 <!-- =========================
      لوحة التحكم
 ========================= -->
@@ -357,7 +355,6 @@ class="message">
 <div
 id="dashboard"
 class="container hidden">
-
 
 <!-- HEADER -->
 
@@ -389,7 +386,6 @@ onclick="logout()">
 
 </div>
 
-
 <!-- =========================
      الإحصائيات
 ========================= -->
@@ -408,7 +404,6 @@ onclick="logout()">
 
 </div>
 
-
 <div class="stat">
 
 <span>
@@ -420,7 +415,6 @@ onclick="logout()">
 </b>
 
 </div>
-
 
 <div class="stat">
 
@@ -434,7 +428,6 @@ onclick="logout()">
 
 </div>
 
-
 <div class="stat">
 
 <span>
@@ -446,8 +439,8 @@ onclick="logout()">
 </b>
 
 </div>
-</div>
 
+</div>
 
 <!-- =========================
      إضافة / تعديل المنتج
@@ -530,7 +523,6 @@ class="message">
 
 </div>
 
-
 <!-- =========================
      المنتجات
 ========================= -->
@@ -552,7 +544,6 @@ onclick="loadProducts()">
 </button>
 
 </div>
-
 
 <div style="overflow-x:auto">
 
@@ -589,7 +580,6 @@ id="productsTable">
 </div>
 
 </div>
-
 
 <!-- =========================
      الطلبيات
@@ -631,12 +621,9 @@ color:#888;
 
 </div>
 
-
 </div>
 
-
 <script>
-
 
 /* =========================
    SUPABASE
@@ -645,17 +632,14 @@ color:#888;
 const SUPABASE_URL =
 "https://hlnbnczvmdgqsaldfqyw.supabase.co";
 
-
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_ZIO0-w4_OIfsS1DumgaMJQ_Z_G5DIvV";
-
 
 const supabaseClient =
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_PUBLISHABLE_KEY
 );
-
 
 /* =========================
    تسجيل الدخول
@@ -681,7 +665,6 @@ document
 message.textContent =
 "جاري تسجيل الدخول...";
 
-
 const { error } =
 await supabaseClient.auth.signInWithPassword({
 
@@ -689,7 +672,6 @@ email,
 password
 
 });
-
 
 if(error){
 
@@ -701,11 +683,9 @@ return;
 
 }
 
-
 await checkAdmin();
 
 }
-
 
 /* =========================
    التحقق من المدير
@@ -719,7 +699,6 @@ session
 }
 } =
 await supabaseClient.auth.getSession();
-
 
 if(!session){
 
@@ -737,13 +716,11 @@ return;
 
 }
 
-
 const {
 data,
 error
 } =
 await supabaseClient.rpc("is_admin");
-
 
 if(error || data !== true){
 
@@ -758,25 +735,21 @@ return;
 
 }
 
-
 document
 .getElementById("loginPage")
 .classList
 .add("hidden");
-
 
 document
 .getElementById("dashboard")
 .classList
 .remove("hidden");
 
+await loadProducts();
 
-loadProducts();
-
-loadOrders();
+await loadOrders();
 
 }
-
 
 /* =========================
    تسجيل الخروج
@@ -790,7 +763,6 @@ location.reload();
 
 }
 
-
 /* =========================
    المنتجات
 ========================= */
@@ -798,7 +770,6 @@ location.reload();
 let products = [];
 
 let editingId = null;
-
 
 async function loadProducts(){
 
@@ -813,7 +784,6 @@ await supabaseClient
 ascending:false
 });
 
-
 if(error){
 
 alert(
@@ -825,7 +795,6 @@ return;
 
 }
 
-
 products =
 data || [];
 
@@ -833,11 +802,11 @@ renderProducts();
 
 }
 
-
 /* =========================
    عرض المنتجات
 ========================= */
-  function renderProducts(){
+
+function renderProducts(){
 
 const table =
 document
@@ -845,27 +814,21 @@ document
 
 table.innerHTML = "";
 
-
 let totalStock = 0;
 
 let totalValue = 0;
 
-
 products.forEach(product => {
-
 
 totalStock +=
 Number(product.stock || 0);
-
 
 totalValue +=
 Number(product.price || 0) *
 Number(product.stock || 0);
 
-
 const row =
 document.createElement("tr");
-
 
 const id =
 document.createElement("td");
@@ -873,23 +836,18 @@ document.createElement("td");
 id.textContent =
 product.id;
 
-
 const imageCell =
 document.createElement("td");
 
-
 const image =
 document.createElement("img");
-
 
 image.src =
 product.image ||
 "https://placehold.co/100";
 
-
 image.className =
 "product-img";
-
 
 image.onerror =
 function(){
@@ -899,32 +857,25 @@ this.src =
 
 };
 
-
 imageCell.appendChild(image);
-
 
 const name =
 document.createElement("td");
-
 
 name.textContent =
 product.name_ar ||
 product.name ||
 "-";
 
-
 const category =
 document.createElement("td");
-
 
 category.textContent =
 product.category ||
 "-";
 
-
 const price =
 document.createElement("td");
-
 
 price.textContent =
 Number(
@@ -934,75 +885,58 @@ product.price || 0
 +
 " د.ع";
 
-
 const stock =
 document.createElement("td");
-
 
 stock.textContent =
 product.stock ?? 0;
 
-
 const actions =
 document.createElement("td");
-
 
 const actionBox =
 document.createElement("div");
 
-
 actionBox.className =
 "actions";
-
 
 const editButton =
 document.createElement("button");
 
-
 editButton.className =
 "edit";
 
-
 editButton.textContent =
 "تعديل";
-
 
 editButton.onclick =
 () =>
 editProduct(product.id);
 
-
 const deleteButton =
 document.createElement("button");
-
 
 deleteButton.className =
 "danger";
 
-
 deleteButton.textContent =
 "حذف";
-
 
 deleteButton.onclick =
 () =>
 deleteProduct(product.id);
 
-
 actionBox.appendChild(
 editButton
 );
-
 
 actionBox.appendChild(
 deleteButton
 );
 
-
 actions.appendChild(
 actionBox
 );
-
 
 row.appendChild(id);
 
@@ -1018,23 +952,19 @@ row.appendChild(stock);
 
 row.appendChild(actions);
 
-
 table.appendChild(row);
 
 });
-
 
 document
 .getElementById("productCount")
 .textContent =
 products.length;
 
-
 document
 .getElementById("stockCount")
 .textContent =
 totalStock.toLocaleString("ar-IQ");
-
 
 document
 .getElementById("valueCount")
@@ -1044,7 +974,6 @@ totalValue.toLocaleString("ar-IQ")
 " د.ع";
 
 }
-
 
 /* =========================
    إضافة / تعديل المنتج
@@ -1058,19 +987,16 @@ document
 .value
 .trim();
 
-
 const nameAr =
 document
 .getElementById("productNameAr")
 .value
 .trim();
 
-
 const category =
 document
 .getElementById("productCategory")
 .value;
-
 
 const price =
 Number(
@@ -1079,7 +1005,6 @@ document
 .value
 );
 
-
 const stock =
 Number(
 document
@@ -1087,20 +1012,17 @@ document
 .value
 );
 
-
 const image =
 document
 .getElementById("productImage")
 .value
 .trim();
 
-
 const description =
 document
 .getElementById("productDescription")
 .value
 .trim();
-
 
 if(!nameAr || !price){
 
@@ -1112,7 +1034,6 @@ document
 return;
 
 }
-
 
 const productData = {
 
@@ -1132,9 +1053,7 @@ description
 
 };
 
-
 let result;
-
 
 if(editingId){
 
@@ -1153,7 +1072,6 @@ await supabaseClient
 
 }
 
-
 if(result.error){
 
 document
@@ -1166,7 +1084,6 @@ return;
 
 }
 
-
 document
 .getElementById("formMessage")
 .textContent =
@@ -1176,13 +1093,11 @@ editingId
 :
 "تمت إضافة المنتج ✅";
 
-
 cancelEdit();
 
-loadProducts();
+await loadProducts();
 
 }
-
 
 /* =========================
    تعديل المنتج
@@ -1195,30 +1110,24 @@ products.find(
 p => p.id === id
 );
 
-
 if(!product) return;
 
-
 editingId = id;
-
 
 document
 .getElementById("formTitle")
 .textContent =
 "تعديل المنتج";
 
-
 document
 .getElementById("productName")
 .value =
 product.name || "";
 
-
 document
 .getElementById("productNameAr")
 .value =
 product.name_ar || "";
-
 
 document
 .getElementById("productCategory")
@@ -1226,35 +1135,30 @@ document
 product.category ||
 "العناية بالبشرة";
 
-  document
+document
 .getElementById("productPrice")
 .value =
 product.price || "";
-
 
 document
 .getElementById("productStock")
 .value =
 product.stock || 0;
 
-
 document
 .getElementById("productImage")
 .value =
 product.image || "";
-
 
 document
 .getElementById("productDescription")
 .value =
 product.description || "";
 
-
 document
 .getElementById("cancelBtn")
 .classList
 .remove("hidden");
-
 
 window.scrollTo({
 
@@ -1266,7 +1170,6 @@ behavior:"smooth"
 
 }
 
-
 /* =========================
    إلغاء التعديل
 ========================= */
@@ -1275,42 +1178,34 @@ function cancelEdit(){
 
 editingId = null;
 
-
 document
 .getElementById("formTitle")
 .textContent =
 "إضافة منتج";
 
-
 document
 .getElementById("productName")
 .value = "";
-
 
 document
 .getElementById("productNameAr")
 .value = "";
 
-
 document
 .getElementById("productPrice")
 .value = "";
-
 
 document
 .getElementById("productStock")
 .value = "";
 
-
 document
 .getElementById("productImage")
 .value = "";
 
-
 document
 .getElementById("productDescription")
 .value = "";
-
 
 document
 .getElementById("cancelBtn")
@@ -1318,7 +1213,6 @@ document
 .add("hidden");
 
 }
-
 
 /* =========================
    حذف المنتج
@@ -1332,7 +1226,6 @@ if(
 )
 ) return;
 
-
 const {
 error
 } =
@@ -1340,7 +1233,6 @@ await supabaseClient
 .from("products")
 .delete()
 .eq("id",id);
-
 
 if(error){
 
@@ -1353,18 +1245,15 @@ return;
 
 }
 
-
-loadProducts();
+await loadProducts();
 
 }
-
 
 /* ==================================================
    الطلبيات
 ================================================== */
 
 let orders = [];
-
 
 /* =========================
    تحميل الطلبيات
@@ -1378,8 +1267,7 @@ document
 "ordersContainer"
 );
 
-
-container.innerHTML = 
+container.innerHTML = `
 
 <div style="
 text-align:center;
@@ -1391,8 +1279,7 @@ color:#888;
 
 </div>
 
-;
-
+`;
 
 const {
 data,
@@ -1405,7 +1292,6 @@ await supabaseClient
 ascending:false
 });
 
-
 if(error){
 
 console.error(
@@ -1413,8 +1299,7 @@ console.error(
 error
 );
 
-
-container.innerHTML = 
+container.innerHTML = `
 
 <div style="
 padding:20px;
@@ -1430,22 +1315,18 @@ ${escapeHTML(error.message)}
 
 </div>
 
-;
-
+`;
 
 return;
 
 }
 
-
 orders =
 data || [];
-
 
 renderOrders();
 
 }
-
 
 /* =========================
    عرض الطلبيات
@@ -1459,13 +1340,12 @@ document
 "ordersContainer"
 );
 
-
 if(
 !orders ||
 orders.length === 0
 ){
 
-container.innerHTML = 
+container.innerHTML = `
 
 <div style="
 text-align:center;
@@ -1477,27 +1357,24 @@ color:#888;
 
 </div>
 
-;
+`;
 
 document
 .getElementById(
 "newOrdersCount"
 )
-.textContent = "0";
+.textContent =
+"0";
 
 return;
 
 }
 
-
 let newCount = 0;
-
 
 container.innerHTML = "";
 
-
 orders.forEach(order => {
-
 
 if(
 order.status === "جديد"
@@ -1507,14 +1384,11 @@ newCount++;
 
 }
 
-
 const card =
 document.createElement("div");
 
-
 card.className =
 "order-card";
-
 
 const createdDate =
 order.created_at
@@ -1527,13 +1401,10 @@ order.created_at
 :
 "-";
 
-
 let itemsHTML = "";
-
 
 let itemsData =
 order.items;
-
 
 if(
 typeof itemsData === "string"
@@ -1552,7 +1423,6 @@ itemsData = null;
 
 }
 
-
 const productsList =
 itemsData &&
 Array.isArray(
@@ -1567,7 +1437,6 @@ itemsData
 :
 [];
 
-
 if(
 productsList.length === 0
 ){
@@ -1577,7 +1446,6 @@ itemsHTML =
 
 }else{
 
-
 productsList.forEach(item => {
 
 const itemName =
@@ -1585,20 +1453,17 @@ item.name ||
 item.name_ar ||
 "منتج";
 
-
 const quantity =
 Number(
 item.quantity || 1
 );
-
 
 const itemPrice =
 Number(
 item.price || 0
 );
 
-
-itemsHTML += 
+itemsHTML += `
 
 <div class="order-item">
 
@@ -1620,18 +1485,18 @@ ${quantity}
 ×
 
 ${itemPrice.toLocaleString("ar-IQ")}
+
 د.ع
 
 </div>
 
 </div>
 
-;
+`;
 
 });
 
 }
-
 
 const notes =
 itemsData &&
@@ -1640,7 +1505,6 @@ itemsData &&
 itemsData.notes || ""
 :
 "";
-
 
 card.innerHTML = `
 
@@ -1665,16 +1529,24 @@ ${createdDate}
 </div>
 
 </div>
-${order.status === "جديد"
+
+${
+order.status === "جديد"
 ?
+`
+
 <span class="new-badge">
+
 طلب جديد
+
 </span>
+
+`
 :
-""}
+""
+}
 
 </div>
-
 
 <div class="order-info">
 
@@ -1688,7 +1560,6 @@ order.customer_name || "-"
 
 <br>
 
-
 <strong>
 📱 الهاتف:
 </strong>
@@ -1698,7 +1569,6 @@ order.phone || "-"
 )}
 
 <br>
-
 
 <strong>
 📍 العنوان:
@@ -1710,7 +1580,6 @@ order.shipping_address || "-"
 
 </div>
 
-
 <div class="order-items">
 
 <strong>
@@ -1721,10 +1590,11 @@ ${itemsHTML}
 
 </div>
 
-
 ${
 notes
 ?
+
+`
 
 <div style="
 margin-top:12px;
@@ -1743,10 +1613,12 @@ ${escapeHTML(notes)}
 
 </div>
 
+`
+
 :
+
 ""
 }
-
 
 <div class="order-total">
 
@@ -1761,13 +1633,14 @@ order.total_amount || 0
 
 </div>
 
-
 <div style="
 margin-top:15px;
 ">
 
 <label>
+
 حالة الطلب
+
 </label>
 
 <select
@@ -1821,11 +1694,9 @@ ${order.status === "ملغي" ? "selected" : ""}>
 
 `;
 
-
 container.appendChild(card);
 
 });
-
 
 document
 .getElementById(
@@ -1835,7 +1706,6 @@ document
 newCount;
 
 }
-
 
 /* =========================
    تحديث حالة الطلب
@@ -1848,13 +1718,10 @@ Number(
 select.dataset.orderId
 );
 
-
 const newStatus =
 select.value;
 
-
 select.disabled = true;
-
 
 const {
 error
@@ -1866,9 +1733,7 @@ status:newStatus
 })
 .eq("id",orderId);
 
-
 select.disabled = false;
-
 
 if(error){
 
@@ -1881,13 +1746,11 @@ return;
 
 }
 
-
 const order =
 orders.find(
 item =>
 item.id === orderId
 );
-
 
 if(order){
 
@@ -1896,11 +1759,9 @@ newStatus;
 
 }
 
-
 renderOrders();
 
 }
-
 
 /* =========================
    حماية HTML
@@ -1911,7 +1772,6 @@ function escapeHTML(text){
 const div =
 document.createElement("div");
 
-
 div.textContent =
 text == null
 ?
@@ -1919,11 +1779,9 @@ text == null
 :
 String(text);
 
-
 return div.innerHTML;
 
 }
-
 
 /* =========================
    تشغيل الصفحة
