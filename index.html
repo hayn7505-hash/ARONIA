@@ -358,59 +358,32 @@ padding:14px;
 border-radius:14px;
 }
 
-.account-box{
-margin:20px;
-background:white;
-border-radius:22px;
-padding:30px 20px;
-text-align:center;
-box-shadow:0 3px 15px rgba(0,0,0,.06);
-}
-
-.account-icon{
-font-size:50px;
-margin-bottom:15px;
-}
-
-.admin-btn{
-margin-top:20px;
-padding:12px 20px;
-border-radius:20px;
-background:#eee1dd;
-color:#745d58;
-}
-
-.logout-btn{
-margin-top:12px;
-padding:12px 25px;
-border-radius:20px;
-background:#f3dfdc;
-color:#a15e5e;
-display:none;
-}
-
 /* =========================
    MY ORDERS
 ========================= */
 
 .orders-section{
-margin-top:25px;
+margin-top:30px;
+padding-top:20px;
+border-top:1px solid #eee2df;
 text-align:right;
 }
 
 .orders-title{
-font-size:19px;
+font-size:20px;
+font-weight:bold;
 color:#5d4d4a;
-margin-bottom:12px;
+margin-bottom:15px;
 }
 
 .order-card{
-background:#fffaf8;
+background:#fff;
 border:1px solid #f0e2de;
 border-radius:18px;
 padding:15px;
 margin-bottom:12px;
 text-align:right;
+box-shadow:0 3px 12px rgba(0,0,0,.04);
 }
 
 .order-header{
@@ -430,6 +403,7 @@ font-size:14px;
 .order-date{
 font-size:11px;
 color:#999;
+margin-top:4px;
 }
 
 .order-status{
@@ -478,7 +452,7 @@ display:flex;
 justify-content:space-between;
 gap:10px;
 font-size:13px;
-padding:5px 0;
+padding:6px 0;
 }
 
 .order-product-name{
@@ -515,6 +489,42 @@ text-align:center;
 color:#999;
 font-size:13px;
 line-height:1.8;
+}
+
+/* =========================
+   ACCOUNT
+========================= */
+
+.account-box{
+margin:20px;
+background:white;
+border-radius:22px;
+padding:30px 20px;
+text-align:center;
+box-shadow:0 3px 15px rgba(0,0,0,.06);
+}
+
+.account-icon{
+font-size:50px;
+margin-bottom:15px;
+}
+
+.admin-btn{
+margin-top:20px;
+padding:12px 20px;
+border-radius:20px;
+background:#eee1dd;
+color:#745d58;
+display:none;
+}
+
+.logout-btn{
+margin-top:12px;
+padding:12px 25px;
+border-radius:20px;
+background:#f3dfdc;
+color:#a15e5e;
+display:none;
 }
 
 /* =========================
@@ -1174,6 +1184,26 @@ class="page">
 id="cartContainer">
 </div>
 
+<!-- =========================
+     MY ORDERS INSIDE CART
+========================= -->
+
+<div class="orders-section">
+
+<div class="orders-title">
+طلباتي 🛍️
+</div>
+
+<div id="ordersContainer">
+
+<div class="orders-loading">
+جاري تحميل الطلبات...
+</div>
+
+</div>
+
+</div>
+
 </section>
 
 </div>
@@ -1219,32 +1249,13 @@ onclick="logoutUser()">
 </button>
 
 <button
+id="adminButton"
 class="admin-btn"
 onclick="openAdmin()">
 
 لوحة المدير
 
 </button>
-
-<!-- =========================
-     MY ORDERS
-========================= -->
-
-<div class="orders-section">
-
-<div class="orders-title">
-طلباتي 🛍️
-</div>
-
-<div id="ordersContainer">
-
-<div class="orders-loading">
-جاري تحميل الطلبات...
-</div>
-
-</div>
-
-</div>
 
 </div>
 
@@ -1409,6 +1420,8 @@ localStorage.getItem("aronia_favorites") || "[]"
 
 let currentUser = null;
 
+let isAdminUser = false;
+
 /* =========================
    DEFAULT IMAGE
 ========================= */
@@ -1531,6 +1544,8 @@ return;
 currentUser =
 data.user;
 
+await checkAdminStatus();
+
 hideAuthOverlay();
 
 updateAccountUI();
@@ -1599,15 +1614,12 @@ return;
 
 }
 
-/*
-   إذا كان تأكيد البريد مفعلاً في Supabase،
-   user قد يكون موجوداً لكن session تكون null.
-*/
-
 if(data.session && data.user){
 
 currentUser =
 data.user;
+
+await checkAdminStatus();
 
 hideAuthOverlay();
 
@@ -1706,6 +1718,67 @@ overlay.style.display =
 }
 
 /* =========================
+   CHECK ADMIN STATUS
+========================= */
+
+async function checkAdminStatus(){
+
+isAdminUser = false;
+
+const adminButton =
+document.getElementById(
+"adminButton"
+);
+
+if(adminButton){
+
+adminButton.style.display =
+"none";
+
+}
+
+if(!currentUser){
+
+return false;
+
+}
+
+const {
+data,
+error
+} =
+await db.rpc(
+"is_admin"
+);
+
+if(error){
+
+console.error(
+"ADMIN CHECK ERROR:",
+error
+);
+
+isAdminUser = false;
+
+return false;
+
+}
+
+isAdminUser =
+data === true;
+
+if(isAdminUser && adminButton){
+
+adminButton.style.display =
+"inline-block";
+
+}
+
+return isAdminUser;
+
+}
+
+/* =========================
    ACCOUNT UI
 ========================= */
 
@@ -1762,6 +1835,20 @@ await db.auth.signOut();
 
 currentUser = null;
 
+isAdminUser = false;
+
+const adminButton =
+document.getElementById(
+"adminButton"
+);
+
+if(adminButton){
+
+adminButton.style.display =
+"none";
+
+}
+
 updateAccountUI();
 
 showAuthOverlay();
@@ -1789,6 +1876,8 @@ data.session
 currentUser =
 data.session.user;
 
+await checkAdminStatus();
+
 hideAuthOverlay();
 
 updateAccountUI();
@@ -1797,23 +1886,23 @@ updateAccountUI();
 
 currentUser = null;
 
+isAdminUser = false;
+
 showAuthOverlay();
 
 showLogin();
 
 }
 
-/*
-   مراقبة تغييرات تسجيل الدخول
-*/
-
 db.auth.onAuthStateChange(
-(event,session) => {
+async (event,session) => {
 
 if(session){
 
 currentUser =
 session.user;
+
+await checkAdminStatus();
 
 hideAuthOverlay();
 
@@ -1824,6 +1913,20 @@ event === "SIGNED_OUT"
 ){
 
 currentUser = null;
+
+isAdminUser = false;
+
+const adminButton =
+document.getElementById(
+"adminButton"
+);
+
+if(adminButton){
+
+adminButton.style.display =
+"none";
+
+}
 
 updateAccountUI();
 
@@ -2344,6 +2447,8 @@ saveCart();
 
 updateCartCount();
 
+renderCart();
+
 alert(
 "تمت إضافة المنتج إلى السلة 🛒"
 );
@@ -2635,10 +2740,6 @@ return;
 
 }
 
-/*
-   التأكد من تسجيل الدخول
-*/
-
 if(!currentUser){
 
 alert(
@@ -2842,10 +2943,6 @@ async function(e){
 
 e.preventDefault();
 
-/*
-   التأكد مرة ثانية من المستخدم
-*/
-
 const {
 data:userData
 } =
@@ -3046,12 +3143,11 @@ alert(
 "رقم الطلب: #" +
 orderData.id +
 "\n\n" +
+"تم نقل الطلب إلى قسم «طلباتي» 🛍️\n\n" +
 "شكراً لتسوقك من ARONIA 🌸"
 );
 
 });
-
-}
 
 /* =========================
    MY ORDERS
@@ -3069,9 +3165,13 @@ if(!container) return;
 if(!currentUser){
 
 container.innerHTML = `
+
 <div class="orders-empty">
+
 يجب تسجيل الدخول لعرض طلباتك.
+
 </div>
+
 `;
 
 return;
@@ -3079,9 +3179,13 @@ return;
 }
 
 container.innerHTML = `
+
 <div class="orders-loading">
+
 جاري تحميل طلباتك...
+
 </div>
+
 `;
 
 const {
@@ -3104,6 +3208,7 @@ error
 );
 
 container.innerHTML = `
+
 <div class="orders-empty">
 
 حدث خطأ في تحميل الطلبات ❌
@@ -3113,6 +3218,7 @@ container.innerHTML = `
 ${escapeHTML(error.message)}
 
 </div>
+
 `;
 
 return;
@@ -3122,6 +3228,7 @@ return;
 if(!data || data.length === 0){
 
 container.innerHTML = `
+
 <div class="orders-empty">
 
 لا توجد لديك طلبات حالياً 🛍️
@@ -3131,6 +3238,7 @@ container.innerHTML = `
 ابدأ التسوق من منتجات ARONIA.
 
 </div>
+
 `;
 
 return;
@@ -3228,14 +3336,18 @@ order.items.products
 if(orderProducts.length === 0){
 
 productsHTML = `
+
 <div
 style="
 font-size:12px;
 color:#999;
 padding:5px 0;
 ">
+
 تفاصيل المنتجات غير متوفرة.
+
 </div>
+
 `;
 
 }else{
@@ -3264,7 +3376,7 @@ productsHTML += `
 
 ${escapeHTML(itemName)}
 
- × ${itemQuantity}
+× ${itemQuantity}
 
 </div>
 
@@ -3324,14 +3436,19 @@ ${productsHTML}
 <div class="order-total">
 
 <span>
+
 المجموع
+
 </span>
 
 <span>
+
 ${Number(
 order.total_amount || 0
 ).toLocaleString("ar-IQ")}
+
 د.ع
+
 </span>
 
 </div>
@@ -3500,6 +3617,8 @@ if(page === "cart"){
 
 renderCart();
 
+loadMyOrders();
+
 }
 
 if(page === "categories"){
@@ -3525,7 +3644,7 @@ if(page === "account"){
 
 updateAccountUI();
 
-loadMyOrders();
+checkAdminStatus();
 
 }
 
@@ -3543,7 +3662,34 @@ behavior:"smooth"
    ADMIN
 ========================= */
 
-function openAdmin(){
+async function openAdmin(){
+
+if(!currentUser){
+
+alert(
+"يجب تسجيل الدخول أولاً."
+);
+
+showAuthOverlay();
+
+showLogin();
+
+return;
+
+}
+
+const allowed =
+await checkAdminStatus();
+
+if(!allowed){
+
+alert(
+"ليس لديك صلاحية الدخول إلى لوحة المدير."
+);
+
+return;
+
+}
 
 window.location.href =
 "admin.html";
