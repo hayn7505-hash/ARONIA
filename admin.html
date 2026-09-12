@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 
 <head>
@@ -431,7 +432,7 @@ onclick="logout()">
 <div class="stat">
 
 <span>
-الطلبات الجديدة
+الطلبات الحالية
 </span>
 
 <b id="newOrdersCount">
@@ -582,7 +583,7 @@ id="productsTable">
 </div>
 
 <!-- =========================
-     الطلبيات الجديدة
+     الطلبيات الحالية
 ========================= -->
 
 <div class="card">
@@ -590,7 +591,7 @@ id="productsTable">
 <div class="top">
 
 <h2>
-📦 الطلبيات الجديدة
+📦 الطلبيات الحالية
 </h2>
 
 <button
@@ -1260,7 +1261,7 @@ await loadProducts();
 let orders = [];
 
 /* =========================
-   تحميل الطلبيات الجديدة فقط
+   تحميل الطلبيات الحالية
 ========================= */
 
 async function loadOrders(){
@@ -1285,6 +1286,19 @@ color:#888;
 
 `;
 
+/*
+   نجلب كل الطلبات ما عدا:
+   مكتمل
+   ملغي
+
+   الطلبات:
+   جديد
+   قيد التجهيز
+   تم الشحن
+
+   تبقى ظاهرة في لوحة المدير.
+*/
+
 const {
 data,
 error
@@ -1292,7 +1306,7 @@ error
 await supabaseClient
 .from("orders")
 .select("*")
-.eq("status","جديد")
+.not("status","in","(مكتمل,ملغي)")
 .order("created_at",{
 ascending:false
 });
@@ -1334,7 +1348,7 @@ renderOrders();
 }
 
 /* =========================
-   عرض الطلبات الجديدة
+   عرض الطلبات الحالية
 ========================= */
 
 function renderOrders(){
@@ -1346,18 +1360,25 @@ document
 );
 
 /*
-   الأمان هنا أيضًا:
-   نعرض فقط الطلبات التي حالتها "جديد"
+   نعرض فقط الطلبات غير المنتهية.
+
+   جديد
+   قيد التجهيز
+   تم الشحن
+
+   أما مكتمل وملغي
+   فلا تظهر في قائمة المدير الحالية.
 */
 
-const newOrders =
+const activeOrders =
 orders.filter(
 order =>
-order.status === "جديد"
+order.status !== "مكتمل" &&
+order.status !== "ملغي"
 );
 
 if(
-newOrders.length === 0
+activeOrders.length === 0
 ){
 
 container.innerHTML = `
@@ -1368,7 +1389,7 @@ padding:40px;
 color:#888;
 ">
 
-لا توجد طلبيات جديدة حالياً 📦
+لا توجد طلبيات حالية 📦
 
 </div>
 
@@ -1387,7 +1408,7 @@ return;
 
 container.innerHTML = "";
 
-newOrders.forEach(order => {
+activeOrders.forEach(order => {
 
 const card =
 document.createElement("div");
@@ -1511,6 +1532,32 @@ itemsData.notes || ""
 :
 "";
 
+/*
+   تحديد شكل الحالة الحالية
+*/
+
+let statusLabel = "طلب";
+
+let statusClass = "new-badge";
+
+if(order.status === "جديد"){
+
+statusLabel = "طلب جديد";
+
+}
+
+else if(order.status === "قيد التجهيز"){
+
+statusLabel = "قيد التجهيز";
+
+}
+
+else if(order.status === "تم الشحن"){
+
+statusLabel = "تم الشحن";
+
+}
+
 card.innerHTML = `
 
 <div class="order-header">
@@ -1535,9 +1582,9 @@ ${createdDate}
 
 </div>
 
-<span class="new-badge">
+<span class="${statusClass}">
 
-طلب جديد
+${statusLabel}
 
 </span>
 
@@ -1645,35 +1692,39 @@ onchange="updateOrderStatus(this)">
 
 <option
 value="جديد"
-selected>
+${order.status === "جديد" ? "selected" : ""}>
 
 جديد
 
 </option>
 
 <option
-value="قيد التجهيز">
+value="قيد التجهيز"
+${order.status === "قيد التجهيز" ? "selected" : ""}>
 
 قيد التجهيز
 
 </option>
 
 <option
-value="تم الشحن">
+value="تم الشحن"
+${order.status === "تم الشحن" ? "selected" : ""}>
 
 تم الشحن
 
 </option>
 
 <option
-value="مكتمل">
+value="مكتمل"
+${order.status === "مكتمل" ? "selected" : ""}>
 
 مكتمل
 
 </option>
 
 <option
-value="ملغي">
+value="ملغي"
+${order.status === "ملغي" ? "selected" : ""}>
 
 ملغي
 
@@ -1689,12 +1740,22 @@ container.appendChild(card);
 
 });
 
+/*
+   هذا الرقم يمثل الطلبات الموجودة
+   حالياً في لوحة المدير.
+
+   سواء كانت:
+   جديد
+   قيد التجهيز
+   تم الشحن
+*/
+
 document
 .getElementById(
 "newOrdersCount"
 )
 .textContent =
-newOrders.length;
+activeOrders.length;
 
 }
 
@@ -1738,7 +1799,7 @@ return;
 }
 
 /*
-   تحديث الطلب محليًا
+   تحديث الطلب محلياً
 */
 
 const order =
@@ -1755,9 +1816,17 @@ newStatus;
 }
 
 /*
-   إعادة عرض القائمة.
-   بما أن الحالة لم تعد "جديد"،
-   الطلب سيختفي فورًا.
+   إذا أصبحت الحالة:
+   مكتمل أو ملغي
+
+   تختفي من لوحة المدير.
+
+   أما:
+   جديد
+   قيد التجهيز
+   تم الشحن
+
+   فتبقى ظاهرة.
 */
 
 renderOrders();
