@@ -1748,269 +1748,332 @@ CHECKOUT
 
 function checkout(){
 
-if(cart.length === 0){
+  if(cart.length === 0){
 
-alert("السلة فارغة.");
+    alert("السلة فارغة.");
+    return;
 
-return;
+  }
+
+  const oldForm =
+    document.getElementById("checkoutModal");
+
+  if(oldForm){
+    oldForm.remove();
+  }
+
+  const modal =
+    document.createElement("div");
+
+  modal.id = "checkoutModal";
+
+  modal.innerHTML = 
+
+  <div style="
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:99999;
+    padding:20px;
+  ">
+
+    <div style="
+      background:#fff;
+      width:100%;
+      max-width:500px;
+      max-height:90vh;
+      overflow:auto;
+      border-radius:22px;
+      padding:25px;
+      direction:rtl;
+      box-shadow:0 15px 50px rgba(0,0,0,0.2);
+    ">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:20px;
+      ">
+
+        <h2 style="
+          margin:0;
+          color:#8a6666;
+        ">
+          إتمام الطلب
+        </h2>
+
+        <button
+          type="button"
+          onclick="document.getElementById('checkoutModal').remove()"
+          style="
+            border:0;
+            background:#f5eeee;
+            width:38px;
+            height:38px;
+            border-radius:50%;
+            font-size:22px;
+            cursor:pointer;
+          ">
+          ×
+        </button>
+
+      </div>
+
+      <form id="checkoutForm">
+
+        <label>الاسم الكامل</label>
+
+        <input
+          id="customerName"
+          type="text"
+          required
+          placeholder="اكتب اسمك الكامل"
+          style="
+            width:100%;
+            padding:13px;
+            margin:8px 0 16px;
+            border:1px solid #ddd;
+            border-radius:12px;
+            font-size:16px;
+          ">
+
+        <label>رقم الهاتف</label>
+
+        <input
+          id="customerPhone"
+          type="tel"
+          required
+          placeholder="07xxxxxxxxx"
+          style="
+            width:100%;
+            padding:13px;
+            margin:8px 0 16px;
+            border:1px solid #ddd;
+            border-radius:12px;
+            font-size:16px;
+          ">
+
+        <label>العنوان</label>
+
+        <textarea
+          id="customerAddress"
+          required
+          placeholder="المحافظة، المنطقة، الشارع..."
+          style="
+            width:100%;
+            padding:13px;
+            margin:8px 0 16px;
+            border:1px solid #ddd;
+            border-radius:12px;
+            font-size:16px;
+            min-height:90px;
+            resize:vertical;
+          "></textarea>
+
+        <label>ملاحظات الطلب</label>
+
+        <textarea
+          id="customerNotes"
+          placeholder="أي ملاحظة إضافية..."
+          style="
+            width:100%;
+            padding:13px;
+            margin:8px 0 20px;
+            border:1px solid #ddd;
+            border-radius:12px;
+            font-size:16px;
+            min-height:70px;
+            resize:vertical;
+          "></textarea>
+
+        <button
+          id="confirmOrderButton"
+          type="submit"
+          style="
+            width:100%;
+            padding:15px;
+            border:0;
+            border-radius:14px;
+            background:#c98f8f;
+            color:white;
+            font-size:17px;
+            font-weight:bold;
+            cursor:pointer;
+          ">
+          تأكيد الطلب
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  ;
+
+  document.body.appendChild(modal);
+
+  document
+    .getElementById("checkoutForm")
+    .addEventListener("submit", async function(e){
+
+      e.preventDefault();
+
+      const name =
+        document
+          .getElementById("customerName")
+          .value
+          .trim();
+
+      const phone =
+        document
+          .getElementById("customerPhone")
+          .value
+          .trim();
+
+      const address =
+        document
+          .getElementById("customerAddress")
+          .value
+          .trim();
+
+      const notes =
+        document
+          .getElementById("customerNotes")
+          .value
+          .trim();
+      const button =
+        document.getElementById(
+          "confirmOrderButton"
+        );
+
+      button.disabled = true;
+      button.textContent = "جاري إرسال الطلب...";
+
+      /* =========================
+         تجهيز المنتجات
+      ========================= */
+
+      const orderItems =
+        cart.map(item => {
+
+          const product =
+            allProducts.find(
+              p => p.id === item.id
+            );
+
+          if(!product) return null;
+
+          return {
+            product_id: product.id,
+            name:
+              product.name_ar ||
+              product.name ||
+              "منتج",
+            price:
+              Number(product.price || 0),
+            quantity:
+              Number(item.quantity || 1)
+          };
+
+        }).filter(Boolean);
+
+      /* =========================
+         حساب المجموع
+      ========================= */
+
+      let total = 0;
+
+      orderItems.forEach(item => {
+
+        total +=
+          item.price *
+          item.quantity;
+
+      });
+
+      /* =========================
+         حفظ الطلب في Supabase
+      ========================= */
+
+      const { error } =
+        await db
+          .from("orders")
+          .insert([{
+
+            user_id: null,
+
+            customer_name: name,
+
+            phone: phone,
+
+            shipping_address: address,
+
+            total_amount: total,
+
+            status: "جديد",
+
+            items: {
+
+              products: orderItems,
+
+              notes: notes
+
+            }
+
+          }]);
+
+      /* =========================
+         فشل الإرسال
+      ========================= */
+
+      if(error){
+
+        console.error(
+          "ORDER ERROR:",
+          error
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "تأكيد الطلب";
+
+        alert(
+          "لم يتم إرسال الطلب ❌\n\n" +
+          error.message
+        );
+
+        return;
+
+      }
+
+      /* =========================
+         نجاح الطلب
+      ========================= */
+
+      cart = [];
+
+      saveCart();
+
+      updateCartCount();
+
+      modal.remove();
+
+      renderCart();
+
+      alert(
+        "تم إرسال طلبك بنجاح ✅\n\n" +
+        "شكراً لتسوقك من ARONIA 🌸"
+      );
+
+    });
 
 }
-
-const oldForm =
-document.getElementById(
-"checkoutModal"
-);
-
-if(oldForm){
-
-oldForm.remove();
-
-}
-
-const modal =
-document.createElement(
-"div"
-);
-
-modal.id =
-"checkoutModal";
-
-modal.innerHTML = `
-
-<div style="
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.45);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:99999;
-padding:20px;
-">
-
-<div style="
-background:#fff;
-width:100%;
-max-width:500px;
-max-height:90vh;
-overflow:auto;
-border-radius:22px;
-padding:25px;
-direction:rtl;
-box-shadow:0 15px 50px rgba(0,0,0,0.2);
-">
-
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-">
-
-<h2 style="
-margin:0;
-color:#8a6666;
-">
-
-إتمام الطلب
-
-</h2>
-
-<button
-type="button"
-onclick="document.getElementById('checkoutModal').remove()"
-style="
-border:0;
-background:#f5eeee;
-width:38px;
-height:38px;
-border-radius:50%;
-font-size:22px;
-cursor:pointer;
-">
-
-×
-
-</button>
-
-</div>
-
-<form id="checkoutForm">
-
-<label>
-الاسم الكامل
-</label>
-
-<input
-id="customerName"
-type="text"
-required
-placeholder="اكتب اسمك الكامل"
-style="
-width:100%;
-padding:13px;
-margin:8px 0 16px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
-">
-
-<label>
-رقم الهاتف
-</label>
-
-<input
-id="customerPhone"
-type="tel"
-required
-placeholder="07xxxxxxxxx"
-style="
-width:100%;
-padding:13px;
-margin:8px 0 16px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
-">
-
-<label>
-العنوان
-</label>
-
-<textarea
-id="customerAddress"
-required
-placeholder="المحافظة، المنطقة، الشارع..."
-style="
-width:100%;
-padding:13px;
-margin:8px 0 16px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
-min-height:90px;
-resize:vertical;
-"></textarea>
-
-<label>
-ملاحظات الطلب
-</label>
-
-<textarea
-id="customerNotes"
-placeholder="أي ملاحظة إضافية..."
-style="
-width:100%;
-padding:13px;
-margin:8px 0 20px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
-min-height:70px;
-resize:vertical;
-"></textarea>
-
-<button
-type="submit"
-style="
-width:100%;
-padding:15px;
-border:0;
-border-radius:14px;
-background:#c98f8f;
-color:white;
-font-size:17px;
-font-weight:bold;
-cursor:pointer;
-">
-
-تأكيد الطلب
-
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-`;
-
-document.body.appendChild(
-modal
-);
-
-document
-.getElementById(
-"checkoutForm"
-)
-.addEventListener(
-"submit",
-function(e){
-
-e.preventDefault();
-
-const name =
-document
-.getElementById(
-"customerName"
-)
-.value
-.trim();
-
-const phone =
-document
-.getElementById(
-"customerPhone"
-)
-.value
-.trim();
-
-const address =
-document
-.getElementById(
-"customerAddress"
-)
-.value
-.trim();
-
-const notes =
-document
-.getElementById(
-"customerNotes"
-)
-.value
-.trim();
-
-alert(
-
-"تم استلام بيانات الطلب مبدئيًا ✅\n\n" +
-
-"الاسم: " +
-name +
-"\n" +
-
-"الهاتف: " +
-phone +
-"\n" +
-
-"العنوان: " +
-address +
-
-(notes
-?
-"\nملاحظات: " +
-notes
-:
-"")
-
-);
-
-}
-);
-
-}
-
 /* =========================
 PRODUCT DETAILS
 ========================= */
