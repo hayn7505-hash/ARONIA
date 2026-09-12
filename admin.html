@@ -582,7 +582,7 @@ id="productsTable">
 </div>
 
 <!-- =========================
-     الطلبيات
+     الطلبيات الجديدة
 ========================= -->
 
 <div class="card">
@@ -590,7 +590,7 @@ id="productsTable">
 <div class="top">
 
 <h2>
-📦 الطلبيات
+📦 الطلبيات الجديدة
 </h2>
 
 <button
@@ -770,6 +770,10 @@ location.reload();
 let products = [];
 
 let editingId = null;
+
+/* =========================
+   تحميل المنتجات
+========================= */
 
 async function loadProducts(){
 
@@ -1256,7 +1260,7 @@ await loadProducts();
 let orders = [];
 
 /* =========================
-   تحميل الطلبيات
+   تحميل الطلبيات الجديدة فقط
 ========================= */
 
 async function loadOrders(){
@@ -1288,6 +1292,7 @@ error
 await supabaseClient
 .from("orders")
 .select("*")
+.eq("status","جديد")
 .order("created_at",{
 ascending:false
 });
@@ -1329,7 +1334,7 @@ renderOrders();
 }
 
 /* =========================
-   عرض الطلبيات
+   عرض الطلبات الجديدة
 ========================= */
 
 function renderOrders(){
@@ -1340,9 +1345,19 @@ document
 "ordersContainer"
 );
 
+/*
+   الأمان هنا أيضًا:
+   نعرض فقط الطلبات التي حالتها "جديد"
+*/
+
+const newOrders =
+orders.filter(
+order =>
+order.status === "جديد"
+);
+
 if(
-!orders ||
-orders.length === 0
+newOrders.length === 0
 ){
 
 container.innerHTML = `
@@ -1353,7 +1368,7 @@ padding:40px;
 color:#888;
 ">
 
-لا توجد طلبيات حالياً 📦
+لا توجد طلبيات جديدة حالياً 📦
 
 </div>
 
@@ -1370,19 +1385,9 @@ return;
 
 }
 
-let newCount = 0;
-
 container.innerHTML = "";
 
-orders.forEach(order => {
-
-if(
-order.status === "جديد"
-){
-
-newCount++;
-
-}
+newOrders.forEach(order => {
 
 const card =
 document.createElement("div");
@@ -1530,21 +1535,11 @@ ${createdDate}
 
 </div>
 
-${
-order.status === "جديد"
-?
-`
-
 <span class="new-badge">
 
 طلب جديد
 
 </span>
-
-`
-:
-""
-}
 
 </div>
 
@@ -1650,39 +1645,35 @@ onchange="updateOrderStatus(this)">
 
 <option
 value="جديد"
-${order.status === "جديد" ? "selected" : ""}>
+selected>
 
 جديد
 
 </option>
 
 <option
-value="قيد التجهيز"
-${order.status === "قيد التجهيز" ? "selected" : ""}>
+value="قيد التجهيز">
 
 قيد التجهيز
 
 </option>
 
 <option
-value="تم الشحن"
-${order.status === "تم الشحن" ? "selected" : ""}>
+value="تم الشحن">
 
 تم الشحن
 
 </option>
 
 <option
-value="مكتمل"
-${order.status === "مكتمل" ? "selected" : ""}>
+value="مكتمل">
 
 مكتمل
 
 </option>
 
 <option
-value="ملغي"
-${order.status === "ملغي" ? "selected" : ""}>
+value="ملغي">
 
 ملغي
 
@@ -1703,7 +1694,7 @@ document
 "newOrdersCount"
 )
 .textContent =
-newCount;
+newOrders.length;
 
 }
 
@@ -1746,6 +1737,10 @@ return;
 
 }
 
+/*
+   تحديث الطلب محليًا
+*/
+
 const order =
 orders.find(
 item =>
@@ -1758,6 +1753,12 @@ order.status =
 newStatus;
 
 }
+
+/*
+   إعادة عرض القائمة.
+   بما أن الحالة لم تعد "جديد"،
+   الطلب سيختفي فورًا.
+*/
 
 renderOrders();
 
