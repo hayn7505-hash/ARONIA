@@ -2018,6 +2018,453 @@ renderOrders();
 
 }
 
+     /* ==================================================
+   BANNERS
+================================================== */
+
+let banners = [];
+
+
+/* =========================
+   تحميل البنرات
+========================= */
+
+async function loadBanners(){
+
+const container =
+document.getElementById(
+"bannersContainer"
+);
+
+if(!container) return;
+
+container.innerHTML = `
+
+<div style="
+text-align:center;
+padding:30px;
+color:#888;
+">
+
+جاري تحميل البنرات...
+
+</div>
+
+`;
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("banners")
+.select("*")
+.order("created_at",{
+ascending:false
+});
+
+if(error){
+
+console.error(
+"BANNERS ERROR:",
+error
+);
+
+container.innerHTML = `
+
+<div style="
+padding:20px;
+text-align:center;
+color:#b33;
+">
+
+فشل تحميل البنرات ❌
+
+<br><br>
+
+${escapeHTML(error.message)}
+
+</div>
+
+`;
+
+return;
+
+}
+
+banners =
+data || [];
+
+renderBanners();
+
+}
+
+
+/* =========================
+   عرض البنرات
+========================= */
+
+function renderBanners(){
+
+const container =
+document.getElementById(
+"bannersContainer"
+);
+
+if(!container) return;
+
+if(banners.length === 0){
+
+container.innerHTML = `
+
+<div style="
+text-align:center;
+padding:40px;
+color:#888;
+">
+
+لا توجد بنرات مضافة حالياً 📢
+
+</div>
+
+`;
+
+return;
+
+}
+
+container.innerHTML = "";
+
+banners.forEach(banner => {
+
+const card =
+document.createElement("div");
+
+card.className =
+"banner-card";
+
+const status =
+banner.is_active
+?
+`
+<span class="banner-status banner-active">
+فعال
+</span>
+`
+:
+`
+<span class="banner-status banner-inactive">
+غير فعال
+</span>
+`;
+
+card.innerHTML = `
+
+<img
+src="${escapeHTML(
+banner.image_url ||
+"https://placehold.co/800x300"
+)}"
+onerror="
+this.src='https://placehold.co/800x300';
+">
+
+<h3>
+
+${escapeHTML(
+banner.title || "بدون عنوان"
+)}
+
+</h3>
+
+<p>
+
+${escapeHTML(
+banner.description || ""
+)}
+
+</p>
+
+<div style="
+margin-top:10px;
+">
+
+${status}
+
+</div>
+
+<div
+class="actions"
+style="margin-top:12px;">
+
+<button
+class="edit"
+onclick="toggleBanner(${banner.id},${!banner.is_active})">
+
+${banner.is_active
+?
+"إلغاء التفعيل"
+:
+"تفعيل"}
+
+</button>
+
+<button
+class="danger"
+onclick="deleteBanner(${banner.id})">
+
+حذف
+
+</button>
+
+</div>
+
+`;
+
+container.appendChild(card);
+
+});
+
+}
+
+
+/* =========================
+   إضافة Banner
+========================= */
+
+async function saveBanner(){
+
+const imageUrl =
+document
+.getElementById("bannerImage")
+.value
+.trim();
+
+const title =
+document
+.getElementById("bannerTitle")
+.value
+.trim();
+
+const description =
+document
+.getElementById("bannerDescription")
+.value
+.trim();
+
+const link =
+document
+.getElementById("bannerLink")
+.value
+.trim();
+
+const isActive =
+document
+.getElementById("bannerActive")
+.checked;
+
+const message =
+document
+.getElementById("bannerMessage");
+
+if(!imageUrl){
+
+message.textContent =
+"أدخل رابط صورة الـ Banner.";
+
+return;
+
+}
+
+message.textContent =
+"جاري إضافة الـ Banner...";
+
+const {
+error
+} =
+await supabaseClient
+.from("banners")
+.insert({
+
+image_url:imageUrl,
+
+title:title,
+
+description:description,
+
+link:link,
+
+is_active:isActive
+
+});
+
+if(error){
+
+message.textContent =
+"حدث خطأ: " +
+error.message;
+
+return;
+
+}
+
+message.textContent =
+"تمت إضافة الـ Banner ✅";
+
+document
+.getElementById("bannerImage")
+.value = "";
+
+document
+.getElementById("bannerTitle")
+.value = "";
+
+document
+.getElementById("bannerDescription")
+.value = "";
+
+document
+.getElementById("bannerLink")
+.value = "";
+
+document
+.getElementById("bannerActive")
+.checked = true;
+
+document
+.getElementById("bannerPreview")
+.style
+.display = "none";
+
+await loadBanners();
+
+}
+
+
+/* =========================
+   تفعيل / إلغاء تفعيل
+========================= */
+
+async function toggleBanner(
+id,
+newStatus
+){
+
+const {
+error
+} =
+await supabaseClient
+.from("banners")
+.update({
+is_active:newStatus
+})
+.eq("id",id);
+
+if(error){
+
+alert(
+"فشل تحديث حالة الـ Banner:\n\n" +
+error.message
+);
+
+return;
+
+}
+
+await loadBanners();
+
+}
+
+
+/* =========================
+   حذف Banner
+========================= */
+
+async function deleteBanner(id){
+
+if(
+!confirm(
+"هل تريد حذف هذا الـ Banner؟"
+)
+) return;
+
+const {
+error
+} =
+await supabaseClient
+.from("banners")
+.delete()
+.eq("id",id);
+
+if(error){
+
+alert(
+"فشل حذف الـ Banner:\n\n" +
+error.message
+);
+
+return;
+
+}
+
+await loadBanners();
+
+}
+
+
+/* =========================
+   معاينة صورة Banner
+========================= */
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+const input =
+document.getElementById(
+"bannerImage"
+);
+
+const preview =
+document.getElementById(
+"bannerPreview"
+);
+
+if(!input || !preview) return;
+
+input.addEventListener(
+"input",
+function(){
+
+const url =
+this.value.trim();
+
+if(!url){
+
+preview.style.display =
+"none";
+
+return;
+
+}
+
+preview.src = url;
+
+preview.style.display =
+"block";
+
+preview.onerror =
+function(){
+
+preview.style.display =
+"none";
+
+};
+
+});
+
+});
+     
 /* =========================
    حماية HTML
 ========================= */
