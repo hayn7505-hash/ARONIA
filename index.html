@@ -107,7 +107,8 @@ border:0;
 }
 
 input,
-textarea{
+textarea,
+select{
 font-family:inherit;
 }
 
@@ -1785,6 +1786,158 @@ word-break:break-word;
 }
 
 /* =====================================================
+   GENDER SELECT
+===================================================== */
+
+.gender-title{
+
+font-size:13px;
+
+color:var(--heading);
+
+text-align:right;
+
+margin:8px 2px 7px;
+
+}
+
+.gender-options{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:10px;
+
+margin-bottom:10px;
+
+}
+
+.gender-option{
+
+padding:13px 8px;
+
+border:1px solid var(--border);
+
+border-radius:13px;
+
+background:var(--card);
+
+color:var(--text);
+
+font-size:14px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.gender-option.selected{
+
+background:var(--primary);
+
+border-color:var(--primary);
+
+color:white;
+
+}
+
+/* =====================================================
+   GENDER MODAL
+===================================================== */
+
+.gender-overlay{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.55);
+
+z-index:20000;
+
+display:none;
+
+align-items:center;
+
+justify-content:center;
+
+padding:20px;
+
+}
+
+.gender-overlay.show{
+
+display:flex;
+
+}
+
+.gender-box{
+
+width:100%;
+
+max-width:420px;
+
+background:var(--card);
+
+border-radius:25px;
+
+padding:25px 20px;
+
+text-align:center;
+
+box-shadow:0 15px 50px rgba(0,0,0,.2);
+
+}
+
+.gender-box h2{
+
+color:var(--heading);
+
+font-size:20px;
+
+margin-bottom:10px;
+
+}
+
+.gender-box p{
+
+color:var(--text-soft);
+
+font-size:13px;
+
+line-height:1.8;
+
+margin-bottom:20px;
+
+}
+
+.gender-box .gender-options{
+
+margin-bottom:15px;
+
+}
+
+.gender-save{
+
+width:100%;
+
+padding:14px;
+
+border-radius:14px;
+
+background:var(--primary);
+
+color:white;
+
+font-size:15px;
+
+font-weight:bold;
+
+}
+
+/* =====================================================
    CHECKOUT
 ===================================================== */
 
@@ -2065,6 +2218,10 @@ onclick="showSignup()">
 
 </div>
 
+<!-- =====================================================
+     SIGNUP
+===================================================== -->
+
 <div
 id="authSignupForm"
 style="display:none;">
@@ -2082,6 +2239,34 @@ class="auth-input"
 type="password"
 placeholder="كلمة المرور"
 autocomplete="new-password">
+
+<div class="gender-title">
+الجنس
+</div>
+
+<div class="gender-options">
+
+<button
+type="button"
+id="signupMale"
+class="gender-option"
+onclick="selectSignupGender('male')">
+
+ذكر
+
+</button>
+
+<button
+type="button"
+id="signupFemale"
+class="gender-option"
+onclick="selectSignupGender('female')">
+
+أنثى
+
+</button>
+
+</div>
 
 <button
 class="auth-main-btn"
@@ -2105,6 +2290,60 @@ onclick="showLogin()">
 id="authMessage"
 class="auth-message">
 </div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     GENDER MODAL
+===================================================== -->
+
+<div
+id="genderOverlay"
+class="gender-overlay">
+
+<div class="gender-box">
+
+<h2>
+اختر الجنس
+</h2>
+
+<p>
+يساعدنا اختيار الجنس على عرض بعض الرسائل والنصوص بطريقة مناسبة لك.
+</p>
+
+<div class="gender-options">
+
+<button
+type="button"
+id="genderMale"
+class="gender-option"
+onclick="selectGenderModal('male')">
+
+ذكر
+
+</button>
+
+<button
+type="button"
+id="genderFemale"
+class="gender-option"
+onclick="selectGenderModal('female')">
+
+أنثى
+
+</button>
+
+</div>
+
+<button
+class="gender-save"
+onclick="saveGenderFromModal()">
+
+متابعة
+
+</button>
 
 </div>
 
@@ -2157,16 +2396,17 @@ class="page active">
 
 <section class="hero">
 
-<h1>
+<h1 id="heroTitle">
 جمالك يبدأ من هنا ✨
 </h1>
 
-<p>
+<p id="heroText">
 اكتشفي منتجات العناية بالبشرة والجمال
 المختارة بعناية لتناسب روتينك اليومي.
 </p>
 
 <button
+id="shopButton"
 class="shop-btn"
 onclick="showAllProducts()">
 
@@ -2504,9 +2744,7 @@ onclick="showPage('home')">
 
 </div>
 
-<!-- =====================================================
-     APPEARANCE
-===================================================== -->
+<!-- APPEARANCE -->
 
 <div class="settings-group">
 
@@ -2551,9 +2789,7 @@ onchange="toggleDarkMode(this.checked)">
 
 </div>
 
-<!-- =====================================================
-     NOTIFICATIONS
-===================================================== -->
+<!-- NOTIFICATIONS -->
 
 <div class="settings-group">
 
@@ -2598,9 +2834,7 @@ onchange="toggleNotifications(this.checked)">
 
 </div>
 
-<!-- =====================================================
-     FAVORITES
-===================================================== -->
+<!-- FAVORITES -->
 
 <div class="settings-group">
 
@@ -2622,8 +2856,8 @@ onchange="toggleNotifications(this.checked)">
 منتجاتي المفضلة
 </strong>
 
-<small>
-عرض المنتجات التي أضفتِها إلى المفضلة
+<small id="favoritesDescription">
+عرض المنتجات التي أضفتها إلى المفضلة
 </small>
 
 </div>
@@ -2655,9 +2889,7 @@ id="settingsFavoritesContainer">
 
 </div>
 
-<!-- =====================================================
-     ACCOUNT
-===================================================== -->
+<!-- ACCOUNT -->
 
 <div class="settings-group">
 
@@ -2716,7 +2948,7 @@ class="settings-panel">
 id="accountWelcome"
 style="margin-top:10px;color:var(--text-soft);">
 
-أهلاً بكِ في ARONIA
+أهلاً بك في ARONIA
 
 </p>
 
@@ -2762,9 +2994,7 @@ onclick="openAdmin()">
 
 </div>
 
-<!-- =====================================================
-     RESET
-===================================================== -->
+<!-- RESET -->
 
 <div class="settings-group">
 
@@ -2965,6 +3195,14 @@ let currentUser = null;
 let isAdminUser = false;
 
 /* =====================================================
+   GENDER
+===================================================== */
+
+let selectedSignupGender = "";
+
+let selectedGenderModal = "";
+
+/* =====================================================
    DEFAULT IMAGE
 ===================================================== */
 
@@ -2982,6 +3220,329 @@ Number(value || 0);
 
 return number.toLocaleString("en-US") +
 " د.ع";
+
+}
+
+/* =====================================================
+   GENDER HELPERS
+===================================================== */
+
+function getUserGender(){
+
+if(!currentUser){
+
+return "";
+
+}
+
+const gender =
+currentUser.user_metadata?.gender;
+
+if(
+gender === "male" ||
+gender === "female"
+){
+
+return gender;
+
+}
+
+return "";
+
+}
+
+function isFemale(){
+
+return getUserGender() === "female";
+
+}
+
+function genderText(maleText,femaleText){
+
+return isFemale()
+?
+femaleText
+:
+maleText;
+
+}
+
+/* =====================================================
+   UPDATE TEXTS BY GENDER
+===================================================== */
+
+function updateGenderTexts(){
+
+const gender =
+getUserGender();
+
+const heroTitle =
+document.getElementById("heroTitle");
+
+const heroText =
+document.getElementById("heroText");
+
+const shopButton =
+document.getElementById("shopButton");
+
+const homeSearch =
+document.getElementById("homeSearch");
+
+const accountWelcome =
+document.getElementById("accountWelcome");
+
+const favoritesDescription =
+document.getElementById("favoritesDescription");
+
+if(heroTitle){
+
+heroTitle.textContent =
+"جمالك يبدأ من هنا ✨";
+
+}
+
+if(heroText){
+
+heroText.textContent =
+gender === "male"
+?
+"اكتشف منتجات العناية بالبشرة والجمال المختارة بعناية لتناسب روتينك اليومي."
+:
+"اكتشفي منتجات العناية بالبشرة والجمال المختارة بعناية لتناسب روتينك اليومي.";
+
+}
+
+if(shopButton){
+
+shopButton.textContent =
+gender === "male"
+?
+"تسوق الآن"
+:
+"تسوقي الآن";
+
+}
+
+if(homeSearch){
+
+homeSearch.placeholder =
+gender === "male"
+?
+"ابحث عن منتج..."
+:
+"ابحثي عن منتج...";
+
+}
+
+if(accountWelcome){
+
+if(currentUser){
+
+accountWelcome.textContent =
+gender === "male"
+?
+"أهلاً بك في ARONIA 🌿"
+:
+"أهلاً بكِ في ARONIA 🌸";
+
+}else{
+
+accountWelcome.textContent =
+"أهلاً بك في ARONIA";
+
+}
+
+}
+
+if(favoritesDescription){
+
+favoritesDescription.textContent =
+gender === "male"
+?
+"عرض المنتجات التي أضفتها إلى المفضلة"
+:
+"عرض المنتجات التي أضفتِها إلى المفضلة";
+
+}
+
+}
+
+/* =====================================================
+   GENDER SIGNUP
+===================================================== */
+
+function selectSignupGender(gender){
+
+selectedSignupGender =
+gender;
+
+const male =
+document.getElementById("signupMale");
+
+const female =
+document.getElementById("signupFemale");
+
+if(male){
+
+male.classList.toggle(
+"selected",
+gender === "male"
+);
+
+}
+
+if(female){
+
+female.classList.toggle(
+"selected",
+gender === "female"
+);
+
+}
+
+}
+
+/* =====================================================
+   GENDER MODAL
+===================================================== */
+
+function selectGenderModal(gender){
+
+selectedGenderModal =
+gender;
+
+const male =
+document.getElementById("genderMale");
+
+const female =
+document.getElementById("genderFemale");
+
+if(male){
+
+male.classList.toggle(
+"selected",
+gender === "male"
+);
+
+}
+
+if(female){
+
+female.classList.toggle(
+"selected",
+gender === "female"
+);
+
+}
+
+}
+
+function showGenderModal(){
+
+selectedGenderModal = "";
+
+const male =
+document.getElementById("genderMale");
+
+const female =
+document.getElementById("genderFemale");
+
+if(male){
+
+male.classList.remove("selected");
+
+}
+
+if(female){
+
+female.classList.remove("selected");
+
+}
+
+const overlay =
+document.getElementById("genderOverlay");
+
+if(overlay){
+
+overlay.classList.add("show");
+
+}
+
+}
+
+function hideGenderModal(){
+
+const overlay =
+document.getElementById("genderOverlay");
+
+if(overlay){
+
+overlay.classList.remove("show");
+
+}
+
+}
+
+async function saveGenderFromModal(){
+
+if(
+!selectedGenderModal
+){
+
+alert(
+"يرجى اختيار الجنس أولاً."
+);
+
+return;
+
+}
+
+if(!currentUser){
+
+hideGenderModal();
+
+return;
+
+}
+
+const {
+data,
+error
+} =
+await db.auth.updateUser({
+
+data:{
+gender:selectedGenderModal
+}
+
+});
+
+if(error){
+
+console.error(
+"GENDER UPDATE ERROR:",
+error
+);
+
+alert(
+"تعذر حفظ الاختيار ❌\n\n" +
+error.message
+);
+
+return;
+
+}
+
+if(data && data.user){
+
+currentUser =
+data.user;
+
+}
+
+hideGenderModal();
+
+updateGenderTexts();
 
 }
 
@@ -3043,8 +3604,10 @@ function toggleDarkMode(enabled){
 localStorage.setItem(
 "aronia_theme",
 enabled
-? "dark"
-: "light"
+?
+"dark"
+:
+"light"
 );
 
 applyDarkMode(enabled);
@@ -3056,8 +3619,10 @@ function toggleNotifications(enabled){
 localStorage.setItem(
 "aronia_notifications",
 enabled
-? "on"
-: "off"
+?
+"on"
+:
+"off"
 );
 
 }
@@ -3086,13 +3651,15 @@ document.getElementById(
 
 if(darkToggle){
 
-darkToggle.checked = false;
+darkToggle.checked =
+false;
 
 }
 
 if(notificationToggle){
 
-notificationToggle.checked = true;
+notificationToggle.checked =
+true;
 
 }
 
@@ -3234,6 +3801,26 @@ document.getElementById(
 ).style.display =
 "block";
 
+selectedSignupGender = "";
+
+const male =
+document.getElementById("signupMale");
+
+const female =
+document.getElementById("signupFemale");
+
+if(male){
+
+male.classList.remove("selected");
+
+}
+
+if(female){
+
+female.classList.remove("selected");
+
+}
+
 setAuthMessage("");
 
 }
@@ -3299,6 +3886,23 @@ hideAuthOverlay();
 
 updateAccountUI();
 
+updateGenderTexts();
+
+/*
+   إذا الحساب القديم لا يحتوي الجنس،
+   نطلب تحديده.
+*/
+
+if(!getUserGender()){
+
+setTimeout(() => {
+
+showGenderModal();
+
+},300);
+
+}
+
 }
 
 /* =====================================================
@@ -3337,6 +3941,19 @@ return;
 
 }
 
+if(
+selectedSignupGender !== "male" &&
+selectedSignupGender !== "female"
+){
+
+setAuthMessage(
+"يرجى اختيار الجنس."
+);
+
+return;
+
+}
+
 setAuthMessage(
 "جاري إنشاء الحساب..."
 );
@@ -3348,7 +3965,18 @@ error
 await db.auth.signUp({
 
 email,
-password
+password,
+
+options:{
+
+data:{
+
+gender:
+selectedSignupGender
+
+}
+
+}
 
 });
 
@@ -3363,7 +3991,10 @@ return;
 
 }
 
-if(data.session && data.user){
+if(
+data.session &&
+data.user
+){
 
 currentUser =
 data.user;
@@ -3373,6 +4004,8 @@ await checkAdminStatus();
 hideAuthOverlay();
 
 updateAccountUI();
+
+updateGenderTexts();
 
 alert(
 "تم إنشاء الحساب بنجاح ✅"
@@ -3570,6 +4203,10 @@ return;
 if(currentUser){
 
 welcome.textContent =
+getUserGender() === "male"
+?
+"أهلاً بك في ARONIA 🌿"
+:
 "أهلاً بكِ في ARONIA 🌸";
 
 emailElement.textContent =
@@ -3596,7 +4233,7 @@ adminButton.style.display =
 }else{
 
 welcome.textContent =
-"أهلاً بكِ في ARONIA";
+"أهلاً بك في ARONIA";
 
 emailElement.textContent =
 "";
@@ -3627,6 +4264,8 @@ currentUser = null;
 isAdminUser = false;
 
 updateAccountUI();
+
+updateGenderTexts();
 
 showAuthOverlay();
 
@@ -3659,6 +4298,23 @@ hideAuthOverlay();
 
 updateAccountUI();
 
+updateGenderTexts();
+
+/*
+   Google أو أي حساب قديم
+   بدون gender
+*/
+
+if(!getUserGender()){
+
+setTimeout(() => {
+
+showGenderModal();
+
+},500);
+
+}
+
 }else{
 
 currentUser = null;
@@ -3670,6 +4326,8 @@ showAuthOverlay();
 showLogin();
 
 updateAccountUI();
+
+updateGenderTexts();
 
 }
 
@@ -3689,6 +4347,16 @@ await checkAdminStatus();
 hideAuthOverlay();
 
 updateAccountUI();
+
+updateGenderTexts();
+
+if(
+!getUserGender()
+){
+
+showGenderModal();
+
+}
 
 if(
 document
@@ -3710,6 +4378,8 @@ currentUser = null;
 isAdminUser = false;
 
 updateAccountUI();
+
+updateGenderTexts();
 
 }
 
@@ -3898,7 +4568,8 @@ document.createElement("div");
 card.className =
 "product-card";
 
-/* مهم جداً:
+/*
+   مهم جداً:
    الصورة من product.image
 */
 
@@ -4273,6 +4944,10 @@ updateCartCount();
 renderCart();
 
 alert(
+getUserGender() === "male"
+?
+"تمت إضافة المنتج إلى السلة 🛒"
+:
 "تمت إضافة المنتج إلى السلة 🛒"
 );
 
@@ -4636,7 +5311,7 @@ onclick="document.getElementById('checkoutModal').remove()">
 id="customerName"
 type="text"
 required
-placeholder="اكتب اسمك الكامل">
+placeholder="${getUserGender() === "male" ? "اكتب اسمك الكامل" : "اكتبي اسمك الكامل"}">
 
 <label>
 رقم الهاتف
@@ -4655,7 +5330,7 @@ placeholder="07xxxxxxxxx">
 <textarea
 id="customerAddress"
 required
-placeholder="المحافظة، المنطقة، الشارع..."></textarea>
+placeholder="${getUserGender() === "male" ? "المحافظة، المنطقة، الشارع..." : "المحافظة، المنطقة، الشارع..."}"></textarea>
 
 <label>
 ملاحظات الطلب
@@ -4663,7 +5338,7 @@ placeholder="المحافظة، المنطقة، الشارع..."></textarea>
 
 <textarea
 id="customerNotes"
-placeholder="أي ملاحظة إضافية..."></textarea>
+placeholder="${getUserGender() === "male" ? "أي ملاحظة إضافية..." : "أي ملاحظة إضافية..."}"></textarea>
 
 <button
 id="confirmOrderButton"
@@ -4701,6 +5376,10 @@ currentUser
 "";
 
 }
+
+/* =================================================
+   CHECKOUT FORM
+================================================= */
 
 document
 .getElementById("checkoutForm")
@@ -4896,7 +5575,7 @@ return;
 
 /* =================================================
    SUCCESS
-================================================= */
+===================================================== */
 
 cart = [];
 
@@ -5355,8 +6034,7 @@ function showPage(page){
 
 /*
    دعم قديم:
-   إذا أي كود قديم استدعى favorites/account/search
-   نوجّهه للمكان الجديد بدون كسر الموقع.
+   favorites/account/search
 */
 
 if(page === "favorites"){
