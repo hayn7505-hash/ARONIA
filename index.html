@@ -4587,6 +4587,8 @@ const isFavorite =
 favorites.includes(
 product.id
 );
+   const stock = Number(product.stock || 0);
+const isOutOfStock = stock <= 0;
 
 card.innerHTML = `
 
@@ -4629,9 +4631,10 @@ ${isFavorite ? "❤️" : "♡"}
 
 <button
 class="add-btn"
-onclick="addToCart(${product.id})">
+onclick="${isOutOfStock ? "" : addToCart(${product.id})}"
+${isOutOfStock ? "disabled" : ""}>
 
-أضف إلى السلة
+${isOutOfStock ? "غير متوفر" : "أضف إلى السلة"}
 
 </button>
 
