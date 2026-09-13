@@ -6444,11 +6444,12 @@ START
     return;
   }
 
-  const banner = data && data.length
-    ? data[0]
-    : null;
+  const banner =
+    data && data.length
+      ? data[0]
+      : null;
 
-  if(!banner){
+  if(!banner || !banner.image_url){
 
     container.innerHTML = "";
     container.style.display = "none";
@@ -6463,44 +6464,22 @@ START
     <div class="aronia-banner">
 
       ${
-        banner.image_url
+        banner.link
         ? `
+          <a href="${banner.link}">
+            <img
+              src="${banner.image_url}"
+              alt="ARONIA Banner"
+            >
+          </a>
+        `
+        : `
           <img
             src="${banner.image_url}"
-            alt="${banner.title || "ARONIA"}"
+            alt="ARONIA Banner"
           >
         `
-        : ""
       }
-
-      <div class="banner-content">
-
-        ${
-          banner.title
-          ? `<h2>${banner.title}</h2>`
-          : ""
-        }
-
-        ${
-          banner.description
-          ? `<p>${banner.description}</p>`
-          : ""
-        }
-
-        ${
-          banner.link
-          ? `
-            <a
-              href="${banner.link}"
-              class="banner-btn"
-            >
-              احصل عليه الآن
-            </a>
-          `
-          : ""
-        }
-
-      </div>
 
     </div>
 
