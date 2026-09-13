@@ -23,6 +23,7 @@ content="width=device-width, initial-scale=1.0">
 --bg:#fffaf8;
 --card:#ffffff;
 --card-soft:#fff5f2;
+
 --text:#4b4140;
 --text-soft:#796c69;
 --heading:#5d4d4a;
@@ -51,6 +52,7 @@ body.dark-mode{
 --bg:#171414;
 --card:#241f1e;
 --card-soft:#302827;
+
 --text:#f2e9e6;
 --text-soft:#b9aaa6;
 --heading:#f4e8e4;
@@ -73,17 +75,13 @@ body.dark-mode{
 ===================================================== */
 
 *{
-
 box-sizing:border-box;
 margin:0;
 padding:0;
-
 }
 
 html{
-
 scroll-behavior:smooth;
-
 }
 
 body{
@@ -97,28 +95,20 @@ color:var(--text);
 padding-bottom:85px;
 
 transition:
-
 background .25s ease,
-
 color .25s ease;
 
 }
 
 button{
-
 font-family:inherit;
-
 cursor:pointer;
-
 border:0;
-
 }
 
 input,
 textarea{
-
 font-family:inherit;
-
 }
 
 /* =====================================================
@@ -166,14 +156,6 @@ display:flex;
 align-items:center;
 
 gap:15px;
-
-}
-
-.header-search{
-
-font-size:23px;
-
-cursor:pointer;
 
 }
 
@@ -228,15 +210,10 @@ padding:32px 24px;
 border-radius:26px;
 
 background:
-
 linear-gradient(
-
 135deg,
-
 #f8e8e3,
-
 #f4eee7
-
 );
 
 position:relative;
@@ -248,15 +225,10 @@ overflow:hidden;
 body.dark-mode .hero{
 
 background:
-
 linear-gradient(
-
 135deg,
-
 #3a2927,
-
 #302624
-
 );
 
 }
@@ -288,9 +260,7 @@ margin-bottom:12px;
 }
 
 body.dark-mode .hero h1{
-
 color:#f3dfda;
-
 }
 
 .hero p{
@@ -308,9 +278,7 @@ max-width:400px;
 }
 
 body.dark-mode .hero p{
-
 color:#cdbdb9;
-
 }
 
 .shop-btn{
@@ -325,6 +293,74 @@ border-radius:25px;
 
 font-size:15px;
 
+}
+
+/* =====================================================
+   HOME SEARCH
+===================================================== */
+
+.home-search-box{
+
+margin-top:18px;
+
+position:relative;
+
+width:100%;
+
+}
+
+.home-search-box span{
+
+position:absolute;
+
+right:15px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+font-size:20px;
+
+color:var(--text-soft);
+
+pointer-events:none;
+
+}
+
+.home-search-box input{
+
+width:100%;
+
+height:52px;
+
+padding:0 48px 0 18px;
+
+border:1px solid var(--border);
+
+border-radius:14px;
+
+outline:none;
+
+background:var(--card);
+
+color:var(--text);
+
+font-size:14px;
+
+box-shadow:0 3px 12px rgba(0,0,0,.04);
+
+}
+
+.home-search-box input:focus{
+
+border-color:var(--accent);
+
+box-shadow:0 4px 16px rgba(201,141,130,.12);
+
+}
+
+.home-search-box input::placeholder{
+color:var(--text-soft);
 }
 
 /* =====================================================
@@ -422,44 +458,6 @@ margin-bottom:8px;
 font-size:12px;
 
 color:var(--text);
-
-}
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-.search-box{
-
-margin:5px 0 18px;
-
-position:relative;
-
-}
-
-.search-box input{
-
-width:100%;
-
-padding:14px 18px;
-
-border:1px solid var(--border);
-
-border-radius:25px;
-
-outline:none;
-
-background:var(--card);
-
-color:var(--text);
-
-font-size:14px;
-
-}
-
-.search-box input:focus{
-
-border-color:var(--accent);
 
 }
 
@@ -1086,114 +1084,6 @@ line-height:1.8;
 }
 
 /* =====================================================
-   ACCOUNT
-===================================================== */
-
-.account-box{
-
-margin:20px;
-
-background:var(--card);
-
-border-radius:22px;
-
-padding:30px 20px;
-
-text-align:center;
-
-box-shadow:var(--shadow);
-
-border:1px solid var(--border);
-
-}
-
-.account-icon{
-
-font-size:50px;
-
-margin-bottom:15px;
-
-}
-
-.account-box h2{
-
-color:var(--heading);
-
-}
-
-.account-user{
-
-margin-top:10px;
-
-color:var(--text-soft);
-
-}
-
-.account-buttons{
-
-margin-top:20px;
-
-display:flex;
-
-flex-direction:column;
-
-gap:10px;
-
-}
-
-.account-action{
-
-width:100%;
-
-padding:13px;
-
-border-radius:14px;
-
-background:var(--card-soft);
-
-color:var(--text);
-
-font-size:14px;
-
-}
-
-.account-action.primary{
-
-background:var(--primary);
-
-color:white;
-
-}
-
-.admin-btn{
-
-padding:13px;
-
-border-radius:14px;
-
-background:#eee1dd;
-
-color:#745d58;
-
-display:none;
-
-}
-
-.logout-btn{
-
-padding:13px;
-
-border-radius:14px;
-
-background:#f3dfdc;
-
-color:#a15e5e;
-
-display:none;
-
-}
-
-/* =====================================================
    SETTINGS
 ===================================================== */
 
@@ -1330,6 +1220,162 @@ line-height:1.5;
 }
 
 /* =====================================================
+   SETTINGS PANELS
+===================================================== */
+
+.settings-panel{
+
+display:none;
+
+margin-top:10px;
+
+margin-bottom:15px;
+
+}
+
+.settings-panel.show{
+
+display:block;
+
+}
+
+.settings-panel .products{
+
+padding-top:5px;
+
+}
+
+.settings-action{
+
+width:100%;
+
+padding:14px;
+
+border-radius:14px;
+
+background:var(--card-soft);
+
+color:var(--text);
+
+font-size:14px;
+
+text-align:right;
+
+}
+
+.settings-action:active{
+
+transform:scale(.99);
+
+}
+
+/* =====================================================
+   ACCOUNT
+===================================================== */
+
+.account-box{
+
+background:var(--card);
+
+border-radius:22px;
+
+padding:25px 20px;
+
+text-align:center;
+
+box-shadow:var(--shadow);
+
+border:1px solid var(--border);
+
+}
+
+.account-icon{
+
+font-size:50px;
+
+margin-bottom:15px;
+
+}
+
+.account-box h2{
+
+color:var(--heading);
+
+}
+
+.account-user{
+
+margin-top:10px;
+
+color:var(--text-soft);
+
+}
+
+.account-buttons{
+
+margin-top:20px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+.account-action{
+
+width:100%;
+
+padding:13px;
+
+border-radius:14px;
+
+background:var(--card-soft);
+
+color:var(--text);
+
+font-size:14px;
+
+}
+
+.account-action.primary{
+
+background:var(--primary);
+
+color:white;
+
+}
+
+.admin-btn{
+
+padding:13px;
+
+border-radius:14px;
+
+background:#eee1dd;
+
+color:#745d58;
+
+display:none;
+
+}
+
+.logout-btn{
+
+padding:13px;
+
+border-radius:14px;
+
+background:#f3dfdc;
+
+color:#a15e5e;
+
+display:none;
+
+}
+
+/* =====================================================
    TOGGLE
 ===================================================== */
 
@@ -1408,7 +1454,7 @@ transform:translateX(-22px);
 }
 
 /* =====================================================
-   RESET SETTINGS
+   RESET
 ===================================================== */
 
 .reset-settings{
@@ -1938,7 +1984,7 @@ height:230px;
 }
 
 /* =====================================================
-   DARK INPUT AUTOFILL
+   DARK AUTOFILL
 ===================================================== */
 
 body.dark-mode input:-webkit-autofill{
@@ -2082,14 +2128,6 @@ ARONIA
 <div class="header-actions">
 
 <div
-class="header-search"
-onclick="showPage('search')">
-
-⌕
-
-</div>
-
-<div
 class="cart-top"
 onclick="showPage('cart')">
 
@@ -2136,7 +2174,46 @@ onclick="showAllProducts()">
 
 </button>
 
+<div class="home-search-box">
+
+<span>
+🔍
+</span>
+
+<input
+id="homeSearch"
+type="search"
+placeholder="ابحثي عن منتج..."
+autocomplete="off">
+
+</div>
+
 </section>
+
+<!-- SEARCH RESULTS -->
+
+<section
+class="section"
+id="homeSearchResultsSection"
+style="display:none;">
+
+<div class="title">
+
+<h2>
+نتائج البحث
+</h2>
+
+</div>
+
+<div
+class="products"
+id="homeSearchResults">
+
+</div>
+
+</section>
+
+<!-- CATEGORIES -->
 
 <section class="section">
 
@@ -2218,6 +2295,8 @@ onclick="filterProducts('العطور')">
 
 </section>
 
+<!-- FEATURED -->
+
 <section class="section">
 
 <div class="title">
@@ -2251,7 +2330,7 @@ id="productsContainer">
 </div>
 
 <!-- =====================================================
-     CATEGORIES
+     CATEGORIES PAGE
 ===================================================== -->
 
 <div
@@ -2359,73 +2438,7 @@ id="categoryProducts">
 </div>
 
 <!-- =====================================================
-     SEARCH
-===================================================== -->
-
-<div
-id="searchPage"
-class="page">
-
-<section class="section">
-
-<div class="title">
-
-<h2>
-البحث
-</h2>
-
-</div>
-
-<div class="search-box">
-
-<input
-type="text"
-id="searchInput"
-placeholder="ابحثي عن منتج..."
-oninput="searchProducts()">
-
-</div>
-
-<div
-class="products"
-id="searchProductsContainer">
-
-</div>
-
-</section>
-
-</div>
-
-<!-- =====================================================
-     FAVORITES
-===================================================== -->
-
-<div
-id="favoritesPage"
-class="page">
-
-<section class="section">
-
-<div class="title">
-
-<h2>
-المفضلة ❤️
-</h2>
-
-</div>
-
-<div
-class="products"
-id="favoritesContainer">
-
-</div>
-
-</section>
-
-</div>
-
-<!-- =====================================================
-     CART
+     CART PAGE
 ===================================================== -->
 
 <div
@@ -2442,8 +2455,7 @@ class="page">
 
 </div>
 
-<div
-id="cartContainer">
+<div id="cartContainer">
 </div>
 
 <div class="orders-section">
@@ -2467,81 +2479,7 @@ id="cartContainer">
 </div>
 
 <!-- =====================================================
-     ACCOUNT
-===================================================== -->
-
-<div
-id="accountPage"
-class="page">
-
-<div class="account-box">
-
-<div class="account-icon">
-👤
-</div>
-
-<h2>
-حسابي
-</h2>
-
-<p
-id="accountWelcome"
-style="margin-top:10px;color:var(--text-soft);">
-
-أهلاً بكِ في ARONIA
-
-</p>
-
-<div
-id="accountUserEmail"
-class="auth-user">
-</div>
-
-<div class="account-buttons">
-
-<button
-class="account-action"
-onclick="showPage('settings')">
-
-⚙️ الإعدادات
-
-</button>
-
-<button
-id="accountLogin"
-class="account-action primary"
-onclick="showAuthOverlay();showLogin();">
-
-🔐 تسجيل الدخول
-
-</button>
-
-<button
-id="accountLogout"
-class="logout-btn"
-onclick="logoutUser()">
-
-تسجيل الخروج
-
-</button>
-
-<button
-id="adminButton"
-class="admin-btn"
-onclick="openAdmin()">
-
-🛠️ لوحة المدير
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =====================================================
-     SETTINGS
+     SETTINGS PAGE
 ===================================================== -->
 
 <div
@@ -2554,7 +2492,7 @@ class="page">
 
 <button
 class="settings-back"
-onclick="showPage('account')">
+onclick="showPage('home')">
 
 ‹
 
@@ -2565,6 +2503,10 @@ onclick="showPage('account')">
 </h2>
 
 </div>
+
+<!-- =====================================================
+     APPEARANCE
+===================================================== -->
 
 <div class="settings-group">
 
@@ -2609,6 +2551,10 @@ onchange="toggleDarkMode(this.checked)">
 
 </div>
 
+<!-- =====================================================
+     NOTIFICATIONS
+===================================================== -->
+
 <div class="settings-group">
 
 <div class="settings-label">
@@ -2651,6 +2597,174 @@ onchange="toggleNotifications(this.checked)">
 </div>
 
 </div>
+
+<!-- =====================================================
+     FAVORITES
+===================================================== -->
+
+<div class="settings-group">
+
+<div class="settings-label">
+المفضلة
+</div>
+
+<div class="setting-row">
+
+<div class="setting-info">
+
+<div class="setting-icon">
+❤️
+</div>
+
+<div class="setting-text">
+
+<strong>
+منتجاتي المفضلة
+</strong>
+
+<small>
+عرض المنتجات التي أضفتِها إلى المفضلة
+</small>
+
+</div>
+
+</div>
+
+<button
+class="settings-action"
+style="width:auto;padding:9px 13px;"
+onclick="toggleSettingsPanel('favorites')">
+
+عرض
+
+</button>
+
+</div>
+
+<div
+id="settingsFavoritesPanel"
+class="settings-panel">
+
+<div
+class="products"
+id="settingsFavoritesContainer">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     ACCOUNT
+===================================================== -->
+
+<div class="settings-group">
+
+<div class="settings-label">
+الحساب
+</div>
+
+<div class="setting-row">
+
+<div class="setting-info">
+
+<div class="setting-icon">
+👤
+</div>
+
+<div class="setting-text">
+
+<strong>
+حسابي
+</strong>
+
+<small>
+تسجيل الدخول والحساب ولوحة المدير
+</small>
+
+</div>
+
+</div>
+
+<button
+class="settings-action"
+style="width:auto;padding:9px 13px;"
+onclick="toggleSettingsPanel('account')">
+
+عرض
+
+</button>
+
+</div>
+
+<div
+id="settingsAccountPanel"
+class="settings-panel">
+
+<div class="account-box">
+
+<div class="account-icon">
+👤
+</div>
+
+<h2>
+حسابي
+</h2>
+
+<p
+id="accountWelcome"
+style="margin-top:10px;color:var(--text-soft);">
+
+أهلاً بكِ في ARONIA
+
+</p>
+
+<div
+id="accountUserEmail"
+class="auth-user">
+</div>
+
+<div class="account-buttons">
+
+<button
+id="accountLogin"
+class="account-action primary"
+onclick="showAuthOverlay();showLogin();">
+
+🔐 تسجيل الدخول
+
+</button>
+
+<button
+id="accountLogout"
+class="logout-btn"
+onclick="logoutUser()">
+
+تسجيل الخروج
+
+</button>
+
+<button
+id="adminButton"
+class="admin-btn"
+onclick="openAdmin()">
+
+🛠️ لوحة المدير
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     RESET
+===================================================== -->
 
 <div class="settings-group">
 
@@ -2708,7 +2822,9 @@ class="nav-item active"
 id="navHome"
 onclick="showPage('home')">
 
-<span>⌂</span>
+<span>
+⌂
+</span>
 
 الرئيسية
 
@@ -2719,31 +2835,11 @@ class="nav-item"
 id="navCategories"
 onclick="showPage('categories')">
 
-<span>☷</span>
+<span>
+☷
+</span>
 
 الأقسام
-
-</div>
-
-<div
-class="nav-item"
-id="navSearch"
-onclick="showPage('search')">
-
-<span>⌕</span>
-
-بحث
-
-</div>
-
-<div
-class="nav-item"
-id="navFavorites"
-onclick="showPage('favorites')">
-
-<span>♡</span>
-
-المفضلة
 
 </div>
 
@@ -2752,7 +2848,9 @@ class="nav-item"
 id="navCart"
 onclick="showPage('cart')">
 
-<span>🛒</span>
+<span>
+🛒
+</span>
 
 السلة
 
@@ -2760,12 +2858,14 @@ onclick="showPage('cart')">
 
 <div
 class="nav-item"
-id="navAccount"
-onclick="showPage('account')">
+id="navSettings"
+onclick="showPage('settings')">
 
-<span>♙</span>
+<span>
+⚙️
+</span>
 
-حسابي
+الإعدادات
 
 </div>
 
@@ -3005,6 +3105,80 @@ alert(
 }
 
 /* =====================================================
+   SETTINGS PANELS
+===================================================== */
+
+function toggleSettingsPanel(panel){
+
+const favoritesPanel =
+document.getElementById(
+"settingsFavoritesPanel"
+);
+
+const accountPanel =
+document.getElementById(
+"settingsAccountPanel"
+);
+
+if(panel === "favorites"){
+
+if(favoritesPanel){
+
+const willShow =
+!favoritesPanel.classList.contains("show");
+
+favoritesPanel.classList.toggle(
+"show",
+willShow
+);
+
+if(willShow){
+
+renderFavorites();
+
+}
+
+}
+
+if(accountPanel){
+
+accountPanel.classList.remove("show");
+
+}
+
+}
+
+if(panel === "account"){
+
+if(accountPanel){
+
+const willShow =
+!accountPanel.classList.contains("show");
+
+accountPanel.classList.toggle(
+"show",
+willShow
+);
+
+if(willShow){
+
+updateAccountUI();
+
+}
+
+}
+
+if(favoritesPanel){
+
+favoritesPanel.classList.remove("show");
+
+}
+
+}
+
+}
+
+/* =====================================================
    AUTH MESSAGE
 ===================================================== */
 
@@ -3025,7 +3199,7 @@ message || "";
 }
 
 /* =====================================================
-   SHOW LOGIN
+   LOGIN
 ===================================================== */
 
 function showLogin(){
@@ -3045,7 +3219,7 @@ setAuthMessage("");
 }
 
 /* =====================================================
-   SHOW SIGNUP
+   SIGNUP
 ===================================================== */
 
 function showSignup(){
@@ -3383,6 +3557,16 @@ document.getElementById(
 "adminButton"
 );
 
+if(!emailElement ||
+!logoutButton ||
+!loginButton ||
+!welcome ||
+!adminButton){
+
+return;
+
+}
+
 if(currentUser){
 
 welcome.textContent =
@@ -3714,8 +3898,8 @@ document.createElement("div");
 card.className =
 "product-card";
 
-/* مهم:
-   نخلي الصورة من product.image
+/* مهم جداً:
+   الصورة من product.image
 */
 
 const image =
@@ -3811,12 +3995,35 @@ return div.innerHTML;
 }
 
 /* =====================================================
-   SHOW ALL
+   SHOW ALL PRODUCTS
 ===================================================== */
 
 function showAllProducts(){
 
 showPage("home");
+
+const searchInput =
+document.getElementById(
+"homeSearch"
+);
+
+const searchSection =
+document.getElementById(
+"homeSearchResultsSection"
+);
+
+if(searchInput){
+
+searchInput.value = "";
+
+}
+
+if(searchSection){
+
+searchSection.style.display =
+"none";
+
+}
 
 renderProducts(
 allProducts,
@@ -3851,7 +4058,8 @@ product =>
 String(
 product.category || ""
 ).trim()
-=== category
+===
+category
 );
 
 showPage("categories");
@@ -3885,20 +4093,47 @@ behavior:"smooth"
 }
 
 /* =====================================================
-   SEARCH
+   HOME SEARCH
 ===================================================== */
 
-function searchProducts(){
+function searchHomeProducts(){
 
 const input =
 document.getElementById(
-"searchInput"
+"homeSearch"
 );
+
+const section =
+document.getElementById(
+"homeSearchResultsSection"
+);
+
+const container =
+document.getElementById(
+"homeSearchResults"
+);
+
+if(!input ||
+!section ||
+!container){
+
+return;
+
+}
 
 const text =
 input.value
 .trim()
 .toLowerCase();
+
+if(!text){
+
+section.style.display =
+"none";
+
+return;
+
+}
 
 const result =
 allProducts.filter(
@@ -3932,9 +4167,12 @@ category.includes(text)
 }
 );
 
+section.style.display =
+"block";
+
 renderProducts(
 result,
-"searchProductsContainer"
+"homeSearchResults"
 );
 
 }
@@ -3987,7 +4225,7 @@ product.id
 
 renderProducts(
 result,
-"favoritesContainer"
+"settingsFavoritesContainer"
 );
 
 }
@@ -4530,9 +4768,9 @@ button.disabled = true;
 button.textContent =
 "جاري إرسال الطلب...";
 
-/* =========================
-   تجهيز المنتجات
-========================= */
+/* =================================================
+   ORDER ITEMS
+================================================= */
 
 const orderItems =
 cart.map(item => {
@@ -4573,9 +4811,9 @@ item.quantity || 1
 
 }).filter(Boolean);
 
-/* =========================
-   حساب المجموع
-========================= */
+/* =================================================
+   TOTAL
+================================================= */
 
 let total = 0;
 
@@ -4587,9 +4825,9 @@ item.quantity;
 
 });
 
-/* =========================
-   حفظ الطلب
-========================= */
+/* =================================================
+   SAVE ORDER
+================================================= */
 
 const {
 data:orderData,
@@ -4631,9 +4869,9 @@ notes
 .select("id")
 .single();
 
-/* =========================
-   فشل
-========================= */
+/* =================================================
+   ERROR
+================================================= */
 
 if(error){
 
@@ -4656,9 +4894,9 @@ return;
 
 }
 
-/* =========================
-   نجاح
-========================= */
+/* =================================================
+   SUCCESS
+================================================= */
 
 cart = [];
 
@@ -4876,9 +5114,7 @@ statusClass =
 
 }
 
-/* =========================
-   المنتجات
-========================= */
+/* PRODUCTS */
 
 let productsHTML = "";
 
@@ -5097,7 +5333,7 @@ document
 }
 
 /* =====================================================
-   CLOSE PRODUCT MODAL
+   CLOSE MODAL
 ===================================================== */
 
 function closeModal(){
@@ -5117,6 +5353,58 @@ document
 
 function showPage(page){
 
+/*
+   دعم قديم:
+   إذا أي كود قديم استدعى favorites/account/search
+   نوجّهه للمكان الجديد بدون كسر الموقع.
+*/
+
+if(page === "favorites"){
+
+showPage("settings");
+
+setTimeout(() => {
+
+toggleSettingsPanel("favorites");
+
+},50);
+
+return;
+
+}
+
+if(page === "account"){
+
+showPage("settings");
+
+setTimeout(() => {
+
+toggleSettingsPanel("account");
+
+},50);
+
+return;
+
+}
+
+if(page === "search"){
+
+showPage("home");
+
+setTimeout(() => {
+
+document
+.getElementById("homeSearch")
+?.focus();
+
+},100);
+
+return;
+
+}
+
+/* إخفاء الصفحات */
+
 document
 .querySelectorAll(".page")
 .forEach(item =>
@@ -5124,6 +5412,8 @@ item.classList.remove(
 "active"
 )
 );
+
+/* إظهار الصفحة */
 
 const target =
 document.getElementById(
@@ -5138,6 +5428,8 @@ target.classList.add(
 
 }
 
+/* إزالة active */
+
 document
 .querySelectorAll(".nav-item")
 .forEach(item =>
@@ -5146,26 +5438,38 @@ item.classList.remove(
 )
 );
 
-const nav =
-document.getElementById(
-"nav" +
-page.charAt(0).toUpperCase() +
-page.slice(1)
-);
+/* تحديد زر التنقل */
 
-if(nav){
+let navId = "";
 
-nav.classList.add(
-"active"
-);
+if(page === "home"){
+
+navId = "navHome";
+
+}else if(page === "categories"){
+
+navId = "navCategories";
+
+}else if(page === "cart"){
+
+navId = "navCart";
+
+}else if(page === "settings"){
+
+navId = "navSettings";
 
 }
 
-if(page === "favorites"){
+if(navId){
 
-renderFavorites();
+document
+.getElementById(navId)
+?.classList
+.add("active");
 
 }
+
+/* الصفحة */
 
 if(page === "cart"){
 
@@ -5184,31 +5488,13 @@ allProducts,
 
 }
 
-if(page === "search"){
-
-setTimeout(() => {
-
-document
-.getElementById(
-"searchInput"
-)
-?.focus();
-
-},100);
-
-}
-
-if(page === "account"){
-
-updateAccountUI();
-
-checkAdminStatus();
-
-}
-
 if(page === "settings"){
 
 loadSettings();
+
+updateAccountUI();
+
+renderFavorites();
 
 }
 
@@ -5261,7 +5547,7 @@ window.location.href =
 }
 
 /* =====================================================
-   MODAL CLICK OUTSIDE
+   MODAL OUTSIDE
 ===================================================== */
 
 document
@@ -5284,24 +5570,18 @@ closeModal();
 );
 
 /* =====================================================
-   SEARCH ENTER
+   HOME SEARCH EVENT
 ===================================================== */
 
 document
 .getElementById(
-"searchInput"
+"homeSearch"
 )
 .addEventListener(
-"keydown",
-function(event){
+"input",
+function(){
 
-if(
-event.key === "Enter"
-){
-
-searchProducts();
-
-}
+searchHomeProducts();
 
 }
 );
