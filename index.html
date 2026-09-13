@@ -124,7 +124,7 @@ padding:15px 18px;
 
 display:flex;
 
-justify-content:space-between;
+justify-content:flex-start;
 
 align-items:center;
 
@@ -147,54 +147,6 @@ font-weight:bold;
 letter-spacing:2px;
 
 color:var(--primary);
-
-}
-
-.header-actions{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-
-}
-
-.cart-top{
-
-position:relative;
-
-font-size:24px;
-
-cursor:pointer;
-
-}
-
-.cart-count{
-
-position:absolute;
-
-top:-8px;
-
-right:-8px;
-
-background:var(--accent);
-
-color:white;
-
-width:19px;
-
-height:19px;
-
-border-radius:50%;
-
-font-size:11px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
 
 }
 
@@ -231,22 +183,6 @@ linear-gradient(
 #3a2927,
 #302624
 );
-
-}
-
-.hero::after{
-
-content:"✦";
-
-position:absolute;
-
-left:22px;
-
-bottom:12px;
-
-font-size:60px;
-
-color:rgba(255,255,255,.55);
 
 }
 
@@ -699,6 +635,70 @@ margin-bottom:3px;
 color:var(--primary);
 
 font-weight:bold;
+
+}
+
+/* =====================================================
+BOTTOM CART COUNT
+===================================================== */
+
+.nav-cart-icon{
+
+position:relative;
+
+display:inline-block;
+
+height:28px;
+
+}
+
+.nav-cart-icon span{
+
+display:block;
+
+font-size:21px;
+
+margin-bottom:3px;
+
+}
+
+.nav-cart-icon .cart-count{
+
+top:-5px;
+
+right:-8px;
+
+}
+
+/* =====================================================
+CART COUNT
+===================================================== */
+
+.cart-count{
+
+position:absolute;
+
+top:-8px;
+
+right:-8px;
+
+background:var(--accent);
+
+color:white;
+
+width:19px;
+
+height:19px;
+
+border-radius:50%;
+
+font-size:11px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
 
 }
 
@@ -2222,9 +2222,7 @@ onclick="showSignup()">
 
 </div>
 
-<!-- =====================================================
-SIGNUP
-===================================================== -->
+<!-- SIGNUP -->
 
 <div
 id="authSignupForm"
@@ -2365,26 +2363,6 @@ onclick="showPage('home')"
 style="cursor:pointer;">
 
 ARONIA
-
-</div>
-
-<div class="header-actions">
-
-<div
-class="cart-top"
-onclick="showPage('cart')">
-
-🛒
-
-<div
-class="cart-count"
-id="cartCount">
-
-0
-
-</div>
-
-</div>
 
 </div>
 
@@ -3079,9 +3057,21 @@ class="nav-item"
 id="navCart"
 onclick="showPage('cart')">
 
+<div class="nav-cart-icon">
+
 <span>
 🛒
 </span>
+
+<div
+class="cart-count"
+id="cartCount">
+
+0
+
+</div>
+
+</div>
 
 السلة
 
@@ -4559,8 +4549,6 @@ document.createElement("div");
 card.className =
 "product-card";
 
-/* IMAGE */
-
 const image =
 getImageURL(product.image);
 
@@ -5412,9 +5400,7 @@ currentUser
 
 }
 
-/* =================================================
-CHECKOUT FORM
-================================================= */
+/* CHECKOUT FORM */
 
 document
 .getElementById("checkoutForm")
@@ -5482,10 +5468,6 @@ button.disabled = true;
 button.textContent =
 "جاري إرسال الطلب...";
 
-/* =================================================
-ORDER ITEMS
-================================================= */
-
 const orderItems =
 cart.map(item => {
 
@@ -5525,10 +5507,6 @@ item.quantity || 1
 
 }).filter(Boolean);
 
-/* =================================================
-TOTAL
-================================================= */
-
 let total = 0;
 
 orderItems.forEach(item => {
@@ -5538,10 +5516,6 @@ item.price *
 item.quantity;
 
 });
-
-/* =================================================
-SAVE ORDER
-================================================= */
 
 const {
 data:orderData,
@@ -5583,10 +5557,6 @@ notes
 .select("id")
 .single();
 
-/* =================================================
-ERROR
-===================================================== */
-
 if(error){
 
 console.error(
@@ -5607,10 +5577,6 @@ error.message
 return;
 
 }
-
-/* =================================================
-SUCCESS
-===================================================== */
 
 cart = [];
 
@@ -5827,8 +5793,6 @@ statusClass =
 "status-cancelled";
 
 }
-
-/* PRODUCTS */
 
 let productsHTML = "";
 
@@ -6096,11 +6060,6 @@ NAVIGATION
 
 function showPage(page){
 
-/*
-دعم قديم:
-favorites/account/search
-*/
-
 if(page === "favorites"){
 
 showPage("settings");
@@ -6145,8 +6104,6 @@ return;
 
 }
 
-/* إخفاء الصفحات */
-
 document
 .querySelectorAll(".page")
 .forEach(item =>
@@ -6154,8 +6111,6 @@ item.classList.remove(
 "active"
 )
 );
-
-/* إظهار الصفحة */
 
 const target =
 document.getElementById(
@@ -6170,8 +6125,6 @@ target.classList.add(
 
 }
 
-/* إزالة active */
-
 document
 .querySelectorAll(".nav-item")
 .forEach(item =>
@@ -6179,8 +6132,6 @@ item.classList.remove(
 "active"
 )
 );
-
-/* تحديد زر التنقل */
 
 let navId = "";
 
@@ -6210,8 +6161,6 @@ document
 .add("active");
 
 }
-
-/* الصفحة */
 
 if(page === "cart"){
 
@@ -6344,4 +6293,4 @@ updateCartCount();
 
 </body>
 
-</html> 
+</html>
