@@ -6425,11 +6425,11 @@ START
   if(!container) return;
 
   const { data, error } = await db
-    .from("banners")
-    .select("*")
-    .eq("active", true)
-    .order("id", { ascending: false })
-    .limit(1);
+  .from("banners")
+  .select("*")
+  .eq("is_active", true)
+  .order("id", { ascending: false })
+  .limit(1);
 
   if(error){
     console.error("Banner loading error:", error);
