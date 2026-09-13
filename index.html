@@ -4963,27 +4963,36 @@ CART COUNT
 
 function updateCartCount(){
 
-const count =
-cart.reduce(
-(total,item) =>
-total +
-Number(
-item.quantity || 0
-),
-0
-);
+  const count =
+    cart.reduce(
+      (total,item) =>
+        total +
+        Number(
+          item.quantity || 0
+        ),
+      0
+    );
 
-const cartCount =
-document.getElementById(
-"cartCount"
-);
+  const cartCount =
+    document.getElementById(
+      "cartCount"
+    );
 
-if(cartCount){
+  if(cartCount){
 
-cartCount.textContent =
-count;
+    if(count > 0){
 
-}
+      cartCount.textContent = count;
+      cartCount.style.display = "flex";
+
+    }else{
+
+      cartCount.textContent = "";
+      cartCount.style.display = "none";
+
+    }
+
+  }
 
 }
 
