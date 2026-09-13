@@ -14,701 +14,1938 @@ content="width=device-width, initial-scale=1.0">
 
 <style>
 
+/* =====================================================
+   ROOT
+===================================================== */
+
+:root{
+
+--bg:#fffaf8;
+--card:#ffffff;
+--card-soft:#fff5f2;
+--text:#4b4140;
+--text-soft:#796c69;
+--heading:#5d4d4a;
+
+--primary:#b9867d;
+--primary-dark:#a96f66;
+
+--accent:#c78d82;
+
+--border:#eee0dc;
+
+--nav:#ffffff;
+
+--shadow:0 4px 18px rgba(0,0,0,.06);
+
+--danger:#a15e5e;
+
+}
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode{
+
+--bg:#171414;
+--card:#241f1e;
+--card-soft:#302827;
+--text:#f2e9e6;
+--text-soft:#b9aaa6;
+--heading:#f4e8e4;
+
+--primary:#c38f86;
+--primary-dark:#d09b91;
+
+--accent:#d19b91;
+
+--border:#403735;
+
+--nav:#211c1b;
+
+--shadow:0 4px 18px rgba(0,0,0,.25);
+
+}
+
+/* =====================================================
+   RESET
+===================================================== */
+
 *{
+
 box-sizing:border-box;
 margin:0;
 padding:0;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
 }
 
 body{
+
 font-family:Arial,Tahoma,sans-serif;
-background:#fffaf8;
-color:#4b4140;
+
+background:var(--bg);
+
+color:var(--text);
+
 padding-bottom:85px;
+
+transition:
+
+background .25s ease,
+
+color .25s ease;
+
 }
 
 button{
+
 font-family:inherit;
+
 cursor:pointer;
+
 border:0;
+
 }
 
+input,
+textarea{
+
+font-family:inherit;
+
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
 header{
-background:#fff;
-padding:18px 20px;
+
+background:var(--nav);
+
+padding:15px 18px;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 position:sticky;
+
 top:0;
+
 z-index:100;
+
 box-shadow:0 2px 12px rgba(0,0,0,.06);
+
 }
 
 .logo{
+
 font-size:25px;
+
 font-weight:bold;
+
 letter-spacing:2px;
-color:#b17b72;
+
+color:var(--primary);
+
+}
+
+.header-actions{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.header-search{
+
+font-size:23px;
+
+cursor:pointer;
+
 }
 
 .cart-top{
+
 position:relative;
+
 font-size:24px;
+
 cursor:pointer;
+
 }
 
 .cart-count{
+
 position:absolute;
+
 top:-8px;
+
 right:-8px;
-background:#c78d82;
+
+background:var(--accent);
+
 color:white;
+
 width:19px;
+
 height:19px;
+
 border-radius:50%;
+
 font-size:11px;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 }
 
+/* =====================================================
+   HERO
+===================================================== */
+
 .hero{
-margin:18px;
-padding:35px 25px;
-border-radius:25px;
-background:linear-gradient(135deg,#f8e8e3,#f4eee7);
+
+margin:16px;
+
+padding:32px 24px;
+
+border-radius:26px;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#f8e8e3,
+
+#f4eee7
+
+);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+body.dark-mode .hero{
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#3a2927,
+
+#302624
+
+);
+
+}
+
+.hero::after{
+
+content:"✦";
+
+position:absolute;
+
+left:22px;
+
+bottom:12px;
+
+font-size:60px;
+
+color:rgba(255,255,255,.55);
+
 }
 
 .hero h1{
-font-size:30px;
+
+font-size:29px;
+
 color:#765b57;
+
 margin-bottom:12px;
+
+}
+
+body.dark-mode .hero h1{
+
+color:#f3dfda;
+
 }
 
 .hero p{
-line-height:1.8;
+
+line-height:1.9;
+
 color:#796c69;
+
 margin-bottom:20px;
+
+font-size:14px;
+
+max-width:400px;
+
+}
+
+body.dark-mode .hero p{
+
+color:#cdbdb9;
+
 }
 
 .shop-btn{
-background:#b9867d;
+
+background:var(--primary);
+
 color:white;
+
 padding:13px 25px;
+
 border-radius:25px;
+
 font-size:15px;
+
 }
 
+/* =====================================================
+   SECTIONS
+===================================================== */
+
 .section{
-padding:5px 18px 20px;
+
+padding:5px 17px 20px;
+
 }
 
 .title{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-margin:18px 0;
+
+margin:20px 0 15px;
+
 }
 
 .title h2{
+
 font-size:20px;
-color:#5d4d4a;
+
+color:var(--heading);
+
 }
 
 .view-all{
-color:#b17b72;
+
+color:var(--primary);
+
 font-size:14px;
+
 cursor:pointer;
+
+font-weight:bold;
+
 }
 
+/* =====================================================
+   CATEGORIES
+===================================================== */
+
 .categories{
+
 display:grid;
+
 grid-template-columns:repeat(4,1fr);
+
 gap:10px;
+
 }
 
 .category{
-background:white;
+
+background:var(--card);
+
 border-radius:18px;
+
 padding:15px 5px;
+
 text-align:center;
-box-shadow:0 3px 12px rgba(0,0,0,.05);
+
+box-shadow:var(--shadow);
+
 cursor:pointer;
+
 transition:.2s;
+
+border:1px solid transparent;
+
 }
 
 .category:active{
+
 transform:scale(.96);
+
 }
 
 .category-icon{
+
 font-size:28px;
+
 margin-bottom:8px;
+
 }
 
 .category p{
+
 font-size:12px;
+
+color:var(--text);
+
 }
 
+/* =====================================================
+   SEARCH
+===================================================== */
+
 .search-box{
-margin:5px 18px 15px;
+
+margin:5px 0 18px;
+
+position:relative;
+
 }
 
 .search-box input{
+
 width:100%;
+
 padding:14px 18px;
-border:1px solid #eee0dc;
+
+border:1px solid var(--border);
+
 border-radius:25px;
+
 outline:none;
-background:white;
+
+background:var(--card);
+
+color:var(--text);
+
 font-size:14px;
+
 }
 
+.search-box input:focus{
+
+border-color:var(--accent);
+
+}
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
 .products{
+
 display:grid;
+
 grid-template-columns:repeat(2,1fr);
+
 gap:14px;
+
 }
 
 .product-card{
-background:white;
+
+background:var(--card);
+
 border-radius:20px;
+
 padding:10px;
-box-shadow:0 3px 15px rgba(0,0,0,.06);
+
+box-shadow:var(--shadow);
+
 overflow:hidden;
+
 position:relative;
+
+border:1px solid rgba(0,0,0,.02);
+
+}
+
+body.dark-mode .product-card{
+
+border-color:var(--border);
+
 }
 
 .product-image{
+
 width:100%;
+
 height:190px;
+
 border-radius:16px;
-background:#f8eee9;
+
+background:var(--card-soft);
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 overflow:hidden;
+
 cursor:pointer;
+
 }
 
 .product-image img{
+
 width:100%;
+
 height:100%;
+
 object-fit:contain;
+
 display:block;
-background:#f8eee9;
+
+background:var(--card-soft);
+
 }
 
 .product-card h3{
+
 font-size:14px;
+
 margin:11px 4px 6px;
+
 line-height:1.5;
+
 min-height:42px;
+
+color:var(--text);
+
 }
 
 .price{
-color:#b17b72;
+
+color:var(--primary);
+
 font-weight:bold;
+
 font-size:14px;
+
 margin:0 4px 10px;
+
+direction:rtl;
+
 }
 
 .product-actions{
+
 display:flex;
+
 gap:6px;
+
 }
 
 .add-btn{
+
 flex:1;
-background:#b9867d;
+
+background:var(--primary);
+
 color:white;
+
 padding:10px 5px;
+
 border-radius:12px;
+
 font-size:12px;
+
+}
+
+.add-btn:active{
+
+transform:scale(.98);
+
 }
 
 .favorite-btn{
+
 width:40px;
-background:#f8eee9;
+
+background:var(--card-soft);
+
+color:var(--text);
+
 border-radius:12px;
+
 font-size:19px;
+
 }
 
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+
+text-align:center;
+
+padding:40px 15px;
+
+color:var(--text-soft);
+
+grid-column:1/-1;
+
+line-height:1.8;
+
+}
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
 .bottom-nav{
+
 position:fixed;
+
 bottom:0;
+
 right:0;
+
 left:0;
+
 height:70px;
-background:white;
+
+background:var(--nav);
+
 display:flex;
+
 justify-content:space-around;
+
 align-items:center;
+
 box-shadow:0 -3px 15px rgba(0,0,0,.08);
+
 z-index:200;
+
+border-top:1px solid var(--border);
+
 }
 
 .nav-item{
+
 text-align:center;
+
 color:#8b7b77;
-font-size:11px;
+
+font-size:10px;
+
 cursor:pointer;
+
+min-width:45px;
+
 }
 
 .nav-item span{
+
 display:block;
+
 font-size:21px;
+
 margin-bottom:3px;
+
 }
 
 .nav-item.active{
-color:#b17b72;
+
+color:var(--primary);
+
+font-weight:bold;
+
 }
 
+/* =====================================================
+   PAGES
+===================================================== */
+
 .page{
+
 display:none;
+
 }
 
 .page.active{
+
 display:block;
+
 }
 
-.empty{
-text-align:center;
-padding:40px 15px;
-color:#8c7d79;
-}
+/* =====================================================
+   CART
+===================================================== */
 
 .cart-item{
-background:white;
+
+background:var(--card);
+
 border-radius:18px;
+
 padding:12px;
+
 margin-bottom:10px;
+
 display:flex;
+
 gap:12px;
+
 align-items:center;
-box-shadow:0 3px 12px rgba(0,0,0,.05);
+
+box-shadow:var(--shadow);
+
+border:1px solid var(--border);
+
 }
 
 .cart-item img{
+
 width:75px;
+
 height:75px;
+
 object-fit:contain;
+
 border-radius:12px;
-background:#f8eee9;
+
+background:var(--card-soft);
+
 }
 
 .cart-info{
+
 flex:1;
+
 }
 
 .cart-info h3{
+
 font-size:14px;
+
 margin-bottom:7px;
+
 }
 
 .cart-price{
-color:#b17b72;
+
+color:var(--primary);
+
 font-weight:bold;
+
 font-size:13px;
+
 }
 
 .qty{
+
 display:flex;
+
 align-items:center;
+
 gap:10px;
+
 margin-top:8px;
+
 }
 
 .qty button{
+
 width:25px;
+
 height:25px;
+
 border-radius:50%;
-background:#f1e4e0;
+
+background:var(--card-soft);
+
+color:var(--text);
+
+}
+
+.qty span{
+
+min-width:15px;
+
+text-align:center;
+
 }
 
 .remove{
+
 color:#b65f5f;
+
 font-size:12px;
+
 margin-top:7px;
+
 cursor:pointer;
+
 }
 
 .cart-total{
-background:white;
+
+background:var(--card);
+
 border-radius:18px;
+
 padding:18px;
+
 margin-top:15px;
-box-shadow:0 3px 12px rgba(0,0,0,.05);
+
+box-shadow:var(--shadow);
+
+border:1px solid var(--border);
+
 }
 
 .cart-total-row{
+
 display:flex;
+
 justify-content:space-between;
+
 font-weight:bold;
+
 margin-bottom:15px;
+
 }
 
 .checkout-btn{
+
 width:100%;
-background:#b9867d;
+
+background:var(--primary);
+
 color:white;
+
 padding:14px;
+
 border-radius:14px;
+
+font-size:15px;
+
 }
 
-/* =========================
-   MY ORDERS
-========================= */
+/* =====================================================
+   ORDERS
+===================================================== */
 
 .orders-section{
+
 margin-top:30px;
+
 padding-top:20px;
-border-top:1px solid #eee2df;
+
+border-top:1px solid var(--border);
+
 text-align:right;
+
 }
 
 .orders-title{
+
 font-size:20px;
+
 font-weight:bold;
-color:#5d4d4a;
+
+color:var(--heading);
+
 margin-bottom:15px;
+
 }
 
 .order-card{
-background:#fff;
-border:1px solid #f0e2de;
+
+background:var(--card);
+
+border:1px solid var(--border);
+
 border-radius:18px;
+
 padding:15px;
+
 margin-bottom:12px;
+
 text-align:right;
-box-shadow:0 3px 12px rgba(0,0,0,.04);
+
+box-shadow:var(--shadow);
+
 }
 
 .order-header{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 gap:10px;
+
 margin-bottom:12px;
+
 }
 
 .order-id{
+
 font-weight:bold;
-color:#665451;
+
+color:var(--heading);
+
 font-size:14px;
+
 }
 
 .order-date{
+
 font-size:11px;
-color:#999;
+
+color:var(--text-soft);
+
 margin-top:4px;
+
 }
 
 .order-status{
+
 display:inline-block;
+
 padding:6px 11px;
+
 border-radius:20px;
+
 font-size:11px;
+
 font-weight:bold;
+
 margin-bottom:12px;
+
 }
 
 .status-new{
+
 background:#fff0dc;
+
 color:#a96d2d;
+
 }
 
 .status-preparing{
+
 background:#f5e8df;
+
 color:#8b6253;
+
 }
 
 .status-shipped{
+
 background:#e4f0f7;
+
 color:#4e7890;
+
 }
 
 .status-completed{
+
 background:#e3f3e6;
+
 color:#4e8056;
+
 }
 
 .status-cancelled{
+
 background:#f8e2e2;
+
 color:#a65b5b;
+
 }
 
 .order-products{
-border-top:1px solid #eee2df;
-border-bottom:1px solid #eee2df;
+
+border-top:1px solid var(--border);
+
+border-bottom:1px solid var(--border);
+
 padding:10px 0;
+
 margin:5px 0 10px;
+
 }
 
 .order-product{
+
 display:flex;
+
 justify-content:space-between;
+
 gap:10px;
+
 font-size:13px;
+
 padding:6px 0;
+
 }
 
 .order-product-name{
+
 flex:1;
+
 }
 
 .order-product-price{
-color:#8a6c66;
+
+color:var(--primary);
+
 white-space:nowrap;
+
 }
 
 .order-total{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 font-weight:bold;
-color:#5d4d4a;
+
+color:var(--heading);
+
 font-size:14px;
+
 }
 
 .orders-loading{
+
 text-align:center;
+
 padding:20px;
-color:#999;
+
+color:var(--text-soft);
+
 font-size:13px;
+
 }
 
 .orders-empty{
-background:#fffaf8;
-border:1px solid #f0e2de;
+
+background:var(--card-soft);
+
+border:1px solid var(--border);
+
 border-radius:18px;
+
 padding:25px 15px;
+
 text-align:center;
-color:#999;
+
+color:var(--text-soft);
+
 font-size:13px;
+
 line-height:1.8;
+
 }
 
-/* =========================
+/* =====================================================
    ACCOUNT
-========================= */
+===================================================== */
 
 .account-box{
+
 margin:20px;
-background:white;
+
+background:var(--card);
+
 border-radius:22px;
+
 padding:30px 20px;
+
 text-align:center;
-box-shadow:0 3px 15px rgba(0,0,0,.06);
+
+box-shadow:var(--shadow);
+
+border:1px solid var(--border);
+
 }
 
 .account-icon{
+
 font-size:50px;
+
 margin-bottom:15px;
+
+}
+
+.account-box h2{
+
+color:var(--heading);
+
+}
+
+.account-user{
+
+margin-top:10px;
+
+color:var(--text-soft);
+
+}
+
+.account-buttons{
+
+margin-top:20px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+.account-action{
+
+width:100%;
+
+padding:13px;
+
+border-radius:14px;
+
+background:var(--card-soft);
+
+color:var(--text);
+
+font-size:14px;
+
+}
+
+.account-action.primary{
+
+background:var(--primary);
+
+color:white;
+
 }
 
 .admin-btn{
-margin-top:20px;
-padding:12px 20px;
-border-radius:20px;
+
+padding:13px;
+
+border-radius:14px;
+
 background:#eee1dd;
+
 color:#745d58;
+
 display:none;
+
 }
 
 .logout-btn{
-margin-top:12px;
-padding:12px 25px;
-border-radius:20px;
+
+padding:13px;
+
+border-radius:14px;
+
 background:#f3dfdc;
+
 color:#a15e5e;
+
 display:none;
+
 }
 
-/* =========================
-   MODAL
-========================= */
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+.settings-container{
+
+padding:18px;
+
+}
+
+.settings-header{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+margin-bottom:20px;
+
+}
+
+.settings-back{
+
+width:40px;
+
+height:40px;
+
+border-radius:50%;
+
+background:var(--card);
+
+color:var(--text);
+
+font-size:20px;
+
+box-shadow:var(--shadow);
+
+}
+
+.settings-header h2{
+
+color:var(--heading);
+
+}
+
+.settings-group{
+
+background:var(--card);
+
+border-radius:20px;
+
+padding:6px 15px;
+
+margin-bottom:15px;
+
+border:1px solid var(--border);
+
+box-shadow:var(--shadow);
+
+}
+
+.settings-label{
+
+font-size:13px;
+
+color:var(--text-soft);
+
+padding:14px 0 8px;
+
+}
+
+.setting-row{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px 0;
+
+border-bottom:1px solid var(--border);
+
+}
+
+.setting-row:last-child{
+
+border-bottom:0;
+
+}
+
+.setting-info{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.setting-icon{
+
+font-size:23px;
+
+width:30px;
+
+text-align:center;
+
+}
+
+.setting-text strong{
+
+display:block;
+
+font-size:14px;
+
+color:var(--heading);
+
+margin-bottom:4px;
+
+}
+
+.setting-text small{
+
+display:block;
+
+font-size:11px;
+
+color:var(--text-soft);
+
+line-height:1.5;
+
+}
+
+/* =====================================================
+   TOGGLE
+===================================================== */
+
+.switch{
+
+position:relative;
+
+width:50px;
+
+height:28px;
+
+flex-shrink:0;
+
+}
+
+.switch input{
+
+opacity:0;
+
+width:0;
+
+height:0;
+
+}
+
+.slider{
+
+position:absolute;
+
+inset:0;
+
+background:#d8ceca;
+
+border-radius:30px;
+
+transition:.25s;
+
+cursor:pointer;
+
+}
+
+.slider::before{
+
+content:"";
+
+position:absolute;
+
+width:22px;
+
+height:22px;
+
+right:3px;
+
+top:3px;
+
+background:white;
+
+border-radius:50%;
+
+transition:.25s;
+
+box-shadow:0 2px 5px rgba(0,0,0,.15);
+
+}
+
+.switch input:checked + .slider{
+
+background:var(--primary);
+
+}
+
+.switch input:checked + .slider::before{
+
+transform:translateX(-22px);
+
+}
+
+/* =====================================================
+   RESET SETTINGS
+===================================================== */
+
+.reset-settings{
+
+width:100%;
+
+padding:14px;
+
+border-radius:14px;
+
+background:#f3dfdc;
+
+color:#a15e5e;
+
+font-size:14px;
+
+}
+
+/* =====================================================
+   PRODUCT MODAL
+===================================================== */
 
 .modal{
+
 display:none;
+
 position:fixed;
+
 inset:0;
-background:rgba(0,0,0,.45);
+
+background:rgba(0,0,0,.55);
+
 z-index:500;
+
 align-items:flex-end;
+
 justify-content:center;
+
 }
 
 .modal.show{
+
 display:flex;
+
 }
 
 .modal-box{
+
 width:100%;
+
 max-width:550px;
-background:white;
+
+background:var(--card);
+
 border-radius:25px 25px 0 0;
+
 padding:20px;
+
 max-height:90vh;
+
 overflow:auto;
+
+color:var(--text);
+
 }
 
 .modal-close{
+
 float:left;
-background:#f3e8e5;
+
+background:var(--card-soft);
+
+color:var(--text);
+
 width:35px;
+
 height:35px;
+
 border-radius:50%;
+
+font-size:18px;
+
 }
 
 .modal-image{
+
 width:100%;
+
 height:280px;
+
 object-fit:contain;
-background:#f8eee9;
+
+background:var(--card-soft);
+
 border-radius:18px;
+
 margin-bottom:15px;
+
 }
 
 .modal-box h2{
+
 margin-bottom:10px;
+
+color:var(--heading);
+
 }
 
 .modal-description{
+
 line-height:1.8;
-color:#766966;
+
+color:var(--text-soft);
+
 margin:10px 0 20px;
+
+font-size:14px;
+
 }
 
-/* =========================
-   LOGIN PAGE
-========================= */
+/* =====================================================
+   AUTH
+===================================================== */
 
 .auth-overlay{
+
 position:fixed;
+
 inset:0;
-background:#fffaf8;
+
+background:var(--bg);
+
 z-index:10000;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 padding:20px;
+
 overflow:auto;
+
 }
 
 .auth-box{
+
 width:100%;
+
 max-width:430px;
-background:white;
+
+background:var(--card);
+
 border-radius:28px;
+
 padding:28px 22px;
+
 box-shadow:0 8px 35px rgba(0,0,0,.08);
+
 text-align:center;
+
+border:1px solid var(--border);
+
 }
 
 .auth-logo{
+
 font-size:32px;
+
 font-weight:bold;
+
 letter-spacing:3px;
-color:#b17b72;
+
+color:var(--primary);
+
 margin-bottom:8px;
+
 }
 
 .auth-subtitle{
-color:#888;
+
+color:var(--text-soft);
+
 font-size:14px;
+
 margin-bottom:25px;
+
 }
 
 .auth-input{
+
 width:100%;
+
 padding:14px 15px;
-border:1px solid #eaded9;
+
+border:1px solid var(--border);
+
 border-radius:13px;
+
 margin-bottom:10px;
+
 font-size:15px;
+
 outline:none;
-background:#fff;
+
+background:var(--card);
+
+color:var(--text);
+
 }
 
 .auth-input:focus{
-border-color:#c78d82;
+
+border-color:var(--accent);
+
 }
 
 .auth-main-btn{
+
 width:100%;
+
 padding:14px;
+
 border-radius:14px;
-background:#b9867d;
+
+background:var(--primary);
+
 color:white;
+
 font-size:16px;
+
 font-weight:bold;
+
 margin-top:5px;
+
 }
 
 .auth-secondary-btn{
+
 width:100%;
+
 padding:13px;
+
 border-radius:14px;
-background:#f5ebe8;
-color:#755d59;
+
+background:var(--card-soft);
+
+color:var(--text);
+
 font-size:15px;
+
 margin-top:10px;
+
 }
 
 .google-btn{
+
 width:100%;
+
 padding:13px;
+
 border-radius:14px;
-background:white;
-border:1px solid #ddd;
-color:#444;
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+color:var(--text);
+
 font-size:15px;
+
 margin-top:10px;
+
 }
 
 .auth-divider{
+
 display:flex;
+
 align-items:center;
+
 gap:10px;
+
 margin:18px 0;
+
 color:#aaa;
+
 font-size:12px;
+
 }
 
 .auth-divider::before,
 .auth-divider::after{
+
 content:"";
+
 height:1px;
-background:#eee;
+
+background:var(--border);
+
 flex:1;
+
 }
 
 .auth-message{
+
 min-height:22px;
+
 margin-top:12px;
+
 font-size:13px;
+
 color:#a15e5e;
+
 }
 
 .auth-user{
+
 font-size:13px;
-color:#777;
+
+color:var(--text-soft);
+
 margin-top:8px;
+
 word-break:break-word;
+
 }
+
+/* =====================================================
+   CHECKOUT
+===================================================== */
+
+.checkout-overlay{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.55);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+z-index:99999;
+
+padding:20px;
+
+}
+
+.checkout-box{
+
+background:var(--card);
+
+width:100%;
+
+max-width:500px;
+
+max-height:90vh;
+
+overflow:auto;
+
+border-radius:22px;
+
+padding:25px;
+
+direction:rtl;
+
+box-shadow:0 15px 50px rgba(0,0,0,.2);
+
+color:var(--text);
+
+}
+
+.checkout-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.checkout-header h2{
+
+margin:0;
+
+color:var(--heading);
+
+}
+
+.checkout-close{
+
+background:var(--card-soft);
+
+color:var(--text);
+
+width:38px;
+
+height:38px;
+
+border-radius:50%;
+
+font-size:22px;
+
+}
+
+.checkout-box label{
+
+display:block;
+
+font-size:13px;
+
+margin-bottom:6px;
+
+color:var(--heading);
+
+}
+
+.checkout-box input,
+.checkout-box textarea{
+
+width:100%;
+
+padding:13px;
+
+margin-bottom:16px;
+
+border:1px solid var(--border);
+
+border-radius:12px;
+
+font-size:16px;
+
+background:var(--card);
+
+color:var(--text);
+
+outline:none;
+
+}
+
+.checkout-box textarea{
+
+min-height:85px;
+
+resize:vertical;
+
+}
+
+.confirm-order{
+
+width:100%;
+
+padding:15px;
+
+border-radius:14px;
+
+background:var(--primary);
+
+color:white;
+
+font-size:17px;
+
+font-weight:bold;
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:380px){
 
 .categories{
+
 grid-template-columns:repeat(2,1fr);
+
 }
 
 .product-image{
+
 height:160px;
+
 }
+
+.product-card{
+
+padding:8px;
+
+}
+
+.nav-item{
+
+font-size:9px;
+
+}
+
+.nav-item span{
+
+font-size:19px;
+
+}
+
+}
+
+@media(min-width:700px){
+
+.products{
+
+grid-template-columns:repeat(3,1fr);
+
+}
+
+.product-image{
+
+height:230px;
+
+}
+
+}
+
+/* =====================================================
+   DARK INPUT AUTOFILL
+===================================================== */
+
+body.dark-mode input:-webkit-autofill{
+
+-webkit-text-fill-color:var(--text);
+
+-webkit-box-shadow:0 0 0 1000px var(--card) inset;
 
 }
 
@@ -718,9 +1955,9 @@ height:160px;
 
 <body>
 
-<!-- =========================
-     LOGIN / SIGN UP
-========================= -->
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
 <div
 id="authOverlay"
@@ -742,13 +1979,15 @@ ARONIA
 id="authEmail"
 class="auth-input"
 type="email"
-placeholder="البريد الإلكتروني">
+placeholder="البريد الإلكتروني"
+autocomplete="email">
 
 <input
 id="authPassword"
 class="auth-input"
 type="password"
-placeholder="كلمة المرور">
+placeholder="كلمة المرور"
+autocomplete="current-password">
 
 <button
 class="auth-main-btn"
@@ -772,7 +2011,6 @@ onclick="googleLogin()">
 
 <button
 class="auth-secondary-btn"
-style="background:white;border:1px solid #eaded9"
 onclick="showSignup()">
 
 إنشاء حساب جديد
@@ -789,13 +2027,15 @@ style="display:none;">
 id="signupEmail"
 class="auth-input"
 type="email"
-placeholder="البريد الإلكتروني">
+placeholder="البريد الإلكتروني"
+autocomplete="email">
 
 <input
 id="signupPassword"
 class="auth-input"
 type="password"
-placeholder="كلمة المرور">
+placeholder="كلمة المرور"
+autocomplete="new-password">
 
 <button
 class="auth-main-btn"
@@ -824,14 +2064,29 @@ class="auth-message">
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      HEADER
-========================= -->
+===================================================== -->
 
 <header>
 
-<div class="logo">
+<div
+class="logo"
+onclick="showPage('home')"
+style="cursor:pointer;">
+
 ARONIA
+
+</div>
+
+<div class="header-actions">
+
+<div
+class="header-search"
+onclick="showPage('search')">
+
+⌕
+
 </div>
 
 <div
@@ -843,16 +2098,20 @@ onclick="showPage('cart')">
 <div
 class="cart-count"
 id="cartCount">
+
 0
+
+</div>
+
 </div>
 
 </div>
 
 </header>
 
-<!-- =========================
+<!-- =====================================================
      HOME
-========================= -->
+===================================================== -->
 
 <div
 id="homePage"
@@ -991,9 +2250,9 @@ id="productsContainer">
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      CATEGORIES
-========================= -->
+===================================================== -->
 
 <div
 id="categoriesPage"
@@ -1092,15 +2351,16 @@ onclick="showAllProducts()">
 <div
 class="products"
 id="categoryProducts">
+
 </div>
 
 </section>
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      SEARCH
-========================= -->
+===================================================== -->
 
 <div
 id="searchPage"
@@ -1129,15 +2389,16 @@ oninput="searchProducts()">
 <div
 class="products"
 id="searchProductsContainer">
+
 </div>
 
 </section>
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      FAVORITES
-========================= -->
+===================================================== -->
 
 <div
 id="favoritesPage"
@@ -1156,15 +2417,16 @@ class="page">
 <div
 class="products"
 id="favoritesContainer">
+
 </div>
 
 </section>
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      CART
-========================= -->
+===================================================== -->
 
 <div
 id="cartPage"
@@ -1183,10 +2445,6 @@ class="page">
 <div
 id="cartContainer">
 </div>
-
-<!-- =========================
-     MY ORDERS INSIDE CART
-========================= -->
 
 <div class="orders-section">
 
@@ -1208,9 +2466,9 @@ id="cartContainer">
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      ACCOUNT
-========================= -->
+===================================================== -->
 
 <div
 id="accountPage"
@@ -1228,7 +2486,7 @@ class="page">
 
 <p
 id="accountWelcome"
-style="margin-top:10px;color:#888;">
+style="margin-top:10px;color:var(--text-soft);">
 
 أهلاً بكِ في ARONIA
 
@@ -1238,6 +2496,25 @@ style="margin-top:10px;color:#888;">
 id="accountUserEmail"
 class="auth-user">
 </div>
+
+<div class="account-buttons">
+
+<button
+class="account-action"
+onclick="showPage('settings')">
+
+⚙️ الإعدادات
+
+</button>
+
+<button
+id="accountLogin"
+class="account-action primary"
+onclick="showAuthOverlay();showLogin();">
+
+🔐 تسجيل الدخول
+
+</button>
 
 <button
 id="accountLogout"
@@ -1253,7 +2530,7 @@ id="adminButton"
 class="admin-btn"
 onclick="openAdmin()">
 
-لوحة المدير
+🛠️ لوحة المدير
 
 </button>
 
@@ -1261,9 +2538,168 @@ onclick="openAdmin()">
 
 </div>
 
-<!-- =========================
-     NAV
-========================= -->
+</div>
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
+<div
+id="settingsPage"
+class="page">
+
+<div class="settings-container">
+
+<div class="settings-header">
+
+<button
+class="settings-back"
+onclick="showPage('account')">
+
+‹
+
+</button>
+
+<h2>
+الإعدادات
+</h2>
+
+</div>
+
+<div class="settings-group">
+
+<div class="settings-label">
+المظهر
+</div>
+
+<div class="setting-row">
+
+<div class="setting-info">
+
+<div class="setting-icon">
+🌙
+</div>
+
+<div class="setting-text">
+
+<strong>
+الوضع الليلي
+</strong>
+
+<small>
+تغيير مظهر ARONIA إلى الوضع الداكن
+</small>
+
+</div>
+
+</div>
+
+<label class="switch">
+
+<input
+type="checkbox"
+id="darkModeToggle"
+onchange="toggleDarkMode(this.checked)">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<div class="settings-group">
+
+<div class="settings-label">
+التنبيهات
+</div>
+
+<div class="setting-row">
+
+<div class="setting-info">
+
+<div class="setting-icon">
+🔔
+</div>
+
+<div class="setting-text">
+
+<strong>
+تنبيهات الطلبات
+</strong>
+
+<small>
+حفظ تفضيل التنبيهات داخل التطبيق
+</small>
+
+</div>
+
+</div>
+
+<label class="switch">
+
+<input
+type="checkbox"
+id="notificationsToggle"
+onchange="toggleNotifications(this.checked)">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<div class="settings-group">
+
+<div class="settings-label">
+إدارة الإعدادات
+</div>
+
+<div class="setting-row">
+
+<div class="setting-info">
+
+<div class="setting-icon">
+🔄
+</div>
+
+<div class="setting-text">
+
+<strong>
+الإعدادات الافتراضية
+</strong>
+
+<small>
+إعادة المظهر والتنبيهات إلى الوضع الافتراضي
+</small>
+
+</div>
+
+</div>
+
+<button
+class="reset-settings"
+style="width:auto;padding:9px 13px;"
+onclick="resetSettings()">
+
+إعادة
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
 
 <div class="bottom-nav">
 
@@ -1273,6 +2709,7 @@ id="navHome"
 onclick="showPage('home')">
 
 <span>⌂</span>
+
 الرئيسية
 
 </div>
@@ -1283,6 +2720,7 @@ id="navCategories"
 onclick="showPage('categories')">
 
 <span>☷</span>
+
 الأقسام
 
 </div>
@@ -1293,6 +2731,7 @@ id="navSearch"
 onclick="showPage('search')">
 
 <span>⌕</span>
+
 بحث
 
 </div>
@@ -1303,6 +2742,7 @@ id="navFavorites"
 onclick="showPage('favorites')">
 
 <span>♡</span>
+
 المفضلة
 
 </div>
@@ -1313,6 +2753,7 @@ id="navCart"
 onclick="showPage('cart')">
 
 <span>🛒</span>
+
 السلة
 
 </div>
@@ -1323,15 +2764,16 @@ id="navAccount"
 onclick="showPage('account')">
 
 <span>♙</span>
+
 حسابي
 
 </div>
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      PRODUCT MODAL
-========================= -->
+===================================================== -->
 
 <div
 class="modal"
@@ -1382,9 +2824,9 @@ class="checkout-btn">
 
 <script>
 
-/* =========================
+/* =====================================================
    SUPABASE
-========================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://hlnbnczvmdgqsaldfqyw.supabase.co";
@@ -1398,9 +2840,9 @@ SUPABASE_URL,
 SUPABASE_PUBLISHABLE_KEY
 );
 
-/* =========================
+/* =====================================================
    DATA
-========================= */
+===================================================== */
 
 let allProducts = [];
 
@@ -1414,24 +2856,157 @@ JSON.parse(
 localStorage.getItem("aronia_favorites") || "[]"
 );
 
-/* =========================
+/* =====================================================
    AUTH
-========================= */
+===================================================== */
 
 let currentUser = null;
 
 let isAdminUser = false;
 
-/* =========================
+/* =====================================================
    DEFAULT IMAGE
-========================= */
+===================================================== */
 
 const DEFAULT_IMAGE =
 "https://placehold.co/600x600/f8eee9/8a7777?text=ARONIA";
 
-/* =========================
+/* =====================================================
+   PRICE FORMAT
+===================================================== */
+
+function formatIQD(value){
+
+const number =
+Number(value || 0);
+
+return number.toLocaleString("en-US") +
+" د.ع";
+
+}
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+function loadSettings(){
+
+const darkMode =
+localStorage.getItem(
+"aronia_theme"
+) === "dark";
+
+const notifications =
+localStorage.getItem(
+"aronia_notifications"
+);
+
+applyDarkMode(darkMode);
+
+const darkToggle =
+document.getElementById(
+"darkModeToggle"
+);
+
+if(darkToggle){
+
+darkToggle.checked =
+darkMode;
+
+}
+
+const notificationToggle =
+document.getElementById(
+"notificationsToggle"
+);
+
+if(notificationToggle){
+
+notificationToggle.checked =
+notifications !== "off";
+
+}
+
+}
+
+function applyDarkMode(enabled){
+
+document.body.classList.toggle(
+"dark-mode",
+enabled
+);
+
+}
+
+function toggleDarkMode(enabled){
+
+localStorage.setItem(
+"aronia_theme",
+enabled
+? "dark"
+: "light"
+);
+
+applyDarkMode(enabled);
+
+}
+
+function toggleNotifications(enabled){
+
+localStorage.setItem(
+"aronia_notifications",
+enabled
+? "on"
+: "off"
+);
+
+}
+
+function resetSettings(){
+
+localStorage.setItem(
+"aronia_theme",
+"light"
+);
+
+localStorage.setItem(
+"aronia_notifications",
+"on"
+);
+
+const darkToggle =
+document.getElementById(
+"darkModeToggle"
+);
+
+const notificationToggle =
+document.getElementById(
+"notificationsToggle"
+);
+
+if(darkToggle){
+
+darkToggle.checked = false;
+
+}
+
+if(notificationToggle){
+
+notificationToggle.checked = true;
+
+}
+
+applyDarkMode(false);
+
+alert(
+"تمت إعادة الإعدادات الافتراضية ✅"
+);
+
+}
+
+/* =====================================================
    AUTH MESSAGE
-========================= */
+===================================================== */
 
 function setAuthMessage(message){
 
@@ -1449,9 +3024,9 @@ message || "";
 
 }
 
-/* =========================
+/* =====================================================
    SHOW LOGIN
-========================= */
+===================================================== */
 
 function showLogin(){
 
@@ -1469,9 +3044,9 @@ setAuthMessage("");
 
 }
 
-/* =========================
+/* =====================================================
    SHOW SIGNUP
-========================= */
+===================================================== */
 
 function showSignup(){
 
@@ -1489,9 +3064,9 @@ setAuthMessage("");
 
 }
 
-/* =========================
+/* =====================================================
    EMAIL LOGIN
-========================= */
+===================================================== */
 
 async function emailLogin(){
 
@@ -1552,9 +3127,9 @@ updateAccountUI();
 
 }
 
-/* =========================
+/* =====================================================
    EMAIL SIGNUP
-========================= */
+===================================================== */
 
 async function emailSignup(){
 
@@ -1639,9 +3214,9 @@ setAuthMessage(
 
 }
 
-/* =========================
+/* =====================================================
    GOOGLE LOGIN
-========================= */
+===================================================== */
 
 async function googleLogin(){
 
@@ -1677,9 +3252,9 @@ error.message
 
 }
 
-/* =========================
-   HIDE AUTH
-========================= */
+/* =====================================================
+   AUTH OVERLAY
+===================================================== */
 
 function hideAuthOverlay(){
 
@@ -1697,10 +3272,6 @@ overlay.style.display =
 
 }
 
-/* =========================
-   SHOW AUTH
-========================= */
-
 function showAuthOverlay(){
 
 const overlay =
@@ -1717,9 +3288,9 @@ overlay.style.display =
 
 }
 
-/* =========================
-   CHECK ADMIN STATUS
-========================= */
+/* =====================================================
+   CHECK ADMIN
+===================================================== */
 
 async function checkAdminStatus(){
 
@@ -1767,10 +3338,13 @@ return false;
 isAdminUser =
 data === true;
 
-if(isAdminUser && adminButton){
+if(
+isAdminUser &&
+adminButton
+){
 
 adminButton.style.display =
-"inline-block";
+"block";
 
 }
 
@@ -1778,9 +3352,9 @@ return isAdminUser;
 
 }
 
-/* =========================
+/* =====================================================
    ACCOUNT UI
-========================= */
+===================================================== */
 
 function updateAccountUI(){
 
@@ -1794,9 +3368,19 @@ document.getElementById(
 "accountLogout"
 );
 
+const loginButton =
+document.getElementById(
+"accountLogin"
+);
+
 const welcome =
 document.getElementById(
 "accountWelcome"
+);
+
+const adminButton =
+document.getElementById(
+"adminButton"
 );
 
 if(currentUser){
@@ -1808,7 +3392,22 @@ emailElement.textContent =
 currentUser.email || "";
 
 logoutButton.style.display =
-"inline-block";
+"block";
+
+loginButton.style.display =
+"none";
+
+if(isAdminUser){
+
+adminButton.style.display =
+"block";
+
+}else{
+
+adminButton.style.display =
+"none";
+
+}
 
 }else{
 
@@ -1821,13 +3420,19 @@ emailElement.textContent =
 logoutButton.style.display =
 "none";
 
-}
+loginButton.style.display =
+"block";
+
+adminButton.style.display =
+"none";
 
 }
 
-/* =========================
+}
+
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
 async function logoutUser(){
 
@@ -1837,18 +3442,6 @@ currentUser = null;
 
 isAdminUser = false;
 
-const adminButton =
-document.getElementById(
-"adminButton"
-);
-
-if(adminButton){
-
-adminButton.style.display =
-"none";
-
-}
-
 updateAccountUI();
 
 showAuthOverlay();
@@ -1857,9 +3450,9 @@ showLogin();
 
 }
 
-/* =========================
-   CHECK AUTH SESSION
-========================= */
+/* =====================================================
+   CHECK AUTH
+===================================================== */
 
 async function checkAuth(){
 
@@ -1892,10 +3485,15 @@ showAuthOverlay();
 
 showLogin();
 
+updateAccountUI();
+
 }
 
 db.auth.onAuthStateChange(
-async (event,session) => {
+(event,session) => {
+
+setTimeout(
+async () => {
 
 if(session){
 
@@ -1908,6 +3506,17 @@ hideAuthOverlay();
 
 updateAccountUI();
 
+if(
+document
+.getElementById("cartPage")
+.classList
+.contains("active")
+){
+
+loadMyOrders();
+
+}
+
 }else if(
 event === "SIGNED_OUT"
 ){
@@ -1916,29 +3525,21 @@ currentUser = null;
 
 isAdminUser = false;
 
-const adminButton =
-document.getElementById(
-"adminButton"
-);
-
-if(adminButton){
-
-adminButton.style.display =
-"none";
-
-}
-
 updateAccountUI();
 
 }
+
+},
+0
+);
 
 });
 
 }
 
-/* =========================
+/* =====================================================
    IMAGE URL
-========================= */
+===================================================== */
 
 function getImageURL(url){
 
@@ -1951,7 +3552,10 @@ return DEFAULT_IMAGE;
 let imageURL =
 String(url)
 .trim()
-.replace(/^["']|["']$/g,"");
+.replace(
+/^["']|["']$/g,
+""
+);
 
 if(!imageURL){
 
@@ -1982,28 +3586,31 @@ return DEFAULT_IMAGE;
 
 }
 
-/* =========================
+/* =====================================================
    IMAGE ERROR
-========================= */
+===================================================== */
 
 function handleImageError(img){
 
-console.error(
-"ARONIA IMAGE ERROR:",
-img.src
-);
+if(
+img.dataset.fallbackUsed
+){
 
-img.style.objectFit =
-"contain";
-
-img.style.background =
-"#f8eee9";
+return;
 
 }
 
-/* =========================
+img.dataset.fallbackUsed =
+"true";
+
+img.src =
+DEFAULT_IMAGE;
+
+}
+
+/* =====================================================
    LOAD PRODUCTS
-========================= */
+===================================================== */
 
 async function loadProducts(){
 
@@ -2059,11 +3666,6 @@ return;
 
 }
 
-console.log(
-"ARONIA PRODUCTS:",
-data
-);
-
 allProducts =
 data || [];
 
@@ -2074,9 +3676,9 @@ allProducts,
 
 }
 
-/* =========================
+/* =====================================================
    RENDER PRODUCTS
-========================= */
+===================================================== */
 
 function renderProducts(
 products,
@@ -2112,6 +3714,10 @@ document.createElement("div");
 card.className =
 "product-card";
 
+/* مهم:
+   نخلي الصورة من product.image
+*/
+
 const image =
 String(
 product.image || ""
@@ -2121,12 +3727,6 @@ const name =
 product.name_ar ||
 product.name ||
 "منتج ARONIA";
-
-const price =
-Number(
-product.price || 0
-)
-.toLocaleString("ar-IQ");
 
 const isFavorite =
 favorites.includes(
@@ -2140,14 +3740,10 @@ class="product-image"
 onclick="openProduct(${product.id})">
 
 <img
-src="${escapeHTML(image || DEFAULT_IMAGE)}"
+src="${escapeHTML(
+image || DEFAULT_IMAGE
+)}"
 alt="${escapeHTML(name)}"
-style="
-width:100%;
-height:100%;
-object-fit:contain;
-display:block;
-"
 referrerpolicy="no-referrer"
 onerror="handleImageError(this)"
 >
@@ -2162,7 +3758,7 @@ ${escapeHTML(name)}
 
 <div class="price">
 
-${price} د.ع
+${formatIQD(product.price)}
 
 </div>
 
@@ -2194,9 +3790,9 @@ container.appendChild(card);
 
 }
 
-/* =========================
+/* =====================================================
    ESCAPE HTML
-========================= */
+===================================================== */
 
 function escapeHTML(text){
 
@@ -2214,9 +3810,9 @@ return div.innerHTML;
 
 }
 
-/* =========================
+/* =====================================================
    SHOW ALL
-========================= */
+===================================================== */
 
 function showAllProducts(){
 
@@ -2243,9 +3839,9 @@ behavior:"smooth"
 
 }
 
-/* =========================
+/* =====================================================
    FILTER
-========================= */
+===================================================== */
 
 function filterProducts(category){
 
@@ -2288,9 +3884,9 @@ behavior:"smooth"
 
 }
 
-/* =========================
+/* =====================================================
    SEARCH
-========================= */
+===================================================== */
 
 function searchProducts(){
 
@@ -2343,9 +3939,9 @@ result,
 
 }
 
-/* =========================
+/* =====================================================
    FAVORITES
-========================= */
+===================================================== */
 
 function toggleFavorite(id){
 
@@ -2375,18 +3971,7 @@ allProducts,
 "productsContainer"
 );
 
-if(
-document
-.getElementById(
-"favoritesPage"
-)
-.classList
-.contains("active")
-){
-
 renderFavorites();
-
-}
 
 }
 
@@ -2407,9 +3992,9 @@ result,
 
 }
 
-/* =========================
+/* =====================================================
    CART
-========================= */
+===================================================== */
 
 function addToCart(id){
 
@@ -2455,9 +4040,9 @@ alert(
 
 }
 
-/* =========================
+/* =====================================================
    SAVE CART
-========================= */
+===================================================== */
 
 function saveCart(){
 
@@ -2468,9 +4053,9 @@ JSON.stringify(cart)
 
 }
 
-/* =========================
-   UPDATE CART COUNT
-========================= */
+/* =====================================================
+   CART COUNT
+===================================================== */
 
 function updateCartCount(){
 
@@ -2498,9 +4083,9 @@ count;
 
 }
 
-/* =========================
+/* =====================================================
    RENDER CART
-========================= */
+===================================================== */
 
 function renderCart(){
 
@@ -2542,7 +4127,7 @@ product.price || 0
 total +=
 price *
 Number(
-item.quantity
+item.quantity || 0
 );
 
 const div =
@@ -2565,7 +4150,11 @@ onerror="handleImageError(this)"
 
 referrerpolicy="no-referrer"
 
-alt=""
+alt="${escapeHTML(
+product.name_ar ||
+product.name ||
+""
+)}"
 
 >
 
@@ -2583,8 +4172,7 @@ product.name ||
 
 <div class="cart-price">
 
-${price.toLocaleString("ar-IQ")}
-د.ع
+${formatIQD(price)}
 
 </div>
 
@@ -2646,8 +4234,7 @@ totalBox.innerHTML = `
 
 <span>
 
-${total.toLocaleString("ar-IQ")}
-د.ع
+${formatIQD(total)}
 
 </span>
 
@@ -2669,9 +4256,9 @@ totalBox
 
 }
 
-/* =========================
+/* =====================================================
    CHANGE QUANTITY
-========================= */
+===================================================== */
 
 function changeQuantity(
 id,
@@ -2688,7 +4275,9 @@ if(!item) return;
 
 item.quantity += amount;
 
-if(item.quantity <= 0){
+if(
+item.quantity <= 0
+){
 
 cart =
 cart.filter(
@@ -2706,9 +4295,9 @@ renderCart();
 
 }
 
-/* =========================
+/* =====================================================
    REMOVE
-========================= */
+===================================================== */
 
 function removeFromCart(id){
 
@@ -2726,15 +4315,17 @@ renderCart();
 
 }
 
-/* =========================
+/* =====================================================
    CHECKOUT
-========================= */
+===================================================== */
 
 function checkout(){
 
 if(cart.length === 0){
 
-alert("السلة فارغة.");
+alert(
+"السلة فارغة."
+);
 
 return;
 
@@ -2754,76 +4345,42 @@ return;
 
 }
 
-const oldForm =
+const oldModal =
 document.getElementById(
 "checkoutModal"
 );
 
-if(oldForm){
+if(oldModal){
 
-oldForm.remove();
+oldModal.remove();
 
 }
 
 const modal =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 modal.id =
 "checkoutModal";
 
+modal.className =
+"checkout-overlay";
+
 modal.innerHTML = `
 
-<div style="
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.45);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:99999;
-padding:20px;
-">
+<div class="checkout-box">
 
-<div style="
-background:#fff;
-width:100%;
-max-width:500px;
-max-height:90vh;
-overflow:auto;
-border-radius:22px;
-padding:25px;
-direction:rtl;
-box-shadow:0 15px 50px rgba(0,0,0,0.2);
-">
+<div class="checkout-header">
 
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-">
-
-<h2 style="
-margin:0;
-color:#8a6666;
-">
-
+<h2>
 إتمام الطلب
-
 </h2>
 
 <button
 type="button"
-onclick="document.getElementById('checkoutModal').remove()"
-style="
-border:0;
-background:#f5eeee;
-width:38px;
-height:38px;
-border-radius:50%;
-font-size:22px;
-cursor:pointer;
-">
+class="checkout-close"
+onclick="document.getElementById('checkoutModal').remove()">
 
 ×
 
@@ -2841,15 +4398,7 @@ cursor:pointer;
 id="customerName"
 type="text"
 required
-placeholder="اكتب اسمك الكامل"
-style="
-width:100%;
-padding:13px;
-margin:8px 0 16px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
-">
+placeholder="اكتب اسمك الكامل">
 
 <label>
 رقم الهاتف
@@ -2859,15 +4408,7 @@ font-size:16px;
 id="customerPhone"
 type="tel"
 required
-placeholder="07xxxxxxxxx"
-style="
-width:100%;
-padding:13px;
-margin:8px 0 16px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
-">
+placeholder="07xxxxxxxxx">
 
 <label>
 العنوان
@@ -2876,17 +4417,7 @@ font-size:16px;
 <textarea
 id="customerAddress"
 required
-placeholder="المحافظة، المنطقة، الشارع..."
-style="
-width:100%;
-padding:13px;
-margin:8px 0 16px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
-min-height:90px;
-resize:vertical;
-"></textarea>
+placeholder="المحافظة، المنطقة، الشارع..."></textarea>
 
 <label>
 ملاحظات الطلب
@@ -2894,32 +4425,12 @@ resize:vertical;
 
 <textarea
 id="customerNotes"
-placeholder="أي ملاحظة إضافية..."
-style="
-width:100%;
-padding:13px;
-margin:8px 0 20px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
-min-height:70px;
-resize:vertical;
-"></textarea>
+placeholder="أي ملاحظة إضافية..."></textarea>
 
 <button
 id="confirmOrderButton"
 type="submit"
-style="
-width:100%;
-padding:15px;
-border:0;
-border-radius:14px;
-background:#c98f8f;
-color:white;
-font-size:17px;
-font-weight:bold;
-cursor:pointer;
-">
+class="confirm-order">
 
 تأكيد الطلب
 
@@ -2929,11 +4440,29 @@ cursor:pointer;
 
 </div>
 
-</div>
-
 `;
 
-document.body.appendChild(modal);
+document.body.appendChild(
+modal
+);
+
+const nameInput =
+document.getElementById(
+"customerName"
+);
+
+if(
+nameInput &&
+currentUser
+){
+
+nameInput.value =
+currentUser
+.user_metadata
+?.full_name ||
+"";
+
+}
 
 document
 .getElementById("checkoutForm")
@@ -3010,10 +4539,15 @@ cart.map(item => {
 
 const product =
 allProducts.find(
-p => p.id === item.id
+p =>
+p.id === item.id
 );
 
-if(!product) return null;
+if(!product){
+
+return null;
+
+}
 
 return {
 
@@ -3098,7 +4632,7 @@ notes
 .single();
 
 /* =========================
-   فشل الإرسال
+   فشل
 ========================= */
 
 if(error){
@@ -3123,7 +4657,7 @@ return;
 }
 
 /* =========================
-   نجاح الطلب
+   نجاح
 ========================= */
 
 cart = [];
@@ -3148,11 +4682,12 @@ orderData.id +
 );
 
 });
+
 }
 
-/* =========================
+/* =====================================================
    MY ORDERS
-========================= */
+===================================================== */
 
 async function loadMyOrders(){
 
@@ -3196,10 +4731,16 @@ error
 await db
 .from("orders")
 .select("*")
-.eq("user_id",currentUser.id)
-.order("created_at",{
+.eq(
+"user_id",
+currentUser.id
+)
+.order(
+"created_at",
+{
 ascending:false
-});
+}
+);
 
 if(error){
 
@@ -3216,7 +4757,9 @@ container.innerHTML = `
 
 <br><br>
 
-${escapeHTML(error.message)}
+${escapeHTML(
+error.message
+)}
 
 </div>
 
@@ -3226,7 +4769,10 @@ return;
 
 }
 
-if(!data || data.length === 0){
+if(
+!data ||
+data.length === 0
+){
 
 container.innerHTML = `
 
@@ -3250,9 +4796,9 @@ renderMyOrders(data);
 
 }
 
-/* =========================
-   RENDER MY ORDERS
-========================= */
+/* =====================================================
+   RENDER ORDERS
+===================================================== */
 
 function renderMyOrders(orders){
 
@@ -3268,7 +4814,9 @@ container.innerHTML = "";
 orders.forEach(order => {
 
 const card =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 card.className =
 "order-card";
@@ -3298,22 +4846,30 @@ order.status ||
 let statusClass =
 "status-new";
 
-if(status === "قيد التجهيز"){
+if(
+status === "قيد التجهيز"
+){
 
 statusClass =
 "status-preparing";
 
-}else if(status === "تم الشحن"){
+}else if(
+status === "تم الشحن"
+){
 
 statusClass =
 "status-shipped";
 
-}else if(status === "مكتمل"){
+}else if(
+status === "مكتمل"
+){
 
 statusClass =
 "status-completed";
 
-}else if(status === "ملغي"){
+}else if(
+status === "ملغي"
+){
 
 statusClass =
 "status-cancelled";
@@ -3328,20 +4884,24 @@ let productsHTML = "";
 
 const orderProducts =
 order.items &&
-Array.isArray(order.items.products)
+Array.isArray(
+order.items.products
+)
 ?
 order.items.products
 :
 [];
 
-if(orderProducts.length === 0){
+if(
+orderProducts.length === 0
+){
 
 productsHTML = `
 
 <div
 style="
 font-size:12px;
-color:#999;
+color:var(--text-soft);
 padding:5px 0;
 ">
 
@@ -3383,12 +4943,10 @@ ${escapeHTML(itemName)}
 
 <div class="order-product-price">
 
-${(
+${formatIQD(
 itemPrice *
 itemQuantity
-).toLocaleString("ar-IQ")}
-
-د.ع
+)}
 
 </div>
 
@@ -3437,18 +4995,14 @@ ${productsHTML}
 <div class="order-total">
 
 <span>
-
 المجموع
-
 </span>
 
 <span>
 
-${Number(
-order.total_amount || 0
-).toLocaleString("ar-IQ")}
-
-د.ع
+${formatIQD(
+order.total_amount
+)}
 
 </span>
 
@@ -3456,15 +5010,17 @@ order.total_amount || 0
 
 `;
 
-container.appendChild(card);
+container.appendChild(
+card
+);
 
 });
 
 }
 
-/* =========================
+/* =====================================================
    PRODUCT DETAILS
-========================= */
+===================================================== */
 
 function openProduct(id){
 
@@ -3508,12 +5064,9 @@ product.name ||
 document.getElementById(
 "modalPrice"
 ).textContent =
-Number(
-product.price || 0
-)
-.toLocaleString("ar-IQ")
-+
-" د.ع";
+formatIQD(
+product.price
+);
 
 document.getElementById(
 "modalDescription"
@@ -3543,9 +5096,9 @@ document
 
 }
 
-/* =========================
-   CLOSE MODAL
-========================= */
+/* =====================================================
+   CLOSE PRODUCT MODAL
+===================================================== */
 
 function closeModal(){
 
@@ -3558,9 +5111,9 @@ document
 
 }
 
-/* =========================
+/* =====================================================
    NAVIGATION
-========================= */
+===================================================== */
 
 function showPage(page){
 
@@ -3633,11 +5186,15 @@ allProducts,
 
 if(page === "search"){
 
+setTimeout(() => {
+
 document
 .getElementById(
 "searchInput"
 )
 ?.focus();
+
+},100);
 
 }
 
@@ -3646,6 +5203,12 @@ if(page === "account"){
 updateAccountUI();
 
 checkAdminStatus();
+
+}
+
+if(page === "settings"){
+
+loadSettings();
 
 }
 
@@ -3659,9 +5222,9 @@ behavior:"smooth"
 
 }
 
-/* =========================
+/* =====================================================
    ADMIN
-========================= */
+===================================================== */
 
 async function openAdmin(){
 
@@ -3697,9 +5260,9 @@ window.location.href =
 
 }
 
-/* =========================
+/* =====================================================
    MODAL CLICK OUTSIDE
-========================= */
+===================================================== */
 
 document
 .getElementById(
@@ -3720,9 +5283,34 @@ closeModal();
 }
 );
 
-/* =========================
+/* =====================================================
+   SEARCH ENTER
+===================================================== */
+
+document
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"keydown",
+function(event){
+
+if(
+event.key === "Enter"
+){
+
+searchProducts();
+
+}
+
+}
+);
+
+/* =====================================================
    START
-========================= */
+===================================================== */
+
+loadSettings();
 
 checkAuth();
 
