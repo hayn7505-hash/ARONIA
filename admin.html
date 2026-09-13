@@ -594,6 +594,121 @@ class="message">
 
 </div>
 
+     <!-- =========================
+     إدارة البنرات
+========================= -->
+
+<div class="card">
+
+<div class="top">
+
+<h2>
+🎯 إدارة البنرات
+</h2>
+
+<button
+class="primary"
+onclick="loadBanners()">
+
+تحديث
+
+</button>
+
+</div>
+
+<input
+id="bannerImage"
+placeholder="رابط صورة الـ Banner">
+
+<input
+id="bannerTitle"
+placeholder="عنوان الـ Banner">
+
+<textarea
+id="bannerDescription"
+placeholder="وصف الـ Banner">
+</textarea>
+
+<input
+id="bannerLink"
+placeholder="الرابط عند الضغط على الـ Banner (اختياري)">
+
+<label
+style="
+display:block;
+margin:10px 0;
+">
+
+<input
+id="bannerActive"
+type="checkbox"
+checked
+style="width:auto;margin-left:6px;">
+
+تفعيل الـ Banner
+
+</label>
+
+<img
+id="bannerPreview"
+class="banner-preview">
+
+<button
+class="primary"
+onclick="saveBanner()">
+
+إضافة Banner
+
+</button>
+
+<div
+id="bannerMessage"
+class="message">
+</div>
+
+</div>
+
+
+<!-- =========================
+     البنرات الموجودة
+========================= -->
+
+<div class="card">
+
+<div class="top">
+
+<h2>
+📢 البنرات الموجودة
+</h2>
+
+<button
+class="primary"
+onclick="loadBanners()">
+
+تحديث
+
+</button>
+
+</div>
+
+<div
+id="bannersContainer">
+
+<div
+style="
+text-align:center;
+padding:30px;
+color:#888;
+">
+
+جاري تحميل البنرات...
+
+</div>
+
+</div>
+
+</div>
+     
 <!-- =========================
      المنتجات
 ========================= -->
