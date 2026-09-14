@@ -7033,59 +7033,6 @@ window.totalBanners = data.length;
 
 startBannerAutoPlay();
 
-
-/* =========================
-   BANNER SWIPE
-========================= */
-
-const bannerSlider =
-document.querySelector(".banner-slider");
-
-if(bannerSlider){
-
-  let startX = 0;
-
-  bannerSlider.addEventListener(
-    "touchstart",
-    function(e){
-
-      startX =
-        e.touches[0].clientX;
-
-    },
-    {passive:true}
-  );
-
-  bannerSlider.addEventListener(
-    "touchend",
-    function(e){
-
-      const endX =
-        e.changedTouches[0].clientX;
-
-      const distance =
-        startX - endX;
-
-      if(Math.abs(distance) < 50){
-        return;
-      }
-
-      if(distance > 0){
-
-        moveBanner(1);
-
-      }else{
-
-        moveBanner(-1);
-
-      }
-
-    },
-    {passive:true}
-  );
-
-}
-
      function goToBanner(index){
 
   const track =
