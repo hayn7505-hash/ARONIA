@@ -16,31 +16,71 @@ content="width=device-width, initial-scale=1.0">
 <style>
 
 /* =====================================================
-ROOT
+ROOT — ARONIA NEW COLOR IDENTITY
 ===================================================== */
 
 :root{
 
---bg:#fffaf8;
---card:#ffffff;
---card-soft:#fff5f2;
+/* =========================
+   BACKGROUNDS
+========================= */
 
---text:#4b4140;
---text-soft:#796c69;
---heading:#5d4d4a;
+--bg:#FFFDF8;
+--card:#FFFFFF;
+--card-soft:#B8E8DE;
 
---primary:#b9867d;
---primary-dark:#a96f66;
 
---accent:#c78d82;
+/* =========================
+   TEXT
+========================= */
 
---border:#eee0dc;
+--text:#29433F;
+--text-soft:#71827E;
+--heading:#29433F;
 
---nav:#ffffff;
 
---shadow:0 4px 18px rgba(0,0,0,.06);
+/* =========================
+   PRIMARY
+========================= */
 
---danger:#a15e5e;
+--primary:#72C9B8;
+--primary-dark:#5DB5A4;
+
+
+/* =========================
+   ACCENTS
+========================= */
+
+--accent:#FFD0C2;
+--gold:#F6D98B;
+
+
+/* =========================
+   BORDERS
+========================= */
+
+--border:#B8E8DE;
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+--nav:#FFFFFF;
+
+
+/* =========================
+   SHADOW
+========================= */
+
+--shadow:0 4px 18px rgba(41,67,63,.08);
+
+
+/* =========================
+   DANGER
+========================= */
+
+--danger:#FFD0C2;
 
 }
 
@@ -114,7 +154,7 @@ font-family:inherit;
 }
 
 /* =====================================================
-HEADER
+HEADER — ARONIA
 ===================================================== */
 
 header{
@@ -135,7 +175,9 @@ top:0;
 
 z-index:100;
 
-box-shadow:0 2px 12px rgba(0,0,0,.06);
+box-shadow:0 2px 12px rgba(41,67,63,.07);
+
+border-bottom:1px solid rgba(184,232,222,.45);
 
 }
 
@@ -150,7 +192,7 @@ letter-spacing:2px;
 color:var(--primary);
 
 }
-
+  
 /* =====================================================
 HERO
 ===================================================== */
@@ -367,63 +409,77 @@ font-weight:bold;
 }
 
 /* =====================================================
-CATEGORIES
+CATEGORIES — ARONIA COLOR IDENTITY
 ===================================================== */
 
 .categories{
 
-display:grid;
+  display:grid;
 
-grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(4,1fr);
 
-gap:10px;
+  gap:10px;
 
 }
 
 .category{
 
-background:var(--card);
+  background:var(--card);
 
-border-radius:18px;
+  border-radius:18px;
 
-padding:15px 5px;
+  padding:15px 5px;
 
-text-align:center;
+  text-align:center;
 
-box-shadow:var(--shadow);
+  box-shadow:var(--shadow);
 
-cursor:pointer;
+  cursor:pointer;
 
-transition:.2s;
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
 
-border:1px solid transparent;
+  border:1px solid rgba(184,232,222,.55);
+
+}
+
+.category:hover{
+
+  background:#FFFDF8;
+
+  border-color:var(--primary);
+
+  box-shadow:0 5px 16px rgba(41,67,63,.09);
 
 }
 
 .category:active{
 
-transform:scale(.96);
+  transform:scale(.96);
 
 }
 
 .category-icon{
 
-font-size:28px;
+  font-size:28px;
 
-margin-bottom:8px;
+  margin-bottom:8px;
 
 }
 
 .category p{
 
-font-size:12px;
+  font-size:12px;
 
-color:var(--text);
+  color:var(--text);
 
 }
 
 /* =====================================================
-PRODUCTS
+    PRODUCTS — ARONIA COLOR IDENTITY
 ===================================================== */
 
 .products{
@@ -439,12 +495,18 @@ PRODUCTS
   box-shadow:var(--shadow);
   overflow:hidden;
   position:relative;
-  border:1px solid rgba(0,0,0,.02);
+
+  border:1px solid rgba(184,232,222,.55);
 }
 
 body.dark-mode .product-card{
   border-color:var(--border);
 }
+
+
+/* =========================
+   PRODUCT IMAGE
+========================= */
 
 .product-image{
   width:100%;
@@ -473,34 +535,81 @@ body.dark-mode .product-card{
   background:transparent;
 }
 
+
+/* =========================
+   PRODUCT NAME
+========================= */
+
 .product-card h3{
+  height:38px;
+  min-height:38px;
+
   font-size:13px;
   margin:8px 3px 5px;
+
   line-height:1.45;
-  min-height:38px;
+
   color:var(--text);
+
+  overflow:hidden;
 }
 
+
+/* =========================
+   PRICE
+========================= */
+
 .price{
+  height:20px;
+
+  margin:0 3px 7px;
+
   color:var(--primary);
+
   font-weight:bold;
   font-size:13px;
-  margin:0 3px 8px;
+
   direction:rtl;
 }
+
+
+/* =========================
+   PRODUCT ACTIONS
+========================= */
 
 .product-actions{
   display:flex;
   gap:5px;
+
+  margin-top:auto;
+
+  height:34px;
 }
+
+
+/* =========================
+   ADD TO CART
+========================= */
 
 .add-btn{
   flex:1;
+
   background:var(--primary);
-  color:white;
-  padding:8px 4px;
+  color:#FFFFFF;
+
+  padding:7px 4px;
+
   border-radius:10px;
+
   font-size:11px;
+
+  transition:
+    background .2s ease,
+    transform .15s ease;
+}
+
+.add-btn:hover{
+  background:var(--primary-dark);
 }
 
 .add-btn:active{
@@ -508,18 +617,41 @@ body.dark-mode .product-card{
 }
 
 .add-btn:disabled{
-  background:#c9bfbc;
-  color:#ffffff;
+  background:#FFD0C2;
+  color:#FFFFFF;
+
   cursor:not-allowed;
   opacity:.8;
 }
 
+
+/* =========================
+   FAVORITE
+========================= */
+
 .favorite-btn{
   width:34px;
+
   background:var(--card-soft);
   color:var(--text);
+
   border-radius:10px;
+
   font-size:17px;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    transform .15s ease;
+}
+
+.favorite-btn:hover{
+  background:var(--accent);
+  color:var(--text);
+}
+
+.favorite-btn:active{
+  transform:scale(.95);
 }
   
 /* =====================================================
