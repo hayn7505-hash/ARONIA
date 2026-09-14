@@ -85,29 +85,30 @@ ROOT — ARONIA NEW COLOR IDENTITY
 }
 
 /* =====================================================
-DARK MODE
+DARK MODE — ARONIA
 ===================================================== */
 
 body.dark-mode{
 
---bg:#171414;
---card:#241f1e;
---card-soft:#302827;
+  --bg:#17201E;
+  --card:#202B28;
+  --card-soft:#293936;
 
---text:#f2e9e6;
---text-soft:#b9aaa6;
---heading:#f4e8e4;
+  --text:#F2FAF7;
+  --text-soft:#B8C9C4;
+  --heading:#F4FBF8;
 
---primary:#c38f86;
---primary-dark:#d09b91;
+  --primary:#72C9B8;
+  --primary-dark:#5DB5A4;
 
---accent:#d19b91;
+  --accent:#FFD0C2;
+  --gold:#F6D98B;
 
---border:#403735;
+  --border:#3A4D48;
 
---nav:#211c1b;
+  --nav:#1C2724;
 
---shadow:0 4px 18px rgba(0,0,0,.25);
+  --shadow:0 4px 18px rgba(0,0,0,.28);
 
 }
 
@@ -194,84 +195,131 @@ color:var(--primary);
 }
   
 /* =====================================================
-HERO
+HERO — ARONIA
 ===================================================== */
 
 .hero{
 
-margin:16px;
+  margin:16px;
 
-padding:32px 24px;
+  padding:32px 24px;
 
-border-radius:26px;
+  border-radius:26px;
 
-background:
-linear-gradient(
-135deg,
-#f8e8e3,
-#f4eee7
-);
+  background:
+    linear-gradient(
+      135deg,
+      #FFFDF8,
+      #B8E8DE
+    );
 
-position:relative;
+  position:relative;
 
-overflow:hidden;
+  overflow:hidden;
 
 }
+
+
+/* =========================
+   DARK HERO
+========================= */
 
 body.dark-mode .hero{
 
-background:
-linear-gradient(
-135deg,
-#3a2927,
-#302624
-);
+  background:
+    linear-gradient(
+      135deg,
+      #293936,
+      #202B28
+    );
 
 }
 
+
+/* =========================
+   HERO TITLE
+========================= */
+
 .hero h1{
 
-font-size:29px;
+  font-size:29px;
 
-color:#765b57;
+  color:var(--text);
 
-margin-bottom:12px;
+  margin-bottom:12px;
 
 }
 
 body.dark-mode .hero h1{
-color:#f3dfda;
+
+  color:var(--heading);
+
 }
+
+
+/* =========================
+   HERO TEXT
+========================= */
 
 .hero p{
 
-line-height:1.9;
+  line-height:1.9;
 
-color:#796c69;
+  color:var(--text-soft);
 
-margin-bottom:20px;
+  margin-bottom:20px;
 
-font-size:14px;
+  font-size:14px;
 
-max-width:400px;
+  max-width:400px;
 
 }
 
 body.dark-mode .hero p{
-color:#cdbdb9;
+
+  color:var(--text-soft);
+
 }
+
+
+/* =========================
+   SHOP BUTTON
+========================= */
 
 .shop-btn{
 
-background:var(--primary);
+  display:block;
 
-color:white;
+  margin:0;
 
-padding:13px 25px;
+  background:var(--primary);
 
-border-radius:25px;
+  color:#FFFFFF;
 
-font-size:15px;
+  padding:13px 25px;
+
+  border:0;
+
+  border-radius:25px;
+
+  font-size:15px;
+
+  cursor:pointer;
+
+  transition:
+    background .2s ease,
+    transform .15s ease;
+}
+
+.shop-btn:hover{
+
+  background:var(--primary-dark);
+
+}
+
+.shop-btn:active{
+
+  transform:scale(.98);
 
 }
 
@@ -514,7 +562,7 @@ body.dark-mode .product-card{
 
   border-radius:13px;
 
-  background:var(--card-soft);
+  background:#FFFFFF;
 
   display:flex;
   align-items:center;
@@ -632,7 +680,7 @@ body.dark-mode .product-card{
 .favorite-btn{
   width:34px;
 
-  background:var(--card-soft);
+  background:#FFFFFF;
   color:var(--text);
 
   border-radius:10px;
@@ -1651,104 +1699,123 @@ font-size:14px;
 }
 
 /* =====================================================
-PRODUCT MODAL
+PRODUCT MODAL — ARONIA
 ===================================================== */
 
 .modal{
 
-display:none;
+  display:none;
 
-position:fixed;
+  position:fixed;
 
-inset:0;
+  inset:0;
 
-background:rgba(0,0,0,.55);
+  background:rgba(41,67,63,.38);
 
-z-index:500;
+  z-index:500;
 
-align-items:flex-end;
+  align-items:flex-end;
 
-justify-content:center;
+  justify-content:center;
 
 }
 
 .modal.show{
 
-display:flex;
+  display:flex;
 
 }
 
 .modal-box{
 
-width:100%;
+  width:100%;
 
-max-width:550px;
+  max-width:550px;
 
-background:var(--card);
+  background:var(--card);
 
-border-radius:25px 25px 0 0;
+  border-radius:25px 25px 0 0;
 
-padding:20px;
+  padding:20px;
 
-max-height:90vh;
+  max-height:90vh;
 
-overflow:auto;
+  overflow:auto;
 
-color:var(--text);
+  color:var(--text);
+
+  border-top:2px solid rgba(184,232,222,.7);
+
+  box-shadow:0 -8px 30px rgba(41,67,63,.12);
 
 }
 
 .modal-close{
 
-float:left;
+  float:left;
 
-background:var(--card-soft);
+  background:var(--card-soft);
 
-color:var(--text);
+  color:var(--text);
 
-width:35px;
+  width:35px;
 
-height:35px;
+  height:35px;
 
-border-radius:50%;
+  border-radius:50%;
 
-font-size:18px;
+  font-size:18px;
+
+  transition:
+    background .2s ease,
+    transform .15s ease;
+}
+
+.modal-close:hover{
+
+  background:var(--accent);
+
+}
+
+.modal-close:active{
+
+  transform:scale(.92);
 
 }
 
 .modal-image{
 
-width:100%;
+  width:100%;
 
-height:280px;
+  height:280px;
 
-object-fit:contain;
+  object-fit:contain;
 
-background:var(--card-soft);
+  background:var(--card-soft);
 
-border-radius:18px;
+  border-radius:18px;
 
-margin-bottom:15px;
+  margin-bottom:15px;
 
 }
 
 .modal-box h2{
 
-margin-bottom:10px;
+  margin-bottom:10px;
 
-color:var(--heading);
+  color:var(--heading);
 
 }
 
 .modal-description{
 
-line-height:1.8;
+  line-height:1.8;
 
-color:var(--text-soft);
+  color:var(--text-soft);
 
-margin:10px 0 20px;
+  margin:10px 0 20px;
 
-font-size:14px;
+  font-size:14px;
 
 }
 
