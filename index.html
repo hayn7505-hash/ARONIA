@@ -684,69 +684,94 @@ line-height:1.8;
 }
 
 /* =====================================================
-BOTTOM NAV
+BOTTOM NAV — ARONIA
 ===================================================== */
 
 .bottom-nav{
 
-position:fixed;
+  position:fixed;
 
-bottom:0;
+  bottom:0;
 
-right:0;
+  right:0;
 
-left:0;
+  left:0;
 
-height:70px;
+  height:70px;
 
-background:var(--nav);
+  background:var(--nav);
 
-display:flex;
+  display:flex;
 
-justify-content:space-around;
+  justify-content:space-around;
 
-align-items:center;
+  align-items:center;
 
-box-shadow:0 -3px 15px rgba(0,0,0,.08);
+  box-shadow:0 -3px 15px rgba(41,67,63,.09);
 
-z-index:200;
+  z-index:200;
 
-border-top:1px solid var(--border);
+  border-top:1px solid rgba(184,232,222,.65);
 
 }
 
+
+/* =========================
+   NAV ITEM
+========================= */
+
 .nav-item{
 
-text-align:center;
+  text-align:center;
 
-color:#8b7b77;
+  color:var(--text-soft);
 
-font-size:10px;
+  font-size:10px;
 
-cursor:pointer;
+  cursor:pointer;
 
-min-width:45px;
+  min-width:45px;
 
+  transition:
+    color .2s ease,
+    transform .2s ease;
 }
 
 .nav-item span{
 
-display:block;
+  display:block;
 
-font-size:21px;
+  font-size:21px;
 
-margin-bottom:3px;
+  margin-bottom:3px;
 
 }
+
+.nav-item:hover{
+
+  color:var(--primary);
+
+}
+
+.nav-item:active{
+
+  transform:scale(.94);
+
+}
+
+
+/* =========================
+   ACTIVE ITEM
+========================= */
 
 .nav-item.active{
 
-color:var(--primary);
+  color:var(--primary);
 
-font-weight:bold;
+  font-weight:bold;
 
 }
-
+   
 /* =====================================================
 BOTTOM CART COUNT
 ===================================================== */
