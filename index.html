@@ -7009,18 +7009,7 @@ async function loadBanner(){
       ${
         data.length > 1
         ? `
-          <button
-            class="banner-arrow banner-prev"
-            onclick="moveBanner(-1)">
-            ❯
-          </button>
-
-          <button
-            class="banner-arrow banner-next"
-            onclick="moveBanner(1)">
-            ❮
-          </button>
-
+        
           <div class="banner-dots">
 
             ${data.map((_, index) => `
