@@ -6452,180 +6452,121 @@ searchHomeProducts();
 START
 ===================================================== */
 let bannerTimer = null;
-
 async function loadBanner(){
-
   const container =
     document.getElementById("bannerContainer");
-
   if(!container) return;
-
   const { data, error } = await db
     .from("banners")
     .select("*")
     .eq("is_active", true)
     .order("id", { ascending: false });
-
   if(error){
-
     console.error("Banner loading error:", error);
-
     container.innerHTML = "";
     container.style.display = "none";
-
     return;
   }
-
   if(!data || data.length === 0){
-
     container.innerHTML = "";
     container.style.display = "none";
-
     return;
   }
-
   container.style.display = "block";
-
-  container.innerHTML = 
-
+  container.innerHTML = `
     <div class="banner-slider">
-
       <div class="banner-track">
-
-        ${data.map((banner, index) => 
-
+        ${data.map((banner, index) => `
           <div class="banner-slide">
-
             ${
               banner.link
-              ? 
+              ? `
                 <a href="${banner.link}">
                   <img
                     src="${banner.image_url}"
                     alt="ARONIA Banner"
                   >
                 </a>
-              
-              : 
+              `
+              : `
                 <img
                   src="${banner.image_url}"
                   alt="ARONIA Banner"
                 >
-              
+              `
             }
-
           </div>
-
-        ).join("")}
-
+        `).join("")}
       </div>
-
       ${
         data.length > 1
-        ? 
+        ? `
           <button
             class="banner-arrow banner-prev"
             onclick="moveBanner(-1)">
             ❯
           </button>
-
           <button
             class="banner-arrow banner-next"
             onclick="moveBanner(1)">
             ❮
           </button>
-
           <div class="banner-dots">
-
-            ${data.map((_, index) => 
+            ${data.map((_, index) => `
               <span
                 class="banner-dot ${index === 0 ? "active" : ""}"
                 onclick="goToBanner(${index})">
               </span>
-            ).join("")}
-
+            `).join("")}
           </div>
-        
+        `
         : ""
       }
-
     </div>
-
-  ;
-
+  `;
   window.currentBanner = 0;
   window.totalBanners = data.length;
-
   startBannerAutoPlay();
-
 }
-
 function goToBanner(index){
-
   const track =
     document.querySelector(".banner-track");
-
   const dots =
     document.querySelectorAll(".banner-dot");
-
   if(!track) return;
-
   window.currentBanner = index;
-
   track.style.transform =
-    translateX(-${index * 100}%);
-
+    `translateX(-${index * 100}%)`;
   dots.forEach((dot, i) => {
-
     dot.classList.toggle(
       "active",
       i === index
     );
-
   });
-
 }
-
-
 function moveBanner(direction){
-
   if(!window.totalBanners) return;
-
   let next =
     window.currentBanner + direction;
-
   if(next >= window.totalBanners){
     next = 0;
   }
-
   if(next < 0){
     next = window.totalBanners - 1;
   }
-
   goToBanner(next);
-
   startBannerAutoPlay();
-
 }
-
-
 function startBannerAutoPlay(){
-
   clearInterval(bannerTimer);
-
   if(!window.totalBanners || window.totalBanners <= 1){
     return;
   }
-
   bannerTimer =
     setInterval(() => {
-
       moveBanner(1);
-
     }, 5000);
-
 }
-  
 loadSettings();
 checkAuth();
 loadProducts();
