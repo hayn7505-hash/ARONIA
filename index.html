@@ -4727,9 +4727,73 @@ return;
 allProducts =
 data || [];
 
+
+/* =========================
+   عرض 4 منتجات لكل قسم
+========================= */
+
+const skinProducts =
+allProducts
+.filter(product =>
+String(
+product.category || ""
+).trim() === "العناية بالبشرة"
+)
+.slice(0,4);
+
+
+const makeupProducts =
+allProducts
+.filter(product =>
+String(
+product.category || ""
+).trim() === "المكياج"
+)
+.slice(0,4);
+
+
+const hairProducts =
+allProducts
+.filter(product =>
+String(
+product.category || ""
+).trim() === "العناية بالشعر"
+)
+.slice(0,4);
+
+
+const perfumeProducts =
+allProducts
+.filter(product =>
+String(
+product.category || ""
+).trim() === "العطور"
+)
+.slice(0,4);
+
+
+/* =========================
+   عرض المنتجات
+========================= */
+
 renderProducts(
-allProducts,
-"productsContainer"
+skinProducts,
+"skinProducts"
+);
+
+renderProducts(
+makeupProducts,
+"makeupProducts"
+);
+
+renderProducts(
+hairProducts,
+"hairProducts"
+);
+
+renderProducts(
+perfumeProducts,
+"perfumeProducts"
 );
 
 }
