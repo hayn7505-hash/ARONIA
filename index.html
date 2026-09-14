@@ -2271,29 +2271,40 @@ body.dark-mode input:-webkit-autofill{
   margin-bottom:0;
 }
 
-  /* =========================
+/* =========================
    ARONIA BANNER
 ========================= */
 
 #bannerContainer{
+  display:block;
   width:100%;
-  margin:0 0 22px 0;
+  clear:both;
+  margin-bottom:20px;
 }
 
 .banner-slider{
   position:relative;
   width:100%;
   overflow:hidden;
+
   border-radius:22px;
-  background:#fff;
-  box-shadow:0 8px 25px #00000012;
+
+  background:var(--card);
+
+  box-shadow:0 8px 25px rgba(41,67,63,.10);
+
   touch-action:pan-y;
+
+  border:1px solid rgba(246,217,139,.45);
 }
 
 .banner-track{
   display:flex;
+
   width:100%;
+
   transition:transform 0.45s ease;
+
   direction:ltr;
 }
 
@@ -2304,8 +2315,11 @@ body.dark-mode input:-webkit-autofill{
 
 .banner-slide img{
   display:block;
+
   width:100%;
+
   aspect-ratio:3 / 1;
+
   object-fit:cover;
 }
 
@@ -2313,19 +2327,54 @@ body.dark-mode input:-webkit-autofill{
   display:block;
 }
 
+
+/* =========================
+   BANNER ARROWS
+========================= */
+
 .banner-arrow{
   position:absolute;
+
   top:50%;
+
   transform:translateY(-50%);
+
   width:38px;
   height:38px;
+
   border:none;
+
   border-radius:50%;
-  background:#ffffffcc;
-  color:#555;
+
+  background:rgba(255,253,248,.92);
+
+  color:var(--text);
+
   font-size:22px;
+
   cursor:pointer;
+
   z-index:5;
+
+  box-shadow:0 3px 10px rgba(41,67,63,.12);
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
+}
+
+.banner-arrow:hover{
+
+  background:var(--accent);
+
+}
+
+.banner-arrow:active{
+
+  transform:
+    translateY(-50%)
+    scale(.94);
+
 }
 
 .banner-prev{
@@ -2336,44 +2385,77 @@ body.dark-mode input:-webkit-autofill{
   right:12px;
 }
 
+
+/* =========================
+   BANNER DOTS
+========================= */
+
 .banner-dots{
   position:absolute;
+
   bottom:10px;
   left:50%;
+
   transform:translateX(-50%);
+
   display:flex;
+
   gap:6px;
+
   z-index:5;
 }
 
 .banner-dot{
   width:7px;
   height:7px;
+
   border-radius:50%;
-  background:#ffffff99;
+
+  background:rgba(255,253,248,.65);
+
   cursor:pointer;
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
 }
 
 .banner-dot.active{
-  background:#fff;
+
+  background:var(--gold);
+
   transform:scale(1.25);
+
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
   .banner-slider{
+
     border-radius:16px;
+
   }
 
   .banner-slide img{
+
     aspect-ratio:3 / 1;
+
     object-fit:cover;
+
   }
 
   .banner-arrow{
+
     width:32px;
     height:32px;
+
     font-size:18px;
+
   }
 
 }
