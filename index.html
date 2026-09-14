@@ -477,8 +477,8 @@ color:var(--text);
 
 }
 
-/* =====================================================
-PRODUCTS
+ /* =====================================================
+    PRODUCTS — ARONIA COLOR IDENTITY
 ===================================================== */
 
 .products{
@@ -494,83 +494,18 @@ PRODUCTS
   box-shadow:var(--shadow);
   overflow:hidden;
   position:relative;
-  border:1px solid rgba(0,0,0,.02);
+
+  border:1px solid rgba(184,232,222,.55);
 }
 
 body.dark-mode .product-card{
   border-color:var(--border);
 }
 
-  .product-image{
-  width:100%;
-  height:150px;
-  border-radius:13px;
-  background:var(--card-soft);
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  overflow:hidden;
-  cursor:pointer;
-}
-
-.product-image img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  display:block;
-  background:var(--card-soft);
-}
-
-.product-card h3{
-  font-size:13px;
-  margin:8px 3px 5px;
-  line-height:1.45;
-  min-height:38px;
-  color:var(--text);
-}
-
-.price{
-  color:var(--primary);
-  font-weight:bold;
-  font-size:13px;
-  margin:0 3px 8px;
-  direction:rtl;
-}
-
-.product-actions{
-  display:flex;
-  gap:5px;
-}
-
-.add-btn{
-  flex:1;
-  background:var(--primary);
-  color:white;
-  padding:8px 4px;
-  border-radius:10px;
-  font-size:11px;
-}
-
-.add-btn:active{
-  transform:scale(.98);
-}
-
-.add-btn:disabled{
-  background:#c9bfbc;
-  color:#ffffff;
-  cursor:not-allowed;
-  opacity:.8;
-}
-
-.favorite-btn{
-  width:34px;
-  background:var(--card-soft);
-  color:var(--text);
-  border-radius:10px;
-  font-size:17px;
-}
+/* =========================
+   PRODUCT IMAGE
+========================= */
 
 .product-image{
   width:100%;
@@ -599,7 +534,11 @@ body.dark-mode .product-card{
   background:transparent;
 }
 
-/* اسم المنتج — مساحة ثابتة */
+
+/* =========================
+   PRODUCT NAME
+========================= */
+
 .product-card h3{
   height:38px;
   min-height:38px;
@@ -614,19 +553,29 @@ body.dark-mode .product-card{
   overflow:hidden;
 }
 
-/* السعر */
+
+/* =========================
+   PRICE
+========================= */
+
 .price{
   height:20px;
+
   margin:0 3px 7px;
 
   color:var(--primary);
+
   font-weight:bold;
   font-size:13px;
 
   direction:rtl;
 }
 
-/* الأزرار دائمًا بنفس المكان */
+
+/* =========================
+   PRODUCT ACTIONS
+========================= */
+
 .product-actions{
   display:flex;
   gap:5px;
@@ -636,17 +585,48 @@ body.dark-mode .product-card{
   height:34px;
 }
 
+
+/* =========================
+   ADD TO CART
+========================= */
+
 .add-btn{
   flex:1;
 
   background:var(--primary);
-  color:white;
+  color:#FFFFFF;
 
   padding:7px 4px;
 
   border-radius:10px;
+
   font-size:11px;
+
+  transition:
+    background .2s ease,
+    transform .15s ease;
 }
+
+.add-btn:hover{
+  background:var(--primary-dark);
+}
+
+.add-btn:active{
+  transform:scale(.98);
+}
+
+.add-btn:disabled{
+  background:#FFD0C2;
+  color:#FFFFFF;
+
+  cursor:not-allowed;
+  opacity:.8;
+}
+
+
+/* =========================
+   FAVORITE
+========================= */
 
 .favorite-btn{
   width:34px;
@@ -655,9 +635,23 @@ body.dark-mode .product-card{
   color:var(--text);
 
   border-radius:10px;
+
   font-size:17px;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    transform .15s ease;
 }
-  
+
+.favorite-btn:hover{
+  background:var(--accent);
+  color:var(--text);
+}
+
+.favorite-btn:active{
+  transform:scale(.95);
+}  
 /* =====================================================
 EMPTY
 ===================================================== */
