@@ -4498,13 +4498,13 @@ return;
 currentUser =
 data.user;
 
+await checkAdminStatus();
+
 hideAuthOverlay();
 
 updateAccountUI();
 
 updateGenderTexts();
-
-checkAdminStatus();
 
 if(!getUserGender()){
 
