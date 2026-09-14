@@ -7048,43 +7048,41 @@ if(slider){
   let startX = 0;
 
   slider.addEventListener(
-    "touchstart",
-    function(e){
+  "pointerdown",
+  function(e){
 
-      startX =
-        e.touches[0].clientX;
+    startX =
+      e.clientX;
 
-    },
-    {passive:true}
-  );
+  }
+);
 
-  slider.addEventListener(
-    "touchend",
-    function(e){
+slider.addEventListener(
+  "pointerup",
+  function(e){
 
-      const endX =
-        e.changedTouches[0].clientX;
+    const endX =
+      e.clientX;
 
-      const distance =
-        startX - endX;
+    const distance =
+      startX - endX;
 
-      if(Math.abs(distance) < 50){
-        return;
-      }
+    if(Math.abs(distance) < 50){
+      return;
+    }
 
-      if(distance > 0){
+    if(distance > 0){
 
-        moveBanner(1);
+      moveBanner(1);
 
-      }else{
+    }else{
 
-        moveBanner(-1);
+      moveBanner(-1);
 
-      }
+    }
 
-    },
-    {passive:true}
-  );
+  }
+);
 
 }
    
