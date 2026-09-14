@@ -257,7 +257,6 @@ HOME SEARCH
   width:100%;
   height:52px;
   position:relative;
-  display:block;
   background:#f8e8e4;
   border:1px solid #e2b8ae;
   border-radius:16px;
@@ -266,28 +265,36 @@ HOME SEARCH
   overflow:hidden;
 }
 
-/* العدسة داخل مربع البحث جهة اليسار */
+/* العدسة داخل المربع - يسار */
 .home-search-box::before{
   content:"🔍";
   position:absolute;
   left:16px;
   top:50%;
   transform:translateY(-50%);
+  width:24px;
+  height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:19px;
-  line-height:1;
-  z-index:3;
+  line-height:24px;
+  z-index:10;
   pointer-events:none;
 }
 
-/* إخفاء العدسة القديمة إذا كانت موجودة */
+/* إخفاء العدسة القديمة */
 .home-search-box span{
-  display:none;
+  display:none !important;
 }
 
+/* مربع الكتابة */
 .home-search-box input{
+  position:absolute;
+  inset:0;
   width:100%;
   height:100%;
-  padding:0 18px 0 52px;
+  padding:0 18px 0 55px;
   border:none;
   outline:none;
   background:transparent;
@@ -306,8 +313,6 @@ HOME SEARCH
 
 .home-search-box:focus-within{
   border-color:#c98d82;
-  background:#f7e3df;
-  box-shadow:0 5px 18px rgba(201,141,130,.18);
 }
 
 .home-search-box input::placeholder{
