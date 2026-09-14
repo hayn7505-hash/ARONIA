@@ -2632,12 +2632,59 @@ margin-top:10px;
 ${new Date(msg.created_at).toLocaleString("ar-IQ")}
 </div>
 
+${
+msg.admin_reply
+?
+`
 <div style="
-margin-top:10px;
-font-weight:bold;
+margin-top:15px;
+padding:12px;
+background:#f7f7f7;
+border-radius:10px;
 ">
-الحالة: ${escapeHTML(msg.status || "جديدة")}
+
+<strong>
+💬 رد المدير
+</strong>
+
+<p style="
+margin-top:8px;
+line-height:1.7;
+">
+${escapeHTML(msg.admin_reply)}
+</p>
+
 </div>
+`
+:
+`
+<textarea
+id="reply-${msg.id}"
+placeholder="اكتب ردك على الاستفسار..."
+style="
+width:100%;
+min-height:100px;
+margin-top:15px;
+padding:12px;
+border-radius:10px;
+border:1px solid #ddd;
+resize:vertical;
+">
+</textarea>
+
+<button
+class="primary"
+style="
+width:100%;
+margin-top:10px;
+"
+onclick="replyToSupportMessage(${msg.id})">
+
+💬 إرسال الرد
+
+</button>
+`
+}
 
 </div>
 
