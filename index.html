@@ -6420,6 +6420,10 @@ searchHomeProducts();
 
 }
 );
+   
+/* =====================================================
+START
+===================================================== */
 
   async function loadBanner(){
 
@@ -6431,14 +6435,17 @@ searchHomeProducts();
   const { data, error } = await db
     .from("banners")
     .select("*")
-    .eq("active", true)
+    .eq("is_active", true)
     .order("id", { ascending: false })
     .limit(1);
 
   if(error){
+
     console.error("Banner loading error:", error);
+
     container.innerHTML = "";
     container.style.display = "none";
+
     return;
   }
 
@@ -6447,22 +6454,27 @@ searchHomeProducts();
     : null;
 
   if(!banner){
+
     container.innerHTML = "";
     container.style.display = "none";
+
     return;
   }
 
   container.style.display = "block";
 
   container.innerHTML = 
+
     <div class="aronia-banner">
 
       ${
         banner.image_url
-        ? <img
-             src="${banner.image_url}"
-             alt="${banner.title || "ARONIA"}"
-           >
+        ? 
+          <img
+            src="${banner.image_url}"
+            alt="${banner.title || "ARONIA"}"
+          >
+        
         : ""
       }
 
@@ -6475,31 +6487,30 @@ searchHomeProducts();
         }
 
         ${
-          banner.text
-          ? <p>${banner.text}</p>
+          banner.description
+          ? <p>${banner.description}</p>
           : ""
         }
 
         ${
-          banner.button_text && banner.button_link
-          ? <a
-               href="${banner.button_link}"
-               class="banner-btn"
-             >
-               ${banner.button_text}
-             </a>
+          banner.link
+          ? 
+            <a
+              href="${banner.link}"
+              class="banner-btn"
+            >
+              احصل عليه الآن
+            </a>
+          
           : ""
         }
 
       </div>
 
     </div>
+
   ;
 }
-  
-/* =====================================================
-START
-===================================================== */
   
 loadSettings();
 
