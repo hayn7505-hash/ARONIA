@@ -194,85 +194,134 @@ color:var(--primary);
 }
 
 /* =====================================================
-HERO
+HERO — ARONIA
 ===================================================== */
 
 .hero{
 
-margin:16px;
+  margin:16px;
 
-padding:32px 24px;
+  padding:32px 24px;
 
-border-radius:26px;
+  border-radius:26px;
 
-background:
-linear-gradient(
-135deg,
-#f8e8e3,
-#f4eee7
-);
+  background:
+    linear-gradient(
+      135deg,
+      #FFFDF8,
+      #B8E8DE
+    );
 
-position:relative;
+  position:relative;
 
-overflow:hidden;
+  overflow:hidden;
 
 }
+
+
+/* =========================
+   DARK HERO
+========================= */
 
 body.dark-mode .hero{
 
-background:
-linear-gradient(
-135deg,
-#3a2927,
-#302624
-);
+  background:
+    linear-gradient(
+      135deg,
+      #293936,
+      #202B28
+    );
 
 }
 
+
+/* =========================
+   HERO TITLE
+========================= */
+
 .hero h1{
 
-font-size:29px;
+  font-size:29px;
 
-color:#765b57;
+  color:var(--text);
 
-margin-bottom:12px;
+  margin-bottom:12px;
 
 }
 
 body.dark-mode .hero h1{
-color:#f3dfda;
+
+  color:var(--heading);
+
 }
+
+
+/* =========================
+   HERO TEXT
+========================= */
 
 .hero p{
 
-line-height:1.9;
+  line-height:1.9;
 
-color:#796c69;
+  color:var(--text-soft);
 
-margin-bottom:20px;
+  margin-bottom:20px;
 
-font-size:14px;
+  font-size:14px;
 
-max-width:400px;
+  max-width:400px;
 
 }
 
 body.dark-mode .hero p{
-color:#cdbdb9;
+
+  color:var(--text-soft);
+
 }
+
+
+/* =========================
+   SHOP BUTTON
+========================= */
 
 .shop-btn{
+
   display:block;
+
   margin:0;
+
   background:var(--primary);
-  color:white;
+
+  color:#FFFFFF;
+
   padding:13px 25px;
+
   border:0;
+
   border-radius:25px;
+
   font-size:15px;
+
   cursor:pointer;
+
+  transition:
+    background .2s ease,
+    transform .15s ease;
 }
 
+.shop-btn:hover{
+
+  background:var(--primary-dark);
+
+}
+
+.shop-btn:active{
+
+  transform:scale(.98);
+
+}
+   
 <!-- =========================
      ARONIA BANNER
 ========================= -->
