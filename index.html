@@ -440,159 +440,95 @@ PRODUCTS
 ===================================================== */
 
 .products{
-
-display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:14px;
-
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
 .product-card{
-
-background:var(--card);
-
-border-radius:20px;
-
-padding:10px;
-
-box-shadow:var(--shadow);
-
-overflow:hidden;
-
-position:relative;
-
-border:1px solid rgba(0,0,0,.02);
-
+  background:var(--card);
+  border-radius:16px;
+  padding:8px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  position:relative;
+  border:1px solid rgba(0,0,0,.02);
 }
 
 body.dark-mode .product-card{
-
-border-color:var(--border);
-
+  border-color:var(--border);
 }
 
 .product-image{
+  width:100%;
+  height:150px;
+  border-radius:13px;
+  background:var(--card-soft);
 
-width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-height:190px;
-
-border-radius:16px;
-
-background:var(--card-soft);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-overflow:hidden;
-
-cursor:pointer;
-
+  overflow:hidden;
+  cursor:pointer;
 }
 
 .product-image img{
-
-width:100%;
-
-height:100%;
-
-object-fit:contain;
-
-display:block;
-
-background:var(--card-soft);
-
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  background:var(--card-soft);
 }
 
 .product-card h3{
-
-font-size:14px;
-
-margin:11px 4px 6px;
-
-line-height:1.5;
-
-min-height:42px;
-
-color:var(--text);
-
+  font-size:13px;
+  margin:8px 3px 5px;
+  line-height:1.45;
+  min-height:38px;
+  color:var(--text);
 }
 
 .price{
-
-color:var(--primary);
-
-font-weight:bold;
-
-font-size:14px;
-
-margin:0 4px 10px;
-
-direction:rtl;
-
+  color:var(--primary);
+  font-weight:bold;
+  font-size:13px;
+  margin:0 3px 8px;
+  direction:rtl;
 }
 
 .product-actions{
-
-display:flex;
-
-gap:6px;
-
+  display:flex;
+  gap:5px;
 }
 
 .add-btn{
-
-flex:1;
-
-background:var(--primary);
-
-color:white;
-
-padding:10px 5px;
-
-border-radius:12px;
-
-font-size:12px;
-
+  flex:1;
+  background:var(--primary);
+  color:white;
+  padding:8px 4px;
+  border-radius:10px;
+  font-size:11px;
 }
 
 .add-btn:active{
-
-transform:scale(.98);
-
+  transform:scale(.98);
 }
 
 .add-btn:disabled{
-
-background:#c9bfbc;
-
-color:#ffffff;
-
-cursor:not-allowed;
-
-opacity:.8;
-
+  background:#c9bfbc;
+  color:#ffffff;
+  cursor:not-allowed;
+  opacity:.8;
 }
 
 .favorite-btn{
-
-width:40px;
-
-background:var(--card-soft);
-
-color:var(--text);
-
-border-radius:12px;
-
-font-size:19px;
-
+  width:34px;
+  background:var(--card-soft);
+  color:var(--text);
+  border-radius:10px;
+  font-size:17px;
 }
-
 /* =====================================================
 EMPTY
 ===================================================== */
