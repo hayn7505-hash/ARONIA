@@ -2691,6 +2691,63 @@ onclick="replyToSupportMessage(${msg.id})">
 `).join("");
 
 }
+
+     async function replyToSupportMessage(messageId){
+
+const replyInput =
+document.getElementById(
+`reply-${messageId}`
+);
+
+if(!replyInput) return;
+
+const reply =
+replyInput.value.trim();
+
+if(!reply){
+
+alert("يرجى كتابة الرد أولاً.");
+
+return;
+
+}
+
+const {error} =
+await supabaseClient
+.from("support_messages")
+.update({
+
+admin_reply: reply,
+
+replied_at: new Date().toISOString(),
+
+status: "تمت المعالجة"
+
+})
+.eq("id",messageId);
+
+if(error){
+
+console.error(
+"Support reply error:",
+error
+);
+
+alert(
+"حدث خطأ أثناء إرسال الرد."
+);
+
+return;
+
+}
+
+alert(
+"تم إرسال الرد بنجاح ✅"
+);
+
+await loadSupportMessages();
+
+}
      
 </script>
 
