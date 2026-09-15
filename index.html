@@ -5070,14 +5070,17 @@ DEFAULT_IMAGE;
 LOAD PRODUCTS
 ===================================================== */
 async function loadProducts(){
+
 const container =
-document.getElementById(
-"productsContainer"
-);
+document.getElementById("productsContainer");
+
 if(container){
+
 container.innerHTML =
 '<div class="empty">جاري تحميل المنتجات...</div>';
+
 }
+
 const {
 data,
 error
@@ -5088,12 +5091,16 @@ await db
 .order("id",{
 ascending:false
 });
+
 if(error){
+
 console.error(
 "SUPABASE ERROR:",
 error
 );
+
 if(container){
+
 container.innerHTML = `
 <div class="empty">
 حدث خطأ في تحميل المنتجات ❌
@@ -5101,14 +5108,21 @@ container.innerHTML = `
 ${escapeHTML(error.message)}
 </div>
 `;
+
 }
+
 return;
+
 }
+
 allProducts =
 data || [];
-/* =========================
-   عرض 4 منتجات لكل قسم
-========================= */
+
+
+/* =====================================================
+   أخذ 6 منتجات لكل قسم
+===================================================== */
+
 const skinProducts =
 allProducts
 .filter(product =>
@@ -5116,7 +5130,9 @@ String(
 product.category || ""
 ).trim() === "العناية بالبشرة"
 )
-.slice(0,4);
+.slice(0,6);
+
+
 const makeupProducts =
 allProducts
 .filter(product =>
@@ -5124,7 +5140,9 @@ String(
 product.category || ""
 ).trim() === "المكياج"
 )
-.slice(0,4);
+.slice(0,6);
+
+
 const hairProducts =
 allProducts
 .filter(product =>
@@ -5132,7 +5150,9 @@ String(
 product.category || ""
 ).trim() === "العناية بالشعر"
 )
-.slice(0,4);
+.slice(0,6);
+
+
 const perfumeProducts =
 allProducts
 .filter(product =>
@@ -5140,26 +5160,33 @@ String(
 product.category || ""
 ).trim() === "العطور"
 )
-.slice(0,4);
-/* =========================
+.slice(0,6);
+
+
+/* =====================================================
    عرض المنتجات
-========================= */
+===================================================== */
+
 renderProducts(
 skinProducts,
 "skinProducts"
 );
+
 renderProducts(
 makeupProducts,
 "makeupProducts"
 );
+
 renderProducts(
 hairProducts,
 "hairProducts"
 );
+
 renderProducts(
 perfumeProducts,
 "perfumeProducts"
 );
+
 }
 
 /* =====================================================
