@@ -5568,6 +5568,7 @@ RENDER PRODUCTS
 function renderProducts(
   products,
   containerId
+   isCategoryPage = false
 ){
   const container =
     document.getElementById(containerId);
@@ -5584,7 +5585,9 @@ function renderProducts(
      تحويل الحاوية إلى سلايدر
   ===================================================== */
   container.className =
-    "products-slider";
+  isCategoryPage
+    ? "products category-products-grid"
+    : "products-slider";
   container.innerHTML = "";
   /* =====================================================
      عرض المنتجات
