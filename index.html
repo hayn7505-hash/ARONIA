@@ -5675,21 +5675,87 @@ card.dataset.productId = product.id;
       <div class="price">
         ${formatIQD(product.price)}
       </div>
-      <div class="product-actions">
+ <div class="product-actions">
+
+  <button
+    class="favorite-btn"
+    onclick="toggleFavorite(${product.id})">
+
+    ${isFavorite ? "❤️" : "♡"}
+
+  </button>
+
+  ${
+    isOutOfStock
+
+    ? 
+      <button
+        class="add-btn"
+        disabled>
+
+        غير متوفر
+
+      </button>
+    
+
+    : cart.some(
+        item =>
+          item.id === product.id
+      )
+
+    ? 
+      <div class="product-quantity">
+
         <button
-          class="favorite-btn"
-          onclick="toggleFavorite(${product.id})">
-          ${isFavorite ? "❤️" : "♡"}
+          class="qty-minus"
+          onclick="changeQuantity(${product.id},-1)">
+
+          −
+
         </button>
+
+        <span class="qty-number">
+
+          ${
+            cart.find(
+              item =>
+                item.id === product.id
+            )?.quantity || 1
+          }
+
+        </span>
+
         <button
-          class="add-btn"
-          onclick="${isOutOfStock ? "" : `addToCart(${product.id})`}"
-          ${isOutOfStock ? "disabled" : ""}>
-          ${isOutOfStock
-            ? "غير متوفر"
-            : "أضف إلى السلة"}
+          class="qty-plus"
+          onclick="changeQuantity(${product.id},1)">
+
+          +
+
         </button>
+
+        <button
+          class="qty-delete"
+          onclick="removeFromCart(${product.id})">
+
+          🗑️
+
+        </button>
+
       </div>
+    
+
+    : 
+      <button
+        class="add-btn"
+        onclick="addToCart(${product.id})">
+
+        أضف إلى السلة
+
+      </button>
+    
+  }
+
+</div>
     `;
     container.appendChild(card);
   });
