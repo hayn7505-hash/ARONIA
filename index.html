@@ -2908,6 +2908,102 @@ body.dark-mode input:-webkit-autofill{
     object-position: center;
     display: block;
 }
+
+   /* =====================================================
+   ARONIA PRODUCT SLIDER
+===================================================== */
+
+.products-slider{
+
+    display:flex !important;
+
+    flex-wrap:nowrap !important;
+
+    gap:12px !important;
+
+    width:100% !important;
+
+    overflow-x:auto !important;
+
+    overflow-y:hidden !important;
+
+    padding:5px 2px 12px !important;
+
+    margin:0 !important;
+
+    box-sizing:border-box !important;
+
+    scrollbar-width:none;
+
+    -webkit-overflow-scrolling:touch;
+
+    scroll-snap-type:x mandatory;
+
+}
+
+.products-slider::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+/* =====================================================
+   CARD
+   بطاقتان + جزء من الثالثة
+===================================================== */
+
+.products-slider .aronia-slider-card{
+
+    flex:0 0 47% !important;
+
+    width:47% !important;
+
+    min-width:47% !important;
+
+    max-width:47% !important;
+
+    box-sizing:border-box !important;
+
+    margin:0 !important;
+
+    scroll-snap-align:start;
+
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.products-slider .aronia-product-image{
+
+    width:100% !important;
+
+    height:190px !important;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    overflow:hidden !important;
+
+}
+
+
+.products-slider .aronia-product-image img{
+
+    width:100% !important;
+
+    height:100% !important;
+
+    object-fit:contain !important;
+
+    display:block !important;
+
+}
    
 </style>
 
