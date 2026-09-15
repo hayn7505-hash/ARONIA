@@ -3065,6 +3065,51 @@ CATEGORY PAGE - 2 PRODUCTS PER ROW
   max-height:100% !important;
   object-fit:contain !important;
 }
+
+/* =====================================================
+PRODUCT QUANTITY CONTROLS
+===================================================== */
+
+.product-quantity{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  width:100%;
+}
+
+.product-quantity button{
+  border:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.qty-minus,
+.qty-plus{
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:bold;
+  background:#f3f3f3;
+}
+
+.qty-number{
+  min-width:28px;
+  text-align:center;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.qty-delete{
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  font-size:15px;
+  background:#f3f3f3;
+}
    
 </style>
 
