@@ -2646,6 +2646,211 @@ body.dark-mode input:-webkit-autofill{
   color:#765b55;
   opacity:1;
 }
+
+   /* =====================================================
+   ARONIA FINAL PRODUCT SLIDER
+===================================================== */
+
+.products-slider{
+
+    display:flex !important;
+
+    flex-direction:row !important;
+
+    flex-wrap:nowrap !important;
+
+    gap:8px !important;
+
+    width:100% !important;
+
+    overflow-x:auto !important;
+
+    overflow-y:hidden !important;
+
+    box-sizing:border-box !important;
+
+    padding:5px 2px 12px !important;
+
+    margin:0 !important;
+
+    scrollbar-width:none;
+
+    -webkit-overflow-scrolling:touch;
+
+    scroll-snap-type:x mandatory;
+
+}
+
+
+.products-slider::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+/* =====================================================
+   4 CARDS VISIBLE
+===================================================== */
+
+.products-slider .aronia-slider-card{
+
+    display:flex !important;
+
+    flex-direction:column !important;
+
+    flex:0 0 calc((100% - 24px) / 4) !important;
+
+    width:calc((100% - 24px) / 4) !important;
+
+    min-width:calc((100% - 24px) / 4) !important;
+
+    max-width:calc((100% - 24px) / 4) !important;
+
+    height:auto !important;
+
+    box-sizing:border-box !important;
+
+    padding:6px !important;
+
+    margin:0 !important;
+
+    scroll-snap-align:start;
+
+}
+
+
+/* =====================================================
+   IMAGE BOX
+===================================================== */
+
+.products-slider .aronia-product-image{
+
+    width:100% !important;
+
+    height:85px !important;
+
+    min-height:85px !important;
+
+    max-height:85px !important;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    overflow:hidden !important;
+
+    box-sizing:border-box !important;
+
+}
+
+
+/* =====================================================
+   ALL PRODUCT IMAGES SAME SIZE
+===================================================== */
+
+.products-slider .aronia-product-image img{
+
+    width:100% !important;
+
+    height:85px !important;
+
+    min-height:85px !important;
+
+    max-height:85px !important;
+
+    object-fit:contain !important;
+
+    display:block !important;
+
+}
+
+
+/* =====================================================
+   PRODUCT NAME
+===================================================== */
+
+.products-slider .aronia-slider-card h3{
+
+    font-size:11px !important;
+
+    line-height:1.4 !important;
+
+    height:32px !important;
+
+    max-height:32px !important;
+
+    overflow:hidden !important;
+
+    margin:5px 0 3px !important;
+
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+.products-slider .aronia-slider-card .price{
+
+    font-size:11px !important;
+
+    margin:0 0 5px !important;
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.products-slider .aronia-slider-card .product-actions{
+
+    display:flex !important;
+
+    gap:3px !important;
+
+    width:100% !important;
+
+}
+
+
+/* =====================================================
+   FAVORITE
+===================================================== */
+
+.products-slider .aronia-slider-card .favorite-btn{
+
+    font-size:13px !important;
+
+    padding:3px !important;
+
+}
+
+
+/* =====================================================
+   ADD TO CART
+===================================================== */
+
+.products-slider .aronia-slider-card .add-btn{
+
+    flex:1 !important;
+
+    min-width:0 !important;
+
+    font-size:8px !important;
+
+    padding:5px 2px !important;
+
+    white-space:nowrap !important;
+
+    overflow:hidden !important;
+
+    text-overflow:ellipsis !important;
+
+}
    
 </style>
 
