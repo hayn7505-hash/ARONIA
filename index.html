@@ -5715,46 +5715,40 @@ behavior:"smooth"
 }
 
 /* =====================================================
-FILTER
+FILTER PRODUCTS
 ===================================================== */
 
 function filterProducts(category){
 
-const result =
-allProducts.filter(
-product =>
-String(
-product.category || ""
-).trim() === category
-);
+  const result =
+    allProducts.filter(
+      product =>
+        String(
+          product.category || ""
+        ).trim() === category
+    );
 
-showPage("categories");
+  showPage("categories");
 
-document
-.getElementById(
-"productsTitle"
-)
-.textContent =
-category;
+  document
+    .getElementById("productsTitle")
+    .textContent = category;
 
-renderProducts(
-result,
-"categoryProducts"
-);
+  renderProducts(
+    result,
+    "categoryProducts",
+    true
+  );
 
-setTimeout(() => {
+  setTimeout(() => {
 
-document
-.getElementById(
-"categoryProducts"
-)
-?.scrollIntoView({
+    document
+      .getElementById("categoryProducts")
+      ?.scrollIntoView({
+        behavior:"smooth"
+      });
 
-behavior:"smooth"
-
-});
-
-},100);
+  },100);
 
 }
 
