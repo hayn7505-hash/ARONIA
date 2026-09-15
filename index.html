@@ -2647,8 +2647,8 @@ body.dark-mode input:-webkit-autofill{
   opacity:1;
 }
 
-   /* =====================================================
-   ARONIA FINAL PRODUCT SLIDER
+/* =====================================================
+   ARONIA PRODUCT SLIDER
 ===================================================== */
 
 .products-slider{
@@ -2659,7 +2659,7 @@ body.dark-mode input:-webkit-autofill{
 
     flex-wrap:nowrap !important;
 
-    gap:8px !important;
+    gap:10px !important;
 
     width:100% !important;
 
@@ -2667,11 +2667,11 @@ body.dark-mode input:-webkit-autofill{
 
     overflow-y:hidden !important;
 
-    box-sizing:border-box !important;
-
     padding:5px 2px 12px !important;
 
     margin:0 !important;
+
+    box-sizing:border-box !important;
 
     scrollbar-width:none;
 
@@ -2681,7 +2681,6 @@ body.dark-mode input:-webkit-autofill{
 
 }
 
-
 .products-slider::-webkit-scrollbar{
 
     display:none;
@@ -2690,30 +2689,26 @@ body.dark-mode input:-webkit-autofill{
 
 
 /* =====================================================
-   4 CARDS VISIBLE
+   3 CARDS ON MOBILE
 ===================================================== */
 
 .products-slider .aronia-slider-card{
 
-    display:flex !important;
+    flex:0 0 calc((100% - 20px) / 3) !important;
 
-    flex-direction:column !important;
+    width:calc((100% - 20px) / 3) !important;
 
-    flex:0 0 calc((100% - 24px) / 4) !important;
+    min-width:calc((100% - 20px) / 3) !important;
 
-    width:calc((100% - 24px) / 4) !important;
-
-    min-width:calc((100% - 24px) / 4) !important;
-
-    max-width:calc((100% - 24px) / 4) !important;
-
-    height:auto !important;
+    max-width:calc((100% - 20px) / 3) !important;
 
     box-sizing:border-box !important;
 
-    padding:6px !important;
+    padding:8px !important;
 
     margin:0 !important;
+
+    border-radius:12px !important;
 
     scroll-snap-align:start;
 
@@ -2721,18 +2716,18 @@ body.dark-mode input:-webkit-autofill{
 
 
 /* =====================================================
-   IMAGE BOX
+   PRODUCT IMAGE
 ===================================================== */
 
 .products-slider .aronia-product-image{
 
     width:100% !important;
 
-    height:85px !important;
+    height:105px !important;
 
-    min-height:85px !important;
+    min-height:105px !important;
 
-    max-height:85px !important;
+    max-height:105px !important;
 
     display:flex !important;
 
@@ -2742,24 +2737,18 @@ body.dark-mode input:-webkit-autofill{
 
     overflow:hidden !important;
 
-    box-sizing:border-box !important;
-
 }
 
 
 /* =====================================================
-   ALL PRODUCT IMAGES SAME SIZE
+   SAME IMAGE SIZE
 ===================================================== */
 
 .products-slider .aronia-product-image img{
 
     width:100% !important;
 
-    height:85px !important;
-
-    min-height:85px !important;
-
-    max-height:85px !important;
+    height:105px !important;
 
     object-fit:contain !important;
 
@@ -2774,17 +2763,17 @@ body.dark-mode input:-webkit-autofill{
 
 .products-slider .aronia-slider-card h3{
 
-    font-size:11px !important;
+    font-size:12px !important;
 
     line-height:1.4 !important;
 
-    height:32px !important;
+    min-height:34px !important;
 
-    max-height:32px !important;
+    max-height:34px !important;
 
     overflow:hidden !important;
 
-    margin:5px 0 3px !important;
+    margin:6px 0 4px !important;
 
 }
 
@@ -2795,9 +2784,9 @@ body.dark-mode input:-webkit-autofill{
 
 .products-slider .aronia-slider-card .price{
 
-    font-size:11px !important;
+    font-size:12px !important;
 
-    margin:0 0 5px !important;
+    margin-bottom:7px !important;
 
 }
 
@@ -2810,7 +2799,9 @@ body.dark-mode input:-webkit-autofill{
 
     display:flex !important;
 
-    gap:3px !important;
+    align-items:center !important;
+
+    gap:5px !important;
 
     width:100% !important;
 
@@ -2818,14 +2809,20 @@ body.dark-mode input:-webkit-autofill{
 
 
 /* =====================================================
-   FAVORITE
+   FAVORITE BUTTON
 ===================================================== */
 
 .products-slider .aronia-slider-card .favorite-btn{
 
-    font-size:13px !important;
+    flex:0 0 28px !important;
 
-    padding:3px !important;
+    width:28px !important;
+
+    height:28px !important;
+
+    padding:0 !important;
+
+    font-size:15px !important;
 
 }
 
@@ -2838,17 +2835,21 @@ body.dark-mode input:-webkit-autofill{
 
     flex:1 !important;
 
+    width:auto !important;
+
     min-width:0 !important;
 
-    font-size:8px !important;
+    height:30px !important;
 
-    padding:5px 2px !important;
+    padding:5px 6px !important;
+
+    font-size:10px !important;
 
     white-space:nowrap !important;
 
-    overflow:hidden !important;
+    overflow:visible !important;
 
-    text-overflow:ellipsis !important;
+    text-overflow:clip !important;
 
 }
    
