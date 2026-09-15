@@ -7004,56 +7004,6 @@ async function loadBanner(){
   window.currentBanner = 0;
   window.totalBanners = data.length;
   startBannerAutoPlay();
-   /* =========================
-   BANNER SWIPE
-========================= */
-
-const slider =
-document.getElementById(
-  "aroniaBannerSlider"
-);
-
-if(slider){
-
-  let startX = 0;
-
-  slider.addEventListener(
-  "pointerdown",
-  function(e){
-
-    startX =
-      e.clientX;
-
-  }
-);
-
-slider.addEventListener(
-  "pointerup",
-  function(e){
-
-    const endX =
-      e.clientX;
-
-    const distance =
-      startX - endX;
-
-    if(Math.abs(distance) < 50){
-      return;
-    }
-
-    if(distance > 0){
-
-      moveBanner(1);
-
-    }else{
-
-      moveBanner(-1);
-
-    }
-
-  }
-);
-
 }
 function goToBanner(index){
   const track =
