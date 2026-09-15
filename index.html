@@ -7034,6 +7034,57 @@ function moveBanner(direction){
   goToBanner(next);
   startBannerAutoPlay();
 }
+   /* =========================
+   BANNER SWIPE
+========================= */
+
+let bannerStartX = 0;
+
+const bannerSlider =
+document.querySelector(".banner-slider");
+
+if(bannerSlider){
+
+  bannerSlider.addEventListener(
+    "touchstart",
+    function(e){
+
+      bannerStartX =
+        e.touches[0].clientX;
+
+    },
+    {passive:true}
+  );
+
+  bannerSlider.addEventListener(
+    "touchend",
+    function(e){
+
+      const bannerEndX =
+        e.changedTouches[0].clientX;
+
+      const difference =
+        bannerStartX - bannerEndX;
+
+      if(Math.abs(difference) < 50){
+        return;
+      }
+
+      if(difference > 0){
+
+        moveBanner(1);
+
+      }else{
+
+        moveBanner(-1);
+
+      }
+
+    },
+    {passive:true}
+  );
+
+}
 function startBannerAutoPlay(){
   clearInterval(bannerTimer);
   if(!window.totalBanners || window.totalBanners <= 1){
