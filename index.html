@@ -5614,11 +5614,13 @@ RENDER PRODUCTS
 function renderProducts(
   products,
   containerId,
-   isCategoryPage = false
+  isCategoryPage = false
 ){
   const container =
     document.getElementById(containerId);
+
   if(!container) return;
+
   if(
     !products ||
     products.length === 0
@@ -5627,129 +5629,156 @@ function renderProducts(
       '<div class="empty">لا توجد منتجات حالياً.</div>';
     return;
   }
+
   /* =====================================================
      تحويل الحاوية إلى سلايدر
   ===================================================== */
   container.className =
-  isCategoryPage
-    ? "products category-products-grid"
-    : "products-slider";
+    isCategoryPage
+      ? "products category-products-grid"
+      : "products-slider";
+
   container.innerHTML = "";
+
   /* =====================================================
      عرض المنتجات
   ===================================================== */
   products.forEach(product => {
+
     const card =
       document.createElement("div");
-    card.className =
-  isCategoryPage
-    ? "product-card category-product-card"
-    : "product-card aronia-slider-card";
 
-card.dataset.productId = product.id;
+    card.className =
+      isCategoryPage
+        ? "product-card category-product-card"
+        : "product-card aronia-slider-card";
+
+    card.dataset.productId =
+      product.id;
+
     const image =
       getImageURL(product.image);
+
     const name =
       product.name_ar ||
       product.name ||
       "منتج ARONIA";
+
     const isFavorite =
       favorites.includes(product.id);
+
     const stock =
       Number(product.stock || 0);
+
     const isOutOfStock =
       stock <= 0;
+
     card.innerHTML = `
+
       <div
         class="product-image aronia-product-image"
         onclick="openProduct(${product.id})">
+
         <img
           src="${escapeHTML(image)}"
           alt="${escapeHTML(name)}"
           referrerpolicy="no-referrer"
           onerror="handleImageError(this)">
+
       </div>
+
       <h3>
         ${escapeHTML(name)}
       </h3>
+
       <div class="price">
         ${formatIQD(product.price)}
       </div>
- <div class="product-actions">
-<button
-class="favorite-btn"
-onclick="toggleFavorite(${product.id})">
-${isFavorite ? "❤️" : "♡"}
-${ isOutOfStock
-? 
-  <button
-    class="add-btn"
-    disabled>
 
-    غير متوفر
+      <div class="product-actions">
 
-  </button>
+        <button
+          class="favorite-btn"
+          onclick="toggleFavorite(${product.id})">
 
+          ${isFavorite ? "❤️" : "♡"}
 
-: cart.some(
-    item =>
-      item.id === product.id
-  )
+        </button>
 
-? 
-  <div class="product-quantity">
+        ${
+          isOutOfStock
+            ? `
+              <button
+                class="add-btn"
+                disabled>
 
-    <button
-      class="qty-minus"
-      onclick="changeQuantity(${product.id},-1)">
+                غير متوفر
 
-      −
+              </button>
+            `
+            : cart.some(
+                item =>
+                  item.id === product.id
+              )
+            ? `
+              <div class="product-quantity">
 
-    </button>
+                <button
+                  class="qty-minus"
+                  onclick="changeQuantity(${product.id},-1)">
 
-    <span class="qty-number">
+                  −
 
-      ${
-        cart.find(
-          item =>
-            item.id === product.id
-        )?.quantity || 1
-      }
+                </button>
 
-    </span>
+                <span class="qty-number">
 
-    <button
-      class="qty-plus"
-      onclick="changeQuantity(${product.id},1)">
+                  ${
+                    cart.find(
+                      item =>
+                        item.id === product.id
+                    )?.quantity || 1
+                  }
 
-      +
+                </span>
 
-    </button>
+                <button
+                  class="qty-plus"
+                  onclick="changeQuantity(${product.id},1)">
 
-    <button
-      class="qty-delete"
-      onclick="removeFromCart(${product.id})">
+                  +
 
-      🗑️
+                </button>
 
-    </button>
+                <button
+                  class="qty-delete"
+                  onclick="removeFromCart(${product.id})">
 
-  </div>
+                  🗑️
 
+                </button>
 
-: 
-  <button
-    class="add-btn"
-    onclick="addToCart(${product.id})">
+              </div>
+            `
+            : `
+              <button
+                class="add-btn"
+                onclick="addToCart(${product.id})">
 
-    أضف إلى السلة
+                أضف إلى السلة
 
-  </button>
-}
-</div>
+              </button>
+            `
+        }
+
+      </div>
+
     `;
+
     container.appendChild(card);
+
   });
+
 }
 
 /* =====================================================
