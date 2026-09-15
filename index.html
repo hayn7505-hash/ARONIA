@@ -5219,6 +5219,11 @@ return;
 
 container.innerHTML = "";
 
+
+/* =====================================================
+   PRODUCT CARDS
+===================================================== */
+
 products.forEach(product => {
 
 const card =
@@ -5227,24 +5232,30 @@ document.createElement("div");
 card.className =
 "product-card";
 
+
 const image =
 getImageURL(product.image);
+
 
 const name =
 product.name_ar ||
 product.name ||
 "منتج ARONIA";
 
+
 const isFavorite =
 favorites.includes(
 product.id
 );
 
+
 const stock =
 Number(product.stock || 0);
 
+
 const isOutOfStock =
 stock <= 0;
+
 
 card.innerHTML = `
 
