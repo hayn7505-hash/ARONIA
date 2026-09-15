@@ -7004,7 +7004,7 @@ async function loadBanner(){
   window.currentBanner = 0;
   window.totalBanners = data.length;
   startBannerAutoPlay();
-   /* =========================
+/* =========================
    BANNER SWIPE
 ========================= */
 
@@ -7029,41 +7029,33 @@ if(slider){
   );
 
   slider.addEventListener(
-  "pointerdown",
-  function(e){
+    "touchend",
+    function(e){
 
-    startX =
-      e.clientX;
+      const endX =
+        e.changedTouches[0].clientX;
 
-  }
-);
+      const distance =
+        startX - endX;
 
-slider.addEventListener(
-  "pointerup",
-  function(e){
+      if(Math.abs(distance) < 50){
+        return;
+      }
 
-    const endX =
-      e.clientX;
+      if(distance > 0){
 
-    const distance =
-      startX - endX;
+        moveBanner(1);
 
-    if(Math.abs(distance) < 50){
-      return;
-    }
+      }else{
 
-    if(distance > 0){
+        moveBanner(-1);
 
-      moveBanner(1);
+      }
 
-    }else{
+    },
+    {passive:true}
+  );
 
-      moveBanner(-1);
-
-    }
-
-  }
-);
 }
 function goToBanner(index){
   const track =
