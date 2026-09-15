@@ -5645,6 +5645,8 @@ function renderProducts(
   isCategoryPage
     ? "product-card category-product-card"
     : "product-card aronia-slider-card";
+
+card.dataset.productId = product.id;
     const image =
       getImageURL(product.image);
     const name =
