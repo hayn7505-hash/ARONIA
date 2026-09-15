@@ -7004,7 +7004,60 @@ async function loadBanner(){
   window.currentBanner = 0;
   window.totalBanners = data.length;
   startBannerAutoPlay();
+   
+/* =========================
+   BANNER SWIPE
+========================= */
 
+const slider =
+document.querySelector(
+  ".banner-slider"
+);
+
+if(slider){
+
+  let startX = 0;
+
+  slider.addEventListener(
+    "touchstart",
+    function(e){
+
+      startX =
+        e.touches[0].clientX;
+
+    },
+    {passive:true}
+  );
+
+  slider.addEventListener(
+    "touchend",
+    function(e){
+
+      const endX =
+        e.changedTouches[0].clientX;
+
+      const distance =
+        startX - endX;
+
+      if(Math.abs(distance) < 50){
+        return;
+      }
+
+      if(distance > 0){
+
+        moveBanner(1);
+
+      }else{
+
+        moveBanner(-1);
+
+      }
+
+    },
+    {passive:true}
+  );
+}
+   
 function goToBanner(index){
   const track =
     document.querySelector(".banner-track");
