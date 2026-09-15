@@ -2687,59 +2687,52 @@ body.dark-mode input:-webkit-autofill{
 
 
 /* =====================================================
-   PRODUCT CARD
-   نفس حجم البطاقة الأصلي
+   NORMAL PRODUCT CARD SIZE
 ===================================================== */
 
-.products-slider .aronia-slider-card{
+.product-card{
 
-    flex:0 0 calc((100% - 20px) / 3) !important;
+box-sizing:border-box;
 
-    width:calc((100% - 20px) / 3) !important;
+width:100%;
 
-    min-width:calc((100% - 20px) / 3) !important;
-
-    max-width:calc((100% - 20px) / 3) !important;
-
-    box-sizing:border-box !important;
-
-    margin:0 !important;
-
-    scroll-snap-align:start;
+padding:8px;
 
 }
 
 
 /* =====================================================
-   IMAGE
+   NORMAL PRODUCT IMAGE
 ===================================================== */
 
-.products-slider .aronia-product-image{
+.product-card .product-image{
 
-    width:100% !important;
+width:100%;
 
-    display:flex !important;
+height:150px;
 
-    align-items:center !important;
+display:flex;
 
-    justify-content:center !important;
+align-items:center;
 
-    overflow:hidden !important;
+justify-content:center;
 
-}
-
-.products-slider .aronia-product-image img{
-
-    width:100% !important;
-
-    height:auto !important;
-
-    object-fit:contain !important;
-
-    display:block !important;
+overflow:hidden;
 
 }
 
+
+.product-card .product-image img{
+
+width:100%;
+
+height:100%;
+
+object-fit:contain;
+
+display:block;
+
+}
 
 /* =====================================================
    لا نغير حجم النصوص أو الأزرار
