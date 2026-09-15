@@ -2648,9 +2648,10 @@ body.dark-mode input:-webkit-autofill{
 }
 
 /* =====================================================
-   ARONIA PRODUCT SLIDER
+   ARONIA - PRODUCT CARDS FINAL
 ===================================================== */
 
+/* السلايدر */
 .products-slider{
 
     display:flex !important;
@@ -2671,95 +2672,197 @@ body.dark-mode input:-webkit-autofill{
 
     margin:0 !important;
 
+    box-sizing:border-box !important;
+
     scrollbar-width:none;
 
     -webkit-overflow-scrolling:touch;
 
     scroll-snap-type:x mandatory;
-
 }
 
 .products-slider::-webkit-scrollbar{
-
     display:none;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.products-slider .product-card{
+
+    flex:0 0 calc((100% - 30px) / 4) !important;
+
+    width:calc((100% - 30px) / 4) !important;
+
+    min-width:calc((100% - 30px) / 4) !important;
+
+    max-width:calc((100% - 30px) / 4) !important;
+
+    height:auto !important;
+
+    min-height:0 !important;
+
+    box-sizing:border-box !important;
+
+    padding:8px !important;
+
+    margin:0 !important;
+
+    border-radius:14px !important;
+
+    scroll-snap-align:start;
+
+    overflow:hidden !important;
+}
+
+
+/* =====================================================
+   IMAGE CONTAINER
+===================================================== */
+
+.products-slider .product-image{
+
+    width:100% !important;
+
+    height:110px !important;
+
+    min-height:110px !important;
+
+    max-height:110px !important;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    overflow:hidden !important;
+
+    border-radius:12px !important;
+
+    box-sizing:border-box !important;
+}
+
+
+/* =====================================================
+   PRODUCT IMAGE
+===================================================== */
+
+.products-slider .product-image img{
+
+    width:100% !important;
+
+    height:100% !important;
+
+    object-fit:contain !important;
+
+    display:block !important;
+}
+
+
+/* =====================================================
+   PRODUCT NAME
+===================================================== */
+
+.products-slider .product-card h3{
+
+    font-size:12px !important;
+
+    line-height:1.4 !important;
+
+    height:34px !important;
+
+    min-height:34px !important;
+
+    max-height:34px !important;
+
+    overflow:hidden !important;
+
+    margin:7px 0 4px !important;
+
+    text-align:center !important;
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+.products-slider .product-card .price{
+
+    font-size:12px !important;
+
+    line-height:1.3 !important;
+
+    margin:0 0 7px !important;
+
+    text-align:center !important;
+
+    white-space:nowrap !important;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.products-slider .product-card .product-actions{
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    gap:4px !important;
+
+    width:100% !important;
 
 }
 
 
 /* =====================================================
-   NORMAL PRODUCT CARD SIZE
+   FAVORITE
 ===================================================== */
 
-.product-card{
+.products-slider .product-card .favorite-btn{
 
-box-sizing:border-box;
+    flex:0 0 28px !important;
 
-width:100%;
+    width:28px !important;
 
-padding:8px;
+    height:30px !important;
+
+    padding:0 !important;
+
+    font-size:15px !important;
 
 }
 
 
 /* =====================================================
-   NORMAL PRODUCT IMAGE
+   ADD TO CART
 ===================================================== */
 
-.product-card .product-image{
+.products-slider .product-card .add-btn{
 
-width:100%;
+    flex:1 1 auto !important;
 
-height:150px;
+    width:auto !important;
 
-display:flex;
+    min-width:0 !important;
 
-align-items:center;
+    height:30px !important;
 
-justify-content:center;
+    padding:4px 3px !important;
 
-overflow:hidden;
+    font-size:9px !important;
 
-}
+    white-space:nowrap !important;
 
+    overflow:hidden !important;
 
-.product-card .product-image img{
-
-width:100%;
-
-height:100%;
-
-object-fit:contain;
-
-display:block;
-
-}
-
-/* =====================================================
-   لا نغير حجم النصوص أو الأزرار
-===================================================== */
-
-.products-slider .aronia-slider-card h3{
-
-    overflow:hidden;
-
-}
-
-.products-slider .aronia-slider-card .product-actions{
-
-    display:flex;
-
-    gap:5px;
-
-}
-
-.products-slider .aronia-slider-card .add-btn{
-
-    flex:1;
-
-    min-width:0;
-
-    white-space:nowrap;
-
+    text-overflow:ellipsis !important;
 }
    
 </style>
