@@ -5942,73 +5942,71 @@ result,
 }
 
 /* =====================================================
-CART
+ADD TO CART
 ===================================================== */
 
 function addToCart(id){
 
-const product =
-allProducts.find(
-item =>
-item.id === id
-);
+  const product =
+    allProducts.find(
+      item =>
+        item.id === id
+    );
 
-if(!product) return;
+  if(!product) return;
 
-const stock =
-Number(product.stock || 0);
+  const stock =
+    Number(product.stock || 0);
 
-if(stock <= 0){
+  if(stock <= 0){
 
-alert(
-"هذا المنتج غير متوفر حالياً."
-);
+    alert(
+      "هذا المنتج غير متوفر حالياً."
+    );
 
-return;
+    return;
+  }
 
-}
+  const existing =
+    cart.find(
+      item =>
+        item.id === id
+    );
 
-const existing =
-cart.find(
-item =>
-item.id === id
-);
+  if(existing){
 
-if(existing){
+    if(
+      existing.quantity >= stock
+    ){
 
-if(existing.quantity >= stock){
+      alert(
+        "لا يمكن إضافة كمية أكبر من المخزون المتوفر."
+      );
 
-alert(
-"لا يمكن إضافة كمية أكبر من المخزون المتوفر."
-);
+      return;
+    }
 
-return;
+    existing.quantity++;
 
-}
+  }else{
 
-existing.quantity++;
+    cart.push({
 
-}else{
+      id: product.id,
 
-cart.push({
+      quantity: 1
 
-id:product.id,
+    });
 
-quantity:1
+  }
 
-});
+  saveCart();
 
-}
+  updateCartCount();
 
-saveCart();
+  renderCart();
 
-updateCartCount();
-
-renderCart();
-
-alert(
-"تمت إضافة المنتج إلى السلة 🛒"
-);
+  refreshProductCards();
 
 }
 
