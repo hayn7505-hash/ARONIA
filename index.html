@@ -5676,6 +5676,293 @@ perfumeProducts,
 
 }
 
+   /* ==================================================
+   FEATURED OFFERS
+================================================== */
+
+let featuredOffers = [];
+
+
+/* =========================
+   تحميل العروض
+========================= */
+
+async function loadFeaturedOffers(){
+
+  const section =
+    document.getElementById(
+      "featuredOffersSection"
+    );
+
+  const container =
+    document.getElementById(
+      "featuredOffersContainer"
+    );
+
+  if(!section || !container) return;
+
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("offers")
+      .select(`
+        id,
+        product_id,
+        offer_price,
+        products (
+          id,
+          name,
+          name_ar,
+          price,
+          image,
+          description
+        )
+      `)
+      .eq(
+        "is_active",
+        true
+      )
+      .order(
+        "id",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    console.error(
+      "Featured offers error:",
+      error
+    );
+
+    section.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  featuredOffers =
+    data || [];
+
+
+  /*
+     إذا لا توجد عروض
+     نخفي القسم بالكامل
+  */
+
+  if(
+    featuredOffers.length === 0
+  ){
+
+    section.style.display =
+      "none";
+
+    container.innerHTML =
+      "";
+
+    return;
+
+  }
+
+
+  /*
+     توجد عروض
+     نظهر القسم
+  */
+
+  section.style.display =
+    "";
+
+
+  renderFeaturedOffers();
+
+}
+
+
+/* =========================
+   عرض العروض
+========================= */
+
+function renderFeaturedOffers(){
+
+  const container =
+    document.getElementById(
+      "featuredOffersContainer"
+    );
+
+  if(!container) return;
+
+
+  container.innerHTML =
+    "";
+
+
+  featuredOffers.forEach(
+    offer => {
+
+      const product =
+        offer.products;
+
+
+      if(!product) return;
+
+
+      const originalPrice =
+        Number(
+          product.price || 0
+        );
+
+
+      const offerPrice =
+        Number(
+          offer.offer_price || 0
+        );
+
+
+      let discount = 0;
+
+
+      if(
+        originalPrice > 0 &&
+        offerPrice < originalPrice
+      ){
+
+        discount =
+          Math.round(
+            (
+              (originalPrice - offerPrice) /
+              originalPrice
+            ) * 100
+          );
+
+      }
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "product-card";
+
+
+      card.innerHTML = `
+
+        <div class="product-image">
+
+          <img
+            src="${getImageURL(product.image)}"
+            alt="${escapeHTML(
+              product.name_ar ||
+              product.name ||
+              "منتج"
+            )}"
+          >
+
+        </div>
+
+
+        <h3>
+
+          ${escapeHTML(
+            product.name_ar ||
+            product.name ||
+            "منتج"
+          )}
+
+        </h3>
+
+
+        <div
+          style="
+            margin-top:5px;
+          "
+        >
+
+          <span
+            style="
+              text-decoration:line-through;
+              color:#999;
+              font-size:12px;
+              margin-left:5px;
+            "
+          >
+
+            ${formatIQD(originalPrice)}
+
+          </span>
+
+
+          <span
+            style="
+              color:#b45f5f;
+              font-size:16px;
+              font-weight:bold;
+            "
+          >
+
+            ${formatIQD(offerPrice)}
+
+          </span>
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:5px;
+            color:#8d6868;
+            font-size:12px;
+            font-weight:bold;
+          "
+        >
+
+          خصم ${discount}%
+
+        </div>
+
+
+        <div
+          class="product-actions"
+        >
+
+          <button
+            class="add-btn"
+            onclick="
+              addToCart(
+                ${product.id},
+                ${offerPrice}
+              )
+            "
+          >
+
+            إضافة للسلة
+
+          </button>
+
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+   
 /* =====================================================
 REFRESH HOME PRODUCTS
 ===================================================== */
