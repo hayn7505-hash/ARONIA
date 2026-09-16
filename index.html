@@ -7890,6 +7890,31 @@ loadMyOrders();
 
 }
 
+   /* =====================================================
+   FEATURED OFFERS - HOME ONLY
+===================================================== */
+
+const featuredSection =
+  document.getElementById(
+    "featuredOffersSection"
+  );
+
+if(featuredSection){
+
+  if(page === "home"){
+
+    featuredSection.style.display = "";
+
+    loadFeaturedOffers();
+
+  }else{
+
+    featuredSection.style.display = "none";
+
+  }
+
+}
+   
 if(page === "categories"){
 
 renderProducts(
