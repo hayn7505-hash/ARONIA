@@ -6899,355 +6899,419 @@ CHECKOUT
 
 function checkout(){
 
-if(cart.length === 0){
+  if(cart.length === 0){
 
-alert(
-"السلة فارغة."
-);
+    alert(
+      "السلة فارغة."
+    );
 
-return;
+    return;
 
-}
+  }
 
-if(!currentUser){
 
-alert(
-"يجب تسجيل الدخول أولاً لإتمام الطلب."
-);
+  if(!currentUser){
 
-showAuthOverlay();
+    alert(
+      "يجب تسجيل الدخول أولاً لإتمام الطلب."
+    );
 
-showLogin();
+    showAuthOverlay();
 
-return;
+    showLogin();
 
-}
+    return;
 
-const oldModal =
-document.getElementById(
-"checkoutModal"
-);
+  }
 
-if(oldModal){
 
-oldModal.remove();
+  const oldModal =
+    document.getElementById(
+      "checkoutModal"
+    );
 
-}
 
-const modal =
-document.createElement(
-"div"
-);
+  if(oldModal){
 
-modal.id =
-"checkoutModal";
+    oldModal.remove();
 
-modal.className =
-"checkout-overlay";
+  }
 
-modal.innerHTML = `
 
-<div class="checkout-box">
+  const modal =
+    document.createElement(
+      "div"
+    );
 
-<div class="checkout-header">
 
-<h2>
-إتمام الطلب
-</h2>
+  modal.id =
+    "checkoutModal";
 
-<button
-type="button"
-class="checkout-close"
-onclick="document.getElementById('checkoutModal').remove()">
 
-×
+  modal.className =
+    "checkout-overlay";
 
-</button>
 
-</div>
+  modal.innerHTML = `
 
-<form id="checkoutForm">
+    <div class="checkout-box">
 
-<label>
-الاسم الكامل
-</label>
+      <div class="checkout-header">
 
-<input
-id="customerName"
-type="text"
-required
-placeholder="${
-getUserGender() === "male"
-?
-"اكتب اسمك الكامل"
-:
-"اكتبي اسمك الكامل"
-}">
+        <h2>
+          إتمام الطلب
+        </h2>
 
-<label>
-رقم الهاتف
-</label>
+        <button
+          type="button"
+          class="checkout-close"
+          onclick="document.getElementById('checkoutModal').remove()">
 
-<input
-id="customerPhone"
-type="tel"
-required
-placeholder="07xxxxxxxxx">
+          ×
 
-<label>
-العنوان
-</label>
+        </button>
 
-<textarea
-id="customerAddress"
-required
-placeholder="المحافظة، المنطقة، الشارع..."></textarea>
+      </div>
 
-<label>
-ملاحظات الطلب
-</label>
 
-<textarea
-id="customerNotes"
-placeholder="أي ملاحظة إضافية..."></textarea>
+      <form id="checkoutForm">
 
-<button
-id="confirmOrderButton"
-type="submit"
-class="confirm-order">
+        <label>
+          الاسم الكامل
+        </label>
 
-تأكيد الطلب
+        <input
+          id="customerName"
+          type="text"
+          required
+          placeholder="${
+            getUserGender() === "male"
+            ?
+            "اكتب اسمك الكامل"
+            :
+            "اكتبي اسمك الكامل"
+          }">
 
-</button>
 
-</form>
+        <label>
+          رقم الهاتف
+        </label>
 
-</div>
+        <input
+          id="customerPhone"
+          type="tel"
+          required
+          placeholder="07xxxxxxxxx">
 
-`;
 
-document.body.appendChild(
-modal
-);
+        <label>
+          العنوان
+        </label>
 
-const nameInput =
-document.getElementById(
-"customerName"
-);
+        <textarea
+          id="customerAddress"
+          required
+          placeholder="المحافظة، المنطقة، الشارع..."></textarea>
 
-if(
-nameInput &&
-currentUser
-){
 
-nameInput.value =
-currentUser
-.user_metadata
-?.full_name ||
-"";
+        <label>
+          ملاحظات الطلب
+        </label>
 
-}
+        <textarea
+          id="customerNotes"
+          placeholder="أي ملاحظة إضافية..."></textarea>
 
-/* CHECKOUT FORM */
 
-document
-.getElementById("checkoutForm")
-.addEventListener(
-"submit",
-async function(e){
+        <button
+          id="confirmOrderButton"
+          type="submit"
+          class="confirm-order">
 
-e.preventDefault();
+          تأكيد الطلب
 
-const {
-data:userData
-} =
-await db.auth.getUser();
+        </button>
 
-if(
-!userData ||
-!userData.user
-){
+      </form>
 
-alert(
-"انتهت جلسة تسجيل الدخول. يرجى تسجيل الدخول مرة أخرى."
-);
+    </div>
 
-modal.remove();
+  `;
 
-showAuthOverlay();
 
-showLogin();
+  document.body.appendChild(
+    modal
+  );
 
-return;
 
-}
+  const nameInput =
+    document.getElementById(
+      "customerName"
+    );
 
-const name =
-document
-.getElementById("customerName")
-.value
-.trim();
 
-const phone =
-document
-.getElementById("customerPhone")
-.value
-.trim();
+  if(
+    nameInput &&
+    currentUser
+  ){
 
-const address =
-document
-.getElementById("customerAddress")
-.value
-.trim();
+    nameInput.value =
+      currentUser
+      .user_metadata
+      ?.full_name ||
+      "";
 
-const notes =
-document
-.getElementById("customerNotes")
-.value
-.trim();
+  }
 
-const button =
-document.getElementById(
-"confirmOrderButton"
-);
 
-button.disabled = true;
+  /* CHECKOUT FORM */
 
-button.textContent =
-"جاري إرسال الطلب...";
+  document
+    .getElementById("checkoutForm")
+    .addEventListener(
+      "submit",
+      async function(e){
 
-const orderItems =
-cart.map(item => {
+        e.preventDefault();
 
-const product =
-allProducts.find(
-p =>
-p.id === item.id
-);
 
-if(!product){
+        const {
+          data:userData
+        } =
+        await db.auth.getUser();
 
-return null;
 
-}
+        if(
+          !userData ||
+          !userData.user
+        ){
 
-return {
+          alert(
+            "انتهت جلسة تسجيل الدخول. يرجى تسجيل الدخول مرة أخرى."
+          );
 
-product_id:
-product.id,
+          modal.remove();
 
-name:
-product.name_ar ||
-product.name ||
-"منتج",
+          showAuthOverlay();
 
-price:
-Number(
-product.price || 0
-),
+          showLogin();
 
-quantity:
-Number(
-item.quantity || 1
-)
+          return;
 
-};
+        }
 
-}).filter(Boolean);
 
-let total = 0;
+        const name =
+          document
+            .getElementById("customerName")
+            .value
+            .trim();
 
-orderItems.forEach(item => {
 
-total +=
-item.price *
-item.quantity;
+        const phone =
+          document
+            .getElementById("customerPhone")
+            .value
+            .trim();
 
-});
 
-const {
-data:orderData,
-error
-} =
-await db
-.from("orders")
-.insert([{
+        const address =
+          document
+            .getElementById("customerAddress")
+            .value
+            .trim();
 
-user_id:
-userData.user.id,
 
-customer_name:
-name,
+        const notes =
+          document
+            .getElementById("customerNotes")
+            .value
+            .trim();
 
-phone:
-phone,
 
-shipping_address:
-address,
+        const button =
+          document.getElementById(
+            "confirmOrderButton"
+          );
 
-total_amount:
-total,
 
-status:
-"جديد",
+        button.disabled = true;
 
-items:{
+        button.textContent =
+          "جاري إرسال الطلب...";
 
-products:
-orderItems,
 
-notes:
-notes
+        /*
+           إنشاء عناصر الطلب
+        */
 
-}
+        const orderItems =
+          cart.map(item => {
 
-}])
-.select("id")
-.single();
+            const product =
+              allProducts.find(
+                p =>
+                  p.id === item.id
+              );
 
-if(error){
 
-console.error(
-"ORDER ERROR:",
-error
-);
+            if(!product){
 
-button.disabled = false;
+              return null;
 
-button.textContent =
-"تأكيد الطلب";
+            }
 
-alert(
-"لم يتم إرسال الطلب ❌\n\n" +
-error.message
-);
 
-return;
+            /*
+               إذا كان item.price موجوداً
+               فهذا هو سعر العرض.
 
-}
+               وإذا لم يكن موجوداً
+               نستخدم السعر الأصلي.
+            */
 
-cart = [];
+            const finalPrice =
+              item.price !== undefined
+              ?
+              Number(item.price)
+              :
+              Number(product.price || 0);
 
-saveCart();
 
-updateCartCount();
+            return {
 
-modal.remove();
+              product_id:
+                product.id,
 
-renderCart();
+              name:
+                product.name_ar ||
+                product.name ||
+                "منتج",
 
-await loadMyOrders();
+              price:
+                finalPrice,
 
-alert(
-"تم إرسال طلبك بنجاح ✅\n\n" +
-"رقم الطلب: #" +
-orderData.id +
-"\n\n" +
-"تم نقل الطلب إلى قسم «طلباتي» 🛍️\n\n" +
-"شكراً لتسوقك من ARONIA 🌸"
-);
+              quantity:
+                Number(
+                  item.quantity || 1
+                )
 
-});
+            };
+
+          }).filter(Boolean);
+
+
+        /*
+           حساب المجموع
+        */
+
+        let total = 0;
+
+
+        orderItems.forEach(item => {
+
+          total +=
+            item.price *
+            item.quantity;
+
+        });
+
+
+        /*
+           إرسال الطلب
+        */
+
+        const {
+          data:orderData,
+          error
+        } =
+        await db
+          .from("orders")
+          .insert([{
+
+            user_id:
+              userData.user.id,
+
+            customer_name:
+              name,
+
+            phone:
+              phone,
+
+            shipping_address:
+              address,
+
+            total_amount:
+              total,
+
+            status:
+              "جديد",
+
+            items:{
+
+              products:
+                orderItems,
+
+              notes:
+                notes
+
+            }
+
+          }])
+          .select("id")
+          .single();
+
+
+        if(error){
+
+          console.error(
+            "ORDER ERROR:",
+            error
+          );
+
+
+          button.disabled = false;
+
+
+          button.textContent =
+            "تأكيد الطلب";
+
+
+          alert(
+            "لم يتم إرسال الطلب ❌\n\n" +
+            error.message
+          );
+
+
+          return;
+
+        }
+
+
+        cart = [];
+
+        saveCart();
+
+        updateCartCount();
+
+        modal.remove();
+
+        renderCart();
+
+        await loadMyOrders();
+
+
+        alert(
+          "تم إرسال طلبك بنجاح ✅\n\n" +
+          "رقم الطلب: #" +
+          orderData.id +
+          "\n\n" +
+          "تم نقل الطلب إلى قسم «طلباتي» 🛍️\n\n" +
+          "شكراً لتسوقك من ARONIA 🌸"
+        );
+
+      }
+    );
 
 }
    
