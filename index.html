@@ -5801,12 +5801,12 @@ function renderProducts(
       <div class="product-actions">
 
         <button
-          class="favorite-btn"
-          onclick="toggleFavorite(${product.id})">
+  class="favorite-btn ${isFavorite ? "active" : ""}"
+  onclick="toggleFavorite(${product.id})">
 
-         ${isFavorite ? "♥" : "♡"}
+  ${isFavorite ? "♥" : "♡"}
 
-        </button>
+</button>
 
         ${
           isOutOfStock
