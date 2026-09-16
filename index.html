@@ -6608,168 +6608,199 @@ RENDER CART
 
 function renderCart(){
 
-const container =
-document.getElementById(
-"cartContainer"
-);
+  const container =
+    document.getElementById(
+      "cartContainer"
+    );
 
-if(!container) return;
+  if(!container) return;
 
-if(cart.length === 0){
 
-container.innerHTML =
-'<div class="empty">السلة فارغة 🛒</div>';
+  if(cart.length === 0){
 
-return;
+    container.innerHTML =
+      '<div class="empty">السلة فارغة 🛒</div>';
 
-}
+    return;
 
-container.innerHTML = "";
+  }
 
-let total = 0;
 
-cart.forEach(item => {
+  container.innerHTML = "";
 
-const product =
-allProducts.find(
-p =>
-p.id === item.id
-);
+  let total = 0;
 
-if(!product) return;
 
-const price =
-Number(
-product.price || 0
-);
+  cart.forEach(item => {
 
-total +=
-price *
-Number(
-item.quantity || 0
-);
+    const product =
+      allProducts.find(
+        p =>
+          p.id === item.id
+      );
 
-const div =
-document.createElement(
-"div"
-);
 
-div.className =
-"cart-item";
+    if(!product) return;
 
-div.innerHTML = `
 
-<img
+    /*
+       إذا كان للمنتج سعر محفوظ في السلة
+       نستخدمه (سعر العرض)
 
-src="${escapeHTML(
-getImageURL(product.image)
-)}"
+       وإذا لم يكن موجوداً
+       نستخدم السعر الأصلي
+    */
 
-onerror="handleImageError(this)"
+    const price =
+      item.price !== undefined
+      ?
+      Number(item.price)
+      :
+      Number(product.price || 0);
 
-referrerpolicy="no-referrer"
 
-alt="${escapeHTML(
-product.name_ar ||
-product.name ||
-""
-)}"
+    total +=
+      price *
+      Number(
+        item.quantity || 0
+      );
 
->
 
-<div class="cart-info">
+    const div =
+      document.createElement(
+        "div"
+      );
 
-<h3>
 
-${escapeHTML(
-product.name_ar ||
-product.name ||
-"منتج"
-)}
+    div.className =
+      "cart-item";
 
-</h3>
 
-<div class="cart-price">
+    div.innerHTML = `
 
-${formatIQD(price)}
+      <img
 
-</div>
+        src="${escapeHTML(
+          getImageURL(product.image)
+        )}"
 
-<div class="qty">
+        onerror="handleImageError(this)"
 
-<button
-onclick="changeQuantity(${product.id},1)">
+        referrerpolicy="no-referrer"
 
-+
+        alt="${escapeHTML(
+          product.name_ar ||
+          product.name ||
+          ""
+        )}"
 
-</button>
+      >
 
-<span>
 
-${item.quantity}
+      <div class="cart-info">
 
-</span>
+        <h3>
 
-<button
-onclick="changeQuantity(${product.id},-1)">
+          ${escapeHTML(
+            product.name_ar ||
+            product.name ||
+            "منتج"
+          )}
 
-−
+        </h3>
 
-</button>
 
-</div>
+        <div class="cart-price">
 
-<div
-class="remove"
-onclick="removeFromCart(${product.id})">
+          ${formatIQD(price)}
 
-حذف المنتج
+        </div>
 
-</div>
 
-</div>
+        <div class="qty">
 
-`;
+          <button
+            onclick="changeQuantity(${product.id},1)">
 
-container.appendChild(div);
+            +
 
-});
+          </button>
 
-const totalBox =
-document.createElement(
-"div"
-);
 
-totalBox.className =
-"cart-total";
+          <span>
 
-totalBox.innerHTML = `
+            ${item.quantity}
 
-<div class="cart-total-row">
+          </span>
 
-<span>
-المجموع
-</span>
 
-<span>
-${formatIQD(total)}
-</span>
+          <button
+            onclick="changeQuantity(${product.id},-1)">
 
-</div>
+            −
 
-<button
-class="checkout-btn"
-onclick="checkout()">
+          </button>
 
-إتمام الطلب
+        </div>
 
-</button>
 
-`;
+        <div
+          class="remove"
+          onclick="removeFromCart(${product.id})">
 
-container.appendChild(
-totalBox
-);
+          حذف المنتج
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(div);
+
+  });
+
+
+  const totalBox =
+    document.createElement(
+      "div"
+    );
+
+
+  totalBox.className =
+    "cart-total";
+
+
+  totalBox.innerHTML = `
+
+    <div class="cart-total-row">
+
+      <span>
+        المجموع
+      </span>
+
+      <span>
+        ${formatIQD(total)}
+      </span>
+
+    </div>
+
+
+    <button
+      class="checkout-btn"
+      onclick="checkout()">
+
+      إتمام الطلب
+
+    </button>
+
+  `;
+
+
+  container.appendChild(
+    totalBox
+  );
 
 }
    
