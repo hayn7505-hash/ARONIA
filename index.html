@@ -5654,6 +5654,66 @@ perfumeProducts,
 }
 
 /* =====================================================
+REFRESH HOME PRODUCTS
+===================================================== */
+
+function refreshHomeProducts(){
+
+  const skinProducts =
+    allProducts
+      .filter(product =>
+        String(product.category || "").trim()
+        === "العناية بالبشرة"
+      )
+      .slice(0,6);
+
+  const makeupProducts =
+    allProducts
+      .filter(product =>
+        String(product.category || "").trim()
+        === "المكياج"
+      )
+      .slice(0,6);
+
+  const hairProducts =
+    allProducts
+      .filter(product =>
+        String(product.category || "").trim()
+        === "العناية بالشعر"
+      )
+      .slice(0,6);
+
+  const perfumeProducts =
+    allProducts
+      .filter(product =>
+        String(product.category || "").trim()
+        === "العطور"
+      )
+      .slice(0,6);
+
+  renderProducts(
+    skinProducts,
+    "skinProducts"
+  );
+
+  renderProducts(
+    makeupProducts,
+    "makeupProducts"
+  );
+
+  renderProducts(
+    hairProducts,
+    "hairProducts"
+  );
+
+  renderProducts(
+    perfumeProducts,
+    "perfumeProducts"
+  );
+
+}
+   
+/* =====================================================
 RENDER PRODUCTS
 ===================================================== */
 function renderProducts(
