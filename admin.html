@@ -708,6 +708,159 @@ color:#888;
 </div>
 
 </div>
+
+
+<!-- =========================
+     إدارة العروض المميزة
+========================= -->
+
+<div class="card">
+
+  <div class="top">
+
+    <h2>
+      🏷️ إدارة العروض المميزة
+    </h2>
+
+    <button
+      class="primary"
+      onclick="loadOffersAdmin()">
+
+      تحديث
+
+    </button>
+
+  </div>
+
+
+  <select id="offerProduct">
+
+    <option value="">
+      اختر المنتج
+    </option>
+
+  </select>
+
+
+  <div
+    id="offerOriginalPrice"
+    style="
+      margin:8px 0;
+      color:#888;
+      font-size:14px;
+    ">
+
+    السعر الأصلي: -
+
+  </div>
+
+
+  <input
+    id="offerPrice"
+    type="number"
+    placeholder="سعر العرض الجديد بالدينار العراقي"
+  >
+
+
+  <div
+    id="offerDiscount"
+    style="
+      margin:8px 0;
+      color:#b45f5f;
+      font-weight:bold;
+    ">
+
+    نسبة الخصم: -
+
+  </div>
+
+
+  <label
+    style="
+      display:block;
+      margin:10px 0;
+    ">
+
+    <input
+      id="offerActive"
+      type="checkbox"
+      checked
+      style="
+        width:auto;
+        margin-left:6px;
+      ">
+
+    تفعيل العرض
+
+  </label>
+
+
+  <button
+    class="primary"
+    onclick="saveOffer()">
+
+    إضافة العرض
+
+  </button>
+
+
+  <button
+    id="cancelOfferBtn"
+    class="edit hidden"
+    onclick="cancelOfferEdit()">
+
+    إلغاء التعديل
+
+  </button>
+
+
+  <div
+    id="offerMessage"
+    class="message">
+  </div>
+
+</div>
+
+
+<!-- =========================
+     العروض الموجودة
+========================= -->
+
+<div class="card">
+
+  <div class="top">
+
+    <h2>
+      🎁 العروض الحالية
+    </h2>
+
+    <button
+      class="primary"
+      onclick="loadOffersAdmin()">
+
+      تحديث
+
+    </button>
+
+  </div>
+
+
+  <div id="offersAdminContainer">
+
+    <div
+      style="
+        text-align:center;
+        padding:30px;
+        color:#888;
+      ">
+
+      جاري تحميل العروض...
+
+    </div>
+
+  </div>
+
+</div>
      
 <!-- =========================
      المنتجات
@@ -2506,6 +2659,940 @@ preview.style.display =
 });
 
 });
+
+/* ==================================================
+   FEATURED OFFERS - ADMIN
+================================================== */
+
+let adminOffers = [];
+
+let editingOfferId = null;
+
+
+/* =========================
+   تحميل العروض
+========================= */
+
+async function loadOffersAdmin(){
+
+  const container =
+    document.getElementById(
+      "offersAdminContainer"
+    );
+
+  if(!container) return;
+
+
+  container.innerHTML = `
+
+    <div style="
+      text-align:center;
+      padding:30px;
+      color:#888;
+    ">
+
+      جاري تحميل العروض...
+
+    </div>
+
+  `;
+
+
+  /*
+     تحميل المنتجات
+  */
+
+  const {
+    data: productData,
+    error: productError
+  } =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .order("id",{
+        ascending:false
+      });
+
+
+  if(productError){
+
+    console.error(
+      "Products error:",
+      productError
+    );
+
+    return;
+
+  }
+
+
+  /*
+     ملء قائمة المنتجات
+  */
+
+  const productSelect =
+    document.getElementById(
+      "offerProduct"
+    );
+
+  productSelect.innerHTML = `
+
+    <option value="">
+      اختر المنتج
+    </option>
+
+  `;
+
+
+  (productData || []).forEach(product => {
+
+    const option =
+      document.createElement("option");
+
+    option.value =
+      product.id;
+
+    option.textContent =
+      `${product.name_ar || product.name || "منتج"} — ${
+        Number(product.price || 0)
+          .toLocaleString("ar-IQ")
+      } د.ع`;
+
+    option.dataset.price =
+      product.price || 0;
+
+    productSelect.appendChild(option);
+
+  });
+
+
+  /*
+     تحميل العروض
+  */
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("offers")
+      .select(`
+        id,
+        product_id,
+        offer_price,
+        is_active,
+        created_at,
+        products (
+          id,
+          name,
+          name_ar,
+          price,
+          image
+        )
+      `)
+      .order("id",{
+        ascending:false
+      });
+
+
+  if(error){
+
+    console.error(
+      "Offers error:",
+      error
+    );
+
+    container.innerHTML = `
+
+      <div style="
+        text-align:center;
+        padding:30px;
+        color:#b33;
+      ">
+
+        فشل تحميل العروض ❌
+
+        <br><br>
+
+        ${escapeHTML(error.message)}
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  adminOffers =
+    data || [];
+
+
+  renderAdminOffers();
+
+}
+
+
+/* =========================
+   تحديث السعر والخصم
+========================= */
+
+function updateOfferPriceInfo(){
+
+  const productSelect =
+    document.getElementById(
+      "offerProduct"
+    );
+
+  const offerPriceInput =
+    document.getElementById(
+      "offerPrice"
+    );
+
+  const originalPriceBox =
+    document.getElementById(
+      "offerOriginalPrice"
+    );
+
+  const discountBox =
+    document.getElementById(
+      "offerDiscount"
+    );
+
+
+  if(!productSelect) return;
+
+
+  const selected =
+    productSelect.options[
+      productSelect.selectedIndex
+    ];
+
+
+  const originalPrice =
+    Number(
+      selected?.dataset?.price || 0
+    );
+
+
+  const offerPrice =
+    Number(
+      offerPriceInput?.value || 0
+    );
+
+
+  originalPriceBox.innerHTML = `
+
+    السعر الأصلي:
+
+    <strong>
+      ${originalPrice.toLocaleString("ar-IQ")}
+      د.ع
+    </strong>
+
+  `;
+
+
+  if(
+    originalPrice > 0 &&
+    offerPrice > 0 &&
+    offerPrice < originalPrice
+  ){
+
+    const discount =
+      Math.round(
+        (
+          (originalPrice - offerPrice) /
+          originalPrice
+        ) * 100
+      );
+
+
+    discountBox.innerHTML = `
+
+      نسبة الخصم:
+
+      <strong>
+        ${discount}%
+      </strong>
+
+    `;
+
+  }else{
+
+    discountBox.textContent =
+      "نسبة الخصم: -";
+
+  }
+
+}
+
+
+/* =========================
+   اختيار المنتج
+========================= */
+
+document.addEventListener(
+  "change",
+  function(event){
+
+    if(
+      event.target.id ===
+      "offerProduct"
+    ){
+
+      updateOfferPriceInfo();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   تغيير سعر العرض
+========================= */
+
+document.addEventListener(
+  "input",
+  function(event){
+
+    if(
+      event.target.id ===
+      "offerPrice"
+    ){
+
+      updateOfferPriceInfo();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   حفظ العرض
+========================= */
+
+async function saveOffer(){
+
+  const productId =
+    Number(
+      document
+        .getElementById("offerProduct")
+        .value
+    );
+
+
+  const offerPrice =
+    Number(
+      document
+        .getElementById("offerPrice")
+        .value
+    );
+
+
+  const isActive =
+    document
+      .getElementById("offerActive")
+      .checked;
+
+
+  const message =
+    document.getElementById(
+      "offerMessage"
+    );
+
+
+  if(!productId){
+
+    message.textContent =
+      "اختر المنتج أولاً.";
+
+    return;
+
+  }
+
+
+  if(!offerPrice || offerPrice <= 0){
+
+    message.textContent =
+      "أدخل سعر العرض.";
+
+    return;
+
+  }
+
+
+  const selected =
+    document.getElementById(
+      "offerProduct"
+    ).selectedOptions[0];
+
+
+  const originalPrice =
+    Number(
+      selected?.dataset?.price || 0
+    );
+
+
+  if(
+    originalPrice <= 0
+  ){
+
+    message.textContent =
+      "تعذر معرفة السعر الأصلي.";
+
+    return;
+
+  }
+
+
+  if(
+    offerPrice >= originalPrice
+  ){
+
+    message.textContent =
+      "سعر العرض يجب أن يكون أقل من السعر الأصلي.";
+
+    return;
+
+  }
+
+
+  message.textContent =
+    editingOfferId
+    ?
+    "جاري تعديل العرض..."
+    :
+    "جاري إضافة العرض...";
+
+
+  let result;
+
+
+  if(editingOfferId){
+
+    result =
+      await supabaseClient
+        .from("offers")
+        .update({
+
+          product_id:
+            productId,
+
+          offer_price:
+            offerPrice,
+
+          is_active:
+            isActive
+
+        })
+        .eq(
+          "id",
+          editingOfferId
+        );
+
+  }else{
+
+    result =
+      await supabaseClient
+        .from("offers")
+        .insert({
+
+          product_id:
+            productId,
+
+          offer_price:
+            offerPrice,
+
+          is_active:
+            isActive
+
+        });
+
+  }
+
+
+  if(result.error){
+
+    message.textContent =
+      "حدث خطأ: " +
+      result.error.message;
+
+    return;
+
+  }
+
+
+  message.textContent =
+    editingOfferId
+    ?
+    "تم تعديل العرض ✅"
+    :
+    "تمت إضافة العرض ✅";
+
+
+  cancelOfferEdit();
+
+
+  await loadOffersAdmin();
+
+}
+
+
+/* =========================
+   عرض العروض
+========================= */
+
+function renderAdminOffers(){
+
+  const container =
+    document.getElementById(
+      "offersAdminContainer"
+    );
+
+
+  if(!container) return;
+
+
+  if(
+    adminOffers.length === 0
+  ){
+
+    container.innerHTML = `
+
+      <div style="
+        text-align:center;
+        padding:40px;
+        color:#888;
+      ">
+
+        لا توجد عروض حالياً 🎁
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  adminOffers.forEach(offer => {
+
+    const product =
+      offer.products;
+
+
+    if(!product) return;
+
+
+    const originalPrice =
+      Number(
+        product.price || 0
+      );
+
+
+    const offerPrice =
+      Number(
+        offer.offer_price || 0
+      );
+
+
+    let discount = 0;
+
+
+    if(
+      originalPrice > 0 &&
+      offerPrice < originalPrice
+    ){
+
+      discount =
+        Math.round(
+          (
+            (originalPrice - offerPrice) /
+            originalPrice
+          ) * 100
+        );
+
+    }
+
+
+    const card =
+      document.createElement("div");
+
+
+    card.className =
+      "banner-card";
+
+
+    card.innerHTML = `
+
+      <div>
+
+        <strong>
+          ${escapeHTML(
+            product.name_ar ||
+            product.name ||
+            "منتج"
+          )}
+        </strong>
+
+      </div>
+
+
+      <div style="
+        margin-top:10px;
+        color:#888;
+      ">
+
+        السعر الأصلي:
+
+        <span style="
+          text-decoration:line-through;
+        ">
+
+          ${originalPrice.toLocaleString("ar-IQ")}
+          د.ع
+
+        </span>
+
+      </div>
+
+
+      <div style="
+        margin-top:7px;
+        color:#b45f5f;
+        font-size:18px;
+        font-weight:bold;
+      ">
+
+        سعر العرض:
+
+        ${offerPrice.toLocaleString("ar-IQ")}
+        د.ع
+
+      </div>
+
+
+      <div style="
+        margin-top:7px;
+        font-weight:bold;
+        color:#8d6868;
+      ">
+
+        خصم ${discount}%
+
+      </div>
+
+
+      <div style="
+        margin-top:10px;
+      ">
+
+        ${
+          offer.is_active
+          ?
+          `
+          <span class="banner-status banner-active">
+            فعال
+          </span>
+          `
+          :
+          `
+          <span class="banner-status banner-inactive">
+            غير فعال
+          </span>
+          `
+        }
+
+      </div>
+
+
+      <div
+        class="actions"
+        style="margin-top:12px;"
+      >
+
+        <button
+          class="edit"
+          onclick="editOffer(${offer.id})">
+
+          تعديل
+
+        </button>
+
+
+        <button
+          class="edit"
+          onclick="
+            toggleOffer(
+              ${offer.id},
+              ${!offer.is_active}
+            )
+          ">
+
+          ${
+            offer.is_active
+            ?
+            "إلغاء التفعيل"
+            :
+            "تفعيل"
+          }
+
+        </button>
+
+
+        <button
+          class="danger"
+          onclick="deleteOffer(${offer.id})">
+
+          حذف
+
+        </button>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================
+   تعديل العرض
+========================= */
+
+function editOffer(id){
+
+  const offer =
+    adminOffers.find(
+      item =>
+        item.id === id
+    );
+
+
+  if(!offer) return;
+
+
+  editingOfferId =
+    id;
+
+
+  document
+    .getElementById("offerProduct")
+    .value =
+      offer.product_id;
+
+
+  document
+    .getElementById("offerPrice")
+    .value =
+      offer.offer_price;
+
+
+  document
+    .getElementById("offerActive")
+    .checked =
+      offer.is_active;
+
+
+  document
+    .querySelector(
+      '#cancelOfferBtn'
+    )
+    .classList
+    .remove("hidden");
+
+
+  updateOfferPriceInfo();
+
+
+  document
+    .getElementById(
+      "offerMessage"
+    )
+    .textContent =
+      "وضع تعديل العرض";
+
+
+  window.scrollTo({
+
+    top:
+      document
+        .getElementById(
+          "offerProduct"
+        )
+        .getBoundingClientRect()
+        .top
+      +
+      window.scrollY
+      -
+      100,
+
+    behavior:"smooth"
+
+  });
+
+}
+
+
+/* =========================
+   إلغاء تعديل العرض
+========================= */
+
+function cancelOfferEdit(){
+
+  editingOfferId =
+    null;
+
+
+  document
+    .getElementById(
+      "offerProduct"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "offerPrice"
+    )
+    .value =
+      "";
+
+
+  document
+    .getElementById(
+      "offerActive"
+    )
+    .checked =
+      true;
+
+
+  document
+    .getElementById(
+      "offerOriginalPrice"
+    )
+    .textContent =
+      "السعر الأصلي: -";
+
+
+  document
+    .getElementById(
+      "offerDiscount"
+    )
+    .textContent =
+      "نسبة الخصم: -";
+
+
+  document
+    .getElementById(
+      "cancelOfferBtn"
+    )
+    .classList
+    .add("hidden");
+
+}
+
+
+/* =========================
+   تفعيل / إلغاء تفعيل
+========================= */
+
+async function toggleOffer(
+  id,
+  newStatus
+){
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("offers")
+      .update({
+
+        is_active:
+          newStatus
+
+      })
+      .eq(
+        "id",
+        id
+      );
+
+
+  if(error){
+
+    alert(
+      "فشل تحديث حالة العرض:\n\n" +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  await loadOffersAdmin();
+
+}
+
+
+/* =========================
+   حذف العرض
+========================= */
+
+async function deleteOffer(id){
+
+  if(
+    !confirm(
+      "هل تريد حذف هذا العرض؟"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("offers")
+      .delete()
+      .eq(
+        "id",
+        id
+      );
+
+
+  if(error){
+
+    alert(
+      "فشل حذف العرض:\n\n" +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  await loadOffersAdmin();
+
+}
      
 /* =========================
    حماية HTML
