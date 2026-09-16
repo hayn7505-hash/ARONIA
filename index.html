@@ -6499,22 +6499,22 @@ REMOVE
 
 function removeFromCart(id){
 
-cart =
-cart.filter(
-item =>
-item.id !== id
-);
+  cart =
+    cart.filter(
+      item =>
+        item.id !== id
+    );
 
-saveCart();
+  saveCart();
 
-updateCartCount();
+  updateCartCount();
 
-renderCart();
+  renderCart();
 
-refreshProductCards();
-   
+  refreshHomeProducts();
+
 }
-
+   
 /* =====================================================
 CHECKOUT
 ===================================================== */
