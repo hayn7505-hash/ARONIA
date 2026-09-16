@@ -681,25 +681,23 @@ body.dark-mode .product-card{
   width:34px;
 
   background:#FFFFFF;
-  color:var(--primary);
+  color:#999999;
 
   border-radius:10px;
+  border:none;
 
   font-size:17px;
 
   transition:
-    background .2s ease,
     color .2s ease,
-    transform .15s ease;
+    transform .2s ease;
 }
 
-.favorite-btn:hover{
-  background:var(--accent);
+/* عند إضافة المنتج للمفضلة */
+.favorite-btn.active{
   color:var(--primary);
-}
-
-.favorite-btn:active{
-  transform:scale(.95);
+  font-size:25px;
+  transform:scale(1.08);
 }
   
 /* =====================================================
