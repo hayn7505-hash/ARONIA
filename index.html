@@ -2671,33 +2671,182 @@ body.dark-mode input:-webkit-autofill{
 
 
 /* =====================================================
-   ARONIA PRODUCT CARD — SAME 3-CARD LAYOUT
+   ARONIA — PRODUCT CARDS FINAL FIX
+   3 CARDS / ROW — NO HORIZONTAL SCROLL
 ===================================================== */
 
-.products-slider .product-card{
-  flex:0 0 calc((100% - 20px) / 3) !important;
+/* حاوية المنتجات */
+.products-slider{
+    width:100% !important;
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:20px !important;
 
-  width:calc((100% - 20px) / 3) !important;
+    overflow:visible !important;
+    overflow-x:visible !important;
 
-  min-width:calc((100% - 20px) / 3) !important;
-
-  max-width:calc((100% - 20px) / 3) !important;
-
-  height:auto !important;
-  min-height:0 !important;
-
-  box-sizing:border-box !important;
-
-  padding:8px !important;
-  margin:0 !important;
-
-  border-radius:14px !important;
-
-  scroll-snap-align:start;
-
-  overflow:hidden !important;
+    padding:0 10px !important;
+    box-sizing:border-box !important;
 }
 
+/* البطاقة */
+.products-slider .product-card{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+
+    flex:none !important;
+
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+
+    box-sizing:border-box !important;
+
+    display:flex !important;
+    flex-direction:column !important;
+
+    overflow:hidden !important;
+}
+
+/* منطقة صورة المنتج */
+.products-slider .product-image{
+    width:100% !important;
+
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+
+    aspect-ratio:1 / 1 !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    overflow:hidden !important;
+}
+
+/* صورة المنتج نفسها */
+.products-slider .product-image img{
+    width:78% !important;
+    height:78% !important;
+
+    max-width:100% !important;
+    max-height:100% !important;
+
+    object-fit:contain !important;
+
+    display:block !important;
+}
+
+/* محتوى البطاقة */
+.products-slider .product-info{
+    width:100% !important;
+    box-sizing:border-box !important;
+
+    padding:12px 10px 14px !important;
+
+    display:flex !important;
+    flex-direction:column !important;
+}
+
+/* اسم المنتج */
+.products-slider .product-name{
+    width:100% !important;
+
+    margin:0 !important;
+
+    font-size:15px !important;
+    line-height:1.45 !important;
+
+    min-height:0 !important;
+    max-height:none !important;
+
+    overflow:hidden !important;
+}
+
+/* السعر */
+.products-slider .product-price{
+    margin-top:7px !important;
+
+    font-size:16px !important;
+    line-height:1.3 !important;
+}
+
+/* منطقة الأزرار */
+.products-slider .product-actions{
+    margin-top:10px !important;
+
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+
+    width:100% !important;
+}
+
+/* زر الإضافة */
+.products-slider .add-to-cart{
+    max-width:calc(100% - 42px) !important;
+
+    height:42px !important;
+
+    padding:0 12px !important;
+
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+}
+
+/* زر المفضلة */
+.products-slider .favorite-btn{
+    width:36px !important;
+    height:36px !important;
+
+    flex:0 0 36px !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:699px){
+
+    .products-slider{
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+        gap:18px !important;
+
+        padding:0 8px !important;
+    }
+
+    .products-slider .product-image{
+        aspect-ratio:1 / 1 !important;
+    }
+
+    .products-slider .product-image img{
+        width:76% !important;
+        height:76% !important;
+    }
+
+    .products-slider .product-info{
+        padding:10px 8px 12px !important;
+    }
+
+    .products-slider .product-name{
+        font-size:14px !important;
+        line-height:1.4 !important;
+    }
+
+    .products-slider .product-price{
+        font-size:15px !important;
+    }
+
+    .products-slider .add-to-cart{
+        height:40px !important;
+        font-size:13px !important;
+    }
+}
+   
 /* =====================================================
    IMAGE CONTAINER
 ===================================================== */
