@@ -7902,15 +7902,17 @@ if(featuredSection){
 
   if(page === "home"){
 
-    featuredSection.style.display = "";
+  console.log("HOME: loading featured offers");
 
-    loadFeaturedOffers();
+  featuredSection.style.display = "";
 
-  }else{
+  loadFeaturedOffers();
 
-    featuredSection.style.display = "none";
+}else{
 
-  }
+  featuredSection.style.display = "none";
+
+}
 
 }
    
