@@ -3108,6 +3108,34 @@ PRODUCT QUANTITY CONTROLS
   font-size:15px;
   background:#f3f3f3;
 }
+
+/* =========================
+   Featured Offers Slider
+========================= */
+
+#featuredOffersContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  padding: 8px 4px 16px;
+  direction: rtl;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+#featuredOffersContainer::-webkit-scrollbar {
+  display: none;
+}
+
+#featuredOffersContainer .product-card {
+  flex: 0 0 190px;
+  width: 190px;
+  min-width: 190px;
+  scroll-snap-align: start;
+}
    
 </style>
 
