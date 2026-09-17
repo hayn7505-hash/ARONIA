@@ -3474,30 +3474,15 @@ PRODUCT QUANTITY CONTROLS
        البطاقة — بطاقتان فقط
     ================================================= */
 
-    body .products-slider .product-card{
+    body ..products-slider .product-card{
+    flex:0 0 calc(50% - 2px) !important;
+    width:calc(50% - 2px) !important;
+    min-width:calc(50% - 2px) !important;
+    max-width:calc(50% - 2px) !important;
 
-        flex:0 0 calc((100% - 16px) / 2) !important;
-
-        width:calc((100% - 16px) / 2) !important;
-
-        min-width:calc((100% - 16px) / 2) !important;
-
-        max-width:calc((100% - 16px) / 2) !important;
-
-        height:auto !important;
-
-        min-height:0 !important;
-
-        max-height:none !important;
-
-        margin:0 !important;
-
-        box-sizing:border-box !important;
-
-        scroll-snap-align:start !important;
-
-        overflow:hidden !important;
-    }
+    overflow:visible !important;
+    box-sizing:border-box !important;
+}
 
 
     /* =================================================
@@ -3644,10 +3629,10 @@ PRODUCT QUANTITY CONTROLS
 @media screen and (max-width:430px){
 
     body .products-slider{
-    gap:4px !important;
-        padding-left:4px !important;
-        padding-right:4px !important;
-    }
+    gap:0px !important;
+    padding-left:0px !important;
+    padding-right:0px !important;
+}
 
     body .products-slider .product-card{
     flex:0 0 calc((100% - 4px) / 2) !important;
