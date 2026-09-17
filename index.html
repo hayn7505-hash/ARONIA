@@ -3644,17 +3644,27 @@ PRODUCT QUANTITY CONTROLS
 @media screen and (max-width:430px){
 
     body .products-slider{
-        gap:8px !important;
+    gap:4px !important;
         padding-left:4px !important;
         padding-right:4px !important;
     }
 
     body .products-slider .product-card{
-        flex:0 0 calc((100% - 8px) / 2) !important;
-        width:calc((100% - 8px) / 2) !important;
-        min-width:calc((100% - 8px) / 2) !important;
-        max-width:calc((100% - 8px) / 2) !important;
-    }
+    flex:0 0 calc((100% - 4px) / 2) !important;
+    width:calc((100% - 4px) / 2) !important;
+    min-width:calc((100% - 4px) / 2) !important;
+    max-width:calc((100% - 4px) / 2) !important;
+
+    height:auto !important;
+    min-height:0 !important;
+
+    box-sizing:border-box !important;
+
+    display:flex !important;
+    flex-direction:column !important;
+
+    overflow:visible !important;
+}
 
     body .products-slider .product-image{
         height:115px !important;
