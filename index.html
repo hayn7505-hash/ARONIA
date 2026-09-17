@@ -3637,10 +3637,28 @@ PRODUCT QUANTITY CONTROLS
 }
 
 /* =====================================================
-   ARONIA — SMALL MOBILE CARD HEIGHT
+   ARONIA — SMALL MOBILE
+   WIDER + SHORTER PRODUCT CARDS
 ===================================================== */
 
 @media screen and (max-width:430px){
+
+    body .products-slider{
+        gap:12px !important;
+        padding-left:6px !important;
+        padding-right:6px !important;
+    }
+
+    body .products-slider .product-card{
+
+        flex:0 0 calc((100% - 12px) / 2) !important;
+
+        width:calc((100% - 12px) / 2) !important;
+
+        min-width:calc((100% - 12px) / 2) !important;
+
+        max-width:calc((100% - 12px) / 2) !important;
+    }
 
     body .products-slider .product-image{
         height:115px !important;
@@ -3654,7 +3672,7 @@ PRODUCT QUANTITY CONTROLS
     }
 
     body .products-slider .product-info{
-        padding:6px 7px 8px !important;
+        padding:6px 8px 8px !important;
     }
 
     body .products-slider .product-name{
