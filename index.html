@@ -532,17 +532,22 @@ CATEGORIES — ARONIA COLOR IDENTITY
 
 .products{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(10px,2vw,20px);
+  width:100%;
+  box-sizing:border-box;
 }
 
 .product-card{
   background:var(--card);
   border-radius:16px;
-  padding:8px;
+  padding:clamp(8px,1.5vw,14px);
   box-shadow:var(--shadow);
   overflow:hidden;
   position:relative;
+  min-width:0;
+  width:100%;
+  box-sizing:border-box;
 
   border:1px solid rgba(184,232,222,.55);
 }
