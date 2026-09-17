@@ -3433,6 +3433,208 @@ PRODUCT QUANTITY CONTROLS
   object-fit:contain;
   display:block;
 }
+
+/* =====================================================
+   ARONIA — FINAL MOBILE SLIDER OVERRIDE
+   MOBILE = 2 CARDS ONLY
+===================================================== */
+
+@media screen and (max-width:699px){
+
+    /* السلايدر */
+    body .products-slider{
+        display:flex !important;
+        flex-direction:row !important;
+        flex-wrap:nowrap !important;
+
+        width:100% !important;
+
+        gap:16px !important;
+
+        overflow-x:auto !important;
+        overflow-y:hidden !important;
+
+        padding:0 8px 12px !important;
+
+        box-sizing:border-box !important;
+
+        scroll-snap-type:x mandatory !important;
+
+        -webkit-overflow-scrolling:touch !important;
+
+        scrollbar-width:none !important;
+    }
+
+    body .products-slider::-webkit-scrollbar{
+        display:none !important;
+    }
+
+
+    /* =================================================
+       البطاقة — بطاقتان فقط
+    ================================================= */
+
+    body .products-slider .product-card{
+
+        flex:0 0 calc((100% - 16px) / 2) !important;
+
+        width:calc((100% - 16px) / 2) !important;
+
+        min-width:calc((100% - 16px) / 2) !important;
+
+        max-width:calc((100% - 16px) / 2) !important;
+
+        height:auto !important;
+
+        min-height:0 !important;
+
+        max-height:none !important;
+
+        margin:0 !important;
+
+        box-sizing:border-box !important;
+
+        scroll-snap-align:start !important;
+
+        overflow:hidden !important;
+    }
+
+
+    /* =================================================
+       صورة المنتج — تقليل الارتفاع
+    ================================================= */
+
+    body .products-slider .product-image{
+
+        width:100% !important;
+
+        height:155px !important;
+
+        min-height:155px !important;
+
+        max-height:155px !important;
+
+        aspect-ratio:auto !important;
+
+        display:flex !important;
+
+        align-items:center !important;
+
+        justify-content:center !important;
+
+        overflow:hidden !important;
+
+        box-sizing:border-box !important;
+    }
+
+
+    body .products-slider .product-image img{
+
+        width:70% !important;
+
+        height:70% !important;
+
+        max-width:100% !important;
+
+        max-height:100% !important;
+
+        object-fit:contain !important;
+
+        display:block !important;
+    }
+
+
+    /* =================================================
+       معلومات المنتج
+    ================================================= */
+
+    body .products-slider .product-info{
+
+        width:100% !important;
+
+        padding:8px 8px 10px !important;
+
+        box-sizing:border-box !important;
+    }
+
+
+    /* اسم المنتج */
+    body .products-slider .product-name{
+
+        font-size:14px !important;
+
+        line-height:1.35 !important;
+
+        margin:0 !important;
+
+        min-height:0 !important;
+
+        max-height:42px !important;
+
+        overflow:hidden !important;
+    }
+
+
+    /* السعر */
+    body .products-slider .product-price{
+
+        font-size:15px !important;
+
+        line-height:1.3 !important;
+
+        margin-top:5px !important;
+    }
+
+
+    /* =================================================
+       الأزرار
+    ================================================= */
+
+    body .products-slider .product-actions{
+
+        width:100% !important;
+
+        margin-top:8px !important;
+
+        display:flex !important;
+
+        align-items:center !important;
+
+        justify-content:space-between !important;
+
+        box-sizing:border-box !important;
+    }
+
+
+    body .products-slider .add-to-cart{
+
+        height:38px !important;
+
+        max-width:calc(100% - 40px) !important;
+
+        padding:0 8px !important;
+
+        font-size:12px !important;
+
+        white-space:nowrap !important;
+
+        overflow:hidden !important;
+
+        text-overflow:ellipsis !important;
+    }
+
+
+    body .products-slider .favorite-btn{
+
+        width:34px !important;
+
+        min-width:34px !important;
+
+        height:34px !important;
+
+        flex:0 0 34px !important;
+    }
+}
    
 </style>
 
