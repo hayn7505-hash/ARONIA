@@ -3510,7 +3510,7 @@ PRODUCT QUANTITY CONTROLS
 
 
     /* =================================================
-       صورة المنتج — ارتفاع أقل
+       صورة المنتج — أكبر
     ================================================= */
 
     body .products-slider .product-image{
@@ -3539,9 +3539,9 @@ PRODUCT QUANTITY CONTROLS
 
     body .products-slider .product-image img{
 
-        width:68% !important;
+        width:85% !important;
 
-        height:68% !important;
+        height:85% !important;
 
         max-width:100% !important;
 
@@ -3719,7 +3719,7 @@ PRODUCT QUANTITY CONTROLS
 
 
     /* =================================================
-       صورة المنتج — أقصر
+       صورة المنتج — أكبر
     ================================================= */
 
     body .products-slider .product-image{
@@ -3734,9 +3734,15 @@ PRODUCT QUANTITY CONTROLS
 
     body .products-slider .product-image img{
 
-        width:63% !important;
+        width:85% !important;
 
-        height:63% !important;
+        height:85% !important;
+
+        max-width:100% !important;
+
+        max-height:100% !important;
+
+        object-fit:contain !important;
     }
 
 
@@ -3812,16 +3818,21 @@ PRODUCT QUANTITY CONTROLS
     }
 }
 
+
 /* =====================================================
    ARONIA — FINAL CARD LAYOUT
 ===================================================== */
 
 /* البطاقة */
+
 .products-slider .product-card,
 .category-products-grid .product-card{
+
   position:relative !important;
+
   box-sizing:border-box !important;
 }
+
 
 /* =========================
    المفضلة — أعلى اليسار
@@ -3829,36 +3840,48 @@ PRODUCT QUANTITY CONTROLS
 
 .products-slider .card-favorite,
 .category-products-grid .card-favorite{
+
   position:absolute !important;
 
   top:8px !important;
+
   left:8px !important;
 
   width:32px !important;
+
   height:32px !important;
+
   min-width:32px !important;
 
   padding:0 !important;
 
   display:flex !important;
+
   align-items:center !important;
+
   justify-content:center !important;
 
   background:#FFFFFF !important;
+
   color:#999999 !important;
 
   border:0 !important;
+
   border-radius:9px !important;
 
   font-size:20px !important;
+
   line-height:1 !important;
 
   z-index:20 !important;
 }
 
+
 .products-slider .card-favorite.active,
 .category-products-grid .card-favorite.active{
+
   color:var(--primary) !important;
+
   transform:scale(1.08) !important;
 }
 
@@ -3873,6 +3896,7 @@ PRODUCT QUANTITY CONTROLS
   width:100% !important;
 
   display:flex !important;
+
   align-items:center !important;
 
   gap:0 !important;
@@ -3891,6 +3915,7 @@ PRODUCT QUANTITY CONTROLS
 .category-products-grid .product-actions .add-btn{
 
   width:100% !important;
+
   max-width:none !important;
 
   min-width:0 !important;
@@ -3919,6 +3944,7 @@ PRODUCT QUANTITY CONTROLS
 
 
 /* لا توجد مفضلة داخل صف الأزرار */
+
 .products-slider .product-actions .favorite-btn,
 .category-products-grid .product-actions .favorite-btn{
 
@@ -3933,6 +3959,7 @@ PRODUCT QUANTITY CONTROLS
 @media screen and (max-width:1199px){
 
   .products-slider{
+
     gap:4px !important;
   }
 
@@ -3946,15 +3973,20 @@ PRODUCT QUANTITY CONTROLS
 @media screen and (max-width:430px){
 
   .products-slider{
+
     gap:4px !important;
   }
 
   .products-slider .card-favorite{
+
     width:30px !important;
+
     height:30px !important;
+
     min-width:30px !important;
 
     top:7px !important;
+
     left:7px !important;
 
     font-size:19px !important;
@@ -3962,23 +3994,45 @@ PRODUCT QUANTITY CONTROLS
 
 }
 
-@media (max-width: 600px){
+
+/* =====================================================
+   ARONIA — MOBILE PRODUCT IMAGE
+   تكبير صورة المنتج داخل البطاقة
+===================================================== */
+
+@media (max-width:600px){
 
   .product-card .product-image{
-    width: 100% !important;
-    height: 180px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: visible !important;
+
+    width:100% !important;
+
+    height:180px !important;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    overflow:hidden !important;
   }
 
+
   .product-card .product-image img{
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
-    object-position: center !important;
-    display: block !important;
+
+    width:95% !important;
+
+    height:95% !important;
+
+    max-width:100% !important;
+
+    max-height:100% !important;
+
+    object-fit:contain !important;
+
+    object-position:center !important;
+
+    display:block !important;
   }
 
 }
