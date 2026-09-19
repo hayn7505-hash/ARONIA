@@ -6798,7 +6798,19 @@ function renderProducts(
       stock <= 0;
 
     card.innerHTML = `
+    
+    <button
 
+    class="favorite-btn card-favorite ${isFavorite ? "active" : ""}"
+
+    onclick="toggleFavorite(${product.id})"
+
+    aria-label="إضافة إلى المفضلة">
+
+  ${isFavorite ? "♥" : "♡"}
+
+  </button>
+  
       <div
         class="product-image aronia-product-image"
         onclick="openProduct(${product.id})">
