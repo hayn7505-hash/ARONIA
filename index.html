@@ -3811,6 +3811,156 @@ PRODUCT QUANTITY CONTROLS
         flex:0 0 30px !important;
     }
 }
+
+/* =====================================================
+   ARONIA — FINAL CARD LAYOUT
+===================================================== */
+
+/* البطاقة */
+.products-slider .product-card,
+.category-products-grid .product-card{
+  position:relative !important;
+  box-sizing:border-box !important;
+}
+
+/* =========================
+   المفضلة — أعلى اليسار
+========================= */
+
+.products-slider .card-favorite,
+.category-products-grid .card-favorite{
+  position:absolute !important;
+
+  top:8px !important;
+  left:8px !important;
+
+  width:32px !important;
+  height:32px !important;
+  min-width:32px !important;
+
+  padding:0 !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  background:#FFFFFF !important;
+  color:#999999 !important;
+
+  border:0 !important;
+  border-radius:9px !important;
+
+  font-size:20px !important;
+  line-height:1 !important;
+
+  z-index:20 !important;
+}
+
+.products-slider .card-favorite.active,
+.category-products-grid .card-favorite.active{
+  color:var(--primary) !important;
+  transform:scale(1.08) !important;
+}
+
+
+/* =========================
+   منطقة الأزرار
+========================= */
+
+.products-slider .product-actions,
+.category-products-grid .product-actions{
+
+  width:100% !important;
+
+  display:flex !important;
+  align-items:center !important;
+
+  gap:0 !important;
+
+  margin-top:8px !important;
+
+  box-sizing:border-box !important;
+}
+
+
+/* =========================
+   أضف إلى السلة
+========================= */
+
+.products-slider .product-actions .add-btn,
+.category-products-grid .product-actions .add-btn{
+
+  width:100% !important;
+  max-width:none !important;
+
+  min-width:0 !important;
+
+  flex:1 1 100% !important;
+
+  height:34px !important;
+
+  box-sizing:border-box !important;
+}
+
+
+/* =========================
+   الكمية بعد إضافة المنتج
+========================= */
+
+.products-slider .product-actions .product-quantity,
+.category-products-grid .product-actions .product-quantity{
+
+  width:100% !important;
+
+  flex:1 1 100% !important;
+
+  box-sizing:border-box !important;
+}
+
+
+/* لا توجد مفضلة داخل صف الأزرار */
+.products-slider .product-actions .favorite-btn,
+.category-products-grid .product-actions .favorite-btn{
+
+  display:none !important;
+}
+
+
+/* =====================================================
+   MOBILE + IPAD
+===================================================== */
+
+@media screen and (max-width:1199px){
+
+  .products-slider{
+    gap:4px !important;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE الصغير
+===================================================== */
+
+@media screen and (max-width:430px){
+
+  .products-slider{
+    gap:4px !important;
+  }
+
+  .products-slider .card-favorite{
+    width:30px !important;
+    height:30px !important;
+    min-width:30px !important;
+
+    top:7px !important;
+    left:7px !important;
+
+    font-size:19px !important;
+  }
+
+}
    
 </style>
 
