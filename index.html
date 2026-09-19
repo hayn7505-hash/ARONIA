@@ -6961,7 +6961,7 @@ function addToCart(
     });
   }
   /*
-     إنقاص المخزون مباشرة
+     إنقاص المخزون
   */
   product.stock =
     Math.max(
@@ -6981,10 +6981,43 @@ function addToCart(
   */
   renderCart();
   /*
-     إعادة رسم المنتجات فوراً
-     حتى يتحول الزر إلى
-     "غير متوفر" عندما يصبح
-     المخزون = 0
+     =================================================
+     إذا أصبح المخزون صفر
+     نحول الزر مباشرة إلى "غير متوفر"
+     =================================================
+  */
+  if(
+    Number(product.stock) <= 0
+  ){
+    const cards =
+      document.querySelectorAll(
+        ".product-card"
+      );
+    cards.forEach(card => {
+      if(
+        Number(
+          card.dataset.productId
+        ) === Number(id)
+      ){
+        const addButton =
+          card.querySelector(
+            ".add-btn"
+          );
+        if(addButton){
+          addButton.textContent =
+            "غير متوفر";
+          addButton.disabled =
+            true;
+          addButton.style.opacity =
+            "0.6";
+          addButton.style.cursor =
+            "not-allowed";
+        }
+      }
+    });
+  }
+  /*
+     تحديث باقي المنتجات
   */
   refreshHomeProducts();
 }
