@@ -6898,7 +6898,7 @@ function renderFeaturedOffers(){
 }
    
 /* =====================================================
-   ADD TO CART
+ADD TO CART
 ===================================================== */
 function addToCart(
   id,
@@ -6960,65 +6960,9 @@ function addToCart(
         finalPrice
     });
   }
-  /*
-     إنقاص المخزون
-  */
-  product.stock =
-    Math.max(
-      0,
-      stock - 1
-    );
-  /*
-     حفظ السلة
-  */
   saveCart();
-  /*
-     تحديث عداد السلة
-  */
   updateCartCount();
-  /*
-     تحديث السلة
-  */
   renderCart();
-  /*
-     =================================================
-     إذا أصبح المخزون صفر
-     نحول الزر مباشرة إلى "غير متوفر"
-     =================================================
-  */
-  if(
-    Number(product.stock) <= 0
-  ){
-    const cards =
-      document.querySelectorAll(
-        ".product-card"
-      );
-    cards.forEach(card => {
-      if(
-        Number(
-          card.dataset.productId
-        ) === Number(id)
-      ){
-        const addButton =
-          card.querySelector(
-            ".add-btn"
-          );
-        if(addButton){
-          addButton.textContent =
-            "غير متوفر";
-          addButton.disabled =
-            true;
-          addButton.style.opacity =
-            "0.6";
-          addButton.style.cursor =
-            "not-allowed";
-        }
-      }
-    });
-  }
-  /*
-     تحديث باقي المنتجات
-  */
   refreshHomeProducts();
 }
    
