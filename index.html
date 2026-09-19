@@ -6898,63 +6898,95 @@ function renderFeaturedOffers(){
 }
    
 /* =====================================================
-REFRESH HOME PRODUCTS
+   ADD TO CART
 ===================================================== */
-
-function refreshHomeProducts(){
-
-  const skinProducts =
-    allProducts
-      .filter(product =>
-        String(product.category || "").trim()
-        === "العناية بالبشرة"
-      )
-      .slice(0,6);
-
-  const makeupProducts =
-    allProducts
-      .filter(product =>
-        String(product.category || "").trim()
-        === "المكياج"
-      )
-      .slice(0,6);
-
-  const hairProducts =
-    allProducts
-      .filter(product =>
-        String(product.category || "").trim()
-        === "العناية بالشعر"
-      )
-      .slice(0,6);
-
-  const perfumeProducts =
-    allProducts
-      .filter(product =>
-        String(product.category || "").trim()
-        === "العطور"
-      )
-      .slice(0,6);
-
-  renderProducts(
-    skinProducts,
-    "skinProducts"
-  );
-
-  renderProducts(
-    makeupProducts,
-    "makeupProducts"
-  );
-
-  renderProducts(
-    hairProducts,
-    "hairProducts"
-  );
-
-  renderProducts(
-    perfumeProducts,
-    "perfumeProducts"
-  );
-
+function addToCart(
+  id,
+  offerPrice = null
+){
+  const product =
+    allProducts.find(
+      item =>
+        item.id === id
+    );
+  if(!product) return;
+  const stock =
+    Number(
+      product.stock || 0
+    );
+  if(stock <= 0){
+    alert(
+      "هذا المنتج غير متوفر حالياً."
+    );
+    return;
+  }
+  /*
+     السعر الذي سيدخل للسلة
+  */
+  const finalPrice =
+    offerPrice !== null
+    ?
+    Number(offerPrice)
+    :
+    Number(product.price || 0);
+  const existing =
+    cart.find(
+      item =>
+        item.id === id
+    );
+  if(existing){
+    if(
+      existing.quantity >= stock
+    ){
+      alert(
+        "لا يمكن إضافة كمية أكبر من المخزون المتوفر."
+      );
+      return;
+    }
+    existing.quantity++;
+    /*
+       إذا أضيف المنتج من العروض
+       نحدث سعره إلى سعر العرض
+    */
+    existing.price =
+      finalPrice;
+  }else{
+    cart.push({
+      id:
+        product.id,
+      quantity:
+        1,
+      price:
+        finalPrice
+    });
+  }
+  /*
+     إنقاص المخزون مباشرة
+  */
+  product.stock =
+    Math.max(
+      0,
+      stock - 1
+    );
+  /*
+     حفظ السلة
+  */
+  saveCart();
+  /*
+     تحديث عداد السلة
+  */
+  updateCartCount();
+  /*
+     تحديث السلة
+  */
+  renderCart();
+  /*
+     إعادة رسم المنتجات فوراً
+     حتى يتحول الزر إلى
+     "غير متوفر" عندما يصبح
+     المخزون = 0
+  */
+  refreshHomeProducts();
 }
    
 /* =====================================================
