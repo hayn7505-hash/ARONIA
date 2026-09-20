@@ -5069,7 +5069,10 @@ async function loadCategories(){
   const container =
     document.getElementById("categoriesContainer");
 
-  if(!container) return;
+const homeContainer =
+    document.getElementById("homeCategoriesContainer");
+
+if(!container && !homeContainer) return;
 
   const { data, error } =
     await db
