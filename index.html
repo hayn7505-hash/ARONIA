@@ -5108,8 +5108,7 @@ if(homeContainer){
 
 data.forEach(category => {
 
-  const categoryHTML = 
-
+  const categoryHTML = `
     <div
       class="category"
       onclick="filterProducts('${category.name}')">
@@ -5127,8 +5126,7 @@ data.forEach(category => {
       </p>
 
     </div>
-
-  ;
+  `;
 
   if(container){
     container.innerHTML += categoryHTML;
@@ -5139,7 +5137,6 @@ data.forEach(category => {
   }
 
 });
-   
 }
    
 /* =====================================================
