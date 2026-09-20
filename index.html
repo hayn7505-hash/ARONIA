@@ -7108,17 +7108,13 @@ function renderProducts(
 
     
 
-    <button
-
-    class="favorite-btn card-favorite ${isFavorite ? "active" : ""}"
-
-    onclick="toggleFavorite(${product.id})"
-
-    aria-label="إضافة إلى المفضلة">
-
+<button
+  class="favorite-btn card-favorite ${isFavorite ? "active" : ""}"
+  data-product-id="${product.id}"
+  onclick="toggleFavorite(${product.id})"
+  aria-label="إضافة إلى المفضلة">
   ${isFavorite ? "♥" : "♡"}
-
-  </button>
+</button>
 
   
 
