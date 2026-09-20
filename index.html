@@ -5151,9 +5151,16 @@ async function loadCategories(){
   }
 
   console.log(
-    "Categories data:",
-    data
-  );
+  "Categories data:",
+  data
+);
+
+console.log(
+  "FIRST IMAGE:",
+  data?.[0]?.image_url
+);
+
+container.innerHTML = "";
 
   container.innerHTML = "";
 
