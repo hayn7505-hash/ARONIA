@@ -5102,34 +5102,44 @@ console.log(
 
 container.innerHTML = "";
 
-  container.innerHTML = "";
+if(homeContainer){
+  homeContainer.innerHTML = "";
+}
 
-  data.forEach(category => {
+data.forEach(category => {
 
-    container.innerHTML += `
+  const categoryHTML = 
 
-      <div
-        class="category"
-        onclick="filterProducts('${category.name}')">
+    <div
+      class="category"
+      onclick="filterProducts('${category.name}')">
 
-        <div class="category-icon">
+      <div class="category-icon">
 
-          <img
-            src="${category.image_url}"
-            alt="${category.name}">
-
-        </div>
-
-        <p>
-          ${category.name}
-        </p>
+        <img
+          src="${category.image_url}"
+          alt="${category.name}">
 
       </div>
 
-    `;
+      <p>
+        ${category.name}
+      </p>
 
-  });
+    </div>
 
+  ;
+
+  if(container){
+    container.innerHTML += categoryHTML;
+  }
+
+  if(homeContainer){
+    homeContainer.innerHTML += categoryHTML;
+  }
+
+});
+   
 }
    
 /* =====================================================
