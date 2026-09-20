@@ -5123,9 +5123,9 @@ SUPABASE_URL,
 SUPABASE_PUBLISHABLE_KEY
 );
 
- /* =====================================================
-    LOAD CATEGORIES
-    ===================================================== */
+/* =====================================================
+LOAD CATEGORIES
+===================================================== */
 
 async function loadCategories(){
 
@@ -5137,7 +5137,7 @@ async function loadCategories(){
   const { data, error } =
     await db
       .from("categories")
-      .select("id, name, image_url")
+      .select("*")
       .order("id", { ascending:true });
 
   if(error){
@@ -5149,6 +5149,11 @@ async function loadCategories(){
 
     return;
   }
+
+  console.log(
+    "Categories data:",
+    data
+  );
 
   container.innerHTML = "";
 
