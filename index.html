@@ -7461,50 +7461,84 @@ FAVORITES
 
 function toggleFavorite(id){
 
-if(
-favorites.includes(id)
-){
+  /* =========================
+     TOGGLE FAVORITE
+  ========================= */
 
-favorites =
-favorites.filter(
-item =>
-item !== id
-);
+  if(
+    favorites.includes(id)
+  ){
 
-}else{
+    favorites =
+      favorites.filter(
+        item =>
+          item !== id
+      );
 
-favorites.push(id);
+  }else{
+
+    favorites.push(id);
+
+  }
+
+  /* =========================
+     SAVE
+  ========================= */
+
+  localStorage.setItem(
+    "aronia_favorites",
+    JSON.stringify(favorites)
+  );
+
+  /* =========================
+     UPDATE ALL HEART BUTTONS
+     IMMEDIATELY
+  ========================= */
+
+  const isFavorite =
+    favorites.includes(id);
+
+  document
+    .querySelectorAll(
+      `.favorite-btn[data-product-id="${id}"]`
+    )
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        isFavorite
+      );
+
+      button.textContent =
+        isFavorite
+          ? "♥"
+          : "♡";
+
+    });
+
+  /* =========================
+     UPDATE FAVORITES PAGE
+  ========================= */
+
+  renderFavorites();
 
 }
 
-localStorage.setItem(
-"aronia_favorites",
-JSON.stringify(favorites)
-);
-
-renderProducts(
-allProducts,
-"productsContainer"
-);
-
-renderFavorites();
-
-}
 
 function renderFavorites(){
 
-const result =
-allProducts.filter(
-product =>
-favorites.includes(
-product.id
-)
-);
+  const result =
+    allProducts.filter(
+      product =>
+        favorites.includes(
+          product.id
+        )
+    );
 
-renderProducts(
-result,
-"settingsFavoritesContainer"
-);
+  renderProducts(
+    result,
+    "settingsFavoritesContainer"
+  );
 
 }
 
