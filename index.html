@@ -5100,14 +5100,15 @@ console.log(
   data?.[0]?.image_url
 );
 
-container.innerHTML = "";
+if(container){
+  container.innerHTML = "";
+}
 
 if(homeContainer){
   homeContainer.innerHTML = "";
 }
 
 data.forEach(category => {
-
   const categoryHTML = `
     <div
       class="category"
