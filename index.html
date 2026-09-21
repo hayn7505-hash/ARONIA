@@ -5136,88 +5136,55 @@ LOAD CATEGORIES
 
 async function loadCategories(){
 
-  const container =
-    document.getElementById("categoriesContainer");
+const container =
+document.getElementById("categoriesContainer");
 
-const homeContainer =
-    document.getElementById("homeCategoriesContainer");
+if(!container) return;
 
-if(!container && !homeContainer) return;
+const { data, error } =
+await db
+.from("categories")
+.select("*")
+.order("id", { ascending:true });
 
-  const { data, error } =
-    await db
-      .from("categories")
-      .select("*")
-      .order("id", { ascending:true });
-
-  if(error){
-
-    console.error(
-      "Categories error:",
-      error
-    );
-
-    return;
-  }
-
-  console.log(
-  "Categories data:",
-  data
+if(error){
+console.error(
+"Categories error:",
+error
 );
-
-console.log(
-  "HOME CONTAINER:",
-  homeContainer
-);
-
-console.log(
-  "CATEGORIES COUNT:",
-  data ? data.length : "NO DATA"
-);
-   
-console.log(
-  "FIRST IMAGE:",
-  data?.[0]?.image_url
-);
-
-if(container){
-  container.innerHTML = "";
+return;
 }
 
-if(homeContainer){
-  homeContainer.innerHTML = "";
-}
+container.innerHTML = "";
 
 data.forEach(category => {
-  const categoryHTML = `
-    <div
-      class="category"
-      onclick="filterProducts('${category.name}')">
 
-      <div class="category-icon">
+const categoryHTML = 
 
-        <img
-          src="${category.image_url}"
-          alt="${category.name}">
+<div
+class="category"
+onclick="filterProducts('${category.name}')">
 
-      </div>
+<div class="category-icon">
 
-      <p>
-        ${category.name}
-      </p>
+<img
+src="${category.image_url}"
+alt="${category.name}">
 
-    </div>
-  `;
+</div>
 
-  if(container){
-    container.innerHTML += categoryHTML;
-  }
+<p>
+${category.name}
+</p>
 
-  if(homeContainer){
-    homeContainer.innerHTML += categoryHTML;
-  }
+</div>
+
+;
+
+container.innerHTML += categoryHTML;
 
 });
+
 }
    
 /* =====================================================
