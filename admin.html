@@ -1568,68 +1568,9 @@ async function saveProduct(){
   const imageInput =
     document.getElementById("productImage");
 
-const imageFile =
+  const imageFile =
     imageInput.files[0];
 
-let imageURL = "";
-
-if(imageFile){
-
-  message.textContent =
-    "جاري رفع الصورة...";
-
-  const fileExtension =
-    imageFile.name
-      .split(".")
-      .pop()
-      .toLowerCase();
-
-  const fileName =
-    `${Date.now()}-${Math.random()
-      .toString(36)
-      .substring(2,8)}.${fileExtension}`;
-
-  const {
-    error: uploadError
-  } =
-    await supabaseClient
-      .storage
-      .from("product-images")
-      .upload(
-        fileName,
-        imageFile,
-        {
-          cacheControl:"3600",
-          upsert:false
-        }
-      );
-
-  if(uploadError){
-
-    console.error(
-      "Image upload error:",
-      uploadError
-    );
-
-    message.textContent =
-      "حدث خطأ أثناء رفع الصورة.";
-
-    return;
-  }
-
-  const {
-    data: publicURLData
-  } =
-    supabaseClient
-      .storage
-      .from("product-images")
-      .getPublicUrl(fileName);
-
-  imageURL =
-    publicURLData.publicUrl;
-
-}
-     
   const description =
     document
       .getElementById("productDescription")
@@ -1654,20 +1595,11 @@ if(imageFile){
 
 
   /* =========================
-     جلب الصورة
+     الصورة الحالية
+     في حالة التعديل
   ========================= */
 
-  const file =
-    imageInput.files[0];
-
-
-  /* =========================
-     حالة التعديل
-     إذا لم يختر صورة جديدة
-     نحتفظ بالصورة القديمة
-  ========================= */
-
-  let imageURL = null;
+  let imageURL = "";
 
 
   if(editingId){
@@ -1685,12 +1617,13 @@ if(imageFile){
 
     if(oldProductError){
 
-      message.textContent =
-        "تعذر قراءة صورة المنتج الحالية.";
-
       console.error(
+        "Old product error:",
         oldProductError
       );
+
+      message.textContent =
+        "تعذر قراءة بيانات المنتج الحالية.";
 
       return;
     }
@@ -1705,27 +1638,23 @@ if(imageFile){
      رفع صورة جديدة
   ========================= */
 
-  if(file){
+  if(imageFile){
 
     message.textContent =
       "جاري رفع الصورة...";
 
 
     const fileExtension =
-      file.name
+      imageFile.name
         .split(".")
         .pop()
         .toLowerCase();
 
 
     const fileName =
-      `${Date.now()}-${Math.random()
+      `product_${Date.now()}_${Math.random()
         .toString(36)
         .substring(2,8)}.${fileExtension}`;
-
-
-    const filePath =
-      fileName;
 
 
     const {
@@ -1735,11 +1664,14 @@ if(imageFile){
         .storage
         .from("product-images")
         .upload(
-          filePath,
-          file,
+          fileName,
+          imageFile,
           {
             cacheControl:"3600",
-            upsert:false
+            upsert:false,
+            contentType:
+              imageFile.type ||
+              "image/jpeg"
           }
         );
 
@@ -1747,20 +1679,17 @@ if(imageFile){
     if(uploadError){
 
       console.error(
-        "Image upload error:",
+        "Product image upload error:",
         uploadError
       );
 
       message.textContent =
-        "حدث خطأ أثناء رفع الصورة.";
+        "فشل رفع صورة المنتج: " +
+        uploadError.message;
 
       return;
     }
 
-
-    /* =========================
-       الحصول على الرابط العام
-    ========================= */
 
     const {
       data: publicURLData
@@ -1768,7 +1697,9 @@ if(imageFile){
       supabaseClient
         .storage
         .from("product-images")
-        .getPublicUrl(filePath);
+        .getPublicUrl(
+          fileName
+        );
 
 
     imageURL =
@@ -1782,21 +1713,21 @@ if(imageFile){
 
   const productData = {
 
-  name,
+    name,
 
-  name_ar:nameAr,
+    name_ar:nameAr,
 
-  category,
+    category,
 
-  price,
+    price,
 
-  stock,
+    stock,
 
-  image:imageURL,
+    image:imageURL,
 
-  description
+    description
 
-};
+  };
 
 
   message.textContent =
