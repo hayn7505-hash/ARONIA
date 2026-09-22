@@ -3740,6 +3740,668 @@ async function deleteOffer(id){
   await loadOffersAdmin();
 
 }
+
+/* ==================================================
+   CATEGORIES - ADMIN
+================================================== */
+
+let adminCategories = [];
+
+let editingCategoryId = null;
+
+let editingCategoryImage = "";
+
+
+/* =========================
+   تحميل الأقسام
+========================= */
+
+async function loadCategoriesAdmin(){
+
+  const container =
+    document.getElementById(
+      "categoriesAdminContainer"
+    );
+
+  if(!container) return;
+
+
+  container.innerHTML = `
+
+    <div style="
+      text-align:center;
+      padding:30px;
+      color:#888;
+    ">
+
+      جاري تحميل الأقسام...
+
+    </div>
+
+  `;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("categories")
+      .select("id,name,image_url")
+      .order("id",{
+        ascending:true
+      });
+
+
+  if(error){
+
+    console.error(
+      "Categories admin error:",
+      error
+    );
+
+
+    container.innerHTML = `
+
+      <div style="
+        text-align:center;
+        padding:30px;
+        color:#b33;
+      ">
+
+        فشل تحميل الأقسام ❌
+
+        <br><br>
+
+        ${escapeHTML(error.message)}
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  adminCategories =
+    data || [];
+
+
+  renderAdminCategories();
+
+}
+
+
+/* =========================
+   عرض الأقسام
+========================= */
+
+function renderAdminCategories(){
+
+  const container =
+    document.getElementById(
+      "categoriesAdminContainer"
+    );
+
+
+  if(!container) return;
+
+
+  if(adminCategories.length === 0){
+
+    container.innerHTML = `
+
+      <div style="
+        text-align:center;
+        padding:40px;
+        color:#888;
+      ">
+
+        لا توجد أقسام حالياً 📂
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  adminCategories.forEach(category => {
+
+    const card =
+      document.createElement("div");
+
+
+    card.className =
+      "category-admin-card";
+
+
+    card.innerHTML = `
+
+      <img
+        class="category-admin-image"
+        src="${escapeHTML(
+          category.image_url ||
+          "https://placehold.co/200"
+        )}"
+        onerror="
+          this.src='https://placehold.co/200';
+        "
+      >
+
+
+      <div class="category-admin-name">
+
+        ${escapeHTML(
+          category.name || "قسم"
+        )}
+
+      </div>
+
+
+      <div
+        class="actions"
+        style="
+          justify-content:center;
+        ">
+
+        <button
+          class="edit"
+          onclick="
+            editCategory(${category.id})
+          ">
+
+          تعديل
+
+        </button>
+
+
+        <button
+          class="danger"
+          onclick="
+            deleteCategory(${category.id})
+          ">
+
+          حذف
+
+        </button>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================
+   معاينة الصورة
+========================= */
+
+document.addEventListener(
+  "change",
+  function(event){
+
+    if(
+      event.target.id !==
+      "categoryImage"
+    ){
+
+      return;
+
+    }
+
+
+    const file =
+      event.target.files[0];
+
+
+    const preview =
+      document.getElementById(
+        "categoryImagePreview"
+      );
+
+
+    if(!preview) return;
+
+
+    preview.innerHTML = "";
+
+
+    if(!file) return;
+
+
+    const image =
+      document.createElement("img");
+
+
+    image.src =
+      URL.createObjectURL(file);
+
+
+    image.style.width =
+      "100px";
+
+    image.style.height =
+      "100px";
+
+    image.style.objectFit =
+      "cover";
+
+    image.style.borderRadius =
+      "50%";
+
+
+    preview.appendChild(image);
+
+  }
+);
+
+
+/* =========================
+   إضافة / تعديل القسم
+========================= */
+
+async function saveCategory(){
+
+  const nameInput =
+    document.getElementById(
+      "categoryName"
+    );
+
+
+  const imageInput =
+    document.getElementById(
+      "categoryImage"
+    );
+
+
+  const message =
+    document.getElementById(
+      "categoryMessage"
+    );
+
+
+  const name =
+    nameInput.value.trim();
+
+
+  if(!name){
+
+    message.textContent =
+      "أدخل اسم القسم.";
+
+    return;
+
+  }
+
+
+  const file =
+    imageInput.files[0];
+
+
+  message.textContent =
+    editingCategoryId
+    ?
+    "جاري تعديل القسم..."
+    :
+    "جاري إضافة القسم...";
+
+
+  let imageUrl =
+    editingCategoryImage;
+
+
+  /* =========================
+     رفع صورة جديدة
+  ========================= */
+
+  if(file){
+
+    const extension =
+      file.name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    const fileName =
+      `category_${Date.now()}.${extension}`;
+
+
+    const filePath =
+      fileName;
+
+
+    const {
+      error:uploadError
+    } =
+      await supabaseClient
+        .storage
+        .from("category-images")
+        .upload(
+          filePath,
+          file,
+          {
+            upsert:false
+          }
+        );
+
+
+    if(uploadError){
+
+      console.error(
+        "Category image upload error:",
+        uploadError
+      );
+
+
+      message.textContent =
+        "فشل رفع صورة القسم: " +
+        uploadError.message;
+
+      return;
+
+    }
+
+
+    const {
+      data:publicData
+    } =
+      supabaseClient
+        .storage
+        .from("category-images")
+        .getPublicUrl(
+          filePath
+        );
+
+
+    imageUrl =
+      publicData.publicUrl;
+
+  }
+
+
+  /* =========================
+     حفظ البيانات
+  ========================= */
+
+  let result;
+
+
+  if(editingCategoryId){
+
+    result =
+      await supabaseClient
+        .from("categories")
+        .update({
+
+          name:name,
+
+          image_url:imageUrl
+
+        })
+        .eq(
+          "id",
+          editingCategoryId
+        );
+
+  }else{
+
+    result =
+      await supabaseClient
+        .from("categories")
+        .insert({
+
+          name:name,
+
+          image_url:imageUrl
+
+        });
+
+  }
+
+
+  if(result.error){
+
+    console.error(
+      "Category save error:",
+      result.error
+    );
+
+
+    message.textContent =
+      "حدث خطأ: " +
+      result.error.message;
+
+    return;
+
+  }
+
+
+  message.textContent =
+    editingCategoryId
+    ?
+    "تم تعديل القسم بنجاح ✅"
+    :
+    "تمت إضافة القسم بنجاح ✅";
+
+
+  cancelCategoryEdit();
+
+
+  await loadCategoriesAdmin();
+
+}
+
+
+/* =========================
+   تعديل القسم
+========================= */
+
+function editCategory(id){
+
+  const category =
+    adminCategories.find(
+      item =>
+        item.id === id
+    );
+
+
+  if(!category) return;
+
+
+  editingCategoryId =
+    id;
+
+
+  editingCategoryImage =
+    category.image_url || "";
+
+
+  document
+    .getElementById(
+      "categoryName"
+    )
+    .value =
+      category.name || "";
+
+
+  document
+    .getElementById(
+      "categoryImagePreview"
+    )
+    .innerHTML = `
+
+      ${
+        category.image_url
+        ?
+        `
+        <img
+          src="${escapeHTML(
+            category.image_url
+          )}"
+          style="
+            width:100px;
+            height:100px;
+            object-fit:cover;
+            border-radius:50%;
+          "
+        >
+        `
+        :
+        ""
+      }
+
+    `;
+
+
+  document
+    .getElementById(
+      "cancelCategoryBtn"
+    )
+    .classList
+    .remove("hidden");
+
+
+  document
+    .getElementById(
+      "categoryMessage"
+    )
+    .textContent =
+      "وضع تعديل القسم";
+
+
+  window.scrollTo({
+
+    top:
+      document
+        .getElementById(
+          "categoryName"
+        )
+        .getBoundingClientRect()
+        .top
+      +
+      window.scrollY
+      -
+      100,
+
+    behavior:"smooth"
+
+  });
+
+}
+
+
+/* =========================
+   إلغاء تعديل القسم
+========================= */
+
+function cancelCategoryEdit(){
+
+  editingCategoryId =
+    null;
+
+
+  editingCategoryImage =
+    "";
+
+
+  document
+    .getElementById(
+      "categoryName"
+    )
+    .value = "";
+
+
+  document
+    .getElementById(
+      "categoryImage"
+    )
+    .value = "";
+
+
+  document
+    .getElementById(
+      "categoryImagePreview"
+    )
+    .innerHTML = "";
+
+
+  document
+    .getElementById(
+      "cancelCategoryBtn"
+    )
+    .classList
+    .add("hidden");
+
+}
+
+
+/* =========================
+   حذف القسم
+========================= */
+
+async function deleteCategory(id){
+
+  const category =
+    adminCategories.find(
+      item =>
+        item.id === id
+    );
+
+
+  if(!category) return;
+
+
+  if(
+    !confirm(
+      `هل تريد حذف قسم "${category.name}"؟`
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("categories")
+      .delete()
+      .eq(
+        "id",
+        id
+      );
+
+
+  if(error){
+
+    alert(
+      "فشل حذف القسم:\n\n" +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  await loadCategoriesAdmin();
+
+}
      
 /* =========================
    حماية HTML
