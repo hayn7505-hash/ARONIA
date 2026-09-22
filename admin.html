@@ -1534,124 +1534,274 @@ totalValue.toLocaleString("ar-IQ")
 
 async function saveProduct(){
 
-const name =
-document
-.getElementById("productName")
-.value
-.trim();
+  const name =
+    document
+      .getElementById("productName")
+      .value
+      .trim();
 
-const nameAr =
-document
-.getElementById("productNameAr")
-.value
-.trim();
+  const nameAr =
+    document
+      .getElementById("productNameAr")
+      .value
+      .trim();
 
-const category =
-document
-.getElementById("productCategory")
-.value;
+  const category =
+    document
+      .getElementById("productCategory")
+      .value;
 
-const price =
-Number(
-document
-.getElementById("productPrice")
-.value
-);
+  const price =
+    Number(
+      document
+        .getElementById("productPrice")
+        .value
+    );
 
-const stock =
-Number(
-document
-.getElementById("productStock")
-.value
-);
+  const stock =
+    Number(
+      document
+        .getElementById("productStock")
+        .value
+    );
 
-const image =
-document
-.getElementById("productImage")
-.value
-.trim();
+  const imageInput =
+    document.getElementById("productImage");
 
-const description =
-document
-.getElementById("productDescription")
-.value
-.trim();
+  const description =
+    document
+      .getElementById("productDescription")
+      .value
+      .trim();
 
-if(!nameAr || !price){
+  const message =
+    document.getElementById("formMessage");
 
-document
-.getElementById("formMessage")
-.textContent =
-"أدخل اسم المنتج والسعر.";
 
-return;
+  /* =========================
+     التحقق
+  ========================= */
+
+  if(!nameAr || !price){
+
+    message.textContent =
+      "أدخل اسم المنتج والسعر.";
+
+    return;
+  }
+
+
+  /* =========================
+     جلب الصورة
+  ========================= */
+
+  const file =
+    imageInput.files[0];
+
+
+  /* =========================
+     حالة التعديل
+     إذا لم يختر صورة جديدة
+     نحتفظ بالصورة القديمة
+  ========================= */
+
+  let imageURL = null;
+
+
+  if(editingId){
+
+    const {
+      data: oldProduct,
+      error: oldProductError
+    } =
+      await supabaseClient
+        .from("products")
+        .select("image")
+        .eq("id", editingId)
+        .single();
+
+
+    if(oldProductError){
+
+      message.textContent =
+        "تعذر قراءة صورة المنتج الحالية.";
+
+      console.error(
+        oldProductError
+      );
+
+      return;
+    }
+
+
+    imageURL =
+      oldProduct?.image || "";
+  }
+
+
+  /* =========================
+     رفع صورة جديدة
+  ========================= */
+
+  if(file){
+
+    message.textContent =
+      "جاري رفع الصورة...";
+
+
+    const fileExtension =
+      file.name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    const fileName =
+      `${Date.now()}-${Math.random()
+        .toString(36)
+        .substring(2,8)}.${fileExtension}`;
+
+
+    const filePath =
+      fileName;
+
+
+    const {
+      error: uploadError
+    } =
+      await supabaseClient
+        .storage
+        .from("product-images")
+        .upload(
+          filePath,
+          file,
+          {
+            cacheControl:"3600",
+            upsert:false
+          }
+        );
+
+
+    if(uploadError){
+
+      console.error(
+        "Image upload error:",
+        uploadError
+      );
+
+      message.textContent =
+        "حدث خطأ أثناء رفع الصورة.";
+
+      return;
+    }
+
+
+    /* =========================
+       الحصول على الرابط العام
+    ========================= */
+
+    const {
+      data: publicURLData
+    } =
+      supabaseClient
+        .storage
+        .from("product-images")
+        .getPublicUrl(filePath);
+
+
+    imageURL =
+      publicURLData.publicUrl;
+  }
+
+
+  /* =========================
+     بيانات المنتج
+  ========================= */
+
+  const productData = {
+
+    name,
+
+    name_ar:nameAr,
+
+    category,
+
+    price,
+
+    stock,
+
+    image:imageURL || "",
+
+    description
+
+  };
+
+
+  message.textContent =
+    "جاري حفظ المنتج...";
+
+
+  /* =========================
+     إضافة / تعديل
+  ========================= */
+
+  let result;
+
+
+  if(editingId){
+
+    result =
+      await supabaseClient
+        .from("products")
+        .update(productData)
+        .eq("id",editingId);
+
+  }else{
+
+    result =
+      await supabaseClient
+        .from("products")
+        .insert(productData);
+
+  }
+
+
+  /* =========================
+     التحقق من الخطأ
+  ========================= */
+
+  if(result.error){
+
+    console.error(
+      "Product save error:",
+      result.error
+    );
+
+    message.textContent =
+      "حدث خطأ: " +
+      result.error.message;
+
+    return;
+  }
+
+
+  /* =========================
+     نجاح
+  ========================= */
+
+  message.textContent =
+    editingId
+      ? "تم تعديل المنتج ✅"
+      : "تمت إضافة المنتج ✅";
+
+
+  cancelEdit();
+
+
+  await loadProducts();
 
 }
-
-const productData = {
-
-name,
-
-name_ar:nameAr,
-
-category,
-
-price,
-
-stock,
-
-image,
-
-description
-
-};
-
-let result;
-
-if(editingId){
-
-result =
-await supabaseClient
-.from("products")
-.update(productData)
-.eq("id",editingId);
-
-}else{
-
-result =
-await supabaseClient
-.from("products")
-.insert(productData);
-
-}
-
-if(result.error){
-
-document
-.getElementById("formMessage")
-.textContent =
-"حدث خطأ: " +
-result.error.message;
-
-return;
-
-}
-
-document
-.getElementById("formMessage")
-.textContent =
-editingId
-?
-"تم تعديل المنتج ✅"
-:
-"تمت إضافة المنتج ✅";
-
-cancelEdit();
-
-await loadProducts();
-
-}
-
+     
 /* =========================
    تعديل المنتج
 ========================= */
