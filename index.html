@@ -5222,8 +5222,7 @@ async function loadCategories(){
         category.image_url ||
         DEFAULT_IMAGE;
 
-      return 
-
+      return `
         <div
           class="category"
           onclick="filterProducts('${category.name}')">
@@ -5242,8 +5241,7 @@ async function loadCategories(){
           </p>
 
         </div>
-
-      ;
+      `;
 
     }).join("");
 
@@ -5272,7 +5270,7 @@ async function loadCategories(){
   }
 
 }
-   
+
 /* =====================================================
 DATA
 ===================================================== */
