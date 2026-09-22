@@ -5166,44 +5166,32 @@ SUPABASE_PUBLISHABLE_KEY
 );
 
 /* =====================================================
-LOAD CATEGORIES
+   LOAD CATEGORIES
 ===================================================== */
 
 async function loadCategories(){
-  const container =
+
+  const homeContainer =
+    document.getElementById("homeCategoriesContainer");
+
+  const categoriesContainer =
     document.getElementById("categoriesContainer");
-  if(!container) return;
+
   const { data, error } =
     await db
       .from("categories")
       .select("*")
       .order("id", { ascending:true });
+
   if(error){
+
     console.error(
       "Categories error:",
       error
     );
+
     return;
   }
-  container.innerHTML = "";
-  data.forEach(category => {
-    const categoryHTML = `
-      <div
-        class="category"
-        onclick="filterProducts('${category.name}')">
-        <div class="category-icon">
-          <img
-            src="${category.image_url}"
-            alt="${category.name}">
-        </div>
-        <p>
-          ${category.name}
-        </p>
-      </div>
-    `;
-    container.innerHTML += categoryHTML;
-  });
-}
 
   /* =====================================================
      BUILD CATEGORIES
@@ -5264,7 +5252,7 @@ async function loadCategories(){
   }
 
 }
-
+   
 /* =====================================================
 DATA
 ===================================================== */
