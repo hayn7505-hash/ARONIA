@@ -5216,18 +5216,19 @@ SUPABASE_PUBLISHABLE_KEY
 );
 
 /* =====================================================
-LOAD CATEGORIES
+   LOAD CATEGORIES
 ===================================================== */
-
 async function loadCategories(){
-  const container =
+  const homeContainer =
+    document.getElementById("homeCategoriesContainer");
+  const categoriesContainer =
     document.getElementById("categoriesContainer");
-  if(!container) return;
+  /* جلب الأقسام من Supabase */
   const { data, error } =
     await db
       .from("categories")
-      .select("*")
-      .order("id", { ascending:true });
+      .select("id, name, image_url")
+      .order("id", { ascending: true });
   if(error){
     console.error(
       "Categories error:",
@@ -5235,24 +5236,44 @@ async function loadCategories(){
     );
     return;
   }
-  container.innerHTML = "";
-  data.forEach(category => {
-    const categoryHTML = `
+  if(!data || data.length === 0){
+    console.warn(
+      "No categories found."
+    );
+    return;
+  }
+  /* إنشاء HTML للأقسام */
+  const categoriesHTML = data.map(category => {
+    const name =
+      category.name || "";
+    const image =
+      category.image_url || "";
+    return `
       <div
         class="category"
-        onclick="filterProducts('${category.name}')">
+        onclick='filterProducts(${JSON.stringify(name)})'>
         <div class="category-icon">
           <img
-            src="${category.image_url}"
-            alt="${category.name}">
+            src="${image}"
+            alt="${name}"
+            loading="lazy">
         </div>
         <p>
-          ${category.name}
+          ${name}
         </p>
       </div>
     `;
-    container.innerHTML += categoryHTML;
-  });
+  }).join("");
+  /* الصفحة الرئيسية — الأقسام تحت البنرات */
+  if(homeContainer){
+    homeContainer.innerHTML =
+      categoriesHTML;
+  }
+  /* صفحة الأقسام */
+  if(categoriesContainer){
+    categoriesContainer.innerHTML =
+      categoriesHTML;
+  }
 }
    
 /* =====================================================
