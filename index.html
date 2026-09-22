@@ -5216,7 +5216,6 @@ window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_PUBLISHABLE_KEY
 );
-alert("SCRIPT WORKS");
 /* =====================================================
    LOAD CATEGORIES
 ===================================================== */
@@ -5232,12 +5231,9 @@ async function loadCategories(){
       .select("*")
       .order("id", { ascending: true });
   if(error){
-    console.error(
-      "Categories error:",
-      error
-    );
-    return;
-  }
+  alert("CATEGORIES ERROR:\n" + error.message);
+  return;
+}
   if(!data || data.length === 0){
     console.warn(
       "No categories found."
