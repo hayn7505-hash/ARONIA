@@ -4050,6 +4050,15 @@ async function saveCategory(){
 
   const file =
     imageInput.files[0];
+     
+     if(!editingCategoryId && !file){
+
+  message.textContent =
+    "اختر صورة للقسم أولاً.";
+
+  return;
+
+}
 
 
   message.textContent =
@@ -4086,18 +4095,15 @@ async function saveCategory(){
 
 
     const {
-      error:uploadError
-    } =
-      await supabaseClient
-        .storage
-        .from("category-images")
-        .upload(
-          filePath,
-          file,
-          {
-            upsert:false
-          }
-        );
+  data: uploadData,
+  error: uploadError
+} = await supabaseClient.storage
+  .from("category-images")
+  .upload(filePath, file, {
+    cacheControl: "3600",
+    upsert: false,
+    contentType: file.type
+  });
 
 
     if(uploadError){
