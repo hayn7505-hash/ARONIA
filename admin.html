@@ -4134,24 +4134,26 @@ alert(
       file
     );
 
-    const {
-      data: uploadData,
-      error: uploadError
-    } =
-      await supabaseClient
-        .storage
-        .from("category-images")
-        .upload(
-          fileName,
-          file,
-          {
-            cacheControl: "3600",
-            upsert: false,
-            contentType:
-              file.type ||
-              "image/jpeg"
-          }
-        );
+    const fileBuffer =
+  await file.arrayBuffer();
+
+const {
+  data: uploadData,
+  error: uploadError
+} =
+  await supabaseClient
+    .storage
+    .from("category-images")
+    .upload(
+      fileName,
+      fileBuffer,
+      {
+        cacheControl: "3600",
+        upsert: false,
+        contentType:
+          file.type || "image/jpeg"
+      }
+    );
 
     if(uploadError){
 
