@@ -5230,8 +5230,6 @@ async function loadCategories(){
     .from("categories")
     .select("*")
     .order("id", { ascending: true });
-
-alert(JSON.stringify(data));
    
   if(error){
   alert("CATEGORIES ERROR:\n" + error.message);
