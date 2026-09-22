@@ -511,9 +511,36 @@ CATEGORIES — ARONIA COLOR IDENTITY
 
 .category-icon{
 
-  font-size:28px;
+  width:90px;
+  height:90px;
 
-  margin-bottom:8px;
+  margin:0 auto 8px;
+
+  border-radius:50%;
+
+  overflow:hidden;
+
+  background:#FFFDF8;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  box-shadow:
+    0 3px 10px rgba(41,67,63,.08);
+
+}
+
+.category-icon img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
 
 }
 
@@ -522,6 +549,22 @@ CATEGORIES — ARONIA COLOR IDENTITY
   font-size:12px;
 
   color:var(--text);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:699px){
+
+  .category-icon{
+
+    width:78px;
+    height:78px;
+
+  }
 
 }
 
