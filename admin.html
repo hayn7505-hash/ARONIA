@@ -4042,33 +4042,37 @@ async function saveCategory(){
   }
 
   const file =
-    imageInput.files &&
-    imageInput.files.length > 0
-      ? imageInput.files[0]
-      : null;
-alert(
-  "اسم الملف: " + (file ? file.name : "لا يوجد") +
-  "\nالحجم: " + (file ? file.size : "لا يوجد") +
-  "\nالنوع: " + (file ? file.type : "لا يوجد")
-);
-  console.log("Selected file:", file);
-  console.log("File name:", file?.name);
-  console.log("File size:", file?.size);
-  console.log("File type:", file?.type);
+  imageInput.files &&
+  imageInput.files.length > 0
+    ? imageInput.files[0]
+    : null;
+
+if(!editingCategoryId && !file){
+
+  message.textContent =
+    "اختر صورة للقسم أولاً.";
+
+  return;
+}
+
+if(file && file.size === 0){
+
+  message.textContent =
+    "الصورة فارغة.";
+
+  return;
+}
+
+console.log("Selected file:", file);
+console.log("File name:", file?.name);
+console.log("File size:", file?.size);
+console.log("File type:", file?.type);
 
   /*
   ==========================================
   إضافة قسم جديد
   ==========================================
   */
-
-  if(!editingCategoryId && !file){
-
-    message.textContent =
-      "اختر صورة للقسم أولاً.";
-
-    return;
-  }
 
   message.textContent =
     editingCategoryId
