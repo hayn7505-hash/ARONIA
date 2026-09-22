@@ -589,10 +589,21 @@ id="productStock"
 type="number"
 placeholder="الكمية">
 
-<input
-id="productImage"
-placeholder="رابط صورة المنتج">
+<label for="productImage" class="image-upload-label">
+  اختر صورة المنتج
+</label>
 
+<input
+  id="productImage"
+  type="file"
+  accept="image/*">
+
+<img
+  id="productImagePreview"
+  class="product-image-preview"
+  style="display:none;"
+  alt="معاينة صورة المنتج">
+     
 <textarea
 id="productDescription"
 placeholder="وصف المنتج">
