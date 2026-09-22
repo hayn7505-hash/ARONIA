@@ -5229,7 +5229,7 @@ async function loadCategories(){
   const { data, error } =
     await db
       .from("categories")
-      .select("id, name, image_url")
+      .select("*")
       .order("id", { ascending: true });
   if(error){
     console.error(
