@@ -471,35 +471,31 @@ CATEGORIES — ARONIA COLOR IDENTITY
 
 .category{
 
-  background:var(--card);
+  background:transparent;
 
-  border-radius:18px;
+  border:none;
 
-  padding:15px 5px;
+  border-radius:0;
+
+  padding:0;
 
   text-align:center;
 
-  box-shadow:var(--shadow);
+  box-shadow:none;
 
   cursor:pointer;
 
-  transition:
-    transform .2s ease,
-    background .2s ease,
-    border-color .2s ease,
-    box-shadow .2s ease;
-
-  border:1px solid rgba(184,232,222,.55);
+  transition:transform .2s ease;
 
 }
 
 .category:hover{
 
-  background:#FFFDF8;
+  background:transparent;
 
-  border-color:var(--primary);
+  border-color:transparent;
 
-  box-shadow:0 5px 16px rgba(41,67,63,.09);
+  box-shadow:none;
 
 }
 
@@ -508,7 +504,7 @@ CATEGORIES — ARONIA COLOR IDENTITY
   transform:scale(.96);
 
 }
-
+   
 .category-icon{
 
   width:90px;
