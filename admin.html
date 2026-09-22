@@ -576,23 +576,7 @@ id="productNameAr"
 placeholder="اسم المنتج بالعربية">
 
 <select id="productCategory">
-
-<option value="العناية بالبشرة">
-العناية بالبشرة
-</option>
-
-<option value="المكياج">
-المكياج
-</option>
-
-<option value="العناية بالشعر">
-العناية بالشعر
-</option>
-
-<option value="العطور">
-العطور
-</option>
-
+  <option value="">جاري تحميل الأقسام...</option>
 </select>
 
 <input
@@ -3834,7 +3818,86 @@ async function loadCategoriesAdmin(){
 
 }
 
+/* ==================================================
+   تحميل الأقسام داخل نموذج المنتج
+================================================== */
 
+async function loadProductCategories(){
+
+  const select =
+    document.getElementById(
+      "productCategory"
+    );
+
+  if(!select) return;
+
+  select.innerHTML = `
+    <option value="">
+      جاري تحميل الأقسام...
+    </option>
+  `;
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("categories")
+      .select("id,name")
+      .order("id", {
+        ascending:true
+      });
+
+  if(error){
+
+    console.error(
+      "Product categories error:",
+      error
+    );
+
+    select.innerHTML = `
+      <option value="">
+        فشل تحميل الأقسام
+      </option>
+    `;
+
+    return;
+  }
+
+  if(!data || data.length === 0){
+
+    select.innerHTML = `
+      <option value="">
+        لا توجد أقسام
+      </option>
+    `;
+
+    return;
+  }
+
+  select.innerHTML = `
+    <option value="">
+      اختر القسم
+    </option>
+  `;
+
+  data.forEach(category => {
+
+    const option =
+      document.createElement("option");
+
+    option.value =
+      category.name;
+
+    option.textContent =
+      category.name;
+
+    select.appendChild(option);
+
+  });
+
+}
+     
 /* =========================
    عرض الأقسام
 ========================= */
