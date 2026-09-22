@@ -368,6 +368,50 @@ color:#777;
 line-height:1.7;
 
 }
+
+/* ==================================================
+   CATEGORIES ADMIN
+================================================== */
+
+.category-admin-card{
+
+  border:1px solid #eee;
+  border-radius:16px;
+  padding:15px;
+  margin-top:15px;
+  background:#fff;
+
+}
+
+.category-admin-image{
+
+  width:100px;
+  height:100px;
+
+  object-fit:cover;
+
+  border-radius:50%;
+
+  display:block;
+
+  margin:0 auto 12px;
+
+  box-shadow:
+    0 3px 12px #00000012;
+
+}
+
+.category-admin-name{
+
+  text-align:center;
+
+  font-size:16px;
+
+  font-weight:bold;
+
+  margin-bottom:12px;
+
+}
      
 </style>
 
@@ -709,7 +753,108 @@ color:#888;
 
 </div>
 
+<!-- =========================
+     إدارة الأقسام
+========================= -->
 
+<div class="card">
+
+  <div class="top">
+
+    <h2>
+      🗂️ إدارة الأقسام
+    </h2>
+
+    <button
+      class="primary"
+      onclick="loadCategoriesAdmin()">
+
+      تحديث
+
+    </button>
+
+  </div>
+
+  <input
+    id="categoryName"
+    placeholder="اسم القسم">
+
+  <input
+    id="categoryImage"
+    type="file"
+    accept="image/*">
+
+  <div
+    id="categoryImagePreview"
+    style="
+      margin-top:10px;
+      text-align:center;
+    ">
+  </div>
+
+  <button
+    class="primary"
+    onclick="saveCategory()">
+
+    إضافة القسم
+
+  </button>
+
+  <button
+    id="cancelCategoryBtn"
+    class="edit hidden"
+    onclick="cancelCategoryEdit()">
+
+    إلغاء التعديل
+
+  </button>
+
+  <div
+    id="categoryMessage"
+    class="message">
+  </div>
+
+</div>
+
+
+<!-- =========================
+     الأقسام الموجودة
+========================= -->
+
+<div class="card">
+
+  <div class="top">
+
+    <h2>
+      📂 الأقسام الحالية
+    </h2>
+
+    <button
+      class="primary"
+      onclick="loadCategoriesAdmin()">
+
+      تحديث
+
+    </button>
+
+  </div>
+
+  <div id="categoriesAdminContainer">
+
+    <div style="
+      text-align:center;
+      padding:30px;
+      color:#888;
+    ">
+
+      جاري تحميل الأقسام...
+
+    </div>
+
+  </div>
+
+</div>
+     
 <!-- =========================
      إدارة العروض المميزة
 ========================= -->
