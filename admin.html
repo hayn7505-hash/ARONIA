@@ -1570,6 +1570,65 @@ async function saveProduct(){
 
 const imageFile =
     imageInput.files[0];
+
+let imageURL = "";
+
+if(imageFile){
+
+  message.textContent =
+    "جاري رفع الصورة...";
+
+  const fileExtension =
+    imageFile.name
+      .split(".")
+      .pop()
+      .toLowerCase();
+
+  const fileName =
+    `${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2,8)}.${fileExtension}`;
+
+  const {
+    error: uploadError
+  } =
+    await supabaseClient
+      .storage
+      .from("product-images")
+      .upload(
+        fileName,
+        imageFile,
+        {
+          cacheControl:"3600",
+          upsert:false
+        }
+      );
+
+  if(uploadError){
+
+    console.error(
+      "Image upload error:",
+      uploadError
+    );
+
+    message.textContent =
+      "حدث خطأ أثناء رفع الصورة.";
+
+    return;
+  }
+
+  const {
+    data: publicURLData
+  } =
+    supabaseClient
+      .storage
+      .from("product-images")
+      .getPublicUrl(fileName);
+
+  imageURL =
+    publicURLData.publicUrl;
+
+}
      
   const description =
     document
@@ -1723,21 +1782,21 @@ const imageFile =
 
   const productData = {
 
-    name,
+  name,
 
-    name_ar:nameAr,
+  name_ar:nameAr,
 
-    category,
+  category,
 
-    price,
+  price,
 
-    stock,
+  stock,
 
-    image:imageURL || "",
+  image:imageURL,
 
-    description
+  description
 
-  };
+};
 
 
   message.textContent =
