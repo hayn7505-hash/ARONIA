@@ -4017,26 +4017,21 @@ document.addEventListener(
 async function saveCategory(){
 
   const nameInput =
-    document.getElementById(
-      "categoryName"
-    );
-
+    document.getElementById("categoryName");
 
   const imageInput =
-    document.getElementById(
-      "categoryImage"
-    );
-
+    document.getElementById("categoryImage");
 
   const message =
-    document.getElementById(
-      "categoryMessage"
-    );
+    document.getElementById("categoryMessage");
 
+  if(!nameInput || !imageInput || !message){
+    console.error("Category form elements not found");
+    return;
+  }
 
   const name =
     nameInput.value.trim();
-
 
   if(!name){
 
@@ -4044,40 +4039,74 @@ async function saveCategory(){
       "أدخل اسم القسم.";
 
     return;
-
   }
 
-
   const file =
-    imageInput.files[0];
-     
-     if(!editingCategoryId && !file){
+    imageInput.files &&
+    imageInput.files.length > 0
+      ? imageInput.files[0]
+      : null;
 
-  message.textContent =
-    "اختر صورة للقسم أولاً.";
+  console.log("Selected file:", file);
+  console.log("File name:", file?.name);
+  console.log("File size:", file?.size);
+  console.log("File type:", file?.type);
 
-  return;
+  /*
+  ==========================================
+  إضافة قسم جديد
+  ==========================================
+  */
 
-}
+  if(!editingCategoryId && !file){
 
+    message.textContent =
+      "اختر صورة للقسم أولاً.";
+
+    return;
+  }
 
   message.textContent =
     editingCategoryId
-    ?
-    "جاري تعديل القسم..."
-    :
-    "جاري إضافة القسم...";
-
+      ? "جاري تعديل القسم..."
+      : "جاري إضافة القسم...";
 
   let imageUrl =
-    editingCategoryImage;
+    editingCategoryImage || "";
 
-
-  /* =========================
-     رفع صورة جديدة
-  ========================= */
+  /*
+  ==========================================
+  رفع الصورة
+  ==========================================
+  */
 
   if(file){
+
+    if(!(file instanceof File)){
+
+      message.textContent =
+        "تعذر قراءة الصورة المختارة.";
+
+      console.error(
+        "Selected object is not a File:",
+        file
+      );
+
+      return;
+    }
+
+    if(file.size === 0){
+
+      message.textContent =
+        "الصورة فارغة أو لم يتم تحميلها بشكل صحيح.";
+
+      console.error(
+        "File size is 0:",
+        file
+      );
+
+      return;
+    }
 
     const extension =
       file.name
@@ -4085,26 +4114,40 @@ async function saveCategory(){
         .pop()
         .toLowerCase();
 
-
     const fileName =
-      `category_${Date.now()}.${extension}`;
+      "category_" +
+      Date.now() +
+      "_" +
+      Math.random()
+        .toString(36)
+        .substring(2,8) +
+      "." +
+      extension;
 
-
-    const filePath =
-      fileName;
-
+    console.log(
+      "Uploading:",
+      fileName,
+      file
+    );
 
     const {
-  data: uploadData,
-  error: uploadError
-} = await supabaseClient.storage
-  .from("category-images")
-  .upload(filePath, file, {
-    cacheControl: "3600",
-    upsert: false,
-    contentType: file.type
-  });
-
+      data: uploadData,
+      error: uploadError
+    } =
+      await supabaseClient
+        .storage
+        .from("category-images")
+        .upload(
+          fileName,
+          file,
+          {
+            cacheControl: "3600",
+            upsert: false,
+            contentType:
+              file.type ||
+              "image/jpeg"
+          }
+        );
 
     if(uploadError){
 
@@ -4113,39 +4156,44 @@ async function saveCategory(){
         uploadError
       );
 
-
       message.textContent =
         "فشل رفع صورة القسم: " +
         uploadError.message;
 
       return;
-
     }
 
+    console.log(
+      "Upload successful:",
+      uploadData
+    );
 
     const {
-      data:publicData
+      data: publicData
     } =
       supabaseClient
         .storage
         .from("category-images")
         .getPublicUrl(
-          filePath
+          fileName
         );
-
 
     imageUrl =
       publicData.publicUrl;
 
+    console.log(
+      "Image URL:",
+      imageUrl
+    );
   }
 
-
-  /* =========================
-     حفظ البيانات
-  ========================= */
+  /*
+  ==========================================
+  حفظ القسم في جدول categories
+  ==========================================
+  */
 
   let result;
-
 
   if(editingCategoryId){
 
@@ -4153,11 +4201,8 @@ async function saveCategory(){
       await supabaseClient
         .from("categories")
         .update({
-
-          name:name,
-
-          image_url:imageUrl
-
+          name: name,
+          image_url: imageUrl
         })
         .eq(
           "id",
@@ -4170,15 +4215,10 @@ async function saveCategory(){
       await supabaseClient
         .from("categories")
         .insert({
-
-          name:name,
-
-          image_url:imageUrl
-
+          name: name,
+          image_url: imageUrl
         });
-
   }
-
 
   if(result.error){
 
@@ -4187,31 +4227,23 @@ async function saveCategory(){
       result.error
     );
 
-
     message.textContent =
-      "حدث خطأ: " +
+      "حدث خطأ أثناء حفظ القسم: " +
       result.error.message;
 
     return;
-
   }
-
 
   message.textContent =
     editingCategoryId
-    ?
-    "تم تعديل القسم بنجاح ✅"
-    :
-    "تمت إضافة القسم بنجاح ✅";
-
+      ? "تم تعديل القسم بنجاح ✅"
+      : "تمت إضافة القسم بنجاح ✅";
 
   cancelCategoryEdit();
 
-
   await loadCategoriesAdmin();
-
 }
-
+     
 
 /* =========================
    تعديل القسم
