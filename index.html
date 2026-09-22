@@ -5226,10 +5226,13 @@ async function loadCategories(){
     document.getElementById("categoriesContainer");
   /* جلب الأقسام من Supabase */
   const { data, error } =
-    await db
-      .from("categories")
-      .select("*")
-      .order("id", { ascending: true });
+  await db
+    .from("categories")
+    .select("*")
+    .order("id", { ascending: true });
+
+alert(JSON.stringify(data));
+   
   if(error){
   alert("CATEGORIES ERROR:\n" + error.message);
   return;
