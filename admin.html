@@ -1604,7 +1604,7 @@ const imageFile =
      رفع صورة جديدة
   ========================= */
 
-  if(imageFile){
+  if(imageFile && imageFile.size > 0){
 
     message.textContent =
       "جاري رفع الصورة...";
