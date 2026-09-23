@@ -1491,6 +1491,257 @@ totalValue.toLocaleString("ar-IQ")
 }
 
 /* =========================
+   إضافة / تعديل المنتج
+========================= */
+
+async function saveProduct(){
+
+  const name =
+    document
+      .getElementById("productName")
+      .value
+      .trim();
+
+  const nameAr =
+    document
+      .getElementById("productNameAr")
+      .value
+      .trim();
+
+  const category =
+    document
+      .getElementById("productCategory")
+      .value;
+
+  const price =
+    Number(
+      document
+        .getElementById("productPrice")
+        .value
+    );
+
+  const stock =
+    Number(
+      document
+        .getElementById("productStock")
+        .value
+    );
+
+  const imageInput =
+  document.getElementById("productImage");
+
+const imageFile =
+  imageInput &&
+  imageInput.files &&
+  imageInput.files.length > 0
+    ? imageInput.files[0]
+    : null;
+
+  const description =
+    document
+      .getElementById("productDescription")
+      .value
+      .trim();
+
+  const message =
+    document.getElementById("formMessage");
+
+  /* =========================
+     التحقق
+  ========================= */
+
+  if(!nameAr || !price){
+
+    message.textContent =
+      "أدخل اسم المنتج والسعر.";
+
+    return;
+  }
+
+  /* =========================
+     الصورة الحالية
+     في حالة التعديل
+  ========================= */
+
+  let imageURL = "";
+
+  if(editingId){
+
+    const {
+      data: oldProduct,
+      error: oldProductError
+    } =
+      await supabaseClient
+        .from("products")
+        .select("image")
+        .eq("id", editingId)
+        .single();
+
+    if(oldProductError){
+
+      console.error(
+        "Old product error:",
+        oldProductError
+      );
+
+      message.textContent =
+        "تعذر قراءة بيانات المنتج الحالية.";
+
+      return;
+    }
+
+    imageURL =
+      oldProduct?.image || "";
+  }
+
+  /* =========================
+     رفع صورة جديدة
+  ========================= */
+
+  if(imageFile && imageFile.size > 0){
+
+  message.textContent =
+    "جاري رفع الصورة...";
+
+  const fileExtension =
+    imageFile.name
+      .split(".")
+      .pop()
+      .toLowerCase();
+
+  const fileName =
+    `product_${Date.now()}_${Math.random()
+      .toString(36)
+      .substring(2,8)}.${fileExtension}`;
+
+  const {
+    error: uploadError
+  } =
+    await supabaseClient
+      .storage
+      .from("product-images")
+      .upload(
+        fileName,
+        imageFile,
+        {
+          cacheControl:"3600",
+          upsert:false,
+          contentType:
+            imageFile.type ||
+            "image/jpeg"
+        }
+      );
+
+  if(uploadError){
+
+    console.error(
+      "Product image upload error:",
+      uploadError
+    );
+
+    message.textContent =
+      "فشل رفع صورة المنتج: " +
+      uploadError.message;
+
+    return;
+  }
+
+  const {
+    data: publicURLData
+  } =
+    supabaseClient
+      .storage
+      .from("product-images")
+      .getPublicUrl(
+        fileName
+      );
+
+  imageURL =
+    publicURLData.publicUrl;
+}
+
+  /* =========================
+     بيانات المنتج
+  ========================= */
+
+  const productData = {
+
+    name,
+
+    name_ar:nameAr,
+
+    category,
+
+    price,
+
+    stock,
+
+    image:imageURL,
+
+    description
+
+  };
+
+  message.textContent =
+    "جاري حفظ المنتج...";
+
+  /* =========================
+     إضافة / تعديل
+  ========================= */
+
+  let result;
+
+  if(editingId){
+
+    result =
+      await supabaseClient
+        .from("products")
+        .update(productData)
+        .eq("id",editingId);
+
+  }else{
+
+    result =
+      await supabaseClient
+        .from("products")
+        .insert(productData);
+
+  }
+
+  /* =========================
+     التحقق من الخطأ
+  ========================= */
+
+  if(result.error){
+
+    console.error(
+      "Product save error:",
+      result.error
+    );
+
+    message.textContent =
+      "حدث خطأ: " +
+      result.error.message;
+
+    return;
+  }
+
+  /* =========================
+     نجاح
+  ========================= */
+
+  message.textContent =
+    editingId
+      ? "تم تعديل المنتج ✅"
+      : "تمت إضافة المنتج ✅";
+
+  cancelEdit();
+
+  await loadProducts();
+
+}
+     
+/* =========================
    تعديل المنتج
 ========================= */
 
@@ -1593,7 +1844,7 @@ function editProduct(id){
   });
 
 }
-
+     
 /* =========================
    إلغاء التعديل
 ========================= */
