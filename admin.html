@@ -1606,71 +1606,65 @@ const imageFile =
 
   if(imageFile && imageFile.size > 0){
 
-    message.textContent =
-      "جاري رفع الصورة...";
+  message.textContent =
+    "جاري رفع الصورة...";
 
+  const fileExtension =
+    imageFile.name
+      .split(".")
+      .pop()
+      .toLowerCase();
 
-    const fileExtension =
-      imageFile.name
-        .split(".")
-        .pop()
-        .toLowerCase();
+  const fileName =
+    `product_${Date.now()}_${Math.random()
+      .toString(36)
+      .substring(2,8)}.${fileExtension}`;
 
-
-    const fileName =
-      `product_${Date.now()}_${Math.random()
-        .toString(36)
-        .substring(2,8)}.${fileExtension}`;
-
-
-    const {
-      error: uploadError
-    } =
-      await supabaseClient
-        .storage
-        .from("product-images")
-        .upload(
-          fileName,
-          imageFile,
-          {
-            cacheControl:"3600",
-            upsert:false,
-            contentType:
-              imageFile.type ||
-              "image/jpeg"
-          }
-        );
-
-
-    if(uploadError){
-
-      console.error(
-        "Product image upload error:",
-        uploadError
+  const {
+    error: uploadError
+  } =
+    await supabaseClient
+      .storage
+      .from("product-images")
+      .upload(
+        fileName,
+        imageFile,
+        {
+          cacheControl:"3600",
+          upsert:false,
+          contentType:
+            imageFile.type ||
+            "image/jpeg"
+        }
       );
 
-      message.textContent =
-        "فشل رفع صورة المنتج: " +
-        uploadError.message;
+  if(uploadError){
 
-      return;
-    }
+    console.error(
+      "Product image upload error:",
+      uploadError
+    );
 
+    message.textContent =
+      "فشل رفع صورة المنتج: " +
+      uploadError.message;
 
-    const {
-      data: publicURLData
-    } =
-      supabaseClient
-        .storage
-        .from("product-images")
-        .getPublicUrl(
-          fileName
-        );
-
-
-    imageURL =
-      publicURLData.publicUrl;
+    return;
   }
+
+  const {
+    data: publicURLData
+  } =
+    supabaseClient
+      .storage
+      .from("product-images")
+      .getPublicUrl(
+        fileName
+      );
+
+  imageURL =
+    publicURLData.publicUrl;
+}
 
 
   /* =========================
