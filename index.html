@@ -8447,50 +8447,40 @@ function checkout(){
         });
 
 
-        /*
-           إرسال الطلب
-        */
+        /* =====================================================
+   إنشاء الطلب + خصم المخزون
+   العملية تتم داخل Supabase بشكل آمن
+===================================================== */
 
-        const {
-          data:orderData,
-          error
-        } =
-        await db
-          .from("orders")
-          .insert([{
+const {
+  data:orderId,
+  error
+} =
+await db.rpc(
+  "create_order_and_reduce_stock",
+  {
+    p_user_id:
+      userData.user.id,
 
-            user_id:
-              userData.user.id,
+    p_customer_name:
+      name,
 
-            customer_name:
-              name,
+    p_phone:
+      phone,
 
-            phone:
-              phone,
+    p_shipping_address:
+      address,
 
-            shipping_address:
-              address,
+    p_total_amount:
+      total,
 
-            total_amount:
-              total,
+    p_items:
+      orderItems,
 
-            status:
-              "جديد",
-
-            items:{
-
-              products:
-                orderItems,
-
-              notes:
-                notes
-
-            }
-
-          }])
-          .select("id")
-          .single();
-
+    p_notes:
+      notes
+  }
+);
 
         if(error){
 
