@@ -221,43 +221,38 @@ font-family:inherit;
 }
 
 /* =====================================================
-HEADER — ARONIA
+   HEADER — ARONIA
 ===================================================== */
 
 header{
 
-background:var(--nav);
+  background:var(--nav);
 
-padding:15px 18px;
+  padding:15px 18px;
 
-display:flex;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
 
-justify-content:flex-start;
+  position:sticky;
+  top:0;
+  z-index:100;
 
-align-items:center;
+  box-shadow:0 2px 12px rgba(46,37,41,.07);
 
-position:sticky;
-
-top:0;
-
-z-index:100;
-
-box-shadow:0 2px 12px rgba(41,67,63,.07);
-
-border-bottom:1px solid rgba(184,232,222,.45);
-
+  border-bottom:1px solid var(--border);
 }
+
 
 .logo{
 
-font-size:25px;
+  font-size:25px;
 
-font-weight:bold;
+  font-weight:bold;
 
-letter-spacing:2px;
+  letter-spacing:2px;
 
-color:var(--primary);
-
+  color:var(--primary);
 }
   
 /* =====================================================
