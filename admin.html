@@ -1594,74 +1594,118 @@ const imageFile =
       oldProduct?.image || "";
   }
 
-  /* =========================
-     رفع صورة جديدة
-  ========================= */
-console.log("IMAGE FILE:", imageFile);
-console.log("IMAGE NAME:", imageFile?.name);
-console.log("IMAGE SIZE:", imageFile?.size);
-console.log("IMAGE TYPE:", imageFile?.type);
-     
-  if(imageFile && imageFile.size > 0){
+/* =========================
+   رفع صورة جديدة
+========================= */
+
+if(imageFile && imageFile.size > 0){
 
   message.textContent =
-    "جاري رفع الصورة...";
+    "جاري تجهيز الصورة...";
 
-  const fileExtension =
-    imageFile.name
-      .split(".")
-      .pop()
-      .toLowerCase();
 
-  const fileName =
-    `product_${Date.now()}_${Math.random()
-      .toString(36)
-      .substring(2,8)}.${fileExtension}`;
+  try{
 
-  const {
-    error: uploadError
-  } =
-    await supabaseClient
-      .storage
-      .from("product-images")
-      .upload(
-        fileName,
-        imageFile,
-        {
-          cacheControl:"3600",
-          upsert:false,
-          contentType:
-            imageFile.type ||
-            "image/jpeg"
-        }
+    /* تحويل الصورة إلى بيانات فعلية */
+
+    const fileBuffer =
+      await imageFile.arrayBuffer();
+
+
+    if(!fileBuffer || fileBuffer.byteLength === 0){
+
+      message.textContent =
+        "الصورة فارغة أو لم يتم قراءتها.";
+
+      return;
+
+    }
+
+
+    message.textContent =
+      "جاري رفع الصورة...";
+
+
+    const fileExtension =
+      (
+        imageFile.name
+          .split(".")
+          .pop() ||
+        "jpg"
+      ).toLowerCase();
+
+
+    const fileName =
+      `product_${Date.now()}_${Math.random()
+        .toString(36)
+        .substring(2,8)}.${fileExtension}`;
+
+
+    const {
+      error: uploadError
+    } =
+      await supabaseClient
+        .storage
+        .from("product-images")
+        .upload(
+          fileName,
+          fileBuffer,
+          {
+            cacheControl:"3600",
+            upsert:false,
+            contentType:
+              imageFile.type ||
+              "image/jpeg"
+          }
+        );
+
+
+    if(uploadError){
+
+      console.error(
+        "Product image upload error:",
+        uploadError
       );
 
-  if(uploadError){
+      message.textContent =
+        "فشل رفع صورة المنتج: " +
+        uploadError.message;
+
+      return;
+
+    }
+
+
+    const {
+      data: publicURLData
+    } =
+      supabaseClient
+        .storage
+        .from("product-images")
+        .getPublicUrl(
+          fileName
+        );
+
+
+    imageURL =
+      publicURLData.publicUrl;
+
+
+  }catch(error){
 
     console.error(
-      "Product image upload error:",
-      uploadError
+      "Image processing error:",
+      error
     );
 
     message.textContent =
-      "فشل رفع صورة المنتج: " +
-      uploadError.message;
+      "تعذر تجهيز صورة المنتج: " +
+      error.message;
 
     return;
+
   }
 
-  const {
-    data: publicURLData
-  } =
-    supabaseClient
-      .storage
-      .from("product-images")
-      .getPublicUrl(
-        fileName
-      );
-
-  imageURL =
-    publicURLData.publicUrl;
 }
 
   /* =========================
