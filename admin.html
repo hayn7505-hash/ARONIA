@@ -1597,7 +1597,11 @@ const imageFile =
   /* =========================
      رفع صورة جديدة
   ========================= */
-
+console.log("IMAGE FILE:", imageFile);
+console.log("IMAGE NAME:", imageFile?.name);
+console.log("IMAGE SIZE:", imageFile?.size);
+console.log("IMAGE TYPE:", imageFile?.type);
+     
   if(imageFile && imageFile.size > 0){
 
   message.textContent =
