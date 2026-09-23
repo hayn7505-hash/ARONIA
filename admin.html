@@ -1491,338 +1491,106 @@ totalValue.toLocaleString("ar-IQ")
 }
 
 /* =========================
-   إضافة / تعديل المنتج
-========================= */
-
-async function saveProduct(){
-
-  const name =
-    document
-      .getElementById("productName")
-      .value
-      .trim();
-
-  const nameAr =
-    document
-      .getElementById("productNameAr")
-      .value
-      .trim();
-
-  const category =
-    document
-      .getElementById("productCategory")
-      .value;
-
-  const price =
-    Number(
-      document
-        .getElementById("productPrice")
-        .value
-    );
-
-  const stock =
-    Number(
-      document
-        .getElementById("productStock")
-        .value
-    );
-
-  const imageInput =
-  document.getElementById("productImage");
-
-const imageFile =
-  imageInput &&
-  imageInput.files &&
-  imageInput.files.length > 0
-    ? imageInput.files[0]
-    : null;
-
-  const description =
-    document
-      .getElementById("productDescription")
-      .value
-      .trim();
-
-  const message =
-    document.getElementById("formMessage");
-
-
-  /* =========================
-     التحقق
-  ========================= */
-
-  if(!nameAr || !price){
-
-    message.textContent =
-      "أدخل اسم المنتج والسعر.";
-
-    return;
-  }
-
-
-  /* =========================
-     الصورة الحالية
-     في حالة التعديل
-  ========================= */
-
-  let imageURL = "";
-
-
-  if(editingId){
-
-    const {
-      data: oldProduct,
-      error: oldProductError
-    } =
-      await supabaseClient
-        .from("products")
-        .select("image")
-        .eq("id", editingId)
-        .single();
-
-
-    if(oldProductError){
-
-      console.error(
-        "Old product error:",
-        oldProductError
-      );
-
-      message.textContent =
-        "تعذر قراءة بيانات المنتج الحالية.";
-
-      return;
-    }
-
-
-    imageURL =
-      oldProduct?.image || "";
-  }
-
-
-  /* =========================
-     رفع صورة جديدة
-  ========================= */
-
-  if(imageFile && imageFile.size > 0){
-
-  message.textContent =
-    "جاري رفع الصورة...";
-
-  const fileExtension =
-    imageFile.name
-      .split(".")
-      .pop()
-      .toLowerCase();
-
-  const fileName =
-    `product_${Date.now()}_${Math.random()
-      .toString(36)
-      .substring(2,8)}.${fileExtension}`;
-
-  const {
-    error: uploadError
-  } =
-    await supabaseClient
-      .storage
-      .from("product-images")
-      .upload(
-        fileName,
-        imageFile,
-        {
-          cacheControl:"3600",
-          upsert:false,
-          contentType:
-            imageFile.type ||
-            "image/jpeg"
-        }
-      );
-
-  if(uploadError){
-
-    console.error(
-      "Product image upload error:",
-      uploadError
-    );
-
-    message.textContent =
-      "فشل رفع صورة المنتج: " +
-      uploadError.message;
-
-    return;
-  }
-
-  const {
-    data: publicURLData
-  } =
-    supabaseClient
-      .storage
-      .from("product-images")
-      .getPublicUrl(
-        fileName
-      );
-
-  imageURL =
-    publicURLData.publicUrl;
-}
-
-
-  /* =========================
-     بيانات المنتج
-  ========================= */
-
-  const productData = {
-
-    name,
-
-    name_ar:nameAr,
-
-    category,
-
-    price,
-
-    stock,
-
-    image:imageURL,
-
-    description
-
-  };
-
-
-  message.textContent =
-    "جاري حفظ المنتج...";
-
-
-  /* =========================
-     إضافة / تعديل
-  ========================= */
-
-  let result;
-
-
-  if(editingId){
-
-    result =
-      await supabaseClient
-        .from("products")
-        .update(productData)
-        .eq("id",editingId);
-
-  }else{
-
-    result =
-      await supabaseClient
-        .from("products")
-        .insert(productData);
-
-  }
-
-
-  /* =========================
-     التحقق من الخطأ
-  ========================= */
-
-  if(result.error){
-
-    console.error(
-      "Product save error:",
-      result.error
-    );
-
-    message.textContent =
-      "حدث خطأ: " +
-      result.error.message;
-
-    return;
-  }
-
-
-  /* =========================
-     نجاح
-  ========================= */
-
-  message.textContent =
-    editingId
-      ? "تم تعديل المنتج ✅"
-      : "تمت إضافة المنتج ✅";
-
-
-  cancelEdit();
-
-
-  await loadProducts();
-
-}
-     
-/* =========================
    تعديل المنتج
 ========================= */
 
 function editProduct(id){
 
-const product =
-products.find(
-p => p.id === id
-);
+  const product =
+    products.find(
+      p => p.id === id
+    );
 
-if(!product) return;
+  if(!product) return;
 
-editingId = id;
+  editingId = id;
 
-document
-.getElementById("formTitle")
-.textContent =
-"تعديل المنتج";
+  document
+    .getElementById("formTitle")
+    .textContent =
+      "تعديل المنتج";
 
-document
-.getElementById("productName")
-.value =
-product.name || "";
+  document
+    .getElementById("productName")
+    .value =
+      product.name || "";
 
-document
-.getElementById("productNameAr")
-.value =
-product.name_ar || "";
+  document
+    .getElementById("productNameAr")
+    .value =
+      product.name_ar || "";
 
-document
-.getElementById("productCategory")
-.value =
-product.category ||
-"العناية بالبشرة";
+  document
+    .getElementById("productCategory")
+    .value =
+      product.category || "";
 
-document
-.getElementById("productPrice")
-.value =
-product.price || "";
+  document
+    .getElementById("productPrice")
+    .value =
+      product.price || "";
 
-document
-.getElementById("productStock")
-.value =
-product.stock || 0;
+  document
+    .getElementById("productStock")
+    .value =
+      product.stock || 0;
 
-document
-.getElementById("productImage")
-.value =
-product.image || "";
 
-document
-.getElementById("productDescription")
-.value =
-product.description || "";
+  /* =========================
+     ملف الصورة
+  ========================= */
 
-document
-.getElementById("cancelBtn")
-.classList
-.remove("hidden");
+  document
+    .getElementById("productImage")
+    .value = "";
 
-window.scrollTo({
 
-top:0,
+  /* =========================
+     معاينة الصورة القديمة
+  ========================= */
 
-behavior:"smooth"
+  const preview =
+    document.getElementById(
+      "productImagePreview"
+    );
 
-});
+  if(product.image){
+
+    preview.src =
+      product.image;
+
+    preview.style.display =
+      "block";
+
+  }else{
+
+    preview.src = "";
+
+    preview.style.display =
+      "none";
+
+  }
+
+
+  document
+    .getElementById("productDescription")
+    .value =
+      product.description || "";
+
+
+  document
+    .getElementById("cancelBtn")
+    .classList
+    .remove("hidden");
+
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"smooth"
+
+  });
 
 }
 
