@@ -1528,10 +1528,14 @@ async function saveProduct(){
     );
 
   const imageInput =
-    document.getElementById("productImage");
+  document.getElementById("productImage");
 
-  const imageFile =
-    imageInput.files[0];
+const imageFile =
+  imageInput &&
+  imageInput.files &&
+  imageInput.files.length > 0
+    ? imageInput.files[0]
+    : null;
 
   const description =
     document
