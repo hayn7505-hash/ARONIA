@@ -439,6 +439,113 @@ line-height:1.7;
   margin:10px auto 15px;
   box-shadow:0 3px 12px #00000015;
 }
+
+/* =====================================================
+   ADMIN ACCORDION MENU
+===================================================== */
+
+.admin-section{
+  background:#fff;
+  border-radius:18px;
+  margin-bottom:15px;
+  box-shadow:0 5px 20px #0000000d;
+  overflow:hidden;
+}
+
+.admin-section-header{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:18px 20px;
+  background:#fff;
+  color:#333;
+  text-align:right;
+  cursor:pointer;
+  border:0;
+  font-family:inherit;
+}
+
+.admin-section-header:hover{
+  background:#faf7f5;
+}
+
+.admin-section-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  font-weight:700;
+}
+
+.admin-section-subtitle{
+  display:block;
+  margin-top:4px;
+  color:#888;
+  font-size:12px;
+  font-weight:400;
+}
+
+.admin-section-arrow{
+  font-size:18px;
+  transition:transform .25s ease;
+}
+
+.admin-section.open .admin-section-arrow{
+  transform:rotate(180deg);
+}
+
+.admin-section-content{
+  display:none;
+  padding:0 20px 20px;
+}
+
+.admin-section.open .admin-section-content{
+  display:block;
+}
+
+.admin-subsection{
+  padding-top:20px;
+  margin-top:20px;
+  border-top:1px solid #eee;
+}
+
+.admin-subsection:first-child{
+  margin-top:0;
+  padding-top:5px;
+  border-top:0;
+}
+
+.admin-subsection h3{
+  margin:0 0 15px;
+  font-size:16px;
+  color:#333;
+}
+
+.admin-subsection-description{
+  display:block;
+  margin-top:-8px;
+  margin-bottom:15px;
+  color:#888;
+  font-size:12px;
+}
+
+@media(max-width:700px){
+
+  .admin-section-header{
+    padding:16px;
+  }
+
+  .admin-section-title{
+    font-size:16px;
+  }
+
+  .admin-section-content{
+    padding:0 15px 15px;
+  }
+
+}
      
 </style>
 
@@ -498,6 +605,7 @@ class="message">
 id="dashboard"
 class="container hidden">
 
+
 <!-- ==================================================
      HEADER
 ================================================== -->
@@ -532,69 +640,89 @@ class="container hidden">
 
 
 <!-- ==================================================
-     الرئيسية — الإحصائيات
+     الرئيسية
 ================================================== -->
 
-<div class="card">
+<div class="admin-section open">
 
-  <div class="top">
+  <button
+    class="admin-section-header"
+    type="button"
+    onclick="toggleAdminSection(this)">
 
-    <h2>
-      📊 الرئيسية
-    </h2>
+    <div>
 
-  </div>
+      <div class="admin-section-title">
+        📊 الرئيسية
+      </div>
 
-  <div class="stats">
-
-    <div class="stat">
-
-      <span>
-        المنتجات
+      <span class="admin-section-subtitle">
+        نظرة عامة على المتجر
       </span>
-
-      <b id="productCount">
-        0
-      </b>
 
     </div>
 
+    <span class="admin-section-arrow">
+      ▼
+    </span>
 
-    <div class="stat">
-
-      <span>
-        إجمالي المخزون
-      </span>
-
-      <b id="stockCount">
-        0
-      </b>
-
-    </div>
+  </button>
 
 
-    <div class="stat">
+  <div class="admin-section-content">
 
-      <span>
-        قيمة المنتجات
-      </span>
+    <div class="stats">
 
-      <b id="valueCount">
-        0
-      </b>
+      <div class="stat">
 
-    </div>
+        <span>
+          المنتجات
+        </span>
+
+        <b id="productCount">
+          0
+        </b>
+
+      </div>
 
 
-    <div class="stat">
+      <div class="stat">
 
-      <span>
-        الطلبات الحالية
-      </span>
+        <span>
+          إجمالي المخزون
+        </span>
 
-      <b id="newOrdersCount">
-        0
-      </b>
+        <b id="stockCount">
+          0
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span>
+          قيمة المنتجات
+        </span>
+
+        <b id="valueCount">
+          0
+        </b>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span>
+          الطلبات الحالية
+        </span>
+
+        <b id="newOrdersCount">
+          0
+        </b>
+
+      </div>
 
     </div>
 
@@ -607,219 +735,203 @@ class="container hidden">
      المنتجات
 ================================================== -->
 
-<div class="card">
+<div class="admin-section">
 
-  <div class="top">
+  <button
+    class="admin-section-header"
+    type="button"
+    onclick="toggleAdminSection(this)">
 
     <div>
 
-      <h2>
+      <div class="admin-section-title">
         🛍️ المنتجات
-      </h2>
+      </div>
 
-      <small>
+      <span class="admin-section-subtitle">
         إضافة المنتجات وإدارة الأسعار والمخزون
-      </small>
+      </span>
 
     </div>
 
-    <button
-      class="primary"
-      onclick="
-        document
-          .getElementById('productName')
-          .scrollIntoView({
-            behavior:'smooth',
-            block:'center'
-          })
-      ">
+    <span class="admin-section-arrow">
+      ▼
+    </span>
 
-      ➕ إضافة
-
-    </button>
-
-  </div>
+  </button>
 
 
-  <!-- =========================
-       إضافة / تعديل المنتج
-  ========================= -->
-
-  <div
-    style="
-      margin-top:20px;
-      padding-top:20px;
-      border-top:1px solid #eee;
-    ">
-
-    <h3 id="formTitle">
-      إضافة منتج
-    </h3>
+  <div class="admin-section-content">
 
 
-    <input
-      id="productName"
-      placeholder="اسم المنتج بالإنجليزية">
+    <!-- إضافة / تعديل المنتج -->
+
+    <div class="admin-subsection">
+
+      <h3>
+        ➕ إضافة / تعديل منتج
+      </h3>
 
 
-    <input
-      id="productNameAr"
-      placeholder="اسم المنتج بالعربية">
+      <h3 id="formTitle">
+        إضافة منتج
+      </h3>
 
 
-    <select id="productCategory">
-
-      <option value="">
-        جاري تحميل الأقسام...
-      </option>
-
-    </select>
+      <input
+        id="productName"
+        placeholder="اسم المنتج بالإنجليزية">
 
 
-    <input
-      id="productPrice"
-      type="number"
-      placeholder="السعر بالدينار العراقي">
+      <input
+        id="productNameAr"
+        placeholder="اسم المنتج بالعربية">
 
 
-    <input
-      id="productStock"
-      type="number"
-      placeholder="الكمية">
+      <select id="productCategory">
+
+        <option value="">
+          جاري تحميل الأقسام...
+        </option>
+
+      </select>
 
 
-    <label
-      for="productImage"
-      class="image-upload-label">
-
-      اختر صورة المنتج
-
-    </label>
+      <input
+        id="productPrice"
+        type="number"
+        placeholder="السعر بالدينار العراقي">
 
 
-    <input
-      id="productImage"
-      type="file"
-      accept="image/*">
+      <input
+        id="productStock"
+        type="number"
+        placeholder="الكمية">
 
 
-    <img
-      id="productImagePreview"
-      class="product-image-preview"
-      style="display:none;"
-      alt="معاينة صورة المنتج">
+      <label
+        for="productImage"
+        class="image-upload-label">
+
+        اختر صورة المنتج
+
+      </label>
 
 
-    <textarea
-      id="productDescription"
-      placeholder="وصف المنتج">
-    </textarea>
+      <input
+        id="productImage"
+        type="file"
+        accept="image/*">
 
 
-    <div class="actions">
-
-      <button
-        class="primary"
-        onclick="saveProduct()">
-
-        حفظ المنتج
-
-      </button>
+      <img
+        id="productImagePreview"
+        class="product-image-preview"
+        style="display:none;"
+        alt="معاينة صورة المنتج">
 
 
-      <button
-        class="edit hidden"
-        id="cancelBtn"
-        onclick="cancelEdit()">
-
-        إلغاء التعديل
-
-      </button>
-
-    </div>
+      <textarea
+        id="productDescription"
+        placeholder="وصف المنتج">
+      </textarea>
 
 
-    <div
-      id="formMessage"
-      class="message">
-    </div>
+      <div class="actions">
 
-  </div>
+        <button
+          class="primary"
+          onclick="saveProduct()">
+
+          حفظ المنتج
+
+        </button>
 
 
-  <!-- =========================
-       قائمة المنتجات
-  ========================= -->
+        <button
+          class="edit hidden"
+          id="cancelBtn"
+          onclick="cancelEdit()">
 
-  <div
-    style="
-      margin-top:25px;
-      padding-top:20px;
-      border-top:1px solid #eee;
-    ">
+          إلغاء التعديل
 
-    <div class="top">
-
-      <div>
-
-        <h3>
-          📦 قائمة المنتجات
-        </h3>
-
-        <small>
-          المنتجات الحالية والمخزون
-        </small>
+        </button>
 
       </div>
 
 
-      <button
-        class="primary"
-        onclick="loadProducts()">
-
-        تحديث
-
-      </button>
+      <div
+        id="formMessage"
+        class="message">
+      </div>
 
     </div>
 
 
-    <div
-      style="
-        overflow-x:auto;
-        margin-top:15px;
-      ">
+    <!-- قائمة المنتجات -->
 
-      <table>
+    <div class="admin-subsection">
 
-        <thead>
+      <div class="top">
 
-          <tr>
+        <div>
 
-            <th>ID</th>
+          <h3>
+            📦 المنتجات
+          </h3>
 
-            <th>الصورة</th>
+          <span class="admin-subsection-description">
+            المنتجات الحالية والمخزون
+          </span>
 
-            <th>المنتج</th>
-
-            <th>الفئة</th>
-
-            <th>السعر</th>
-
-            <th>المخزون</th>
-
-            <th>إجراءات</th>
-
-          </tr>
-
-        </thead>
+        </div>
 
 
-        <tbody
-          id="productsTable">
-        </tbody>
+        <button
+          class="primary"
+          onclick="loadProducts()">
 
-      </table>
+          تحديث
+
+        </button>
+
+      </div>
+
+
+      <div style="overflow-x:auto">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>ID</th>
+
+              <th>الصورة</th>
+
+              <th>المنتج</th>
+
+              <th>الفئة</th>
+
+              <th>السعر</th>
+
+              <th>المخزون</th>
+
+              <th>إجراءات</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody
+            id="productsTable">
+          </tbody>
+
+        </table>
+
+      </div>
 
     </div>
 
@@ -832,139 +944,129 @@ class="container hidden">
      الأقسام
 ================================================== -->
 
-<div class="card">
+<div class="admin-section">
 
-  <div class="top">
+  <button
+    class="admin-section-header"
+    type="button"
+    onclick="toggleAdminSection(this)">
 
     <div>
 
-      <h2>
+      <div class="admin-section-title">
         🗂️ الأقسام
-      </h2>
+      </div>
 
-      <small>
+      <span class="admin-section-subtitle">
         إدارة أسماء وصور أقسام المتجر
-      </small>
+      </span>
 
     </div>
 
-    <button
-      class="primary"
-      onclick="loadCategoriesAdmin()">
+    <span class="admin-section-arrow">
+      ▼
+    </span>
 
-      تحديث
-
-    </button>
-
-  </div>
+  </button>
 
 
-  <!-- =========================
-       إضافة / تعديل قسم
-  ========================= -->
-
-  <div
-    style="
-      margin-top:20px;
-      padding-top:20px;
-      border-top:1px solid #eee;
-    ">
-
-    <h3>
-      ➕ إضافة قسم
-    </h3>
+  <div class="admin-section-content">
 
 
-    <input
-      id="categoryName"
-      placeholder="اسم القسم">
+    <!-- إضافة / تعديل قسم -->
 
-
-    <input
-      id="categoryImage"
-      type="file"
-      accept="image/*">
-
-
-    <div
-      id="categoryImagePreview"
-      style="
-        margin-top:10px;
-        text-align:center;
-      ">
-    </div>
-
-
-    <div class="actions">
-
-      <button
-        class="primary"
-        onclick="saveCategory()">
-
-        إضافة القسم
-
-      </button>
-
-
-      <button
-        id="cancelCategoryBtn"
-        class="edit hidden"
-        onclick="cancelCategoryEdit()">
-
-        إلغاء التعديل
-
-      </button>
-
-    </div>
-
-
-    <div
-      id="categoryMessage"
-      class="message">
-    </div>
-
-  </div>
-
-
-  <!-- =========================
-       الأقسام الحالية
-  ========================= -->
-
-  <div
-    style="
-      margin-top:25px;
-      padding-top:20px;
-      border-top:1px solid #eee;
-    ">
-
-    <div class="top">
+    <div class="admin-subsection">
 
       <h3>
-        📂 الأقسام الحالية
+        ➕ إضافة / تعديل قسم
       </h3>
 
-      <button
-        class="primary"
-        onclick="loadCategoriesAdmin()">
 
-        تحديث
+      <input
+        id="categoryName"
+        placeholder="اسم القسم">
 
-      </button>
+
+      <input
+        id="categoryImage"
+        type="file"
+        accept="image/*">
+
+
+      <div
+        id="categoryImagePreview"
+        style="
+          margin-top:10px;
+          text-align:center;
+        ">
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          class="primary"
+          onclick="saveCategory()">
+
+          إضافة القسم
+
+        </button>
+
+
+        <button
+          id="cancelCategoryBtn"
+          class="edit hidden"
+          onclick="cancelCategoryEdit()">
+
+          إلغاء التعديل
+
+        </button>
+
+      </div>
+
+
+      <div
+        id="categoryMessage"
+        class="message">
+      </div>
 
     </div>
 
 
-    <div
-      id="categoriesAdminContainer">
+    <!-- الأقسام الحالية -->
 
-      <div
-        style="
-          text-align:center;
-          padding:30px;
-          color:#888;
-        ">
+    <div class="admin-subsection">
 
-        جاري تحميل الأقسام...
+      <div class="top">
+
+        <h3>
+          📂 الأقسام الحالية
+        </h3>
+
+
+        <button
+          class="primary"
+          onclick="loadCategoriesAdmin()">
+
+          تحديث
+
+        </button>
+
+      </div>
+
+
+      <div id="categoriesAdminContainer">
+
+        <div
+          style="
+            text-align:center;
+            padding:30px;
+            color:#888;
+          ">
+
+          جاري تحميل الأقسام...
+
+        </div>
 
       </div>
 
@@ -979,179 +1081,170 @@ class="container hidden">
      العروض والكوبونات
 ================================================== -->
 
-<div class="card">
+<div class="admin-section">
 
-  <div class="top">
+  <button
+    class="admin-section-header"
+    type="button"
+    onclick="toggleAdminSection(this)">
 
     <div>
 
-      <h2>
+      <div class="admin-section-title">
         🏷️ العروض والكوبونات
-      </h2>
+      </div>
 
-      <small>
-        إدارة العروض المميزة والأسعار المخفضة
-      </small>
-
-    </div>
-
-    <button
-      class="primary"
-      onclick="loadOffersAdmin()">
-
-      تحديث
-
-    </button>
-
-  </div>
-
-
-  <!-- =========================
-       إضافة / تعديل عرض
-  ========================= -->
-
-  <div
-    style="
-      margin-top:20px;
-      padding-top:20px;
-      border-top:1px solid #eee;
-    ">
-
-    <h3>
-      🎁 إضافة عرض
-    </h3>
-
-
-    <select id="offerProduct">
-
-      <option value="">
-        اختر المنتج
-      </option>
-
-    </select>
-
-
-    <div
-      id="offerOriginalPrice"
-      style="
-        margin:8px 0;
-        color:#888;
-        font-size:14px;
-      ">
-
-      السعر الأصلي: -
+      <span class="admin-section-subtitle">
+        إدارة العروض والأسعار المخفضة
+      </span>
 
     </div>
 
+    <span class="admin-section-arrow">
+      ▼
+    </span>
 
-    <input
-      id="offerPrice"
-      type="number"
-      placeholder="سعر العرض الجديد بالدينار العراقي">
-
-
-    <div
-      id="offerDiscount"
-      style="
-        margin:8px 0;
-        color:#b45f5f;
-        font-weight:bold;
-      ">
-
-      نسبة الخصم: -
-
-    </div>
+  </button>
 
 
-    <label
-      style="
-        display:block;
-        margin:10px 0;
-      ">
-
-      <input
-        id="offerActive"
-        type="checkbox"
-        checked
-        style="
-          width:auto;
-          margin-left:6px;
-        ">
-
-      تفعيل العرض
-
-    </label>
+  <div class="admin-section-content">
 
 
-    <div class="actions">
+    <!-- إضافة / تعديل عرض -->
 
-      <button
-        class="primary"
-        onclick="saveOffer()">
-
-        إضافة العرض
-
-      </button>
-
-
-      <button
-        id="cancelOfferBtn"
-        class="edit hidden"
-        onclick="cancelOfferEdit()">
-
-        إلغاء التعديل
-
-      </button>
-
-    </div>
-
-
-    <div
-      id="offerMessage"
-      class="message">
-    </div>
-
-  </div>
-
-
-  <!-- =========================
-       العروض الحالية
-  ========================= -->
-
-  <div
-    style="
-      margin-top:25px;
-      padding-top:20px;
-      border-top:1px solid #eee;
-    ">
-
-    <div class="top">
+    <div class="admin-subsection">
 
       <h3>
-        🎁 العروض الحالية
+        🎁 إضافة / تعديل عرض
       </h3>
 
-      <button
-        class="primary"
-        onclick="loadOffersAdmin()">
 
-        تحديث
+      <select id="offerProduct">
 
-      </button>
+        <option value="">
+          اختر المنتج
+        </option>
+
+      </select>
+
+
+      <div
+        id="offerOriginalPrice"
+        style="
+          margin:8px 0;
+          color:#888;
+          font-size:14px;
+        ">
+
+        السعر الأصلي: -
+
+      </div>
+
+
+      <input
+        id="offerPrice"
+        type="number"
+        placeholder="سعر العرض الجديد بالدينار العراقي">
+
+
+      <div
+        id="offerDiscount"
+        style="
+          margin:8px 0;
+          color:#b45f5f;
+          font-weight:bold;
+        ">
+
+        نسبة الخصم: -
+
+      </div>
+
+
+      <label
+        style="
+          display:block;
+          margin:10px 0;
+        ">
+
+        <input
+          id="offerActive"
+          type="checkbox"
+          checked
+          style="
+            width:auto;
+            margin-left:6px;
+          ">
+
+        تفعيل العرض
+
+      </label>
+
+
+      <div class="actions">
+
+        <button
+          class="primary"
+          onclick="saveOffer()">
+
+          إضافة العرض
+
+        </button>
+
+
+        <button
+          id="cancelOfferBtn"
+          class="edit hidden"
+          onclick="cancelOfferEdit()">
+
+          إلغاء التعديل
+
+        </button>
+
+      </div>
+
+
+      <div
+        id="offerMessage"
+        class="message">
+      </div>
 
     </div>
 
 
-    <div id="offersAdminContainer">
+    <!-- العروض الحالية -->
 
-      <div
-        style="
-          text-align:center;
-          padding:30px;
-          color:#888;
-        ">
+    <div class="admin-subsection">
 
-        جاري تحميل العروض...
+      <div class="top">
+
+        <h3>
+          🎁 العروض الحالية
+        </h3>
+
+
+        <button
+          class="primary"
+          onclick="loadOffersAdmin()">
+
+          تحديث
+
+        </button>
+
+      </div>
+
+
+      <div id="offersAdminContainer">
+
+        <div
+          style="
+            text-align:center;
+            padding:30px;
+            color:#888;
+          ">
+
+          جاري تحميل العروض...
+
+        </div>
 
       </div>
 
@@ -1166,150 +1259,141 @@ class="container hidden">
      البانرات
 ================================================== -->
 
-<div class="card">
+<div class="admin-section">
 
-  <div class="top">
+  <button
+    class="admin-section-header"
+    type="button"
+    onclick="toggleAdminSection(this)">
 
     <div>
 
-      <h2>
+      <div class="admin-section-title">
         🖼️ البانرات
-      </h2>
+      </div>
 
-      <small>
-        إدارة صور البانرات والعناوين والروابط
-      </small>
+      <span class="admin-section-subtitle">
+        إدارة صور وعناوين وروابط البانرات
+      </span>
 
     </div>
 
-    <button
-      class="primary"
-      onclick="loadBanners()">
+    <span class="admin-section-arrow">
+      ▼
+    </span>
 
-      تحديث
-
-    </button>
-
-  </div>
+  </button>
 
 
-  <!-- =========================
-       إضافة Banner
-  ========================= -->
-
-  <div
-    style="
-      margin-top:20px;
-      padding-top:20px;
-      border-top:1px solid #eee;
-    ">
-
-    <h3>
-      ➕ إضافة Banner
-    </h3>
+  <div class="admin-section-content">
 
 
-    <input
-      id="bannerImage"
-      placeholder="رابط صورة الـ Banner">
+    <!-- إضافة Banner -->
 
-
-    <input
-      id="bannerTitle"
-      placeholder="عنوان الـ Banner">
-
-
-    <textarea
-      id="bannerDescription"
-      placeholder="وصف الـ Banner">
-    </textarea>
-
-
-    <input
-      id="bannerLink"
-      placeholder="الرابط عند الضغط على الـ Banner (اختياري)">
-
-
-    <label
-      style="
-        display:block;
-        margin:10px 0;
-      ">
-
-      <input
-        id="bannerActive"
-        type="checkbox"
-        checked
-        style="
-          width:auto;
-          margin-left:6px;
-        ">
-
-      تفعيل الـ Banner
-
-    </label>
-
-
-    <img
-      id="bannerPreview"
-      class="banner-preview">
-
-
-    <button
-      class="primary"
-      onclick="saveBanner()">
-
-      إضافة Banner
-
-    </button>
-
-
-    <div
-      id="bannerMessage"
-      class="message">
-    </div>
-
-  </div>
-
-
-  <!-- =========================
-       البانرات الحالية
-  ========================= -->
-
-  <div
-    style="
-      margin-top:25px;
-      padding-top:20px;
-      border-top:1px solid #eee;
-    ">
-
-    <div class="top">
+    <div class="admin-subsection">
 
       <h3>
-        📢 البانرات الحالية
+        ➕ إضافة Banner
       </h3>
+
+
+      <input
+        id="bannerImage"
+        placeholder="رابط صورة الـ Banner">
+
+
+      <input
+        id="bannerTitle"
+        placeholder="عنوان الـ Banner">
+
+
+      <textarea
+        id="bannerDescription"
+        placeholder="وصف الـ Banner">
+      </textarea>
+
+
+      <input
+        id="bannerLink"
+        placeholder="الرابط عند الضغط على الـ Banner (اختياري)">
+
+
+      <label
+        style="
+          display:block;
+          margin:10px 0;
+        ">
+
+        <input
+          id="bannerActive"
+          type="checkbox"
+          checked
+          style="
+            width:auto;
+            margin-left:6px;
+          ">
+
+        تفعيل الـ Banner
+
+      </label>
+
+
+      <img
+        id="bannerPreview"
+        class="banner-preview">
+
 
       <button
         class="primary"
-        onclick="loadBanners()">
+        onclick="saveBanner()">
 
-        تحديث
+        إضافة Banner
 
       </button>
+
+
+      <div
+        id="bannerMessage"
+        class="message">
+      </div>
 
     </div>
 
 
-    <div id="bannersContainer">
+    <!-- البانرات الحالية -->
 
-      <div
-        style="
-          text-align:center;
-          padding:30px;
-          color:#888;
-        ">
+    <div class="admin-subsection">
 
-        جاري تحميل البنرات...
+      <div class="top">
+
+        <h3>
+          📢 البانرات الحالية
+        </h3>
+
+
+        <button
+          class="primary"
+          onclick="loadBanners()">
+
+          تحديث
+
+        </button>
+
+      </div>
+
+
+      <div id="bannersContainer">
+
+        <div
+          style="
+            text-align:center;
+            padding:30px;
+            color:#888;
+          ">
+
+          جاري تحميل البنرات...
+
+        </div>
 
       </div>
 
@@ -1324,44 +1408,69 @@ class="container hidden">
      الطلبات
 ================================================== -->
 
-<div class="card">
+<div class="admin-section">
 
-  <div class="top">
+  <button
+    class="admin-section-header"
+    type="button"
+    onclick="toggleAdminSection(this)">
 
     <div>
 
-      <h2>
+      <div class="admin-section-title">
         📦 الطلبات
-      </h2>
+      </div>
 
-      <small>
+      <span class="admin-section-subtitle">
         متابعة الطلبات وتحديث حالتها
-      </small>
+      </span>
 
     </div>
 
-    <button
-      class="primary"
-      onclick="loadOrders()">
+    <span class="admin-section-arrow">
+      ▼
+    </span>
 
-      تحديث الطلبات
-
-    </button>
-
-  </div>
+  </button>
 
 
-  <div
-    id="ordersContainer">
+  <div class="admin-section-content">
 
-    <div
-      style="
-        text-align:center;
-        padding:30px;
-        color:#888;
-      ">
+    <div class="admin-subsection">
 
-      جاري تحميل الطلبيات...
+      <div class="top">
+
+        <h3>
+          📦 الطلبات الحالية
+        </h3>
+
+
+        <button
+          class="primary"
+          onclick="loadOrders()">
+
+          تحديث الطلبات
+
+        </button>
+
+      </div>
+
+
+      <div
+        id="ordersContainer">
+
+        <div
+          style="
+            text-align:center;
+            padding:30px;
+            color:#888;
+          ">
+
+          جاري تحميل الطلبيات...
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -5045,6 +5154,21 @@ if(productImageInput){
 
     }
   );
+
+}
+
+/* =====================================================
+   ADMIN ACCORDION
+===================================================== */
+
+function toggleAdminSection(button){
+
+  const section =
+    button.closest(".admin-section");
+
+  if(!section) return;
+
+  section.classList.toggle("open");
 
 }
      
