@@ -3152,11 +3152,11 @@ container.appendChild(card);
 
 async function saveBanner(){
 
-const imageUrl =
-document
-.getElementById("bannerImage")
-.value
-.trim();
+const imageInput =
+document.getElementById("bannerImage");
+
+const file =
+imageInput.files[0];
 
 const title =
 document
@@ -3182,20 +3182,107 @@ document
 .checked;
 
 const message =
-document
-.getElementById("bannerMessage");
+document.getElementById("bannerMessage");
 
-if(!imageUrl){
+
+/* =========================
+   التحقق من الصورة
+========================= */
+
+if(!file){
 
 message.textContent =
-"أدخل رابط صورة الـ Banner.";
+"اختر صورة للـ Banner.";
 
 return;
 
 }
 
+
+/* =========================
+   التحقق من نوع الصورة
+========================= */
+
+if(!file.type.startsWith("image/")){
+
+message.textContent =
+"الملف المختار ليس صورة.";
+
+return;
+
+}
+
+
+message.textContent =
+"جاري رفع الصورة...";
+
+
+/* =========================
+   اسم فريد للصورة
+========================= */
+
+const fileExt =
+file.name.split(".").pop();
+
+const fileName =
+`banner_${Date.now()}.${fileExt}`;
+
+
+/* =========================
+   رفع الصورة إلى Supabase
+========================= */
+
+const {
+error:uploadError
+} =
+await supabaseClient
+.storage
+.from("banner-images")
+.upload(
+fileName,
+file,
+{
+cacheControl:"3600",
+upsert:false
+}
+);
+
+
+if(uploadError){
+
+message.textContent =
+"فشل رفع الصورة: " +
+uploadError.message;
+
+return;
+
+}
+
+
+/* =========================
+   الحصول على رابط الصورة
+========================= */
+
+const {
+data:urlData
+} =
+supabaseClient
+.storage
+.from("banner-images")
+.getPublicUrl(fileName);
+
+
+const imageUrl =
+urlData.publicUrl;
+
+
+/* =========================
+   حفظ بيانات Banner
+========================= */
+
 message.textContent =
 "جاري إضافة الـ Banner...";
+
 
 const {
 error
@@ -3216,6 +3303,7 @@ is_active:isActive
 
 });
 
+
 if(error){
 
 message.textContent =
@@ -3226,12 +3314,20 @@ return;
 
 }
 
+
+/* =========================
+   نجاح
+========================= */
+
 message.textContent =
 "تمت إضافة الـ Banner ✅";
 
-document
-.getElementById("bannerImage")
-.value = "";
+
+/* =========================
+   تنظيف الحقول
+========================= */
+
+imageInput.value = "";
 
 document
 .getElementById("bannerTitle")
@@ -3249,10 +3345,15 @@ document
 .getElementById("bannerActive")
 .checked = true;
 
-document
-.getElementById("bannerPreview")
-.style
-.display = "none";
+
+const preview =
+document.getElementById("bannerPreview");
+
+preview.src = "";
+
+preview.style.display =
+"none";
+
 
 await loadBanners();
 
@@ -3350,14 +3451,17 @@ document.getElementById(
 
 if(!input || !preview) return;
 
+
 input.addEventListener(
-"input",
+"change",
 function(){
 
-const url =
-this.value.trim();
+const file =
+this.files[0];
 
-if(!url){
+if(!file){
+
+preview.src = "";
 
 preview.style.display =
 "none";
@@ -3366,18 +3470,15 @@ return;
 
 }
 
-preview.src = url;
+
+const imageUrl =
+URL.createObjectURL(file);
+
+preview.src =
+imageUrl;
 
 preview.style.display =
 "block";
-
-preview.onerror =
-function(){
-
-preview.style.display =
-"none";
-
-};
 
 });
 
