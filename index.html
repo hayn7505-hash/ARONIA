@@ -6781,6 +6781,44 @@ async function loadNotifications(){
 
 }
 
+ /* =====================================================
+    REALTIME NOTIFICATIONS
+ ===================================================== */
+
+function listenForNotifications(){
+
+  if(!currentUser) return;
+
+
+  db
+    .channel(
+      "user-notifications-" +
+      currentUser.id
+    )
+
+    .on(
+      "postgres_changes",
+      {
+        event:"INSERT",
+        schema:"public",
+        table:"notifications",
+        filter:
+          "user_id=eq." +
+          currentUser.id
+      },
+      async () => {
+
+        /* تحديث العداد */
+
+        await loadNotifications();
+
+      }
+    )
+
+    .subscribe();
+
+}
+  
 /* =====================================================
    فتح الإشعارات
 ===================================================== */
@@ -6973,6 +7011,8 @@ data.session.user;
 
 await loadNotifications();
 
+listenForNotifications();
+  
 await checkAdminStatus();
 
 hideAuthOverlay();
@@ -7019,6 +7059,8 @@ currentUser =
 session.user;
 
 await loadNotifications();
+
+listenForNotifications();
   
 await checkAdminStatus();
 
