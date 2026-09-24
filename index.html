@@ -6807,7 +6807,7 @@ async function openNotifications(){
   }
 
 
-  modal.classList.add("active");
+  modal.classList.add("show");
 
   container.innerHTML =
     "<p>جاري تحميل الإشعارات...</p>";
@@ -6948,7 +6948,7 @@ function closeNotifications(){
 
   if(!modal) return;
 
-  modal.classList.remove("active");
+  modal.classList.remove("show");
 
 }
   
