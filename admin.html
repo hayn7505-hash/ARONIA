@@ -2862,77 +2862,131 @@ activeOrders.length;
 
 }
 
-/* =========================
-   تحديث حالة الطلب
-========================= */
+ /* =========================
+    تحديث حالة الطلب
+ ========================= */
 
 async function updateOrderStatus(select){
 
-const orderId =
-Number(
-select.dataset.orderId
-);
+  const orderId =
+    Number(
+      select.dataset.orderId
+    );
 
-const newStatus =
-select.value;
+  const newStatus =
+    select.value;
 
-select.disabled = true;
+  select.disabled = true;
 
-const {
-error
-} =
-await supabaseClient
-.from("orders")
-.update({
-status:newStatus
-})
-.eq("id",orderId);
 
-select.disabled = false;
+  /* =========================
+     العثور على الطلب
+  ========================= */
 
-if(error){
+  const order =
+    orders.find(
+      item =>
+        item.id === orderId
+    );
 
-alert(
-"فشل تحديث حالة الطلب ❌\n\n" +
-error.message
-);
 
-return;
+  if(!order){
 
-}
+    select.disabled = false;
 
-/*
-   تحديث الطلب محلياً
-*/
+    alert(
+      "لم يتم العثور على الطلب ❌"
+    );
 
-const order =
-orders.find(
-item =>
-item.id === orderId
-);
+    return;
 
-if(order){
+  }
 
-order.status =
-newStatus;
 
-}
+  /* =========================
+     تحديث حالة الطلب
+  ========================= */
 
-/*
-   إذا أصبحت الحالة:
-   مكتمل أو ملغي
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("orders")
+    .update({
+      status:newStatus
+    })
+    .eq("id",orderId);
 
-   تختفي من لوحة المدير.
 
-   أما:
-   جديد
-   قيد التجهيز
-   تم الشحن
+  if(error){
 
-   فتبقى ظاهرة.
-*/
+    select.disabled = false;
 
-renderOrders();
+    alert(
+      "فشل تحديث حالة الطلب ❌\n\n" +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     تحديث الطلب محلياً
+  ========================= */
+
+  order.status =
+    newStatus;
+
+
+  /* =========================
+     إنشاء الإشعار
+  ========================= */
+
+  const notificationTitle =
+    "تحديث حالة الطلب 📦";
+
+  const notificationMessage =
+    `تم تحديث حالة طلبك إلى: ${newStatus}`;
+
+
+  const {
+    error:notificationError
+  } =
+  await supabaseClient
+    .from("notifications")
+    .insert({
+
+      user_id:order.user_id,
+
+      order_id:orderId,
+
+      title:notificationTitle,
+
+      message:notificationMessage
+
+    });
+
+
+  if(notificationError){
+
+    console.error(
+      "Notification error:",
+      notificationError
+    );
+
+  }
+
+
+  select.disabled = false;
+
+
+  /* =========================
+     إعادة عرض الطلبات
+  ========================= */
+
+  renderOrders();
 
 }
 
