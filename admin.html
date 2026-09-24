@@ -3237,7 +3237,7 @@ error:uploadError
 } =
 await supabaseClient
 .storage
-.from("banner-images")
+.from("banner")
 .upload(
 fileName,
 file,
@@ -3268,7 +3268,7 @@ data:urlData
 } =
 supabaseClient
 .storage
-.from("banner-images")
+.from("banner")
 .getPublicUrl(fileName);
 
 
