@@ -6638,6 +6638,74 @@ showLogin();
 }
 
 /* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+async function loadNotifications(){
+
+  if(!currentUser) return;
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from("notifications")
+    .select("*")
+    .eq("user_id",currentUser.id)
+    .order("created_at",{ascending:false});
+
+
+  if(error){
+
+    console.error(
+      "Notifications error:",
+      error
+    );
+
+    return;
+
+  }
+
+
+  /* عدد الإشعارات غير المقروءة */
+
+  const unreadCount =
+    data.filter(
+      notification =>
+        !notification.is_read
+    ).length;
+
+
+  const count =
+    document.getElementById(
+      "notificationCount"
+    );
+
+
+  if(!count) return;
+
+
+  if(unreadCount > 0){
+
+    count.textContent =
+      unreadCount > 99
+        ? "99+"
+        : unreadCount;
+
+    count.style.display =
+      "flex";
+
+  }else{
+
+    count.style.display =
+      "none";
+
+  }
+
+}
+  
+/* =====================================================
 CHECK AUTH
 ===================================================== */
 
@@ -6655,6 +6723,8 @@ data.session
 
 currentUser =
 data.session.user;
+
+await loadNotifications();
 
 await checkAdminStatus();
 
@@ -6701,6 +6771,8 @@ if(session){
 currentUser =
 session.user;
 
+await loadNotifications();
+  
 await checkAdminStatus();
 
 hideAuthOverlay();
