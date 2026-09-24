@@ -4314,7 +4314,45 @@ PRODUCT QUANTITY CONTROLS
   cursor:not-allowed !important;
   opacity:1 !important;
 }
-   
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+.notification-btn{
+  position:relative;
+  background:transparent;
+  color:var(--primary);
+  font-size:24px;
+  padding:6px;
+  margin-right:auto;
+  border:0;
+}
+
+.notification-count{
+  position:absolute;
+  top:-2px;
+  right:-4px;
+
+  min-width:18px;
+  height:18px;
+
+  padding:0 5px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--danger);
+  color:#fff;
+
+  border-radius:50px;
+
+  font-size:10px;
+  font-weight:700;
+  line-height:1;
+}
+  
 </style>
 
 </head>
@@ -4520,14 +4558,49 @@ HEADER
 
 <header>
 
-<div
-class="logo"
-onclick="showPage('home')"
-style="cursor:pointer;">
+  <div
+    class="logo"
+    onclick="showPage('home')"
+    style="cursor:pointer;">
 
-ARONIA
+    ARONIA
 
-</div>
+  </div>
+
+
+  <!-- زر الإشعارات -->
+
+  <button
+  class="notification-btn"
+  onclick="openNotifications()"
+  aria-label="الإشعارات">
+
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round">
+
+    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+
+    <path d="M10 21h4"/>
+
+  </svg>
+
+  <span
+    id="notificationCount"
+    class="notification-count"
+    style="display:none;">
+
+    0
+
+  </span>
+
+</button>
 
 </header>
    
