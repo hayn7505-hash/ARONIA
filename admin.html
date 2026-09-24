@@ -1297,9 +1297,24 @@ class="container hidden">
       </h3>
 
 
-      <input
-        id="bannerImage"
-        placeholder="رابط صورة الـ Banner">
+      <label
+  for="bannerImage"
+  class="image-upload-label">
+
+  🖼️ اختر صورة البانر
+
+</label>
+
+<input
+  id="bannerImage"
+  type="file"
+  accept="image/*"
+  style="display:none;">
+
+<img
+  id="bannerPreview"
+  class="banner-preview"
+  alt="معاينة صورة البانر">
 
 
       <input
