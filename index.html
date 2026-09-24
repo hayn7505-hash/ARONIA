@@ -6780,6 +6780,177 @@ async function loadNotifications(){
   }
 
 }
+
+/* =====================================================
+   فتح الإشعارات
+===================================================== */
+
+async function openNotifications(){
+
+  const modal =
+    document.getElementById(
+      "notificationsModal"
+    );
+
+  const container =
+    document.getElementById(
+      "notificationsContainer"
+    );
+
+  if(!modal || !container) return;
+
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+
+  modal.classList.add("active");
+
+  container.innerHTML =
+    "<p>جاري تحميل الإشعارات...</p>";
+
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from("notifications")
+    .select("*")
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
+
+  if(error){
+
+    console.error(
+      "Notifications error:",
+      error
+    );
+
+    container.innerHTML =
+      "<p>حدث خطأ أثناء تحميل الإشعارات.</p>";
+
+    return;
+
+  }
+
+
+  if(!data || data.length === 0){
+
+    container.innerHTML =
+      "<p>لا توجد إشعارات حاليًا.</p>";
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    data.map(
+      notification => `
+
+        <div
+          class="notification-item ${
+            notification.is_read
+              ? ""
+              : "unread"
+          }">
+
+          <div
+            class="notification-item-title">
+
+            ${notification.title}
+
+          </div>
+
+          <div
+            class="notification-item-message">
+
+            ${notification.message}
+
+          </div>
+
+          <div
+            class="notification-item-time">
+
+            ${new Date(
+              notification.created_at
+            ).toLocaleString("ar-IQ")}
+
+          </div>
+
+        </div>
+
+      `
+    ).join("");
+
+
+  /* =========================
+     تحويل الإشعارات إلى مقروءة
+  ========================= */
+
+  const {
+    error:updateError
+  } =
+  await db
+    .from("notifications")
+    .update({
+      is_read:true
+    })
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .eq(
+      "is_read",
+      false
+    );
+
+
+  if(updateError){
+
+    console.error(
+      "Mark notifications read error:",
+      updateError
+    );
+
+  }
+
+
+  /* تحديث العداد */
+
+  await loadNotifications();
+
+}
+
+/* =====================================================
+   إغلاق الإشعارات
+===================================================== */
+
+function closeNotifications(){
+
+  const modal =
+    document.getElementById(
+      "notificationsModal"
+    );
+
+  if(!modal) return;
+
+  modal.classList.remove("active");
+
+}
   
 /* =====================================================
 CHECK AUTH
