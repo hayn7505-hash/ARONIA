@@ -8399,178 +8399,95 @@ function renderFavorites(){
 
 /* =====================================================
    ADD TO CART
-===================================================== */async function addToCart(
+===================================================== */
+function addToCart(
   id,
   offerPrice = null
 ){
-
   const product =
     allProducts.find(
       item =>
-        Number(item.id) === Number(id)
+        item.id === id
     );
-
   if(!product) return;
-
-
-  /* =========================
-     STOCK
-  ========================= */
-
   const stock =
     Number(
       product.stock || 0
     );
-
   if(stock <= 0){
-
     alert(
       "هذا المنتج غير متوفر حالياً."
     );
-
     return;
   }
-
-
-  /* =========================
-     FIND ACTIVE OFFER
-  ========================= */
-
-  let finalPrice =
-    Number(
-      product.price || 0
-    );
-
-
   /*
-     إذا أُرسل سعر العرض مباشرة
+     السعر الذي سيدخل للسلة
   */
-
-  if(
-    offerPrice !== null &&
-    Number(offerPrice) > 0
-  ){
-
-    finalPrice =
-      Number(offerPrice);
-
-  }else{
-
-    /*
-       نبحث في العروض المحملة
-       عن نفس المنتج
-    */
-
-    const offer =
-      featuredOffers.find(
-        item =>
-          Number(item.product_id) ===
-          Number(product.id)
-      );
-
-
-    if(offer){
-
-      const activeOfferPrice =
-        Number(
-          offer.offer_price || 0
-        );
-
-
-      if(
-        activeOfferPrice > 0 &&
-        activeOfferPrice < Number(product.price || 0)
-      ){
-
-        finalPrice =
-          activeOfferPrice;
-
-      }
-
-    }
-
-  }
-
-
-  /* =========================
-     CART
-  ========================= */
-
+  const finalPrice =
+    offerPrice !== null
+    ?
+    Number(offerPrice)
+    :
+    Number(product.price || 0);
   const existing =
     cart.find(
       item =>
-        Number(item.id) ===
-        Number(product.id)
+        item.id === id
     );
-
-
   if(existing){
-
     if(
       existing.quantity >= stock
     ){
-
       alert(
         "لا يمكن إضافة كمية أكبر من المخزون المتوفر."
       );
-
       return;
     }
-
-
     existing.quantity++;
-
-
     /*
-       نحافظ على السعر الفعال
+       إذا أضيف المنتج من العروض
+       نحدث سعره إلى سعر العرض
     */
-
     existing.price =
       finalPrice;
-
   }else{
-
     cart.push({
-
       id:
         product.id,
-
       quantity:
         1,
-
       price:
         finalPrice
-
     });
-
   }
-
-
-  /* =========================
-     UPDATE LOCAL STOCK
-  ========================= */
-
+  /*
+     إنقاص المخزون محلياً
+     حتى تتحدث البطاقة مباشرة
+  */
   product.stock =
     Math.max(
       0,
       Number(product.stock || 0) - 1
     );
-
-
-  /* =========================
-     SAVE
-  ========================= */
-
   saveCart();
-
   updateCartCount();
-
   renderCart();
-
   refreshHomeProducts();
+}
+
+/* =====================================================
+SAVE CART
+===================================================== */
+
+function saveCart(){
+
+localStorage.setItem(
+"aronia_cart",
+JSON.stringify(cart)
+);
 
 }
-  
+
 /* =====================================================
 CART COUNT
 ===================================================== */
