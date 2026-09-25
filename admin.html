@@ -1938,7 +1938,7 @@ const imageFile =
     } =
       await supabaseClient
         .from("products")
-        .select("image")
+        .select("image,stock")
         .eq("id", editingId)
         .single();
 
@@ -1957,6 +1957,10 @@ const imageFile =
 
     imageURL =
       oldProduct?.image || "";
+     const oldStock =
+  Number(
+    oldProduct?.stock || 0
+  );
   }
 
 /* =========================
@@ -2139,6 +2143,39 @@ if(imageFile && imageFile.size > 0){
     return;
   }
 
+/* =========================
+   إشعار توفر المنتج مجدداً
+========================= */
+
+if(
+  editingId &&
+  oldStock <= 0 &&
+  stock > 0
+){
+
+  const {
+    error: notificationError
+  } =
+    await supabaseClient
+      .rpc(
+        "notify_users_about_restock",
+        {
+          p_product_id:
+            editingId
+        }
+      );
+
+  if(notificationError){
+
+    console.error(
+      "Restock notification error:",
+      notificationError
+    );
+
+  }
+
+}
+     
   /* =========================
      نجاح
   ========================= */
