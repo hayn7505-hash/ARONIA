@@ -7192,241 +7192,116 @@ LOAD PRODUCTS
 ===================================================== */
 async function loadProducts(){
 
-  const container =
-    document.getElementById(
-      "productsContainer"
-    );
+const container =
+document.getElementById("productsContainer");
 
+if(container){
 
-  if(container){
+container.innerHTML =
+'<div class="empty">جاري تحميل المنتجات...</div>';
 
-    container.innerHTML =
-      '<div class="empty">جاري تحميل المنتجات...</div>';
+}
 
-  }
+const {
+data,
+error
+} =
+await db
+.from("products")
+.select("*")
+.order("id",{
+ascending:false
+});
 
+if(error){
 
-  /* =========================================
-     LOAD PRODUCTS
-  ========================================= */
+console.error(
+"SUPABASE ERROR:",
+error
+);
 
-  const {
-    data,
-    error
-  } =
-  await db
-    .from("products")
-    .select("*")
-    .order(
-      "id",
-      {
-        ascending:false
-      }
-    );
+if(container){
 
+container.innerHTML = `
+<div class="empty">
+حدث خطأ في تحميل المنتجات ❌
+<br><br>
+${escapeHTML(error.message)}
+</div>
+`;
 
-  if(error){
+}
 
-    console.error(
-      "SUPABASE ERROR:",
-      error
-    );
+return;
 
+}
 
-    if(container){
+allProducts =
+data || [];
 
-      container.innerHTML = `
-        <div class="empty">
-          حدث خطأ في تحميل المنتجات ❌
-          <br><br>
-          ${escapeHTML(error.message)}
-        </div>
-      `;
+/* =====================================================
+   أخذ 6 منتجات لكل قسم
+===================================================== */
 
-    }
+const skinProducts =
+allProducts
+.filter(product =>
+String(
+product.category || ""
+).trim() === "العناية بالبشرة"
+)
+.slice(0,6);
 
-    return;
+const makeupProducts =
+allProducts
+.filter(product =>
+String(
+product.category || ""
+).trim() === "المكياج"
+)
+.slice(0,6);
 
-  }
+const hairProducts =
+allProducts
+.filter(product =>
+String(
+product.category || ""
+).trim() === "العناية بالشعر"
+)
+.slice(0,6);
 
+const perfumeProducts =
+allProducts
+.filter(product =>
+String(
+product.category || ""
+).trim() === "العطور"
+)
+.slice(0,6);
 
-  allProducts =
-    data || [];
+/* =====================================================
+   عرض المنتجات
+===================================================== */
 
+renderProducts(
+skinProducts,
+"skinProducts"
+);
 
-  /* =========================================
-     LOAD ACTIVE OFFERS
-  ========================================= */
+renderProducts(
+makeupProducts,
+"makeupProducts"
+);
 
-  const {
-    data:offers,
-    error:offersError
-  } =
-  await db
-    .from("offers")
-    .select(
-      "id, product_id, offer_price"
-    )
-    .eq(
-      "is_active",
-      true
-    )
-    .order(
-      "id",
-      {
-        ascending:false
-      }
-    );
+renderProducts(
+hairProducts,
+"hairProducts"
+);
 
-
-  if(offersError){
-
-    console.error(
-      "OFFERS ERROR:",
-      offersError
-    );
-
-  }
-
-
-  /* =========================================
-     ATTACH OFFER TO PRODUCT
-  ========================================= */
-
-  if(
-    offers &&
-    offers.length > 0
-  ){
-
-    allProducts =
-      allProducts.map(
-        product => {
-
-          const offer =
-            offers.find(
-              item =>
-                Number(
-                  item.product_id
-                ) ===
-                Number(
-                  product.id
-                )
-            );
-
-
-          return {
-
-            ...product,
-
-            offer_price:
-              offer
-              ?
-              Number(
-                offer.offer_price
-              )
-              :
-              null
-
-          };
-
-        }
-      );
-
-  }else{
-
-    allProducts =
-      allProducts.map(
-        product => ({
-
-          ...product,
-
-          offer_price:
-            null
-
-        })
-      );
-
-  }
-
-
-  /* =========================================
-     أخذ 6 منتجات لكل قسم
-  ========================================= */
-
-  const skinProducts =
-    allProducts
-      .filter(
-        product =>
-          String(
-            product.category || ""
-          ).trim() ===
-          "العناية بالبشرة"
-      )
-      .slice(0,6);
-
-
-  const makeupProducts =
-    allProducts
-      .filter(
-        product =>
-          String(
-            product.category || ""
-          ).trim() ===
-          "المكياج"
-      )
-      .slice(0,6);
-
-
-  const hairProducts =
-    allProducts
-      .filter(
-        product =>
-          String(
-            product.category || ""
-          ).trim() ===
-          "العناية بالشعر"
-      )
-      .slice(0,6);
-
-
-  const perfumeProducts =
-    allProducts
-      .filter(
-        product =>
-          String(
-            product.category || ""
-          ).trim() ===
-          "العطور"
-      )
-      .slice(0,6);
-
-
-  /* =========================================
-     RENDER PRODUCTS
-  ========================================= */
-
-  renderProducts(
-    skinProducts,
-    "skinProducts"
-  );
-
-
-  renderProducts(
-    makeupProducts,
-    "makeupProducts"
-  );
-
-
-  renderProducts(
-    hairProducts,
-    "hairProducts"
-  );
-
-
-  renderProducts(
-    perfumeProducts,
-    "perfumeProducts"
-  );
+renderProducts(
+perfumeProducts,
+"perfumeProducts"
+);
 
 }
 
