@@ -7687,6 +7687,41 @@ function renderFeaturedOffers(){
   );
 
 }
+
+/* =====================================================
+   REALTIME — تحديث العروض والمنتجات فورياً
+===================================================== */
+
+function listenForOffers(){
+
+  db
+    .channel("aronia-offers-realtime")
+
+    .on(
+      "postgres_changes",
+      {
+        event:"*",
+        schema:"public",
+        table:"offers"
+      },
+      async () => {
+
+        console.log(
+          "OFFER CHANGED — refreshing..."
+        );
+
+        /* تحديث العروض */
+        await loadFeaturedOffers();
+
+        /* تحديث أسعار المنتجات داخل الأقسام */
+        refreshHomeProducts();
+
+      }
+    )
+
+    .subscribe();
+
+}
    
 async function addToCart(
   id,
