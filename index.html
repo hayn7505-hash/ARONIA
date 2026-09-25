@@ -7699,7 +7699,7 @@ async function addToCart(
   const product =
     allProducts.find(
       item =>
-        item.id === id
+        Number(item.id) === Number(id)
     );
 
   if(!product) return;
@@ -7725,10 +7725,13 @@ async function addToCart(
 
 
   /* =========================================
-     DETERMINE FINAL PRICE
+     GET FINAL PRICE
   ========================================= */
 
-  let finalPrice;
+  let finalPrice =
+    Number(
+      product.price || 0
+    );
 
 
   /*
@@ -7747,30 +7750,49 @@ async function addToCart(
   }else{
 
     /*
-       نبحث عن العرض داخل featuredOffers
-       لنفس المنتج
+       نبحث مباشرة في Supabase
+       عن عرض فعال لهذا المنتج
     */
 
-    const activeOffer =
-      featuredOffers.find(
-        offer =>
-          Number(offer.product_id) ===
-          Number(id)
+    const {
+      data:offers,
+      error:offerError
+    } =
+    await db
+      .from("offers")
+      .select("offer_price")
+      .eq(
+        "product_id",
+        id
+      )
+      .eq(
+        "is_active",
+        true
+      )
+      .order(
+        "id",
+        {
+          ascending:false
+        }
+      )
+      .limit(1);
+
+
+    if(offerError){
+
+      console.error(
+        "Offer check error:",
+        offerError
       );
 
-
-    if(activeOffer){
-
-      finalPrice =
-        Number(
-          activeOffer.offer_price
-        );
-
-    }else{
+    }else if(
+      offers &&
+      offers.length > 0
+    ){
 
       finalPrice =
         Number(
-          product.price || 0
+          offers[0].offer_price
         );
 
     }
@@ -7785,7 +7807,7 @@ async function addToCart(
   const existing =
     cart.find(
       item =>
-        item.id === id
+        Number(item.id) === Number(id)
     );
 
 
@@ -7803,6 +7825,11 @@ async function addToCart(
     }
 
     existing.quantity++;
+
+    /*
+       نضمن أن السعر يبقى
+       سعر العرض الفعال
+    */
 
     existing.price =
       finalPrice;
@@ -7826,7 +7853,7 @@ async function addToCart(
 
 
   /* =========================================
-     SAVE CART
+     SAVE
   ========================================= */
 
   saveCart();
