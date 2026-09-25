@@ -8023,6 +8023,7 @@ function renderProducts(
           offer?.offer_price || 0
         );
 
+      /* المنتج عليه عرض */
       if(
         offerPrice > 0 &&
         offerPrice < originalPrice
@@ -8039,6 +8040,7 @@ function renderProducts(
         return `
           <div
             style="
+              margin-top:5px;
               display:flex;
               align-items:center;
               gap:8px;
@@ -8048,10 +8050,10 @@ function renderProducts(
 
             <span
               style="
-                color:var(--text-light);
                 text-decoration:line-through;
+                color:#999;
                 font-size:12px;
-                font-weight:400;
+                margin-left:5px;
               "
             >
               ${formatIQD(originalPrice)}
@@ -8059,9 +8061,9 @@ function renderProducts(
 
             <span
               style="
-                color:var(--primary);
-                font-size:14px;
-                font-weight:700;
+                color:#b45f5f;
+                font-size:16px;
+                font-weight:bold;
               "
             >
               ${formatIQD(offerPrice)}
@@ -8069,13 +8071,9 @@ function renderProducts(
 
             <span
               style="
-                background:var(--danger);
-                color:#fff;
-                padding:3px 7px;
-                border-radius:8px;
-                font-size:10px;
-                font-weight:700;
-                white-space:nowrap;
+                color:#8d6868;
+                font-size:12px;
+                font-weight:bold;
               "
             >
               خصم ${discount}%
@@ -8086,6 +8084,7 @@ function renderProducts(
 
       }
 
+      /* المنتج العادي — لا نغير تنسيقه */
       return formatIQD(originalPrice);
 
     })()
