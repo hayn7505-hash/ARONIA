@@ -7725,19 +7725,21 @@ async function addToCart(
 
 
   /* =========================================
-     GET ACTIVE OFFER
-     يعمل من أي مكان في المتجر
+     DETERMINE FINAL PRICE
   ========================================= */
 
   let finalPrice;
 
 
   /*
-     إذا تم تمرير سعر عرض مباشرة
-     من قسم العروض نستخدمه.
+     إذا جاء سعر العرض مباشرة
+     من قسم العروض المميزة
   */
 
-  if(offerPrice !== null){
+  if(
+    offerPrice !== null &&
+    Number(offerPrice) > 0
+  ){
 
     finalPrice =
       Number(offerPrice);
@@ -7745,50 +7747,19 @@ async function addToCart(
   }else{
 
     /*
-       إذا لم يتم تمرير سعر عرض،
-       نبحث عن عرض فعال لهذا المنتج.
+       نبحث عن العرض داخل featuredOffers
+       لنفس المنتج
     */
 
-    const {
-      data:activeOffer,
-      error:offerError
-    } =
-    await db
-      .from("offers")
-      .select("offer_price")
-      .eq(
-        "product_id",
-        id
-      )
-      .eq(
-        "is_active",
-        true
-      )
-      .maybeSingle();
-
-
-    if(
-      offerError
-    ){
-
-      console.error(
-        "Offer check error:",
-        offerError
+    const activeOffer =
+      featuredOffers.find(
+        offer =>
+          Number(offer.product_id) ===
+          Number(id)
       );
 
-      /*
-         في حالة حدوث خطأ نستخدم
-         السعر الأصلي بدل إيقاف الإضافة.
-      */
 
-      finalPrice =
-        Number(
-          product.price || 0
-        );
-
-    }else if(
-      activeOffer
-    ){
+    if(activeOffer){
 
       finalPrice =
         Number(
@@ -7833,11 +7804,6 @@ async function addToCart(
 
     existing.quantity++;
 
-    /*
-       مهم:
-       نحافظ على سعر العرض
-    */
-
     existing.price =
       finalPrice;
 
@@ -7860,18 +7826,7 @@ async function addToCart(
 
 
   /* =========================================
-     UPDATE LOCAL STOCK
-  ========================================= */
-
-  product.stock =
-    Math.max(
-      0,
-      Number(product.stock || 0) - 1
-    );
-
-
-  /* =========================================
-     SAVE + REFRESH
+     SAVE CART
   ========================================= */
 
   saveCart();
