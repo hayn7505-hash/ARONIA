@@ -8003,7 +8003,15 @@ function renderProducts(
 
       </h3>
 
-      <div class="price">
+      <div
+  style="
+    margin-top:5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  "
+>
 
   ${
     (() => {
@@ -8037,59 +8045,48 @@ function renderProducts(
           );
 
         return `
-          <div
+
+          <span
             style="
-              display:flex;
-              align-items:center;
-              justify-content:flex-start;
-              gap:8px;
-              flex-wrap:wrap;
+              text-decoration:line-through;
+              color:#999;
+              font-size:12px;
             "
           >
+            ${formatIQD(originalPrice)}
+          </span>
 
-            <span
-              style="
-                text-decoration:line-through;
-                color:var(--text-light);
-                font-size:12px;
-              "
-            >
-              ${formatIQD(originalPrice)}
-            </span>
+          <span
+            style="
+              color:#b45f5f;
+              font-size:16px;
+              font-weight:bold;
+            "
+          >
+            ${formatIQD(offerPrice)}
+          </span>
 
-            <span
-              style="
-                color:var(--primary);
-                font-weight:700;
-                font-size:14px;
-              "
-            >
-              ${formatIQD(offerPrice)}
-            </span>
+          <span
+            style="
+              color:#8d6868;
+              font-size:12px;
+              font-weight:bold;
+            "
+          >
+            خصم ${discount}%
+          </span>
 
-            <span
-              style="
-                padding:2px 6px;
-                border-radius:6px;
-                background:var(--danger);
-                color:#fff;
-                font-size:10px;
-                font-weight:700;
-                white-space:nowrap;
-              "
-            >
-              خصم ${discount}%
-            </span>
-
-          </div>
         `;
 
       }
 
-      return formatIQD(originalPrice);
+      return `
+        <span>
+          ${formatIQD(originalPrice)}
+        </span>
+      `;
 
     })()
-
   }
 
 </div>
