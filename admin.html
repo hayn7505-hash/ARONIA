@@ -3865,171 +3865,136 @@ document.addEventListener(
 /* =========================
    حفظ العرض
 ========================= */
-
 async function saveOffer(){
-
   const productId =
     Number(
       document
         .getElementById("offerProduct")
         .value
     );
-
-
   const offerPrice =
     Number(
       document
         .getElementById("offerPrice")
         .value
     );
-
-
   const isActive =
     document
       .getElementById("offerActive")
       .checked;
-
-
   const message =
     document.getElementById(
       "offerMessage"
     );
-
-
   if(!productId){
-
     message.textContent =
       "اختر المنتج أولاً.";
-
     return;
-
   }
-
-
   if(!offerPrice || offerPrice <= 0){
-
     message.textContent =
       "أدخل سعر العرض.";
-
     return;
-
   }
-
-
   const selected =
     document.getElementById(
       "offerProduct"
     ).selectedOptions[0];
-
-
   const originalPrice =
     Number(
       selected?.dataset?.price || 0
     );
-
-
-  if(
-    originalPrice <= 0
-  ){
-
+  if(originalPrice <= 0){
     message.textContent =
       "تعذر معرفة السعر الأصلي.";
-
     return;
-
   }
-
-
-  if(
-    offerPrice >= originalPrice
-  ){
-
+  if(offerPrice >= originalPrice){
     message.textContent =
       "سعر العرض يجب أن يكون أقل من السعر الأصلي.";
-
     return;
-
   }
-
-
   message.textContent =
     editingOfferId
     ?
     "جاري تعديل العرض..."
     :
     "جاري إضافة العرض...";
-
-
   let result;
-
-
   if(editingOfferId){
-
     result =
       await supabaseClient
         .from("offers")
         .update({
-
           product_id:
             productId,
-
           offer_price:
             offerPrice,
-
           is_active:
             isActive
-
         })
         .eq(
           "id",
           editingOfferId
         );
-
   }else{
-
     result =
       await supabaseClient
         .from("offers")
         .insert({
-
           product_id:
             productId,
-
           offer_price:
             offerPrice,
-
           is_active:
             isActive
-
-        });
-
+        })
+        .select()
+        .single();
   }
-
-
   if(result.error){
-
     message.textContent =
       "حدث خطأ: " +
       result.error.message;
-
     return;
-
   }
-
-
+  /*
+     إنشاء إشعار للمستخدمين
+     فقط عند إضافة عرض جديد ومفعّل
+  */
+  if(
+    !editingOfferId &&
+    isActive
+  ){
+    const {
+      error:
+        notificationError
+    } =
+      await supabaseClient
+        .rpc(
+          "notify_users_about_new_offer",
+          {
+            p_product_id:
+              productId,
+            p_offer_price:
+              offerPrice
+          }
+        );
+    if(notificationError){
+      console.error(
+        "Offer notification error:",
+        notificationError
+      );
+    }
+  }
   message.textContent =
     editingOfferId
     ?
     "تم تعديل العرض ✅"
     :
     "تمت إضافة العرض ✅";
-
-
   cancelOfferEdit();
-
-
   await loadOffersAdmin();
-
 }
 
 
