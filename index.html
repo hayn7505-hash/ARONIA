@@ -8398,83 +8398,146 @@ function renderFavorites(){
 }
 
 /* =====================================================
-   ADD TO CART
+ADD TO CART
 ===================================================== */
-function addToCart(
-  id,
-  offerPrice = null
-){
+async function addToCart(id){
+
   const product =
     allProducts.find(
       item =>
-        item.id === id
+        Number(item.id) === Number(id)
     );
+
   if(!product) return;
+
   const stock =
-    Number(
-      product.stock || 0
-    );
+    Number(product.stock || 0);
+
   if(stock <= 0){
+
     alert(
       "هذا المنتج غير متوفر حالياً."
     );
+
     return;
+
   }
-  /*
-     السعر الذي سيدخل للسلة
-  */
-  const finalPrice =
-    offerPrice !== null
-    ?
-    Number(offerPrice)
-    :
+
+  /* =====================================================
+     معرفة سعر العرض الفعال
+  ===================================================== */
+
+  let finalPrice =
     Number(product.price || 0);
+
+  const {
+    data:offer,
+    error:offerError
+  } =
+  await db
+    .from("offers")
+    .select("offer_price")
+    .eq(
+      "product_id",
+      product.id
+    )
+    .eq(
+      "is_active",
+      true
+    )
+    .order(
+      "id",
+      {
+        ascending:false
+      }
+    )
+    .limit(1)
+    .maybeSingle();
+
+  if(offerError){
+
+    console.error(
+      "OFFER PRICE ERROR:",
+      offerError
+    );
+
+  }
+
+  if(
+    offer &&
+    Number(offer.offer_price) > 0 &&
+    Number(offer.offer_price) <
+    Number(product.price || 0)
+  ){
+
+    finalPrice =
+      Number(
+        offer.offer_price
+      );
+
+  }
+
+  /* =====================================================
+     إضافة المنتج للسلة
+  ===================================================== */
+
   const existing =
     cart.find(
       item =>
-        item.id === id
+        Number(item.id) ===
+        Number(id)
     );
+
   if(existing){
+
     if(
       existing.quantity >= stock
     ){
+
       alert(
         "لا يمكن إضافة كمية أكبر من المخزون المتوفر."
       );
+
       return;
+
     }
+
     existing.quantity++;
-    /*
-       إذا أضيف المنتج من العروض
-       نحدث سعره إلى سعر العرض
-    */
+
     existing.price =
       finalPrice;
+
   }else{
+
     cart.push({
+
       id:
         product.id,
+
       quantity:
         1,
+
       price:
         finalPrice
-    });
-  }
-  /*
-     إنقاص المخزون محلياً
-     حتى تتحدث البطاقة مباشرة
-  */
-  product.stock =
-    Math.max(
-      0,
-      Number(product.stock || 0) - 1
-    );
-  saveCart();
-  updateCartCount();
-  renderCart();
-  refreshHomeProducts();
-}
 
+    });
+
+  }
+
+  /* =====================================================
+     حفظ السلة وتحديث الواجهة
+  ===================================================== */
+
+  saveCart();
+
+  updateCartCount();
+
+  renderCart();
+
+  refreshHomeProducts();
+
+}
+  
 /* =====================================================
 SAVE CART
 ===================================================== */
