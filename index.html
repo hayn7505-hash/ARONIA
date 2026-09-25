@@ -8003,9 +8003,83 @@ function renderProducts(
 
       <div class="price">
 
-        ${formatIQD(product.price)}
+  ${
+    (() => {
 
-      </div>
+      const offer =
+        featuredOffers.find(
+          item =>
+            Number(item.product_id) ===
+            Number(product.id)
+        );
+
+      const originalPrice =
+        Number(product.price || 0);
+
+      const offerPrice =
+        Number(
+          offer?.offer_price || 0
+        );
+
+      if(
+        offerPrice > 0 &&
+        offerPrice < originalPrice
+      ){
+
+        const discount =
+          Math.round(
+            (
+              (originalPrice - offerPrice) /
+              originalPrice
+            ) * 100
+          );
+
+        return `
+          <div
+            class="old-price"
+            style="
+              text-decoration:line-through;
+              color:var(--text-light);
+              font-size:12px;
+            "
+          >
+            ${formatIQD(originalPrice)}
+          </div>
+
+          <div
+            style="
+              color:var(--primary);
+              font-weight:700;
+            "
+          >
+            ${formatIQD(offerPrice)}
+          </div>
+
+          <span
+            style="
+              display:inline-block;
+              margin-top:3px;
+              padding:2px 6px;
+              border-radius:6px;
+              background:var(--danger);
+              color:#fff;
+              font-size:10px;
+              font-weight:700;
+            "
+          >
+            خصم ${discount}%
+          </span>
+        `;
+
+      }
+
+      return formatIQD(originalPrice);
+
+    })()
+
+  }
+
+</div>
 
       <div class="product-actions">
 
