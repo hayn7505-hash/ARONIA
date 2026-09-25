@@ -8038,39 +8038,50 @@ function renderProducts(
 
         return `
           <div
-            class="old-price"
             style="
-              text-decoration:line-through;
-              color:var(--text-light);
-              font-size:12px;
+              display:flex;
+              align-items:center;
+              justify-content:flex-start;
+              gap:8px;
+              flex-wrap:wrap;
             "
           >
-            ${formatIQD(originalPrice)}
-          </div>
 
-          <div
-            style="
-              color:var(--primary);
-              font-weight:700;
-            "
-          >
-            ${formatIQD(offerPrice)}
-          </div>
+            <span
+              style="
+                text-decoration:line-through;
+                color:var(--text-light);
+                font-size:12px;
+              "
+            >
+              ${formatIQD(originalPrice)}
+            </span>
 
-          <span
-            style="
-              display:inline-block;
-              margin-top:3px;
-              padding:2px 6px;
-              border-radius:6px;
-              background:var(--danger);
-              color:#fff;
-              font-size:10px;
-              font-weight:700;
-            "
-          >
-            خصم ${discount}%
-          </span>
+            <span
+              style="
+                color:var(--primary);
+                font-weight:700;
+                font-size:14px;
+              "
+            >
+              ${formatIQD(offerPrice)}
+            </span>
+
+            <span
+              style="
+                padding:2px 6px;
+                border-radius:6px;
+                background:var(--danger);
+                color:#fff;
+                font-size:10px;
+                font-weight:700;
+                white-space:nowrap;
+              "
+            >
+              خصم ${discount}%
+            </span>
+
+          </div>
         `;
 
       }
