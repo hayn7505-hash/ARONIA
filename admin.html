@@ -4033,6 +4033,12 @@ async function saveOffer(){
     "تمت إضافة العرض ✅";
   cancelOfferEdit();
   await loadOffersAdmin();
+
+await loadFeaturedOffers();
+
+/* تحديث أسعار المنتجات داخل الأقسام */
+
+refreshHomeProducts();
 }
 
 
@@ -4486,6 +4492,11 @@ async function deleteOffer(id){
 
   await loadOffersAdmin();
 
+await loadFeaturedOffers();
+
+/* تحديث أسعار المنتجات داخل الأقسام */
+refreshHomeProducts();
+     
 }
 
 /* ==================================================
