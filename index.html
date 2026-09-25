@@ -8898,6 +8898,16 @@ function checkout(){
 
         e.preventDefault();
 
+        const confirmed =
+  confirm(
+    "هل أنت متأكد أنك تريد إتمام الطلب؟"
+  );
+
+if(!confirmed){
+
+  return;
+
+}
 
         const {
           data:userData
