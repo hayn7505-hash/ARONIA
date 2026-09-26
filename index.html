@@ -7587,51 +7587,31 @@ featuredOffers =
 /* =========================
    عرض العروض
 ========================= */
-
 function renderFeaturedOffers(){
-
   const container =
     document.getElementById(
       "featuredOffersContainer"
     );
-
   if(!container) return;
-
-
-  container.innerHTML =
-    "";
-
-
+  container.innerHTML = "";
   featuredOffers.forEach(
     offer => {
-
       const product =
         offer.products;
-
-
       if(!product) return;
-
-
       const originalPrice =
         Number(
           product.price || 0
         );
-
-
       const offerPrice =
         Number(
           offer.offer_price || 0
         );
-
-
       let discount = 0;
-
-
       if(
         originalPrice > 0 &&
         offerPrice < originalPrice
       ){
-
         discount =
           Math.round(
             (
@@ -7639,24 +7619,120 @@ function renderFeaturedOffers(){
               originalPrice
             ) * 100
           );
-
       }
-
-
+      /* =====================================================
+         معرفة الكمية الموجودة في السلة
+      ===================================================== */
+      const cartItem =
+        cart.find(
+          item =>
+            Number(item.id) ===
+            Number(product.id)
+        );
+      const quantity =
+        cartItem
+          ? Number(cartItem.quantity || 0)
+          : 0;
+      const stock =
+        Number(product.stock || 0);
+      /* =====================================================
+         تحديد زر السلة
+      ===================================================== */
+      let cartButtonHTML = "";
+      if(stock <= 0){
+        cartButtonHTML = `
+          <button
+            class="add-btn"
+            disabled
+          >
+            غير متوفر
+          </button>
+        `;
+      }else if(quantity > 0){
+        cartButtonHTML = `
+          <div
+            class="cart-controls"
+          >
+            <button
+              class="quantity-btn"
+              onclick="
+                changeQuantity(
+                  ${product.id},
+                  1
+                )
+              "
+            >
+              +
+            </button>
+            <span
+              class="quantity-value"
+            >
+              ${quantity}
+            </span>
+            <button
+              class="quantity-btn"
+              onclick="
+                changeQuantity(
+                  ${product.id},
+                  -1
+                )
+              "
+            >
+              −
+            </button>
+            <button
+              class="remove-cart-btn"
+              onclick="
+                removeFromCart(
+                  ${product.id}
+                )
+              "
+              aria-label="حذف المنتج من السلة"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6l-1 14H6L5 6"></path>
+                <path d="M10 11v6"></path>
+                <path d="M14 11v6"></path>
+                <path d="M9 6V4h6v2"></path>
+              </svg>
+            </button>
+          </div>
+        `;
+      }else{
+        cartButtonHTML = `
+          <button
+            class="add-btn"
+            onclick="
+              addToCart(
+                ${product.id}
+              )
+            "
+          >
+            إضافة للسلة
+          </button>
+        `;
+      }
+      /* =====================================================
+         إنشاء الكرت
+      ===================================================== */
       const card =
         document.createElement(
           "div"
         );
-
-
       card.className =
         "product-card";
-
-
       card.innerHTML = `
-
         <div class="product-image">
-
           <img
             src="${getImageURL(product.image)}"
             alt="${escapeHTML(
@@ -7665,27 +7741,19 @@ function renderFeaturedOffers(){
               "منتج"
             )}"
           >
-
         </div>
-
-
         <h3>
-
           ${escapeHTML(
             product.name_ar ||
             product.name ||
             "منتج"
           )}
-
         </h3>
-
-
         <div
           style="
             margin-top:5px;
           "
         >
-
           <span
             style="
               text-decoration:line-through;
@@ -7694,12 +7762,8 @@ function renderFeaturedOffers(){
               margin-left:5px;
             "
           >
-
             ${formatIQD(originalPrice)}
-
           </span>
-
-
           <span
             style="
               color:#b45f5f;
@@ -7707,14 +7771,9 @@ function renderFeaturedOffers(){
               font-weight:bold;
             "
           >
-
             ${formatIQD(offerPrice)}
-
           </span>
-
         </div>
-
-
         <div
           style="
             margin-top:5px;
@@ -7723,42 +7782,19 @@ function renderFeaturedOffers(){
             font-weight:bold;
           "
         >
-
           خصم ${discount}%
-
         </div>
-
-
         <div
           class="product-actions"
         >
-
-          <button
-            class="add-btn"
-            onclick="
-              addToCart(
-                ${product.id},
-                ${offerPrice}
-              )
-            "
-          >
-
-            إضافة للسلة
-
-          </button>
-
+          ${cartButtonHTML}
         </div>
-
       `;
-
-
       container.appendChild(
         card
       );
-
     }
   );
-
 }
 
 /* =====================================================
