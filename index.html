@@ -9165,6 +9165,13 @@ function removeFromCart(id){
 
   refreshHomeProducts();
 
+  if(
+  typeof renderFeaturedOffers ===
+  "function"
+){
+  renderFeaturedOffers();
+}
+
 }
    
 /* =====================================================
