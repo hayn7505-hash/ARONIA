@@ -9143,6 +9143,14 @@ function changeQuantity(
   renderCart();
 
    refreshHomeProducts();
+
+  if(
+  typeof renderFeaturedOffers ===
+  "function"
+){
+  renderFeaturedOffers();
+}
+  
 }
    
 /* =====================================================
