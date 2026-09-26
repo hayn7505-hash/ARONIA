@@ -8704,6 +8704,26 @@ function addToCart(id){
   renderCart();
   
   refreshHomeProducts();
+
+  /* تحديث كرت العرض إذا كان المنتج موجوداً فيه */
+
+if(
+
+  featuredOffers.some(
+
+    offer =>
+
+      Number(offer.product_id) ===
+
+      Number(product.id)
+
+  )
+
+){
+
+  renderFeaturedOffers();
+
+}
   
 }
   
