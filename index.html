@@ -7422,7 +7422,35 @@ async function refreshHomeProducts(){
   );
 
 }
-   
+
+/* =====================================================
+   تحديث العروض عند تغييرها من لوحة المدير
+===================================================== */
+
+window.addEventListener(
+  "storage",
+  async function(event){
+
+    if(
+      event.key !==
+      "aronia_offers_updated"
+    ){
+
+      return;
+
+    }
+
+    console.log(
+      "OFFERS UPDATED — refreshing store..."
+    );
+
+    await loadFeaturedOffers();
+
+    refreshHomeProducts();
+
+  }
+);
+  
    /* ==================================================
    FEATURED OFFERS
 ================================================== */
