@@ -6771,6 +6771,41 @@ async function loadNotifications(){
 
   if(!currentUser) return;
 
+  /* =====================================================
+     التحقق من تفعيل تنبيهات الطلبات
+  ===================================================== */
+
+  const notificationsEnabled =
+    localStorage.getItem(
+      "aronia_notifications"
+    ) !== "off";
+
+  const count =
+    document.getElementById(
+      "notificationCount"
+    );
+
+  /* إذا كانت التنبيهات مطفأة */
+
+  if(!notificationsEnabled){
+
+    if(count){
+
+      count.textContent = "0";
+
+      count.style.display =
+        "none";
+
+    }
+
+    return;
+
+  }
+
+  /* =====================================================
+     تحميل الإشعارات
+  ===================================================== */
+
   const {
     data,
     error
@@ -6778,8 +6813,16 @@ async function loadNotifications(){
   await db
     .from("notifications")
     .select("*")
-    .eq("user_id",currentUser.id)
-    .order("created_at",{ascending:false});
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
 
 
   if(error){
@@ -6794,19 +6837,15 @@ async function loadNotifications(){
   }
 
 
-  /* عدد الإشعارات غير المقروءة */
+  /* =====================================================
+     عدد الإشعارات غير المقروءة
+  ===================================================== */
 
   const unreadCount =
     data.filter(
       notification =>
         !notification.is_read
     ).length;
-
-
-  const count =
-    document.getElementById(
-      "notificationCount"
-    );
 
 
   if(!count) return;
