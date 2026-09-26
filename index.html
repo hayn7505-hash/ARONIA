@@ -7424,6 +7424,51 @@ async function refreshHomeProducts(){
 }
 
 /* =====================================================
+   مراقبة تحديث العروض تلقائياً
+===================================================== */
+
+let lastOffersCheck = "";
+
+async function checkOffersUpdate(){
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("offers")
+      .select("id, is_active, offer_price")
+      .order("id", {
+        ascending:false
+      });
+
+  if(error) return;
+
+  const currentState =
+    JSON.stringify(data || []);
+
+  if(
+    lastOffersCheck &&
+    currentState !== lastOffersCheck
+  ){
+
+    await loadFeaturedOffers();
+
+    await refreshHomeProducts();
+
+  }
+
+  lastOffersCheck =
+    currentState;
+
+}
+
+setInterval(
+  checkOffersUpdate,
+  1000
+);
+
+/* =====================================================
    تحديث العروض عند تغييرها من لوحة المدير
 ===================================================== */
 
