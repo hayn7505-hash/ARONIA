@@ -7362,9 +7362,6 @@ function subscribeToProductChanges(){
 
 async function refreshHomeProducts(){
 
-  /* تحديث العروض أولاً */
-  await loadFeaturedOffers();
-
   const skinProducts =
     allProducts
       .filter(product =>
