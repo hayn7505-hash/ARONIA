@@ -7633,8 +7633,19 @@ function renderFeaturedOffers(){
         cartItem
           ? Number(cartItem.quantity || 0)
           : 0;
-      const stock =
-        Number(product.stock || 0);
+      const fullProduct =
+  allProducts.find(
+    item =>
+      Number(item.id) ===
+      Number(product.id)
+  );
+
+const stock =
+  Number(
+    fullProduct?.stock ||
+    product.stock ||
+    0
+  );
       /* =====================================================
          تحديد زر السلة
       ===================================================== */
