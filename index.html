@@ -8597,7 +8597,8 @@ function renderFavorites(){
 /* =====================================================
 ADD TO CART
 ===================================================== */
-async function addToCart(id){
+
+function addToCart(id){
 
   const product =
     allProducts.find(
@@ -8621,44 +8622,18 @@ async function addToCart(id){
   }
 
   /* =====================================================
-     معرفة سعر العرض الفعال
+     معرفة سعر العرض من العروض المحملة مسبقاً
   ===================================================== */
 
   let finalPrice =
     Number(product.price || 0);
 
-  const {
-    data:offer,
-    error:offerError
-  } =
-  await db
-    .from("offers")
-    .select("offer_price")
-    .eq(
-      "product_id",
-      product.id
-    )
-    .eq(
-      "is_active",
-      true
-    )
-    .order(
-      "id",
-      {
-        ascending:false
-      }
-    )
-    .limit(1)
-    .maybeSingle();
-
-  if(offerError){
-
-    console.error(
-      "OFFER PRICE ERROR:",
-      offerError
+  const offer =
+    featuredOffers.find(
+      item =>
+        Number(item.product_id) ===
+        Number(product.id)
     );
-
-  }
 
   if(
     offer &&
