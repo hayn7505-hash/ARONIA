@@ -4031,15 +4031,15 @@ async function saveOffer(){
     "تم تعديل العرض ✅"
     :
     "تمت إضافة العرض ✅";
+     
   cancelOfferEdit();
-  await loadOffersAdmin();
 
-await loadFeaturedOffers();
+await loadOffersAdmin();
 
-/* تحديث أسعار المنتجات داخل الأقسام */
-
-refreshHomeProducts();
-}
+localStorage.setItem(
+  "aronia_offers_updated",
+  Date.now()
+);
 
 
 /* =========================
@@ -4496,8 +4496,11 @@ await loadFeaturedOffers();
 
 /* تحديث أسعار المنتجات داخل الأقسام */
 refreshHomeProducts();
-     
-}
+
+localStorage.setItem(
+  "aronia_offers_updated",
+  Date.now()
+);
 
 /* ==================================================
    CATEGORIES - ADMIN
