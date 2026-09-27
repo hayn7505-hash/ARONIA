@@ -7084,122 +7084,107 @@ CHECK AUTH
 ===================================================== */
 
 async function checkAuth(){
-
-const {
-data
-} =
-await db.auth.getSession();
-
-if(
-data &&
-data.session
-){
-
-currentUser =
-data.session.user;
-
-await loadNotifications();
-
-listenForNotifications();
+  /* =====================================================
+     إخفاء لوحة التسجيل أثناء فحص الجلسة
+  ===================================================== */
+  const authOverlay =
+    document.getElementById("authOverlay");
+  if(authOverlay){
+    authOverlay.style.display = "none";
+  }
+  /* =====================================================
+     التحقق من جلسة المستخدم
+  ===================================================== */
+  const {
+    data
+  } =
+  await db.auth.getSession();
+  /* =====================================================
+     يوجد تسجيل دخول
+  ===================================================== */
+  if(
+    data &&
+    data.session
+  ){
+    currentUser =
+      data.session.user;
+    await loadNotifications();
+    listenForNotifications();
+    await checkAdminStatus();
+    hideAuthOverlay();
+    updateAccountUI();
+    updateGenderTexts();
+    if(
+      !getUserGender()
+    ){
+      setTimeout(() => {
+        showGenderModal();
+      },500);
+    }
+  }else{
+    /* =====================================================
+       لا توجد جلسة → إظهار تسجيل الدخول
+    ===================================================== */
+    currentUser = null;
+    isAdminUser = false;
+    showAuthOverlay();
+    showLogin();
+    updateAccountUI();
+    updateGenderTexts();
+  }
+  /* =====================================================
+     مراقبة تغيّر حالة تسجيل الدخول
+  ===================================================== */
+  db.auth.onAuthStateChange(
+    (event,session) => {
+      setTimeout(
+        async () => {
+          /* =========================
+             تسجيل الدخول
+          ========================= */
+          if(session){
+            currentUser =
+              session.user;
+            await loadNotifications();
+            listenForNotifications();
+            await checkAdminStatus();
+            hideAuthOverlay();
+            updateAccountUI();
+            updateGenderTexts();
+            if(
+              !getUserGender()
+            ){
+              showGenderModal();
+            }
+            if(
+              document
+                .getElementById("cartPage")
+                .classList
+                .contains("active")
+            ){
+              loadMyOrders();
+            }
+          }
+          /* =========================
+             تسجيل الخروج
+          ========================= */
+          else if(
+            event === "SIGNED_OUT"
+          ){
+            currentUser = null;
+            isAdminUser = false;
+            updateAccountUI();
+            updateGenderTexts();
+            showAuthOverlay();
+            showLogin();
+          }
+        },
+        0
+      );
+    }
+  );
+}
   
-await checkAdminStatus();
-
-hideAuthOverlay();
-
-updateAccountUI();
-
-updateGenderTexts();
-
-if(!getUserGender()){
-
-setTimeout(() => {
-
-showGenderModal();
-
-},500);
-
-}
-
-}else{
-
-currentUser = null;
-
-isAdminUser = false;
-
-showAuthOverlay();
-
-showLogin();
-
-updateAccountUI();
-
-updateGenderTexts();
-
-}
-
-db.auth.onAuthStateChange(
-(event,session) => {
-
-setTimeout(
-async () => {
-
-if(session){
-
-currentUser =
-session.user;
-
-await loadNotifications();
-
-listenForNotifications();
-  
-await checkAdminStatus();
-
-hideAuthOverlay();
-
-updateAccountUI();
-
-updateGenderTexts();
-
-if(
-!getUserGender()
-){
-
-showGenderModal();
-
-}
-
-if(
-document
-.getElementById("cartPage")
-.classList
-.contains("active")
-){
-
-loadMyOrders();
-
-}
-
-}else if(
-event === "SIGNED_OUT"
-){
-
-currentUser = null;
-
-isAdminUser = false;
-
-updateAccountUI();
-
-updateGenderTexts();
-
-}
-
-},
-0
-);
-
-});
-
-}
-
 /* =====================================================
 IMAGE URL
 ===================================================== */
