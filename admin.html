@@ -6799,25 +6799,45 @@ async function loadAdminUserPermissions(
       "لا توجد صلاحيات محددة.";
     return;
   }
-  container.innerHTML =
-    data
-      .map(
-        item => `
-          <span
-            style="
-              display:inline-block;
-              padding:5px 9px;
-              margin:3px;
-              border-radius:10px;
-              background:#f4eeee;
-              font-size:12px;
-            "
-          >
-            ${item.permission}
-          </span>
-        `
-      )
-      .join("");
+    container.innerHTML = `
+    <div
+      style="
+        margin-bottom:10px;
+      "
+    >
+      ${
+        data
+          .map(
+            item => `
+              <span
+                style="
+                  display:inline-block;
+                  padding:5px 9px;
+                  margin:3px;
+                  border-radius:10px;
+                  background:#f4eeee;
+                  font-size:12px;
+                "
+              >
+                ${item.permission}
+              </span>
+            `
+          )
+          .join("")
+      }
+    </div>
+
+    <button
+      type="button"
+      class="primary"
+      style="
+        font-size:13px;
+        padding:9px 14px;
+      "
+    >
+      ✏️ تعديل الصلاحيات
+    </button>
+  `;
 }
   
 </script>
