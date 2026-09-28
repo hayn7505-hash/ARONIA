@@ -31,17 +31,33 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+
+  const url = new URL(event.request.url);
+
+  if (
+    url.hostname.endsWith("supabase.co")
+  ) {
+    return;
+  }
+
   event.respondWith(
     fetch(event.request).catch(async () => {
-      const cached = await caches.match(event.request);
+
+      const cached =
+        await caches.match(event.request);
 
       if (cached) {
         return cached;
       }
 
-      return new Response("Network request failed", {
-        status: 503
-      });
+      return new Response(
+        "Network request failed",
+        {
+          status: 503
+        }
+      );
+
     })
   );
+
 });
