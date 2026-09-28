@@ -7073,28 +7073,178 @@ async function openEditAdminPermissions(
         }
       </div>
       ${permissionList}
-      <button
-        type="button"
-        class="primary"
-        style="
-          width:100%;
-          margin-top:10px;
-        "
-        onclick="
-          document
-            .getElementById(
-              'adminPermissionsModal'
-            )
-            .remove()
-        "
-      >
-        إغلاق
-      </button>
+      <div
+  style="
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+  "
+>
+
+  <button
+    type="button"
+    class="primary"
+    style="
+      flex:1;
+    "
+    onclick="
+      saveAdminPermissions(
+        '${userId}'
+      )
+    "
+  >
+    💾 حفظ التعديلات
+  </button>
+
+  <button
+    type="button"
+    style="
+      flex:1;
+      padding:12px;
+      border:0;
+      border-radius:12px;
+      background:#eee;
+      color:#555;
+      font-weight:600;
+    "
+    onclick="
+      document
+        .getElementById(
+          'adminPermissionsModal'
+        )
+        .remove()
+    "
+  >
+    إلغاء
+  </button>
+
+</div>
     </div>
   `;
   document.body.appendChild(
     modal
   );
+}
+
+/* =====================================================
+   حفظ صلاحيات المدير
+===================================================== */
+async function saveAdminPermissions(
+  userId
+){
+  /* التأكد أن المستخدم هو المدير الرئيسي */
+  const {
+    data:isMainAdmin,
+    error:adminError
+  } =
+    await supabaseClient
+      .rpc("is_admin");
+  if(
+    adminError ||
+    isMainAdmin !== true
+  ){
+    alert(
+      "لا تملك صلاحية تعديل المدراء."
+    );
+    return;
+  }
+  const modal =
+    document.getElementById(
+      "adminPermissionsModal"
+    );
+  if(!modal) return;
+  /* قراءة الصلاحيات المحددة */
+  const checkboxes =
+    modal.querySelectorAll(
+      'input[type="checkbox"]'
+    );
+  const selectedPermissions = [];
+  checkboxes.forEach(
+    checkbox => {
+      if(checkbox.checked){
+        selectedPermissions.push(
+          checkbox.value
+        );
+      }
+    }
+  );
+  /* يجب اختيار صلاحية واحدة على الأقل */
+  if(
+    selectedPermissions.length === 0
+  ){
+    alert(
+      "يجب اختيار صلاحية واحدة على الأقل."
+    );
+    return;
+  }
+  /* تأكيد الحفظ */
+  const confirmed =
+    confirm(
+      "هل تريد حفظ الصلاحيات الجديدة لهذا المدير؟"
+    );
+  if(!confirmed){
+    return;
+  }
+  /* حذف الصلاحيات القديمة */
+  const {
+    error:deleteError
+  } =
+    await supabaseClient
+      .from(
+        "admin_user_permissions"
+      )
+      .delete()
+      .eq(
+        "user_id",
+        userId
+      );
+  if(deleteError){
+    console.error(
+      "Delete old permissions error:",
+      deleteError
+    );
+    alert(
+      "تعذر حذف الصلاحيات القديمة."
+    );
+    return;
+  }
+  /* إضافة الصلاحيات الجديدة */
+  const permissionRows =
+    selectedPermissions.map(
+      permission => ({
+        user_id:
+          userId,
+        permission:
+          permission
+      })
+    );
+  const {
+    error:insertError
+  } =
+    await supabaseClient
+      .from(
+        "admin_user_permissions"
+      )
+      .insert(
+        permissionRows
+      );
+  if(insertError){
+    console.error(
+      "Insert new permissions error:",
+      insertError
+    );
+    alert(
+      "حدث خطأ أثناء حفظ الصلاحيات الجديدة."
+    );
+    return;
+  }
+  alert(
+    "✅ تم تحديث صلاحيات المدير بنجاح."
+  );
+  /* إغلاق النافذة */
+  modal.remove();
+  /* تحديث قائمة المدراء */
+  await loadAdmins();
 }
 </script>
 
