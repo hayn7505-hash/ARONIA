@@ -2582,10 +2582,25 @@ async function checkAdmin(){
   ========================= */
 
   await loadAdminPermissions();
-  
-  await loadProducts();
 
-  await loadOrders();
+
+/* =========================
+   تحميل المدراء
+   المدير الرئيسي فقط
+========================= */
+
+if(
+  isMainAdmin === true
+){
+
+  await loadAdmins();
+
+}
+
+
+await loadProducts();
+
+await loadOrders();
 
   await loadBanners();
 
