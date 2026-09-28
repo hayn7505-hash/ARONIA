@@ -3364,32 +3364,63 @@ document
 
 async function deleteProduct(id){
 
-if(
-!confirm(
-"هل تريد حذف هذا المنتج؟"
-)
-) return;
+  /* =========================
+     فحص صلاحية الحذف
+  ========================= */
 
-const {
-error
-} =
-await supabaseClient
-.from("products")
-.delete()
-.eq("id",id);
+  if(
+    !hasPermission("products.delete")
+  ){
 
-if(error){
+    alert(
+      "ليس لديك صلاحية حذف المنتجات."
+    );
 
-alert(
-"فشل الحذف: " +
-error.message
-);
+    return;
 
-return;
+  }
 
-}
 
-await loadProducts();
+  /* =========================
+     تأكيد الحذف
+  ========================= */
+
+  if(
+    !confirm(
+      "هل تريد حذف هذا المنتج؟"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("products")
+    .delete()
+    .eq(
+      "id",
+      id
+    );
+
+
+  if(error){
+
+    alert(
+      "فشل الحذف: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  await loadProducts();
 
 }
 
