@@ -6014,6 +6014,27 @@ document.addEventListener(
 
 async function saveCategory(){
 
+  /* =========================
+     فحص صلاحية تعديل القسم
+  ========================= */
+
+  if(editingCategoryId){
+
+    if(
+      !hasPermission("categories.update")
+    ){
+
+      alert(
+        "ليس لديك صلاحية تعديل الأقسام."
+      );
+
+      return;
+
+    }
+
+  }
+
+
   const nameInput =
     document.getElementById("categoryName");
 
