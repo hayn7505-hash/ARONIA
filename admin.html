@@ -6570,25 +6570,32 @@ async function createAdmin(){
 /* =====================================================
    تحميل المدراء الحاليين
 ===================================================== */
+
 async function loadAdmins(){
+
   const container =
     document.getElementById(
       "adminsContainer"
     );
+
   if(!container) return;
-  /* =====================================================
-     التأكد من أن المستخدم هو المدير الرئيسي
-  ===================================================== */
+
+  /* =========================
+     التأكد من المدير الرئيسي
+  ========================= */
+
   const {
     data:isMainAdmin,
     error:mainAdminError
   } =
     await supabaseClient
       .rpc("is_admin");
+
   if(
     mainAdminError ||
     isMainAdmin !== true
   ){
+
     container.innerHTML = `
       <div
         style="
@@ -6600,11 +6607,14 @@ async function loadAdmins(){
         لا تملك صلاحية إدارة المدراء.
       </div>
     `;
+
     return;
   }
-  /* =====================================================
+
+  /* =========================
      تحميل المدراء
-  ===================================================== */
+  ========================= */
+
   container.innerHTML = `
     <div
       style="
@@ -6616,6 +6626,7 @@ async function loadAdmins(){
       جاري تحميل المدراء...
     </div>
   `;
+
   const {
     data,
     error
@@ -6631,11 +6642,14 @@ async function loadAdmins(){
           ascending:false
         }
       );
+
   if(error){
+
     console.error(
       "Load admins error:",
       error
     );
+
     container.innerHTML = `
       <div
         style="
@@ -6647,12 +6661,15 @@ async function loadAdmins(){
         تعذر تحميل المدراء.
       </div>
     `;
+
     return;
   }
+
   if(
     !data ||
     data.length === 0
   ){
+
     container.innerHTML = `
       <div
         style="
@@ -6664,21 +6681,26 @@ async function loadAdmins(){
         لا يوجد مدراء مساعدين حالياً.
       </div>
     `;
+
     return;
   }
-  /* =====================================================
+
+  /* =========================
      إنشاء البطاقات
-  ===================================================== */
+  ========================= */
+
   container.innerHTML =
     data
       .map(
         admin => `
+
           <div
             class="admin-subsection"
             style="
               margin-top:12px;
             "
           >
+
             <div
               style="
                 display:flex;
@@ -6688,7 +6710,9 @@ async function loadAdmins(){
                 flex-wrap:wrap;
               "
             >
+
               <div>
+
                 <h3
                   style="
                     margin:0 0 6px;
@@ -6699,6 +6723,7 @@ async function loadAdmins(){
                     "مدير بدون اسم"
                   }
                 </h3>
+
                 <div
                   style="
                     color:#888;
@@ -6707,7 +6732,9 @@ async function loadAdmins(){
                 >
                   المدير المساعد
                 </div>
+
               </div>
+
               <div
                 style="
                   font-size:13px;
@@ -6725,7 +6752,9 @@ async function loadAdmins(){
                     : "● غير نشط"
                 }
               </div>
+
             </div>
+
             <div
               style="
                 margin-top:15px;
@@ -6735,6 +6764,7 @@ async function loadAdmins(){
             >
               الصلاحيات:
             </div>
+
             <div
               id="permissions-${admin.user_id}"
               style="
@@ -6743,21 +6773,260 @@ async function loadAdmins(){
             >
               جاري تحميل الصلاحيات...
             </div>
+
+            <div
+              style="
+                margin-top:15px;
+                display:flex;
+                gap:8px;
+                flex-wrap:wrap;
+              "
+            >
+
+              <button
+                type="button"
+                class="primary"
+                onclick="editAdminPermissions(
+                  '${admin.user_id}'
+                )"
+              >
+                ✏️ تعديل الصلاحيات
+              </button>
+
+            </div>
+
           </div>
+
         `
       )
       .join("");
-  /* =====================================================
+
+  /* =========================
      تحميل صلاحيات كل مدير
-  ===================================================== */
+  ========================= */
+
   for(
     const admin of data
   ){
+
     await loadAdminUserPermissions(
       admin.user_id
     );
+
   }
+
 }
+
+/* =====================================================
+   تعديل صلاحيات مدير
+===================================================== */
+
+async function editAdminPermissions(
+  userId
+){
+
+  const {
+    data:isMainAdmin,
+    error:mainAdminError
+  } =
+    await supabaseClient
+      .rpc("is_admin");
+
+  if(
+    mainAdminError ||
+    isMainAdmin !== true
+  ){
+
+    alert(
+      "لا تملك صلاحية تعديل المدراء."
+    );
+
+    return;
+  }
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("admin_user_permissions")
+      .select("permission")
+      .eq(
+        "user_id",
+        userId
+      );
+
+  if(error){
+
+    console.error(
+      "Load permissions error:",
+      error
+    );
+
+    alert(
+      "تعذر تحميل صلاحيات المدير."
+    );
+
+    return;
+  }
+
+  const currentPermissions =
+    (data || [])
+      .map(
+        item => item.permission
+      );
+
+  const allPermissions = [
+    {
+      value:"dashboard.view",
+      label:"مشاهدة لوحة التحكم"
+    },
+
+    {
+      value:"orders.view",
+      label:"مشاهدة الطلبات"
+    },
+
+    {
+      value:"orders.update",
+      label:"تحديث حالة الطلبات"
+    },
+
+    {
+      value:"products.view",
+      label:"مشاهدة المنتجات"
+    },
+
+    {
+      value:"products.create",
+      label:"إضافة المنتجات"
+    },
+
+    {
+      value:"products.update",
+      label:"تعديل المنتجات"
+    },
+
+    {
+      value:"products.delete",
+      label:"حذف المنتجات"
+    },
+
+    {
+      value:"categories.view",
+      label:"مشاهدة الأقسام"
+    },
+
+    {
+      value:"categories.update",
+      label:"تعديل الأقسام"
+    },
+
+    {
+      value:"offers.view",
+      label:"مشاهدة العروض"
+    },
+
+    {
+      value:"offers.create",
+      label:"إضافة العروض"
+    },
+
+    {
+      value:"offers.update",
+      label:"تعديل العروض"
+    },
+
+    {
+      value:"offers.delete",
+      label:"حذف العروض"
+    },
+
+    {
+      value:"banners.view",
+      label:"مشاهدة البانرات"
+    },
+
+    {
+      value:"banners.create",
+      label:"إضافة البانرات"
+    },
+
+    {
+      value:"banners.update",
+      label:"تعديل البانرات"
+    },
+
+    {
+      value:"banners.delete",
+      label:"حذف البانرات"
+    }
+  ];
+
+  const permissionText =
+    allPermissions
+      .map(
+        permission => {
+
+          const checked =
+            currentPermissions
+              .includes(
+                permission.value
+              )
+              ? "checked"
+              : "";
+
+          return `
+            <label
+              style="
+                display:block;
+                padding:8px 0;
+              "
+            >
+
+              <input
+                type="checkbox"
+                class="edit-admin-permission"
+                value="${permission.value}"
+                ${checked}
+              >
+
+              ${permission.label}
+
+            </label>
+          `;
+
+        }
+      )
+      .join("");
+
+  const confirmed =
+    confirm(
+      "سيتم فتح قائمة صلاحيات المدير.\n\n" +
+      "اضغط موافق للمتابعة."
+    );
+
+  if(!confirmed){
+    return;
+  }
+
+  const selected =
+    prompt(
+      "لتعديل الصلاحيات نحتاج خطوة واجهة مخصصة.\n\n" +
+      "هذه الخطوة لم تُحفظ بعد."
+    );
+
+  if(selected === null){
+    return;
+  }
+
+  alert(
+    "تم فتح اختبار تعديل الصلاحيات فقط.\n" +
+    "لم يتم تغيير أي صلاحية حتى الآن."
+  );
+
+}
+  
 /* =====================================================
    تحميل صلاحيات مدير محدد
 ===================================================== */
@@ -6787,37 +7056,76 @@ async function loadAdminUserPermissions(
       "Load admin permissions error:",
       error
     );
-    container.textContent =
-      "تعذر تحميل الصلاحيات.";
+    container.innerHTML = `
+      <div
+        style="
+          color:#b45f5f;
+          font-size:13px;
+        "
+      >
+        تعذر تحميل الصلاحيات.
+      </div>
+    `;
     return;
   }
+  const permissions =
+    data || [];
+  let permissionsHTML = "";
   if(
-    !data ||
-    data.length === 0
+    permissions.length === 0
   ){
-    container.textContent =
-      "لا توجد صلاحيات محددة.";
-    return;
+    permissionsHTML = `
+      <div
+        style="
+          color:#888;
+          font-size:13px;
+          margin-bottom:10px;
+        "
+      >
+        لا توجد صلاحيات محددة.
+      </div>
+    `;
+  }else{
+    permissionsHTML =
+      permissions
+        .map(
+          item => `
+            <span
+              style="
+                display:inline-block;
+                padding:5px 9px;
+                margin:3px;
+                border-radius:10px;
+                background:#f4eeee;
+                font-size:12px;
+              "
+            >
+              ${item.permission}
+            </span>
+          `
+        )
+        .join("");
   }
-  container.innerHTML =
-    data
-      .map(
-        item => `
-          <span
-            style="
-              display:inline-block;
-              padding:5px 9px;
-              margin:3px;
-              border-radius:10px;
-              background:#f4eeee;
-              font-size:12px;
-            "
-          >
-            ${item.permission}
-          </span>
-        `
-      )
-      .join("");
+  container.innerHTML = `
+    <div
+      style="
+        margin-bottom:10px;
+      "
+    >
+      ${permissionsHTML}
+    </div>
+    <button
+      type="button"
+      class="primary"
+      style="
+        font-size:13px;
+        padding:9px 14px;
+      "
+      onclick="editAdminPermissions('${userId}')"
+    >
+      ✏️ تعديل الصلاحيات
+    </button>
+  `;
 }
   
 </script>
