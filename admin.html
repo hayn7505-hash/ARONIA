@@ -2670,7 +2670,10 @@ renderProducts();
 /* =========================
    عرض المنتجات
 ========================= */
-
+alert(
+  "صلاحية الحذف: " +
+  hasPermission("products.delete")
+);
 function renderProducts(){
 
 const table =
