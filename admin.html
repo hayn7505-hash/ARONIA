@@ -6533,7 +6533,260 @@ async function createAdmin(){
     }
   }
 }
-     
+
+/* =====================================================
+   تحميل المدراء الحاليين
+===================================================== */
+async function loadAdmins(){
+  const container =
+    document.getElementById(
+      "adminsContainer"
+    );
+  if(!container) return;
+  /* =====================================================
+     التأكد من أن المستخدم هو المدير الرئيسي
+  ===================================================== */
+  const {
+    data:isMainAdmin,
+    error:mainAdminError
+  } =
+    await supabaseClient
+      .rpc("is_admin");
+  if(
+    mainAdminError ||
+    isMainAdmin !== true
+  ){
+    container.innerHTML = `
+      <div
+        style="
+          text-align:center;
+          padding:30px;
+          color:#888;
+        "
+      >
+        لا تملك صلاحية إدارة المدراء.
+      </div>
+    `;
+    return;
+  }
+  /* =====================================================
+     تحميل المدراء
+  ===================================================== */
+  container.innerHTML = `
+    <div
+      style="
+        text-align:center;
+        padding:30px;
+        color:#888;
+      "
+    >
+      جاري تحميل المدراء...
+    </div>
+  `;
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("admin_users")
+      .select(
+        "user_id, display_name, role, is_active, created_at"
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+  if(error){
+    console.error(
+      "Load admins error:",
+      error
+    );
+    container.innerHTML = `
+      <div
+        style="
+          text-align:center;
+          padding:30px;
+          color:#b45f5f;
+        "
+      >
+        تعذر تحميل المدراء.
+      </div>
+    `;
+    return;
+  }
+  if(
+    !data ||
+    data.length === 0
+  ){
+    container.innerHTML = `
+      <div
+        style="
+          text-align:center;
+          padding:30px;
+          color:#888;
+        "
+      >
+        لا يوجد مدراء مساعدين حالياً.
+      </div>
+    `;
+    return;
+  }
+  /* =====================================================
+     إنشاء البطاقات
+  ===================================================== */
+  container.innerHTML =
+    data
+      .map(
+        admin => `
+          <div
+            class="admin-subsection"
+            style="
+              margin-top:12px;
+            "
+          >
+            <div
+              style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:10px;
+                flex-wrap:wrap;
+              "
+            >
+              <div>
+                <h3
+                  style="
+                    margin:0 0 6px;
+                  "
+                >
+                  👤 ${
+                    admin.display_name ||
+                    "مدير بدون اسم"
+                  }
+                </h3>
+                <div
+                  style="
+                    color:#888;
+                    font-size:13px;
+                  "
+                >
+                  المدير المساعد
+                </div>
+              </div>
+              <div
+                style="
+                  font-size:13px;
+                  font-weight:bold;
+                  color:${
+                    admin.is_active
+                      ? "#4b8b62"
+                      : "#b45f5f"
+                  };
+                "
+              >
+                ${
+                  admin.is_active
+                    ? "● نشط"
+                    : "● غير نشط"
+                }
+              </div>
+            </div>
+            <div
+              style="
+                margin-top:15px;
+                color:#777;
+                font-size:13px;
+              "
+            >
+              الصلاحيات:
+            </div>
+            <div
+              id="permissions-${admin.user_id}"
+              style="
+                margin-top:8px;
+              "
+            >
+              جاري تحميل الصلاحيات...
+            </div>
+          </div>
+        `
+      )
+      .join("");
+  /* =====================================================
+     تحميل صلاحيات كل مدير
+  ===================================================== */
+  for(
+    const admin of data
+  ){
+    await loadAdminUserPermissions(
+      admin.user_id
+    );
+  }
+}
+/* =====================================================
+   تحميل صلاحيات مدير محدد
+===================================================== */
+async function loadAdminUserPermissions(
+  userId
+){
+  const container =
+    document.getElementById(
+      `permissions-${userId}`
+    );
+  if(!container) return;
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from(
+        "admin_user_permissions"
+      )
+      .select("permission")
+      .eq(
+        "user_id",
+        userId
+      );
+  if(error){
+    console.error(
+      "Load admin permissions error:",
+      error
+    );
+    container.textContent =
+      "تعذر تحميل الصلاحيات.";
+    return;
+  }
+  if(
+    !data ||
+    data.length === 0
+  ){
+    container.textContent =
+      "لا توجد صلاحيات محددة.";
+    return;
+  }
+  container.innerHTML =
+    data
+      .map(
+        item => `
+          <span
+            style="
+              display:inline-block;
+              padding:5px 9px;
+              margin:3px;
+              border-radius:10px;
+              background:#f4eeee;
+              font-size:12px;
+            "
+          >
+            ${item.permission}
+          </span>
+        `
+      )
+      .join("");
+}
+  
 </script>
 
 </body>
