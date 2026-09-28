@@ -6632,50 +6632,31 @@ async function checkAdminStatus(){
     return true;
   }
 
-  /* ASSISTANT ADMIN */
+/* ASSISTANT ADMIN */
 
-  const {
-    data: assistantAdmin,
-    error: assistantAdminError
-  } =
-    await db
-      .from("admin_users")
-      .select("user_id, is_active, display_name")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .maybeSingle();
+const {
+  data: assistantPermission,
+  error: assistantPermissionError
+} =
+  await db.rpc(
+    "has_admin_permission",
+    {
+      requested_permission:
+        "dashboard.view"
+    }
+  );
 
-  if(assistantAdminError){
+if(assistantPermissionError){
 
-    alert(
-      "خطأ فحص المدير المساعد:\n" +
-      assistantAdminError.message
-    );
+  alert(
+    "خطأ فحص صلاحية المدير المساعد:\n" +
+    assistantPermissionError.message
+  );
 
-    return false;
-  }
+  return false;
+}
 
-  if(!assistantAdmin){
-
-    alert(
-      "لم يتم العثور على حسابك في admin_users.\n\n" +
-      "User ID:\n" +
-      currentUser.id
-    );
-
-    return false;
-  }
-
-  if(assistantAdmin.is_active !== true){
-
-    alert(
-      "حساب المدير المساعد موجود، لكنه غير نشط."
-    );
-
-    return false;
-  }
+if(assistantPermission === true){
 
   isAdminUser = true;
 
@@ -6684,13 +6665,17 @@ async function checkAdminStatus(){
   }
 
   alert(
-    "تم التعرف على المدير المساعد بنجاح ✅\n\n" +
-    "الاسم: " +
-    (assistantAdmin.display_name || "بدون اسم")
+    "تم التعرف على المدير المساعد بنجاح ✅"
   );
 
   return true;
 }
+
+alert(
+  "الحساب موجود، لكن لا يملك صلاحية dashboard.view."
+);
+
+return false;
 
 /* =====================================================
 ACCOUNT UI
