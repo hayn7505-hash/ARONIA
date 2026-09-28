@@ -7339,15 +7339,14 @@ async function saveAdminPermissions(
         permissionRows
       );
   if(insertError){
-    console.error(
-      "Insert new permissions error:",
-      insertError
-    );
-    alert(
-      "حدث خطأ أثناء حفظ الصلاحيات الجديدة."
-    );
-    return;
-  }
+
+  alert(
+    "خطأ حفظ الصلاحيات:\n\n" +
+    insertError.message
+  );
+
+  return;
+}
   alert(
     "✅ تم تحديث صلاحيات المدير بنجاح."
   );
