@@ -7127,6 +7127,331 @@ async function loadAdminUserPermissions(
     </button>
   `;
 }
+
+<!-- =====================================================
+     نافذة تعديل صلاحيات المدير
+===================================================== -->
+<div
+  id="editAdminPermissionsModal"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  "
+>
+  <div
+    style="
+      width:100%;
+      max-width:500px;
+      max-height:90vh;
+      overflow-y:auto;
+      background:#fff;
+      border-radius:20px;
+      padding:20px;
+    "
+  >
+    <div
+      style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        margin-bottom:20px;
+      "
+    >
+      <h3 style="margin:0;">
+        ✏️ تعديل صلاحيات المدير
+      </h3>
+      <button
+        type="button"
+        onclick="closeEditAdminPermissions()"
+        style="
+          border:0;
+          background:#f3eeee;
+          width:36px;
+          height:36px;
+          border-radius:50%;
+          font-size:18px;
+          cursor:pointer;
+        "
+      >
+        ×
+      </button>
+    </div>
+    <div
+      id="editAdminPermissionsName"
+      style="
+        color:#777;
+        font-size:14px;
+        margin-bottom:15px;
+      "
+    >
+    </div>
+    <div
+      id="editAdminPermissionsContainer"
+      style="
+        display:grid;
+        gap:10px;
+      "
+    >
+      جاري تحميل الصلاحيات...
+    </div>
+    <div
+      style="
+        display:flex;
+        gap:10px;
+        margin-top:20px;
+      "
+    >
+      <button
+        type="button"
+        class="primary"
+        onclick="closeEditAdminPermissions()"
+        style="
+          flex:1;
+        "
+      >
+        إلغاء
+      </button>
+    </div>
+  </div>
+</div>
+
+/* =====================================================
+   فتح نافذة تعديل صلاحيات المدير
+===================================================== */
+async function editAdminPermissions(
+  userId
+){
+  const modal =
+    document.getElementById(
+      "editAdminPermissionsModal"
+    );
+  const container =
+    document.getElementById(
+      "editAdminPermissionsContainer"
+    );
+  const nameContainer =
+    document.getElementById(
+      "editAdminPermissionsName"
+    );
+  if(
+    !modal ||
+    !container
+  ){
+    return;
+  }
+  /* التأكد أن المستخدم هو المدير الرئيسي */
+  const {
+    data:isMainAdmin,
+    error:adminError
+  } =
+    await supabaseClient
+      .rpc("is_admin");
+  if(
+    adminError ||
+    isMainAdmin !== true
+  ){
+    alert(
+      "لا تملك صلاحية تعديل المدراء."
+    );
+    return;
+  }
+  modal.style.display =
+    "flex";
+  container.innerHTML =
+    "جاري تحميل الصلاحيات...";
+  /* تحميل اسم المدير */
+  const {
+    data:admin,
+    error:adminUserError
+  } =
+    await supabaseClient
+      .from("admin_users")
+      .select(
+        "display_name"
+      )
+      .eq(
+        "user_id",
+        userId
+      )
+      .maybeSingle();
+  if(
+    adminUserError ||
+    !admin
+  ){
+    nameContainer.textContent =
+      "المدير المساعد";
+  }else{
+    nameContainer.textContent =
+      `المدير: ${
+        admin.display_name ||
+        "بدون اسم"
+      }`;
+  }
+  /* تحميل الصلاحيات الحالية */
+  const {
+    data:currentPermissions,
+    error:permissionError
+  } =
+    await supabaseClient
+      .from(
+        "admin_user_permissions"
+      )
+      .select(
+        "permission"
+      )
+      .eq(
+        "user_id",
+        userId
+      );
+  if(permissionError){
+    container.innerHTML = `
+      <div
+        style="
+          color:#b45f5f;
+          padding:10px;
+        "
+      >
+        تعذر تحميل الصلاحيات.
+      </div>
+    `;
+    return;
+  }
+  const selectedPermissions =
+    new Set(
+      (currentPermissions || [])
+        .map(
+          item =>
+            item.permission
+        )
+    );
+  /* الصلاحيات المسموحة */
+  const permissions = [
+    {
+      value:"dashboard.view",
+      label:"📊 مشاهدة لوحة التحكم"
+    },
+    {
+      value:"orders.view",
+      label:"📦 مشاهدة الطلبات"
+    },
+    {
+      value:"orders.update",
+      label:"🔄 تحديث حالة الطلبات"
+    },
+    {
+      value:"products.view",
+      label:"🛍️ مشاهدة المنتجات"
+    },
+    {
+      value:"products.create",
+      label:"➕ إضافة المنتجات"
+    },
+    {
+      value:"products.update",
+      label:"✏️ تعديل المنتجات"
+    },
+    {
+      value:"products.delete",
+      label:"🗑️ حذف المنتجات"
+    },
+    {
+      value:"categories.view",
+      label:"📂 مشاهدة الأقسام"
+    },
+    {
+      value:"categories.update",
+      label:"✏️ تعديل الأقسام"
+    },
+    {
+      value:"offers.view",
+      label:"🏷️ مشاهدة العروض"
+    },
+    {
+      value:"offers.create",
+      label:"➕ إضافة العروض"
+    },
+    {
+      value:"offers.update",
+      label:"✏️ تعديل العروض"
+    },
+    {
+      value:"offers.delete",
+      label:"🗑️ حذف العروض"
+    },
+    {
+      value:"banners.view",
+      label:"🖼️ مشاهدة البانرات"
+    },
+    {
+      value:"banners.create",
+      label:"➕ إضافة البانرات"
+    },
+    {
+      value:"banners.update",
+      label:"✏️ تعديل البانرات"
+    },
+    {
+      value:"banners.delete",
+      label:"🗑️ حذف البانرات"
+    }
+  ];
+  container.innerHTML =
+    permissions
+      .map(
+        permission => `
+          <label
+            style="
+              display:flex;
+              align-items:center;
+              gap:10px;
+              padding:11px;
+              background:#faf6f4;
+              border-radius:12px;
+              cursor:pointer;
+            "
+          >
+            <input
+              type="checkbox"
+              value="${permission.value}"
+              ${
+                selectedPermissions
+                  .has(
+                    permission.value
+                  )
+                  ? "checked"
+                  : ""
+              }
+            >
+            <span>
+              ${permission.label}
+            </span>
+          </label>
+        `
+      )
+      .join("");
+  /* حفظ userId للخطوة التالية */
+  modal.dataset.userId =
+    userId;
+}
+/* =====================================================
+   إغلاق نافذة تعديل الصلاحيات
+===================================================== */
+function closeEditAdminPermissions(){
+  const modal =
+    document.getElementById(
+      "editAdminPermissionsModal"
+    );
+  if(!modal) return;
+  modal.style.display =
+    "none";
+}
   
 </script>
 
