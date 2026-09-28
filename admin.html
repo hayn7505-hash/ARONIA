@@ -2648,32 +2648,76 @@ let editingId = null;
 
 async function loadProducts(){
 
-const {
-data,
-error
-} =
-await supabaseClient
-.from("products")
-.select("*")
-.order("id",{
-ascending:false
-});
+  /* =========================
+     فحص صلاحية مشاهدة المنتجات
+  ========================= */
 
-if(error){
+  if(
+    !hasPermission("products.view")
+  ){
 
-alert(
-"خطأ في تحميل المنتجات: " +
-error.message
-);
+    const table =
+      document.getElementById(
+        "productsTable"
+      );
 
-return;
+    if(table){
 
-}
+      table.innerHTML = `
+        <tr>
+          <td
+            colspan="7"
+            style="
+              text-align:center;
+              padding:30px;
+              color:#888;
+            "
+          >
+            لا تملك صلاحية مشاهدة المنتجات.
+          </td>
+        </tr>
+      `;
 
-products =
-data || [];
+    }
 
-renderProducts();
+    return;
+
+  }
+
+
+  /* =========================
+     تحميل المنتجات
+  ========================= */
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("products")
+    .select("*")
+    .order("id",{
+      ascending:false
+    });
+
+
+  if(error){
+
+    alert(
+      "خطأ في تحميل المنتجات: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  products =
+    data || [];
+
+
+  renderProducts();
 
 }
 
