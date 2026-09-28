@@ -6484,15 +6484,60 @@ async function createAdmin(){
           }
         );
     if(error){
-      console.error(
-        "Create admin error:",
-        error
-      );
-      message.textContent =
-        error.message ||
-        "تعذر إضافة المدير.";
-      return;
+
+  console.error(
+    "Create admin error:",
+    error
+  );
+
+  let errorText =
+    error.message ||
+    "تعذر إضافة المدير.";
+
+  try{
+
+    if(error.context){
+
+      const responseText =
+        await error.context.text();
+
+      if(responseText){
+
+        try{
+
+          const responseData =
+            JSON.parse(responseText);
+
+          errorText =
+            responseData.error ||
+            responseData.message ||
+            responseText;
+
+        }catch{
+
+          errorText =
+            responseText;
+
+        }
+
+      }
+
     }
+
+  }catch(readError){
+
+    console.error(
+      "Error reading function response:",
+      readError
+    );
+
+  }
+
+  message.textContent =
+    "❌ " + errorText;
+
+  return;
+}
     if(
       !data ||
       data.success !== true
