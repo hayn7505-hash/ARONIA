@@ -2154,67 +2154,149 @@ await checkAdmin();
 
 async function checkAdmin(){
 
-const {
-data:{
-session
+  const {
+    data:{
+      session
+    }
+  } =
+  await supabaseClient.auth.getSession();
+
+
+  /* =========================
+     لا توجد جلسة
+  ========================= */
+
+  if(!session){
+
+    document
+      .getElementById("loginPage")
+      .classList
+      .remove("hidden");
+
+    document
+      .getElementById("dashboard")
+      .classList
+      .add("hidden");
+
+    return;
+
+  }
+
+
+  /* =========================
+     التحقق من المدير الرئيسي
+  ========================= */
+
+  const {
+    data:isMainAdmin,
+    error:mainAdminError
+  } =
+  await supabaseClient
+    .rpc("is_admin");
+
+
+  /* =========================
+     إذا لم يكن المدير الرئيسي
+     نتحقق من admin_users
+  ========================= */
+
+  let isManager = false;
+
+
+  if(
+    !isMainAdmin &&
+    !mainAdminError
+  ){
+
+    const {
+      data:adminUser,
+      error:adminUserError
+    } =
+    await supabaseClient
+      .from("admin_users")
+      .select("user_id, role, display_name, is_active")
+      .eq(
+        "user_id",
+        session.user.id
+      )
+      .eq(
+        "is_active",
+        true
+      )
+      .maybeSingle();
+
+
+    if(
+      !adminUserError &&
+      adminUser
+    ){
+
+      isManager = true;
+
+    }
+
+  }
+
+
+  /* =========================
+     ليس مديرًا
+  ========================= */
+
+  if(
+    !isMainAdmin &&
+    !isManager
+  ){
+
+    await supabaseClient
+      .auth
+      .signOut();
+
+
+    document
+      .getElementById("loginMessage")
+      .textContent =
+        "هذا الحساب ليس مديراً.";
+
+
+    return;
+
+  }
+
+
+  /* =========================
+     إظهار لوحة المدير
+  ========================= */
+
+  document
+    .getElementById("loginPage")
+    .classList
+    .add("hidden");
+
+
+  document
+    .getElementById("dashboard")
+    .classList
+    .remove("hidden");
+
+
+  /* =========================
+     تحميل البيانات
+  ========================= */
+
+  await loadProducts();
+
+  await loadOrders();
+
+  await loadBanners();
+
+  await loadCategoriesAdmin();
+
+  await loadProductCategories();
+
+  await loadOffersAdmin();
+
 }
-} =
-await supabaseClient.auth.getSession();
-
-if(!session){
-
-document
-.getElementById("loginPage")
-.classList
-.remove("hidden");
-
-document
-.getElementById("dashboard")
-.classList
-.add("hidden");
-
-return;
-
-}
-
-const {
-data,
-error
-} =
-await supabaseClient.rpc("is_admin");
-
-if(error || data !== true){
-
-await supabaseClient.auth.signOut();
-
-document
-.getElementById("loginMessage")
-.textContent =
-"هذا الحساب ليس مديراً.";
-
-return;
-
-}
-
-document
-.getElementById("loginPage")
-.classList
-.add("hidden");
-
-document
-.getElementById("dashboard")
-.classList
-.remove("hidden");
-
-await loadProducts();
-await loadOrders();
-await loadBanners();
-await loadCategoriesAdmin();
-await loadProductCategories();
-await loadOffersAdmin();
-     
-}
-
+  
 /* =========================
    تسجيل الخروج
 ========================= */
