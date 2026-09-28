@@ -2081,7 +2081,193 @@ class="container hidden">
 
 </div>
 
-
+<!-- ==================================================
+     المدراء والصلاحيات
+================================================== -->
+<div class="admin-section">
+  <button
+    class="admin-section-header"
+    type="button"
+    onclick="toggleAdminSection(this)">
+    <div>
+      <div class="admin-section-title">
+        👥 المدراء والصلاحيات
+      </div>
+      <span class="admin-section-subtitle">
+        إدارة المدراء المساعدين وتحديد صلاحيات كل مدير
+      </span>
+    </div>
+    <span class="admin-section-arrow">
+      ▼
+    </span>
+  </button>
+  <div class="admin-section-content">
+    <!-- إضافة مدير -->
+    <div class="admin-subsection">
+      <div class="top">
+        <h3>
+          ➕ إضافة مدير مساعد
+        </h3>
+      </div>
+      <input
+        id="adminDisplayName"
+        type="text"
+        placeholder="اسم المدير">
+      <input
+        id="adminEmail"
+        type="email"
+        placeholder="البريد الإلكتروني">
+      <h4 style="margin-top:20px;">
+        🔐 صلاحيات المدير
+      </h4>
+      <div
+        id="adminPermissionsContainer"
+        style="
+          display:grid;
+          gap:10px;
+          margin-top:10px;
+        ">
+        <label>
+          <input
+            type="checkbox"
+            value="dashboard.view">
+          مشاهدة لوحة التحكم
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="orders.view">
+          مشاهدة الطلبات
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="orders.update">
+          تحديث حالة الطلبات
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="products.view">
+          مشاهدة المنتجات
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="products.create">
+          إضافة المنتجات
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="products.update">
+          تعديل المنتجات
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="products.delete">
+          حذف المنتجات
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="categories.view">
+          مشاهدة الأقسام
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="categories.update">
+          تعديل الأقسام
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="offers.view">
+          مشاهدة العروض
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="offers.create">
+          إضافة العروض
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="offers.update">
+          تعديل العروض
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="offers.delete">
+          حذف العروض
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="banners.view">
+          مشاهدة البانرات
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="banners.create">
+          إضافة البانرات
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="banners.update">
+          تعديل البانرات
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="banners.delete">
+          حذف البانرات
+        </label>
+      </div>
+      <div class="actions">
+        <button
+          class="primary"
+          onclick="createAdmin()">
+          إضافة المدير وإرسال الدعوة
+        </button>
+      </div>
+      <div
+        id="adminMessage"
+        class="message">
+      </div>
+    </div>
+    <!-- المدراء الحاليون -->
+    <div class="admin-subsection">
+      <div class="top">
+        <h3>
+          👥 المدراء الحاليون
+        </h3>
+        <button
+          class="primary"
+          onclick="loadAdmins()">
+          تحديث
+        </button>
+      </div>
+      <div id="adminsContainer">
+        <div
+          style="
+            text-align:center;
+            padding:30px;
+            color:#888;
+          ">
+          جاري تحميل المدراء...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
 </div>
      
 <script>
