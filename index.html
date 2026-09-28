@@ -6586,7 +6586,7 @@ overlay.style.display =
 }
 
 /* =====================================================
-CHECK ADMIN
+CHECK ADMIN — TEST
 ===================================================== */
 
 async function checkAdminStatus(){
@@ -6604,9 +6604,7 @@ async function checkAdminStatus(){
     return false;
   }
 
-  /* =========================
-     MAIN ADMIN
-  ========================= */
+  /* MAIN ADMIN */
 
   const {
     data: isMainAdmin,
@@ -6615,9 +6613,9 @@ async function checkAdminStatus(){
     await db.rpc("is_admin");
 
   if(mainAdminError){
-    console.error(
-      "MAIN ADMIN CHECK ERROR:",
-      mainAdminError
+    alert(
+      "خطأ فحص المدير الرئيسي:\n" +
+      mainAdminError.message
     );
   }
 
@@ -6629,12 +6627,12 @@ async function checkAdminStatus(){
       adminButton.style.display = "block";
     }
 
+    alert("تم التعرف عليك كمدير رئيسي ✅");
+
     return true;
   }
 
-  /* =========================
-     ASSISTANT ADMIN
-  ========================= */
+  /* ASSISTANT ADMIN */
 
   const {
     data: assistantAdmin,
@@ -6642,33 +6640,56 @@ async function checkAdminStatus(){
   } =
     await db
       .from("admin_users")
-      .select("user_id, is_active")
-      .eq("user_id", currentUser.id)
-      .eq("is_active", true)
+      .select("user_id, is_active, display_name")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
       .maybeSingle();
 
   if(assistantAdminError){
 
-    console.error(
-      "ASSISTANT ADMIN CHECK ERROR:",
-      assistantAdminError
+    alert(
+      "خطأ فحص المدير المساعد:\n" +
+      assistantAdminError.message
     );
 
     return false;
   }
 
-  if(assistantAdmin){
+  if(!assistantAdmin){
 
-    isAdminUser = true;
+    alert(
+      "لم يتم العثور على حسابك في admin_users.\n\n" +
+      "User ID:\n" +
+      currentUser.id
+    );
 
-    if(adminButton){
-      adminButton.style.display = "block";
-    }
-
-    return true;
+    return false;
   }
 
-  return false;
+  if(assistantAdmin.is_active !== true){
+
+    alert(
+      "حساب المدير المساعد موجود، لكنه غير نشط."
+    );
+
+    return false;
+  }
+
+  isAdminUser = true;
+
+  if(adminButton){
+    adminButton.style.display = "block";
+  }
+
+  alert(
+    "تم التعرف على المدير المساعد بنجاح ✅\n\n" +
+    "الاسم: " +
+    (assistantAdmin.display_name || "بدون اسم")
+  );
+
+  return true;
 }
 
 /* =====================================================
