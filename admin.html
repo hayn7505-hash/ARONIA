@@ -6490,63 +6490,37 @@ async function createAdmin(){
     error
   );
 
-  let errorText =
-    error.message ||
-    "تعذر إضافة المدير.";
+  let details = "";
 
   try{
 
     if(error.context){
 
-      const responseText =
+      details =
         await error.context.text();
-
-      if(responseText){
-
-        try{
-
-          const responseData =
-            JSON.parse(responseText);
-
-          errorText =
-            responseData.error ||
-            responseData.message ||
-            responseText;
-
-        }catch{
-
-          errorText =
-            responseText;
-
-        }
-
-      }
 
     }
 
-  }catch(readError){
+  }catch(e){
 
-    console.error(
-      "Error reading function response:",
-      readError
-    );
+    details =
+      "تعذر قراءة تفاصيل الخطأ";
 
   }
 
   message.textContent =
-    "❌ " + errorText;
+    "❌ فشل إنشاء المدير\n" +
+    "النوع: " +
+    (error.name || "غير معروف") +
+    "\nالحالة: " +
+    (error.status || "غير معروفة") +
+    "\nالرسالة: " +
+    (error.message || "غير معروفة") +
+    "\nالتفاصيل: " +
+    (details || "لا توجد تفاصيل");
 
   return;
 }
-    if(
-      !data ||
-      data.success !== true
-    ){
-      message.textContent =
-        data?.error ||
-        "تعذر إضافة المدير.";
-      return;
-    }
     /* =====================================================
        نجاح
     ===================================================== */
