@@ -6469,10 +6469,10 @@ async function createAdmin(){
       error
     } =
       await supabaseClient
-        .functions
-        .invoke(
-          "create-admin-v2"
-          {
+  .functions
+  .invoke(
+    "create-admin-v2",
+    {
             body:{
               email:
                 email,
