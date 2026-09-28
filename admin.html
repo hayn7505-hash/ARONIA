@@ -6465,24 +6465,21 @@ async function createAdmin(){
       return;
     }
     const {
-      data,
-      error
-    } =
-      await supabaseClient
-  .functions
-  .invoke(
-    "create-admin-v2",
-    {
-            body:{
-              email:
-                email,
-              display_name:
-                displayName,
-              permissions:
-                permissions
-            }
-          }
-        );
+  data,
+  error
+} =
+  await supabaseClient
+    .functions
+    .invoke(
+      "create-admin-v2",
+      {
+        body: {
+          email: email,
+          display_name: displayName,
+          permissions: permissions
+        }
+      }
+    );
     if(error){
 
   console.error(
