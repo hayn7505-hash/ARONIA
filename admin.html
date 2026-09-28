@@ -6415,9 +6415,11 @@ async function createAdmin(){
      حالة الزر
   ===================================================== */
   const button =
-    document.querySelector(
-      "#adminsSection button.primary"
-    );
+  document.querySelector(
+    "#adminDisplayName"
+  )
+  ?.closest(".admin-subsection")
+  ?.querySelector("button.primary");
   const originalText =
     button
       ? button.textContent
