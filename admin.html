@@ -2148,6 +2148,118 @@ await checkAdmin();
 
 }
 
+/* =====================================================
+   ARONIA
+   ADMIN PERMISSIONS
+===================================================== */
+
+let currentAdminPermissions = [];
+
+
+/* =====================================================
+   تحميل صلاحيات المدير الحالي
+===================================================== */
+
+async function loadAdminPermissions(){
+
+  currentAdminPermissions = [];
+
+
+  /* =========================
+     المدير الرئيسي
+  ========================= */
+
+  const {
+    data:isMainAdmin,
+    error:mainAdminError
+  } =
+  await supabaseClient
+    .rpc("is_admin");
+
+
+  if(
+    !mainAdminError &&
+    isMainAdmin === true
+  ){
+
+    currentAdminPermissions = [
+      "*"
+    ];
+
+    return true;
+
+  }
+
+
+  /* =========================
+     المساعد
+  ========================= */
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from("admin_user_permissions")
+    .select("permission")
+    .eq(
+      "user_id",
+      (
+        await supabaseClient
+          .auth
+          .getUser()
+      ).data.user?.id
+    );
+
+
+  if(error){
+
+    console.error(
+      "Admin permissions error:",
+      error
+    );
+
+    return false;
+
+  }
+
+
+  currentAdminPermissions =
+    (data || [])
+      .map(
+        item =>
+          item.permission
+      );
+
+
+  return true;
+
+}
+
+
+/* =====================================================
+   فحص صلاحية
+===================================================== */
+
+function hasPermission(permission){
+
+  /* المدير الرئيسي */
+
+  if(
+    currentAdminPermissions
+      .includes("*")
+  ){
+
+    return true;
+
+  }
+
+
+  return currentAdminPermissions
+    .includes(permission);
+
+}
+  
 /* =========================
    التحقق من المدير
 ========================= */
@@ -2283,6 +2395,8 @@ async function checkAdmin(){
      تحميل البيانات
   ========================= */
 
+  await loadAdminPermissions();
+  
   await loadProducts();
 
   await loadOrders();
