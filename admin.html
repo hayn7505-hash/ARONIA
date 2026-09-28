@@ -2765,39 +2765,52 @@ document.createElement("div");
 actionBox.className =
 "actions";
 
-const editButton =
-document.createElement("button");
+if(
+  hasPermission("products.update")
+){
 
-editButton.className =
-"edit";
+  const editButton =
+  document.createElement("button");
 
-editButton.textContent =
-"تعديل";
+  editButton.className =
+  "edit";
 
-editButton.onclick =
-() =>
-editProduct(product.id);
+  editButton.textContent =
+  "تعديل";
 
-const deleteButton =
-document.createElement("button");
+  editButton.onclick =
+  () =>
+    editProduct(product.id);
 
-deleteButton.className =
-"danger";
+  actionBox.appendChild(
+    editButton
+  );
 
-deleteButton.textContent =
-"حذف";
+}
 
-deleteButton.onclick =
-() =>
-deleteProduct(product.id);
 
-actionBox.appendChild(
-editButton
-);
+if(
+  hasPermission("products.delete")
+){
 
-actionBox.appendChild(
-deleteButton
-);
+  const deleteButton =
+  document.createElement("button");
+
+  deleteButton.className =
+  "danger";
+
+  deleteButton.textContent =
+  "حذف";
+
+  deleteButton.onclick =
+  () =>
+    deleteProduct(product.id);
+
+  actionBox.appendChild(
+    deleteButton
+  );
+
+}
 
 actions.appendChild(
 actionBox
