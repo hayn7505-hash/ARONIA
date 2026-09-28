@@ -3240,6 +3240,18 @@ if(
 
 function editProduct(id){
 
+  if(
+    !hasPermission("products.update")
+  ){
+
+    alert(
+      "ليس لديك صلاحية تعديل المنتجات."
+    );
+
+    return;
+
+  }
+
   const product =
     products.find(
       p => p.id === id
