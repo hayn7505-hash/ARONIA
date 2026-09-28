@@ -2594,6 +2594,12 @@ if(!permissionsLoaded){
 
 }
 
+alert(
+  "الصلاحيات الحالية:\n\n" +
+  currentAdminPermissions.join("\n") +
+  "\n\nحذف المنتجات = " +
+  hasPermission("products.delete")
+);
 
 /* =========================
    تحميل المدراء
