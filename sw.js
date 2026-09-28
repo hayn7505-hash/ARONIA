@@ -32,8 +32,16 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    fetch(event.request).catch(() =>
-      caches.match(event.request)
-    )
+    fetch(event.request).catch(async () => {
+      const cached = await caches.match(event.request);
+
+      if (cached) {
+        return cached;
+      }
+
+      return new Response("Network request failed", {
+        status: 503
+      });
+    })
   );
 });
