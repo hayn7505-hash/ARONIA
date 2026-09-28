@@ -2868,6 +2868,41 @@ totalValue.toLocaleString("ar-IQ")
 
 async function saveProduct(){
 
+  /* =========================
+     فحص صلاحية الإضافة / التعديل
+  ========================= */
+
+  if(editingId){
+
+    if(
+      !hasPermission("products.update")
+    ){
+
+      alert(
+        "ليس لديك صلاحية تعديل المنتجات."
+      );
+
+      return;
+
+    }
+
+  }else{
+
+    if(
+      !hasPermission("products.create")
+    ){
+
+      alert(
+        "ليس لديك صلاحية إضافة المنتجات."
+      );
+
+      return;
+
+    }
+
+  }
+
+
   const name =
     document
       .getElementById("productName")
