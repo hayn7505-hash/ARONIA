@@ -2581,7 +2581,18 @@ async function checkAdmin(){
      تحميل البيانات
   ========================= */
 
+  const permissionsLoaded =
   await loadAdminPermissions();
+
+if(!permissionsLoaded){
+
+  alert(
+    "تعذر تحميل صلاحيات المدير."
+  );
+
+  return;
+
+}
 
 
 /* =========================
