@@ -7269,15 +7269,31 @@ async function saveAdminPermissions(
       'input[type="checkbox"]'
     );
   const selectedPermissions = [];
-  checkboxes.forEach(
-    checkbox => {
-      if(checkbox.checked){
+
+checkboxes.forEach(
+  checkbox => {
+
+    if(
+      checkbox.checked &&
+      checkbox.value
+    ){
+
+      if(
+        !selectedPermissions.includes(
+          checkbox.value
+        )
+      ){
+
         selectedPermissions.push(
           checkbox.value
         );
+
       }
+
     }
-  );
+
+  }
+);
   /* يجب اختيار صلاحية واحدة على الأقل */
   if(
     selectedPermissions.length === 0
