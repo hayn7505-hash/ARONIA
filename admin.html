@@ -7313,27 +7313,40 @@ checkboxes.forEach(
   }
   /* حذف الصلاحيات القديمة */
   const {
-    error:deleteError
-  } =
-    await supabaseClient
-      .from(
-        "admin_user_permissions"
-      )
-      .delete()
-      .eq(
-        "user_id",
-        userId
-      );
-  if(deleteError){
-    console.error(
-      "Delete old permissions error:",
-      deleteError
-    );
-    alert(
-      "تعذر حذف الصلاحيات القديمة."
-    );
-    return;
-  }
+  data:deletedPermissions,
+  error:deleteError
+} =
+await supabaseClient
+  .from("admin_user_permissions")
+  .delete()
+  .eq(
+    "user_id",
+    userId
+  )
+  .select("id");
+
+if(deleteError){
+
+  alert(
+    "تعذر حذف الصلاحيات القديمة:\n\n" +
+    deleteError.message
+  );
+
+  return;
+}
+
+if(
+  !deletedPermissions ||
+  deletedPermissions.length === 0
+){
+
+  alert(
+    "لم يتم حذف الصلاحيات القديمة.\n\n" +
+    "يبدو أن سياسة الحذف في Supabase تمنع تعديل صلاحيات المدير."
+  );
+
+  return;
+}
   /* إضافة الصلاحيات الجديدة */
   const permissionRows =
     selectedPermissions.map(
