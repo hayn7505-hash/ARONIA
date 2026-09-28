@@ -4170,71 +4170,103 @@ let banners = [];
 
 async function loadBanners(){
 
-const container =
-document.getElementById(
-"bannersContainer"
-);
+  const container =
+    document.getElementById(
+      "bannersContainer"
+    );
 
-if(!container) return;
+  if(!container) return;
 
-container.innerHTML = `
 
-<div style="
-text-align:center;
-padding:30px;
-color:#888;
-">
+  /* =========================
+     فحص صلاحية مشاهدة البنرات
+  ========================= */
 
-جاري تحميل البنرات...
+  if(
+    !hasPermission("banners.view")
+  ){
 
-</div>
+    container.innerHTML = `
 
-`;
+      <div style="
+        text-align:center;
+        padding:30px;
+        color:#888;
+      ">
 
-const {
-data,
-error
-} =
-await supabaseClient
-.from("banners")
-.select("*")
-.order("created_at",{
-ascending:false
-});
+        لا تملك صلاحية مشاهدة البنرات.
 
-if(error){
+      </div>
 
-console.error(
-"BANNERS ERROR:",
-error
-);
+    `;
 
-container.innerHTML = `
+    return;
 
-<div style="
-padding:20px;
-text-align:center;
-color:#b33;
-">
+  }
 
-فشل تحميل البنرات ❌
 
-<br><br>
+  container.innerHTML = `
 
-${escapeHTML(error.message)}
+    <div style="
+      text-align:center;
+      padding:30px;
+      color:#888;
+    ">
 
-</div>
+      جاري تحميل البنرات...
 
-`;
+    </div>
 
-return;
+  `;
 
-}
 
-banners =
-data || [];
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("banners")
+      .select("*")
+      .order("created_at",{
+        ascending:false
+      });
 
-renderBanners();
+
+  if(error){
+
+    console.error(
+      "BANNERS ERROR:",
+      error
+    );
+
+    container.innerHTML = `
+
+      <div style="
+        padding:20px;
+        text-align:center;
+        color:#b33;
+      ">
+
+        فشل تحميل البنرات ❌
+
+        <br><br>
+
+        ${escapeHTML(error.message)}
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  banners =
+    data || [];
+
+
+  renderBanners();
 
 }
 
