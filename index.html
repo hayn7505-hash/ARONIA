@@ -6585,10 +6585,6 @@ overlay.style.display =
 
 }
 
-/* =====================================================
-CHECK ADMIN — TEST
-===================================================== */
-
 async function checkAdminStatus(){
 
   isAdminUser = false;
@@ -6604,8 +6600,6 @@ async function checkAdminStatus(){
     return false;
   }
 
-  /* MAIN ADMIN */
-
   const {
     data: isMainAdmin,
     error: mainAdminError
@@ -6613,9 +6607,9 @@ async function checkAdminStatus(){
     await db.rpc("is_admin");
 
   if(mainAdminError){
-    alert(
-      "خطأ فحص المدير الرئيسي:\n" +
-      mainAdminError.message
+    console.error(
+      "MAIN ADMIN CHECK ERROR:",
+      mainAdminError
     );
   }
 
@@ -6627,36 +6621,41 @@ async function checkAdminStatus(){
       adminButton.style.display = "block";
     }
 
-    alert("تم التعرف عليك كمدير رئيسي ✅");
-
     return true;
   }
 
-/* ASSISTANT ADMIN */
+  const {
+    data: assistantAdmin,
+    error: assistantAdminError
+  } =
+    await db
+      .from("admin_users")
+      .select("user_id, is_active, display_name")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .maybeSingle();
 
-const {
-  data: assistantPermission,
-  error: assistantPermissionError
-} =
-  await db.rpc(
-    "has_admin_permission",
-    {
-      requested_permission:
-        "dashboard.view"
-    }
-  );
+  if(assistantAdminError){
 
-if(assistantPermissionError){
+    console.error(
+      "ASSISTANT ADMIN CHECK ERROR:",
+      assistantAdminError
+    );
 
-  alert(
-    "خطأ فحص صلاحية المدير المساعد:\n" +
-    assistantPermissionError.message
-  );
+    return false;
+  }
 
-  return false;
-}
+  if(!assistantAdmin){
 
-if(assistantPermission === true){
+    return false;
+  }
+
+  if(assistantAdmin.is_active !== true){
+
+    return false;
+  }
 
   isAdminUser = true;
 
@@ -6664,18 +6663,8 @@ if(assistantPermission === true){
     adminButton.style.display = "block";
   }
 
-  alert(
-    "تم التعرف على المدير المساعد بنجاح ✅"
-  );
-
   return true;
 }
-
-alert(
-  "الحساب موجود، لكن لا يملك صلاحية dashboard.view."
-);
-
-return false;
 
 /* =====================================================
 ACCOUNT UI
