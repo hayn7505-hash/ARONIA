@@ -6591,62 +6591,84 @@ CHECK ADMIN
 
 async function checkAdminStatus(){
 
-isAdminUser = false;
+  isAdminUser = false;
 
-const adminButton =
-document.getElementById(
-"adminButton"
-);
+  const adminButton =
+    document.getElementById("adminButton");
 
-if(adminButton){
+  if(adminButton){
+    adminButton.style.display = "none";
+  }
 
-adminButton.style.display =
-"none";
+  if(!currentUser){
+    return false;
+  }
 
-}
+  /* =========================
+     MAIN ADMIN
+  ========================= */
 
-if(!currentUser){
+  const {
+    data: isMainAdmin,
+    error: mainAdminError
+  } =
+    await db.rpc("is_admin");
 
-return false;
+  if(mainAdminError){
+    console.error(
+      "MAIN ADMIN CHECK ERROR:",
+      mainAdminError
+    );
+  }
 
-}
+  if(isMainAdmin === true){
 
-const {
-data,
-error
-} =
-await db.rpc(
-"is_admin"
-);
+    isAdminUser = true;
 
-if(error){
+    if(adminButton){
+      adminButton.style.display = "block";
+    }
 
-console.error(
-"ADMIN CHECK ERROR:",
-error
-);
+    return true;
+  }
 
-isAdminUser = false;
+  /* =========================
+     ASSISTANT ADMIN
+  ========================= */
 
-return false;
+  const {
+    data: assistantAdmin,
+    error: assistantAdminError
+  } =
+    await db
+      .from("admin_users")
+      .select("user_id, is_active")
+      .eq("user_id", currentUser.id)
+      .eq("is_active", true)
+      .maybeSingle();
 
-}
+  if(assistantAdminError){
 
-isAdminUser =
-data === true;
+    console.error(
+      "ASSISTANT ADMIN CHECK ERROR:",
+      assistantAdminError
+    );
 
-if(
-isAdminUser &&
-adminButton
-){
+    return false;
+  }
 
-adminButton.style.display =
-"block";
+  if(assistantAdmin){
 
-}
+    isAdminUser = true;
 
-return isAdminUser;
+    if(adminButton){
+      adminButton.style.display = "block";
+    }
 
+    return true;
+  }
+
+  return false;
 }
 
 /* =====================================================
