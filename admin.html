@@ -6471,14 +6471,7 @@ async function createAdmin(){
   await supabaseClient
     .functions
     .invoke(
-      "create-admin-v2",
-      {
-        body: {
-          email: email,
-          display_name: displayName,
-          permissions: permissions
-        }
-      }
+      "create-admin-v2"
     );
     if(error){
 
