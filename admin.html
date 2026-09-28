@@ -5660,6 +5660,33 @@ async function loadCategoriesAdmin(){
   if(!container) return;
 
 
+  /* =========================
+     فحص صلاحية مشاهدة الأقسام
+  ========================= */
+
+  if(
+    !hasPermission("categories.view")
+  ){
+
+    container.innerHTML = `
+
+      <div style="
+        text-align:center;
+        padding:30px;
+        color:#888;
+      ">
+
+        لا تملك صلاحية مشاهدة الأقسام.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
   container.innerHTML = `
 
     <div style="
