@@ -6345,6 +6345,194 @@ function toggleAdminSection(button){
   section.classList.toggle("open");
 
 }
+
+/* =====================================================
+   إضافة مدير مساعد
+===================================================== */
+async function createAdmin(){
+  const message =
+    document.getElementById(
+      "adminMessage"
+    );
+  const displayName =
+    document
+      .getElementById(
+        "adminDisplayName"
+      )
+      .value
+      .trim();
+  const email =
+    document
+      .getElementById(
+        "adminEmail"
+      )
+      .value
+      .trim()
+      .toLowerCase();
+  /* =====================================================
+     التحقق من البيانات
+  ===================================================== */
+  if(!displayName){
+    message.textContent =
+      "يرجى إدخال اسم المدير.";
+    return;
+  }
+  if(!email){
+    message.textContent =
+      "يرجى إدخال البريد الإلكتروني.";
+    return;
+  }
+  /* =====================================================
+     قراءة الصلاحيات المحددة
+  ===================================================== */
+  const permissionCheckboxes =
+    document.querySelectorAll(
+      "#adminPermissionsContainer input[type='checkbox']"
+    );
+  const permissions =
+    Array.from(
+      permissionCheckboxes
+    )
+    .filter(
+      checkbox =>
+        checkbox.checked
+    )
+    .map(
+      checkbox =>
+        checkbox.value
+    );
+  /* =====================================================
+     منع الإرسال بدون صلاحيات
+  ===================================================== */
+  if(
+    permissions.length === 0
+  ){
+    message.textContent =
+      "اختر صلاحية واحدة على الأقل.";
+    return;
+  }
+  /* =====================================================
+     حالة الزر
+  ===================================================== */
+  const button =
+    document.querySelector(
+      "#adminsSection button.primary"
+    );
+  const originalText =
+    button
+      ? button.textContent
+      : "";
+  if(button){
+    button.disabled = true;
+    button.textContent =
+      "جاري إضافة المدير...";
+  }
+  message.textContent = "";
+  try{
+    /* =====================================================
+       إرسال الطلب إلى Edge Function
+    ===================================================== */
+    const {
+      data:{
+        session
+      }
+    } =
+      await supabaseClient
+        .auth
+        .getSession();
+    if(
+      !session
+    ){
+      message.textContent =
+        "انتهت جلسة تسجيل الدخول. يرجى تسجيل الدخول مرة أخرى.";
+      return;
+    }
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .functions
+        .invoke(
+          "create-admin",
+          {
+            body:{
+              email:
+                email,
+              display_name:
+                displayName,
+              permissions:
+                permissions
+            }
+          }
+        );
+    if(error){
+      console.error(
+        "Create admin error:",
+        error
+      );
+      message.textContent =
+        error.message ||
+        "تعذر إضافة المدير.";
+      return;
+    }
+    if(
+      !data ||
+      data.success !== true
+    ){
+      message.textContent =
+        data?.error ||
+        "تعذر إضافة المدير.";
+      return;
+    }
+    /* =====================================================
+       نجاح
+    ===================================================== */
+    message.textContent =
+      "✅ تم إضافة المدير وإرسال دعوة إلى البريد الإلكتروني.";
+    /* =====================================================
+       تنظيف النموذج
+    ===================================================== */
+    document
+      .getElementById(
+        "adminDisplayName"
+      )
+      .value = "";
+    document
+      .getElementById(
+        "adminEmail"
+      )
+      .value = "";
+    permissionCheckboxes
+      .forEach(
+        checkbox =>
+          checkbox.checked = false
+      );
+    /* =====================================================
+       تحديث قائمة المدراء
+    ===================================================== */
+    if(
+      typeof loadAdmins === "function"
+    ){
+      await loadAdmins();
+    }
+  }catch(error){
+    console.error(
+      "Create admin exception:",
+      error
+    );
+    message.textContent =
+      error.message ||
+      "حدث خطأ غير متوقع.";
+  }finally{
+    if(button){
+      button.disabled = false;
+      button.textContent =
+        originalText ||
+        "إضافة المدير وإرسال الدعوة";
+    }
+  }
+}
      
 </script>
 
