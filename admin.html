@@ -4862,7 +4862,45 @@ let editingOfferId = null;
 ========================= */
 
 async function loadOffersAdmin(){
+if(
 
+    !hasPermission("offers.view")
+
+  ){
+
+    const container =
+
+      document.getElementById(
+
+        "offersAdminContainer"
+
+      );
+
+    if(container){
+
+      container.innerHTML = `
+
+        <div style="
+
+          text-align:center;
+
+          padding:30px;
+
+          color:#888;
+
+        ">
+
+          لا تملك صلاحية مشاهدة العروض.
+
+        </div>
+
+      `;
+
+    }
+
+    return;
+
+  }
   const container =
     document.getElementById(
       "offersAdminContainer"
