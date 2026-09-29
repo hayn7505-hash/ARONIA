@@ -4405,7 +4405,24 @@ container.appendChild(card);
 
 async function saveBanner(){
 
-const imageInput =
+  /* =========================
+     فحص صلاحية إضافة البنرات
+  ========================= */
+
+  if(
+    !hasPermission("banners.create")
+  ){
+
+    alert(
+      "ليس لديك صلاحية إضافة البنرات."
+    );
+
+    return;
+
+  }
+
+
+  const imageInput =
 document.getElementById("bannerImage");
 
 const file =
