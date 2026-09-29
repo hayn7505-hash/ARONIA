@@ -4660,15 +4660,22 @@ async function toggleBanner(
   newStatus
 ){
 const {
-  data: {
-    user
-  }
+  data:permissionCheck,
+  error:permissionCheckError
 } =
-await supabaseClient.auth.getUser();
+await supabaseClient.rpc(
+  "has_admin_permission",
+  {
+    requested_permission:
+      "banners.update"
+  }
+);
 
 alert(
-  "User ID:\n" +
-  (user?.id || "لا يوجد")
+  "DB Permission:\n" +
+  permissionCheck +
+  "\n\nError:\n" +
+  (permissionCheckError?.message || "لا يوجد")
 );
   if(
     !hasPermission("banners.update")
