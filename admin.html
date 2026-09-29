@@ -4726,32 +4726,65 @@ async function toggleBanner(
 
 async function deleteBanner(id){
 
-if(
-!confirm(
-"هل تريد حذف هذا الـ Banner؟"
-)
-) return;
+  /* =========================
+     فحص الصلاحية
+  ========================= */
 
-const {
-error
-} =
-await supabaseClient
-.from("banners")
-.delete()
-.eq("id",id);
+  if(
+    !hasPermission("banners.delete")
+  ){
 
-if(error){
+    alert(
+      "ليس لديك صلاحية حذف البنرات."
+    );
 
-alert(
-"فشل حذف الـ Banner:\n\n" +
-error.message
-);
+    return;
+  }
 
-return;
 
-}
+  /* =========================
+     تأكيد الحذف
+  ========================= */
 
-await loadBanners();
+  if(
+    !confirm(
+      "هل تريد حذف هذا الـ Banner؟"
+    )
+  ){
+
+    return;
+  }
+
+
+  /* =========================
+     حذف Banner
+  ========================= */
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("banners")
+    .delete()
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "فشل حذف الـ Banner:\n\n" +
+      error.message
+    );
+
+    return;
+  }
+
+
+  /* =========================
+     إعادة تحميل البنرات
+  ========================= */
+
+  await loadBanners();
 
 }
 
