@@ -4659,7 +4659,12 @@ async function toggleBanner(
   id,
   newStatus
 ){
-
+console.log(
+  "AUTH USER:",
+  (
+    await supabaseClient.auth.getUser()
+  ).data.user?.id
+);
   if(
     !hasPermission("banners.update")
   ){
