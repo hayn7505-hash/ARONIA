@@ -4659,24 +4659,11 @@ async function toggleBanner(
   id,
   newStatus
 ){
-const {
-  data:permissionCheck,
-  error:permissionCheckError
-} =
-await supabaseClient.rpc(
-  "has_admin_permission",
-  {
-    requested_permission:
-      "banners.update"
-  }
-);
 
-alert(
-  "DB Permission:\n" +
-  permissionCheck +
-  "\n\nError:\n" +
-  (permissionCheckError?.message || "لا يوجد")
-);
+  /* =========================
+     فحص الصلاحية
+  ========================= */
+
   if(
     !hasPermission("banners.update")
   ){
@@ -4687,137 +4674,176 @@ alert(
 
     return;
   }
-const {
-  data:sessionData
-} =
-await supabaseClient.auth.getSession();
 
-alert(
-  "Session:\n" +
-  (
-    sessionData.session
-      ? "موجودة"
-      : "غير موجودة"
-  ) +
-  "\n\nUser ID:\n" +
-  (
-    sessionData.session?.user?.id ||
-    "لا يوجد"
-  )
-);
-  const {
-  data:authDebug,
-  error:authDebugError
-} =
-await supabaseClient.rpc(
-  "debug_auth_role"
-);
 
-alert(
-  JSON.stringify(
-    authDebugError
-      ? {
-          error:
-            authDebugError.message
-        }
-      : authDebug,
-    null,
-    2
-  )
-);
+  /* =========================
+     فحص صلاحية قاعدة البيانات
+  ========================= */
+
   const {
-  data:bannerCheck,
-  error:bannerCheckError
-} =
-await supabaseClient
-  .from("banners")
-  .select("id,is_active")
-  .eq("id",id)
-  .maybeSingle();
-  alert(
-  JSON.stringify(
+    data:permissionCheck,
+    error:permissionCheckError
+  } =
+  await supabaseClient.rpc(
+    "has_admin_permission",
     {
-      data:bannerCheck,
-      error:bannerCheckError
-        ? {
-            message:bannerCheckError.message,
-            code:bannerCheckError.code,
-            details:bannerCheckError.details
-          }
-        : null
-    },
-    null,
-    2
-  )
-);
-  const {
-  error:updateError
-} =
-await supabaseClient
-  .from("banners")
-  .update({
-    is_active:false
-  })
-  .eq("id",id);
-
-alert(
-  JSON.stringify(
-    updateError
-      ? {
-          message:updateError.message,
-          code:updateError.code,
-          details:updateError.details,
-          hint:updateError.hint
-        }
-      : {
-          success:true
-        },
-    null,
-    2
-  )
-);
-
-if(updateError){
-  return;
-}
-
-alert(
-  JSON.stringify(
-    {
-      data:bannerCheck,
-      error:bannerCheckError
-        ? {
-            message:bannerCheckError.message,
-            code:bannerCheckError.code,
-            details:bannerCheckError.details
-          }
-        : null
-    },
-    null,
-    2
-  )
-);
-  const {
-  error
-} =
-await supabaseClient
-  .from("banners")
-  .update({
-    is_active:newStatus
-  })
-  .eq("id",id);
-
-if(error){
-
-  alert(
-    "فشل تحديث حالة الـ Banner:\n\n" +
-    error.message
+      requested_permission:
+        "banners.update"
+    }
   );
 
-  return;
-}
+  alert(
+    "DB Permission:\n" +
+    permissionCheck +
+    "\n\nError:\n" +
+    (
+      permissionCheckError?.message ||
+      "لا يوجد"
+    )
+  );
 
-await loadBanners();
+
+  /* =========================
+     فحص جلسة المستخدم
+  ========================= */
+
+  const {
+    data:sessionData
+  } =
+  await supabaseClient.auth.getSession();
+
+  alert(
+    "Session:\n" +
+    (
+      sessionData.session
+        ? "موجودة"
+        : "غير موجودة"
+    ) +
+    "\n\nUser ID:\n" +
+    (
+      sessionData.session?.user?.id ||
+      "لا يوجد"
+    )
+  );
+
+
+  /* =========================
+     فحص Auth
+  ========================= */
+
+  const {
+    data:authDebug,
+    error:authDebugError
+  } =
+  await supabaseClient.rpc(
+    "debug_auth_role"
+  );
+
+  alert(
+    JSON.stringify(
+      authDebugError
+        ? {
+            error:
+              authDebugError.message
+          }
+        : authDebug,
+      null,
+      2
+    )
+  );
+
+
+  /* =========================
+     فحص Banner
+  ========================= */
+
+  const {
+    data:bannerCheck,
+    error:bannerCheckError
+  } =
+  await supabaseClient
+    .from("banners")
+    .select("id,is_active")
+    .eq("id",id)
+    .maybeSingle();
+
+  alert(
+    JSON.stringify(
+      {
+        data:bannerCheck,
+        error:bannerCheckError
+          ? {
+              message:
+                bannerCheckError.message,
+              code:
+                bannerCheckError.code,
+              details:
+                bannerCheckError.details
+            }
+          : null
+      },
+      null,
+      2
+    )
+  );
+
+
+  /* =========================
+     فحص Policy Permission
+  ========================= */
+
+  const {
+    data:policyDebug,
+    error:policyDebugError
+  } =
+  await supabaseClient.rpc(
+    "debug_banner_update_permission"
+  );
+
+  alert(
+    JSON.stringify(
+      policyDebugError
+        ? {
+            error:
+              policyDebugError.message
+          }
+        : policyDebug,
+      null,
+      2
+    )
+  );
+
+
+  /* =========================
+     تحديث حالة Banner
+  ========================= */
+
+  const {
+    error:updateError
+  } =
+  await supabaseClient
+    .from("banners")
+    .update({
+      is_active:newStatus
+    })
+    .eq("id",id);
+
+  if(updateError){
+
+    alert(
+      "فشل تحديث حالة الـ Banner:\n\n" +
+      updateError.message
+    );
+
+    return;
+  }
+
+
+  /* =========================
+     إعادة تحميل البنرات
+  ========================= */
+
+  await loadBanners();
 
 }
   
