@@ -4687,7 +4687,24 @@ alert(
 
     return;
   }
+const {
+  data:sessionData
+} =
+await supabaseClient.auth.getSession();
 
+alert(
+  "Session:\n" +
+  (
+    sessionData.session
+      ? "موجودة"
+      : "غير موجودة"
+  ) +
+  "\n\nUser ID:\n" +
+  (
+    sessionData.session?.user?.id ||
+    "لا يوجد"
+  )
+);
   const {
     error
   } =
