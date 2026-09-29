@@ -4726,6 +4726,32 @@ alert(
   )
 );
   const {
+  data:bannerCheck,
+  error:bannerCheckError
+} =
+await supabaseClient
+  .from("banners")
+  .select("id,is_active")
+  .eq("id",id)
+  .maybeSingle();
+
+alert(
+  JSON.stringify(
+    {
+      data:bannerCheck,
+      error:bannerCheckError
+        ? {
+            message:bannerCheckError.message,
+            code:bannerCheckError.code,
+            details:bannerCheckError.details
+          }
+        : null
+    },
+    null,
+    2
+  )
+);
+  const {
   error
 } =
 await supabaseClient
