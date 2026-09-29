@@ -4656,32 +4656,43 @@ await loadBanners();
 ========================= */
 
 async function toggleBanner(
-id,
-newStatus
+  id,
+  newStatus
 ){
 
-const {
-error
-} =
-await supabaseClient
-.from("banners")
-.update({
-is_active:newStatus
-})
-.eq("id",id);
+  if(
+    !hasPermission("banners.update")
+  ){
 
-if(error){
+    alert(
+      "ليس لديك صلاحية تعديل البنرات."
+    );
 
-alert(
-"فشل تحديث حالة الـ Banner:\n\n" +
-error.message
-);
+    return;
+  }
 
-return;
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("banners")
+    .update({
+      is_active:newStatus
+    })
+    .eq("id",id);
 
-}
+  if(error){
 
-await loadBanners();
+    alert(
+      "فشل تحديث حالة الـ Banner:\n\n" +
+      error.message
+    );
+
+    return;
+
+  }
+
+  await loadBanners();
 
 }
 
