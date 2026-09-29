@@ -4706,6 +4706,26 @@ alert(
   )
 );
   const {
+  data:authDebug,
+  error:authDebugError
+} =
+await supabaseClient.rpc(
+  "debug_auth_role"
+);
+
+alert(
+  JSON.stringify(
+    authDebugError
+      ? {
+          error:
+            authDebugError.message
+        }
+      : authDebug,
+    null,
+    2
+  )
+);
+  const {
     error
   } =
   await supabaseClient
