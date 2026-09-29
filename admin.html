@@ -4819,14 +4819,34 @@ async function toggleBanner(
   ========================= */
 
   const {
-    error:updateError
-  } =
-  await supabaseClient
-    .from("banners")
-    .update({
-      is_active:newStatus
-    })
-    .eq("id",id);
+  error:updateError
+} =
+await supabaseClient
+  .from("banners")
+  .update({
+    title:"TEST"
+  })
+  .eq("id",id);
+
+alert(
+  JSON.stringify(
+    updateError
+      ? {
+          message:updateError.message,
+          code:updateError.code,
+          details:updateError.details
+        }
+      : {
+          success:true
+        },
+    null,
+    2
+  )
+);
+
+if(updateError){
+  return;
+}
 
   if(updateError){
 
