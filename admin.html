@@ -4726,14 +4726,44 @@ alert(
   )
 );
   const {
-    error
-  } =
-  await supabaseClient
-    .from("banners")
-    .update({
-      is_active:newStatus
-    })
-    .eq("id",id);
+  data:updateData,
+  error:updateError
+} =
+await supabaseClient
+  .from("banners")
+  .update({
+    is_active:newStatus
+  })
+  .eq("id",id)
+  .select();
+
+alert(
+  JSON.stringify(
+    {
+      data:updateData,
+      error:updateError
+        ? {
+            message:updateError.message,
+            code:updateError.code,
+            details:updateError.details,
+            hint:updateError.hint
+          }
+        : null
+    },
+    null,
+    2
+  )
+);
+
+if(updateError){
+
+  alert(
+    "فشل تحديث حالة الـ Banner:\n\n" +
+    updateError.message
+  );
+
+  return;
+}
 
   if(error){
 
