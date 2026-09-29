@@ -4824,7 +4824,7 @@ async function toggleBanner(
 await supabaseClient
   .from("banners")
   .update({
-    title:"TEST"
+    title:""
   })
   .eq("id",id);
 
