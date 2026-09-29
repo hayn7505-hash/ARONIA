@@ -4751,30 +4751,27 @@ await supabaseClient
   )
 );
   const {
-  data:updateData,
   error:updateError
 } =
 await supabaseClient
   .from("banners")
   .update({
-  is_active:true
-})
-  .eq("id",id)
-  .select("id,is_active");
+    is_active:false
+  })
+  .eq("id",id);
 
 alert(
   JSON.stringify(
-    {
-      data:updateData,
-      error:updateError
-        ? {
-            message:updateError.message,
-            code:updateError.code,
-            details:updateError.details,
-            hint:updateError.hint
-          }
-        : null
-    },
+    updateError
+      ? {
+          message:updateError.message,
+          code:updateError.code,
+          details:updateError.details,
+          hint:updateError.hint
+        }
+      : {
+          success:true
+        },
     null,
     2
   )
