@@ -4368,17 +4368,25 @@ ${status}
 class="actions"
 style="margin-top:12px;">
 
-<button
-class="edit"
-onclick="toggleBanner(${banner.id},${!banner.is_active})">
+${
+  hasPermission("banners.update")
+  ?
+  `
+  <button
+    class="edit"
+    onclick="toggleBanner(${banner.id},${!banner.is_active})">
 
-${banner.is_active
-?
-"إلغاء التفعيل"
-:
-"تفعيل"}
+    ${banner.is_active
+      ?
+      "إلغاء التفعيل"
+      :
+      "تفعيل"}
 
-</button>
+  </button>
+  `
+  :
+  ""
+}
 
 <button
 class="danger"
