@@ -4757,8 +4757,8 @@ await supabaseClient
 await supabaseClient
   .from("banners")
   .update({
-    is_active:newStatus
-  })
+  is_active:true
+})
   .eq("id",id)
   .select("id,is_active");
 
