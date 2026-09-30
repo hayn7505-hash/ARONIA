@@ -5806,6 +5806,26 @@ async function toggleOffer(
 
 async function deleteOffer(id){
 
+  /* =========================
+     فحص صلاحية الحذف
+  ========================= */
+
+  if(
+    !hasPermission("offers.delete")
+  ){
+
+    alert(
+      "ليس لديك صلاحية حذف العروض."
+    );
+
+    return;
+  }
+
+
+  /* =========================
+     تأكيد الحذف
+  ========================= */
+
   if(
     !confirm(
       "هل تريد حذف هذا العرض؟"
@@ -5816,6 +5836,10 @@ async function deleteOffer(id){
 
   }
 
+
+  /* =========================
+     حذف العرض
+  ========================= */
 
   const {
     error
@@ -5841,17 +5865,31 @@ async function deleteOffer(id){
   }
 
 
+  /* =========================
+     إعادة تحميل العروض
+  ========================= */
+
   await loadOffersAdmin();
 
-await loadFeaturedOffers();
 
-/* تحديث أسعار المنتجات داخل الأقسام */
-refreshHomeProducts();
+  await loadFeaturedOffers();
 
-localStorage.setItem(
-  "aronia_offers_updated",
-  Date.now()
-);
+
+  /* =========================
+     تحديث أسعار المنتجات
+  ========================= */
+
+  refreshHomeProducts();
+
+
+  /* =========================
+     إشعار بتحديث العروض
+  ========================= */
+
+  localStorage.setItem(
+    "aronia_offers_updated",
+    Date.now()
+  );
 
 }
 
