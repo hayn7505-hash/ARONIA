@@ -6933,28 +6933,6 @@ function toggleAdminSection(button){
    إضافة مدير مساعد
 ===================================================== */
 async function createAdmin(){
-    /* =====================================================
-     التأكد أن المستخدم هو المدير الرئيسي
-  ===================================================== */
-
-  const {
-    data:isMainAdmin,
-    error:adminError
-  } =
-    await supabaseClient
-      .rpc("is_admin");
-
-  if(
-    adminError ||
-    isMainAdmin !== true
-  ){
-
-    alert(
-      "لا تملك صلاحية إضافة المدراء."
-    );
-
-    return;
-  }
   const message =
     document.getElementById(
       "adminMessage"
@@ -7156,7 +7134,7 @@ async function createAdmin(){
     }
   }
 }
-
+  
 /* =====================================================
    تحميل المدراء الحاليين
 ===================================================== */
