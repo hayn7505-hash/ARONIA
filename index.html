@@ -6700,10 +6700,10 @@ async function checkAdminStatus(){
     return false;
   }
 
-  if(!dashboardPermission){
+  if(!assistantAdmin){
 
   alert(
-    "المدير المساعد موجود، لكن لم يتم العثور على صلاحية dashboard.view لهذا الحساب."
+    "لم يتم العثور على هذا الحساب في admin_users"
   );
 
   return false;
