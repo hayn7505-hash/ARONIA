@@ -3994,64 +3994,75 @@ order.total_amount || 0
 
 </div>
 
-<div style="
-margin-top:15px;
-">
+${
+  hasPermission("orders.update")
+  ?
 
-<label>
+  `
+  <div style="
+    margin-top:15px;
+  ">
 
-حالة الطلب
+    <label>
+      حالة الطلب
+    </label>
 
-</label>
+    <select
+      class="status-select"
+      data-order-id="${order.id}"
+      onchange="updateOrderStatus(this)">
 
-<select
-class="status-select"
-data-order-id="${order.id}"
-onchange="updateOrderStatus(this)">
+      <option
+        value="جديد"
+        ${order.status === "جديد" ? "selected" : ""}>
+        جديد
+      </option>
 
-<option
-value="جديد"
-${order.status === "جديد" ? "selected" : ""}>
+      <option
+        value="قيد التجهيز"
+        ${order.status === "قيد التجهيز" ? "selected" : ""}>
+        قيد التجهيز
+      </option>
 
-جديد
+      <option
+        value="تم الشحن"
+        ${order.status === "تم الشحن" ? "selected" : ""}>
+        تم الشحن
+      </option>
 
-</option>
+      <option
+        value="مكتمل"
+        ${order.status === "مكتمل" ? "selected" : ""}>
+        مكتمل
+      </option>
 
-<option
-value="قيد التجهيز"
-${order.status === "قيد التجهيز" ? "selected" : ""}>
+      <option
+        value="ملغي"
+        ${order.status === "ملغي" ? "selected" : ""}>
+        ملغي
+      </option>
 
-قيد التجهيز
+    </select>
 
-</option>
+  </div>
+  `
 
-<option
-value="تم الشحن"
-${order.status === "تم الشحن" ? "selected" : ""}>
+  :
 
-تم الشحن
+  `
+  <div style="
+    margin-top:15px;
+    color:#888;
+  ">
 
-</option>
+    حالة الطلب:
+    <strong>
+      ${escapeHTML(order.status || "-")}
+    </strong>
 
-<option
-value="مكتمل"
-${order.status === "مكتمل" ? "selected" : ""}>
-
-مكتمل
-
-</option>
-
-<option
-value="ملغي"
-${order.status === "ملغي" ? "selected" : ""}>
-
-ملغي
-
-</option>
-
-</select>
-
-</div>
+  </div>
+  `
+}
 
 `;
 
