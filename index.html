@@ -6588,7 +6588,7 @@ overlay.style.display =
 async function checkAdminStatus(){
 
   isAdminUser = false;
-
+alert("checkAdminStatus تعمل");
   const adminButton =
     document.getElementById("adminButton");
 
@@ -6701,10 +6701,6 @@ async function checkAdminStatus(){
   }
 
   if(!assistantAdmin){
-
-  alert(
-    "لم يتم العثور على هذا الحساب في admin_users"
-  );
 
   return false;
 }
