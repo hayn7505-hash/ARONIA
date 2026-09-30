@@ -5198,109 +5198,171 @@ document.addEventListener(
 
 
 /* =========================
-   حفظ العرض
+   حفظ عرض جديد
 ========================= */
+
 async function saveOffer(){
+
+  /* =========================
+     فحص صلاحية الإضافة
+  ========================= */
+
+  if(
+    !hasPermission("offers.create")
+  ){
+
+    alert(
+      "ليس لديك صلاحية إضافة العروض."
+    );
+
+    return;
+  }
+
+
   const productId =
     Number(
       document
         .getElementById("offerProduct")
         .value
     );
+
+
   const offerPrice =
     Number(
       document
         .getElementById("offerPrice")
         .value
     );
+
+
   const isActive =
     document
       .getElementById("offerActive")
       .checked;
+
+
   const message =
     document.getElementById(
       "offerMessage"
     );
+
+
+  /* =========================
+     التحقق من المنتج
+  ========================= */
+
   if(!productId){
+
     message.textContent =
       "اختر المنتج أولاً.";
+
     return;
   }
-  if(!offerPrice || offerPrice <= 0){
+
+
+  /* =========================
+     التحقق من سعر العرض
+  ========================= */
+
+  if(
+    !offerPrice ||
+    offerPrice <= 0
+  ){
+
     message.textContent =
       "أدخل سعر العرض.";
+
     return;
   }
+
+
   const selected =
-    document.getElementById(
-      "offerProduct"
-    ).selectedOptions[0];
+    document
+      .getElementById(
+        "offerProduct"
+      )
+      .selectedOptions[0];
+
+
   const originalPrice =
     Number(
       selected?.dataset?.price || 0
     );
+
+
   if(originalPrice <= 0){
+
     message.textContent =
       "تعذر معرفة السعر الأصلي.";
+
     return;
   }
-  if(offerPrice >= originalPrice){
+
+
+  if(
+    offerPrice >= originalPrice
+  ){
+
     message.textContent =
       "سعر العرض يجب أن يكون أقل من السعر الأصلي.";
+
     return;
   }
+
+
+  /* =========================
+     رسالة الإضافة
+  ========================= */
+
   message.textContent =
-    editingOfferId
-    ?
-    "جاري تعديل العرض..."
-    :
     "جاري إضافة العرض...";
-  let result;
-  if(editingOfferId){
-    result =
-      await supabaseClient
-        .from("offers")
-        .update({
-          product_id:
-            productId,
-          offer_price:
-            offerPrice,
-          is_active:
-            isActive
-        })
-        .eq(
-          "id",
-          editingOfferId
-        );
-  }else{
-    result =
-      await supabaseClient
-        .from("offers")
-        .insert({
-          product_id:
-            productId,
-          offer_price:
-            offerPrice,
-          is_active:
-            isActive
-        })
-        .select()
-        .single();
-  }
-  if(result.error){
+
+
+  /* =========================
+     إضافة العرض
+  ========================= */
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("offers")
+      .insert({
+        product_id:
+          productId,
+
+        offer_price:
+          offerPrice,
+
+        is_active:
+          isActive
+      })
+      .select()
+      .single();
+
+
+  /* =========================
+     معالجة الخطأ
+  ========================= */
+
+  if(error){
+
     message.textContent =
       "حدث خطأ: " +
-      result.error.message;
+      error.message;
+
     return;
   }
-  /*
+
+
+  /* =========================
      إنشاء إشعار للمستخدمين
      فقط عند إضافة عرض جديد ومفعّل
-  */
-  if(
-    !editingOfferId &&
-    isActive
-  ){
+  ========================= */
+
+  if(isActive){
+
     const {
       error:
         notificationError
@@ -5311,33 +5373,44 @@ async function saveOffer(){
           {
             p_product_id:
               productId,
+
             p_offer_price:
               offerPrice
           }
         );
+
+
     if(notificationError){
+
       console.error(
         "Offer notification error:",
         notificationError
       );
+
     }
+
   }
+
+
+  /* =========================
+     نجاح الإضافة
+  ========================= */
+
   message.textContent =
-    editingOfferId
-    ?
-    "تم تعديل العرض ✅"
-    :
     "تمت إضافة العرض ✅";
-     
+
+
   cancelOfferEdit();
 
-await loadOffersAdmin();
 
-localStorage.setItem(
-  "aronia_offers_updated",
-  Date.now()
-);
-     
+  await loadOffersAdmin();
+
+
+  localStorage.setItem(
+    "aronia_offers_updated",
+    Date.now()
+  );
+
 }
 
 
