@@ -6586,129 +6586,72 @@ overlay.style.display =
 }
 
 async function checkAdminStatus(){
-
   isAdminUser = false;
-alert("checkAdminStatus تعمل");
   const adminButton =
     document.getElementById("adminButton");
-
   if(adminButton){
     adminButton.style.display = "none";
   }
-
   if(!currentUser){
-
-  return false;
-}
-
-alert(
-  "User ID:\n" +
-  currentUser.id
-);
-
+    return false;
+  }
+  /* =========================
+     التحقق من المدير الرئيسي
+  ========================= */
   const {
     data: isMainAdmin,
     error: mainAdminError
   } =
     await db.rpc("is_admin");
-
   if(mainAdminError){
-
     console.error(
       "MAIN ADMIN CHECK ERROR:",
       mainAdminError
     );
-
   }
-
   /* =========================
      المدير الرئيسي
   ========================= */
-
   if(isMainAdmin === true){
-
     isAdminUser = true;
-
     if(adminButton){
       adminButton.style.display = "block";
     }
-
     return true;
   }
-
-
   /* =========================
-
-     المدير المساعد
-
+     التحقق من المدير المساعد
   ========================= */
-
   const {
-
     data: assistantAdmin,
-
     error: assistantAdminError
-
   } =
-
     await db
-
       .from("admin_users")
-
-      .select("user_id, is_active, display_name")
-
-      .eq(
-
-        "user_id",
-
-        currentUser.id
-
+      .select(
+        "user_id, is_active, display_name"
       )
-
+      .eq(
+        "user_id",
+        currentUser.id
+      )
       .maybeSingle();
-
   if(assistantAdminError){
-
     console.error(
-
       "ASSISTANT ADMIN CHECK ERROR:",
-
       assistantAdminError
-
     );
-
     return false;
-
   }
-
   if(!assistantAdmin){
-
-  alert(
-    "لم يتم العثور على الحساب في admin_users"
-  );
-
-  return false;
-}
-
-if(assistantAdmin.is_active !== true){
-
-  alert(
-    "تم العثور على الحساب، لكن is_active ليست true"
-  );
-
-  return false;
-}
-
-alert(
-  "تم العثور على المدير المساعد والحساب نشط"
-);
-
-  isAdminUser = true;
-
+    return false;
+  }
+  if(assistantAdmin.is_active !== true){
+    return false;
+  }
   /* =========================
      التحقق من صلاحية لوحة المدير
   ========================= */
-
   const {
     data: dashboardPermission,
     error: dashboardPermissionError
@@ -6725,32 +6668,23 @@ alert(
         "dashboard.view"
       )
       .maybeSingle();
-
   if(dashboardPermissionError){
-
     console.error(
       "DASHBOARD PERMISSION CHECK ERROR:",
       dashboardPermissionError
     );
-
     return false;
   }
-
-  if(!assistantAdmin){
-
-  return false;
-}
-
+  if(!dashboardPermission){
+    return false;
+  }
   /* =========================
      المدير المساعد لديه الصلاحية
   ========================= */
-
   isAdminUser = true;
-
   if(adminButton){
     adminButton.style.display = "block";
   }
-
   return true;
 }
 
