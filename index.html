@@ -6702,9 +6702,12 @@ async function checkAdminStatus(){
 
   if(!dashboardPermission){
 
-    return false;
-  }
+  alert(
+    "المدير المساعد موجود، لكن لم يتم العثور على صلاحية dashboard.view لهذا الحساب."
+  );
 
+  return false;
+}
 
   /* =========================
      المدير المساعد لديه الصلاحية
