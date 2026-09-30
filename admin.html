@@ -2606,7 +2606,33 @@ if(
   isMainAdmin === true
 ){
 
+  const adminsSection =
+    document.getElementById(
+      "adminsManagementSection"
+    );
+
+  if(adminsSection){
+
+    adminsSection.style.display =
+      "";
+
+  }
+
   await loadAdmins();
+
+}else{
+
+  const adminsSection =
+    document.getElementById(
+      "adminsManagementSection"
+    );
+
+  if(adminsSection){
+
+    adminsSection.style.display =
+      "none";
+
+  }
 
 }
 
