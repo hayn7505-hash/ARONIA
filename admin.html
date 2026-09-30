@@ -4089,19 +4089,39 @@ activeOrders.length;
 
 }
 
- /* =========================
-    تحديث حالة الطلب
- ========================= */
+/* =========================
+   تحديث حالة الطلب
+========================= */
 
 async function updateOrderStatus(select){
+
+  /* =========================
+     فحص صلاحية التحديث
+  ========================= */
+
+  if(
+    !hasPermission("orders.update")
+  ){
+
+    alert(
+      "ليس لديك صلاحية تحديث حالة الطلب."
+    );
+
+    renderOrders();
+
+    return;
+  }
+
 
   const orderId =
     Number(
       select.dataset.orderId
     );
 
+
   const newStatus =
     select.value;
+
 
   select.disabled = true;
 
@@ -4142,7 +4162,10 @@ async function updateOrderStatus(select){
     .update({
       status:newStatus
     })
-    .eq("id",orderId);
+    .eq(
+      "id",
+      orderId
+    );
 
 
   if(error){
@@ -4174,24 +4197,30 @@ async function updateOrderStatus(select){
   const notificationTitle =
     "تحديث حالة الطلب 📦";
 
+
   const notificationMessage =
     `تم تحديث حالة طلبك إلى: ${newStatus}`;
 
 
   const {
-    error:notificationError
+    error:
+      notificationError
   } =
   await supabaseClient
     .from("notifications")
     .insert({
 
-      user_id:order.user_id,
+      user_id:
+        order.user_id,
 
-      order_id:orderId,
+      order_id:
+        orderId,
 
-      title:notificationTitle,
+      title:
+        notificationTitle,
 
-      message:notificationMessage
+      message:
+        notificationMessage
 
     });
 
