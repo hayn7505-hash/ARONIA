@@ -6597,8 +6597,14 @@ alert("checkAdminStatus تعمل");
   }
 
   if(!currentUser){
-    return false;
-  }
+
+  return false;
+}
+
+alert(
+  "User ID:\n" +
+  currentUser.id
+);
 
   const {
     data: isMainAdmin,
