@@ -5591,42 +5591,21 @@ function renderAdminOffers(){
         style="margin-top:12px;"
       >
 
-        <button
-          class="edit"
-          onclick="editOffer(${offer.id})">
+        ${
+          hasPermission("offers.delete")
+          ?
+          `
+          <button
+            class="danger"
+            onclick="deleteOffer(${offer.id})">
 
-          تعديل
+            حذف
 
-        </button>
-
-
-        <button
-          class="edit"
-          onclick="
-            toggleOffer(
-              ${offer.id},
-              ${!offer.is_active}
-            )
-          ">
-
-          ${
-            offer.is_active
-            ?
-            "إلغاء التفعيل"
-            :
-            "تفعيل"
-          }
-
-        </button>
-
-
-        <button
-          class="danger"
-          onclick="deleteOffer(${offer.id})">
-
-          حذف
-
-        </button>
+          </button>
+          `
+          :
+          ""
+        }
 
       </div>
 
