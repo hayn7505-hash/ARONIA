@@ -7136,11 +7136,28 @@ async function createAdmin(){
 }
   
 /* =====================================================
+
    تحميل المدراء الحاليين
+
 ===================================================== */
+
 async function loadAdmins(){
 
-  /* التأكد أن المستخدم هو المدير الرئيسي */
+  const container =
+
+    document.getElementById(
+
+      "adminsContainer"
+
+    );
+
+  if(!container) return;
+
+  /* =====================================================
+
+     التأكد من أن المستخدم هو المدير الرئيسي
+
+  ===================================================== */
 
   const {
 
@@ -7161,42 +7178,33 @@ async function loadAdmins(){
     isMainAdmin !== true
 
   ){
+
+    container.innerHTML = `
+
+      <div
+
+        style="
+
+          text-align:center;
+
+          padding:30px;
+
+          color:#888;
+
+        "
+
+      >
+
+        لا تملك صلاحية إدارة المدراء.
+
+      </div>
+
+    `;
 
     return;
 
   }
   
-  const container =
-    document.getElementById(
-      "adminsContainer"
-    );
-  if(!container) return;
-  /* =====================================================
-     التأكد من أن المستخدم هو المدير الرئيسي
-  ===================================================== */
-  const {
-    data:isMainAdmin,
-    error:mainAdminError
-  } =
-    await supabaseClient
-      .rpc("is_admin");
-  if(
-    mainAdminError ||
-    isMainAdmin !== true
-  ){
-    container.innerHTML = `
-      <div
-        style="
-          text-align:center;
-          padding:30px;
-          color:#888;
-        "
-      >
-        لا تملك صلاحية إدارة المدراء.
-      </div>
-    `;
-    return;
-  }
   /* =====================================================
      تحميل المدراء
   ===================================================== */
