@@ -6677,21 +6677,25 @@ alert("checkAdminStatus تعمل");
 
   if(!assistantAdmin){
 
-    return false;
+  alert(
+    "لم يتم العثور على الحساب في admin_users"
+  );
 
-  }
+  return false;
+}
 
-  if(assistantAdmin.is_active !== true){
-
-    return false;
-
-  }
+if(assistantAdmin.is_active !== true){
 
   alert(
-
-    "تم العثور على المدير المساعد"
-
+    "تم العثور على الحساب، لكن is_active ليست true"
   );
+
+  return false;
+}
+
+alert(
+  "تم العثور على المدير المساعد والحساب نشط"
+);
 
   isAdminUser = true;
 
