@@ -7139,31 +7139,6 @@ async function createAdmin(){
    تحميل المدراء الحاليين
 ===================================================== */
 async function loadAdmins(){
-   /* التأكد أن المستخدم هو المدير الرئيسي */
-
-  const {
-
-    data:isMainAdmin,
-
-    error:mainAdminError
-
-  } =
-
-    await supabaseClient
-
-      .rpc("is_admin");
-
-  if(
-
-    mainAdminError ||
-
-    isMainAdmin !== true
-
-  ){
-
-    return;
-
-  }
   const container =
     document.getElementById(
       "adminsContainer"
