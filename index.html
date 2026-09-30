@@ -6632,42 +6632,68 @@ alert("checkAdminStatus تعمل");
 
 
   /* =========================
+
      المدير المساعد
+
   ========================= */
 
   const {
+
     data: assistantAdmin,
+
     error: assistantAdminError
+
   } =
+
     await db
+
       .from("admin_users")
+
       .select("user_id, is_active, display_name")
+
       .eq(
+
         "user_id",
+
         currentUser.id
+
       )
+
       .maybeSingle();
 
   if(assistantAdminError){
 
     console.error(
+
       "ASSISTANT ADMIN CHECK ERROR:",
+
       assistantAdminError
+
     );
 
     return false;
+
   }
 
   if(!assistantAdmin){
 
     return false;
+
   }
 
   if(assistantAdmin.is_active !== true){
 
     return false;
+
   }
 
+  alert(
+
+    "تم العثور على المدير المساعد"
+
+  );
+
+  isAdminUser = true;
 
   /* =========================
      التحقق من صلاحية لوحة المدير
