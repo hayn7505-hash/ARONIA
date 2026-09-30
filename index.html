@@ -6607,11 +6607,17 @@ async function checkAdminStatus(){
     await db.rpc("is_admin");
 
   if(mainAdminError){
+
     console.error(
       "MAIN ADMIN CHECK ERROR:",
       mainAdminError
     );
+
   }
+
+  /* =========================
+     المدير الرئيسي
+  ========================= */
 
   if(isMainAdmin === true){
 
@@ -6623,6 +6629,11 @@ async function checkAdminStatus(){
 
     return true;
   }
+
+
+  /* =========================
+     المدير المساعد
+  ========================= */
 
   const {
     data: assistantAdmin,
@@ -6656,6 +6667,48 @@ async function checkAdminStatus(){
 
     return false;
   }
+
+
+  /* =========================
+     التحقق من صلاحية لوحة المدير
+  ========================= */
+
+  const {
+    data: dashboardPermission,
+    error: dashboardPermissionError
+  } =
+    await db
+      .from("admin_user_permissions")
+      .select("permission")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .eq(
+        "permission",
+        "dashboard.view"
+      )
+      .maybeSingle();
+
+  if(dashboardPermissionError){
+
+    console.error(
+      "DASHBOARD PERMISSION CHECK ERROR:",
+      dashboardPermissionError
+    );
+
+    return false;
+  }
+
+  if(!dashboardPermission){
+
+    return false;
+  }
+
+
+  /* =========================
+     المدير المساعد لديه الصلاحية
+  ========================= */
 
   isAdminUser = true;
 
