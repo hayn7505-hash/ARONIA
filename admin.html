@@ -1128,7 +1128,160 @@ a{
   }
 
 }
-     
+
+/* ==================================================
+   ترتيب المنتجات - لوحة المدير
+================================================== */
+
+.product-order-list{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:8px;
+
+  margin-top:15px;
+
+}
+
+
+.product-order-item{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  width:100%;
+
+  min-height:58px;
+
+  padding:7px 10px;
+
+  background:#fff;
+
+  border:1px solid #eee;
+
+  border-radius:12px;
+
+  box-sizing:border-box;
+
+  cursor:grab;
+
+  user-select:none;
+
+  -webkit-user-select:none;
+
+  touch-action:none;
+
+}
+
+
+.product-order-item:active{
+
+  cursor:grabbing;
+
+}
+
+
+.product-order-item.dragging{
+
+  opacity:.45;
+
+  transform:scale(.99);
+
+}
+
+
+.product-order-handle{
+
+  width:24px;
+
+  flex-shrink:0;
+
+  text-align:center;
+
+  font-size:18px;
+
+  color:#999;
+
+}
+
+
+.product-order-number{
+
+  width:24px;
+
+  flex-shrink:0;
+
+  text-align:center;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  color:#777;
+
+}
+
+
+.product-order-image{
+
+  width:44px;
+
+  height:44px;
+
+  flex-shrink:0;
+
+  object-fit:cover;
+
+  border-radius:9px;
+
+  display:block;
+
+}
+
+
+.product-order-name{
+
+  flex:1;
+
+  min-width:0;
+
+  font-size:13px;
+
+  line-height:1.4;
+
+  font-weight:600;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+
+}
+
+
+/* الوضع الداكن */
+
+body.dark-mode .product-order-item{
+
+  background:#2b2528;
+
+  border-color:#40383c;
+
+}
+
+
+body.dark-mode .product-order-name{
+
+  color:#fff;
+
+}
+  
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
