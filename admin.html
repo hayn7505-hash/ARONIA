@@ -6548,10 +6548,10 @@ let isDraggingProduct = false;
 
 
 /* ==================================================
-   تحميل قائمة ترتيب المنتجات
+   عرض ترتيب المنتجات حسب القسم
 ================================================== */
 
-function loadProductOrderList(){
+async function loadProductOrderList(){
 
   const categorySelect =
     document.getElementById(
@@ -6563,473 +6563,375 @@ function loadProductOrderList(){
       "productOrderList"
     );
 
+  if(!categorySelect || !container) return;
 
-  if(
-    !categorySelect ||
-    !container
-  ){
+  const category =
+    categorySelect.value;
 
-    return;
-
-  }
-
-
-  const selectedCategory =
-    categorySelect.value.trim();
-
-
-  if(!selectedCategory){
+  if(!category){
 
     container.innerHTML = `
-
-      <div style="
-        text-align:center;
-        padding:25px;
-        color:#888;
-      ">
-
+      <div
+        style="
+          text-align:center;
+          padding:25px;
+          color:#888;
+        "
+      >
         اختر قسمًا لعرض المنتجات
-
       </div>
-
     `;
 
     return;
-
   }
 
+  /* ==============================================
+     جلب منتجات القسم
+  ============================================== */
 
-  const categoryProducts =
-    products
-      .filter(product =>
-        String(
-          product.category || ""
-        ).trim() ===
-        selectedCategory
-      )
-      .sort((a,b) =>
-        Number(
-          a.display_order || 999999
-        )
-        -
-        Number(
-          b.display_order || 999999
-        )
-      );
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .eq("category", category)
+      .order("display_order", {
+        ascending:true
+      });
 
+  if(error){
 
-  if(
-    categoryProducts.length === 0
-  ){
+    console.error(
+      "خطأ تحميل ترتيب المنتجات:",
+      error
+    );
 
     container.innerHTML = `
-
-      <div style="
-        text-align:center;
-        padding:25px;
-        color:#888;
-      ">
-
-        لا توجد منتجات في هذا القسم
-
+      <div
+        style="
+          text-align:center;
+          padding:25px;
+          color:#c00;
+        "
+      >
+        حدث خطأ أثناء تحميل المنتجات
       </div>
-
     `;
 
     return;
-
   }
 
+  if(!data || data.length === 0){
+
+    container.innerHTML = `
+      <div
+        style="
+          text-align:center;
+          padding:25px;
+          color:#888;
+        "
+      >
+        لا توجد منتجات في هذا القسم
+      </div>
+    `;
+
+    return;
+  }
+
+  /* ==============================================
+     بناء القائمة
+  ============================================== */
 
   container.innerHTML = "";
 
-
-  const list =
-    document.createElement("div");
-
-
-  list.className =
+  container.className =
     "product-order-list";
 
-
-  categoryProducts.forEach(
+  data.forEach(
     (product,index) => {
 
       const item =
         document.createElement("div");
 
-
       item.className =
         "product-order-item";
-
 
       item.dataset.productId =
         product.id;
 
-
       item.innerHTML = `
 
-        <div
-          class="product-order-handle"
-          title="اضغط مطولاً للسحب">
+        <div class="product-order-controls">
 
-          ☰
+          <button
+            type="button"
+            class="product-order-btn"
+            ${index === 0 ? "disabled" : ""}
+            aria-label="نقل المنتج للأعلى"
+          >
+            ↑
+          </button>
+
+          <button
+            type="button"
+            class="product-order-btn"
+            ${index === data.length - 1 ? "disabled" : ""}
+            aria-label="نقل المنتج للأسفل"
+          >
+            ↓
+          </button>
 
         </div>
-
 
         <div class="product-order-number">
-
           ${index + 1}
-
         </div>
-
 
         <img
           class="product-order-image"
-          src="${
-            product.image ||
-            "https://placehold.co/100"
-          }"
-          onerror="
-            this.src='https://placehold.co/100';
-          "
+          src="${getImageURL(product.image)}"
+          alt=""
         >
 
-
         <div class="product-order-name">
-
           ${
             product.name_ar ||
             product.name ||
-            "منتج"
+            "منتج ARONIA"
           }
-
         </div>
 
       `;
 
+      /* ==========================================
+         زر الأعلى
+      ========================================== */
 
-      const handle =
+      const upButton =
         item.querySelector(
-          ".product-order-handle"
+          ".product-order-btn:first-child"
         );
 
+      upButton.addEventListener(
+        "click",
+        () => {
 
-      /* ==================================================
-         الضغط على علامة السحب
-      ================================================== */
-
-      handle.addEventListener(
-        "pointerdown",
-        function(event){
-
-          event.preventDefault();
-
-
-          isDraggingProduct =
-            false;
-
-
-          draggedItem =
-            item;
-
-
-          try{
-
-            handle.setPointerCapture(
-              event.pointerId
-            );
-
-          }catch(error){}
-
-
-          /* =========================
-             ضغط مطول
-          ========================= */
-
-          dragTimer =
-            setTimeout(
-              function(){
-
-                isDraggingProduct =
-                  true;
-
-                item.classList.add(
-                  "dragging"
-                );
-
-              },
-              250
-            );
-
-        }
-      );
-
-
-      /* ==================================================
-         تحريك المنتج
-      ================================================== */
-
-      handle.addEventListener(
-        "pointermove",
-        function(event){
-
-          if(
-            draggedItem !== item
-          ){
-
-            return;
-
-          }
-
-
-          if(
-            !isDraggingProduct
-          ){
-
-            return;
-
-          }
-
-
-          event.preventDefault();
-
-
-          const afterElement =
-            getDragAfterElement(
-              list,
-              event.clientY
-            );
-
-
-          if(
-            afterElement === null
-          ){
-
-            list.appendChild(
-              item
-            );
-
-          }else{
-
-            list.insertBefore(
-              item,
-              afterElement
-            );
-
-          }
-
-
-          updateProductOrderNumbers(
-            list
+          moveProductOrder(
+            product.id,
+            -1
           );
 
         }
       );
 
+      /* ==========================================
+         زر الأسفل
+      ========================================== */
 
-      /* ==================================================
-         انتهاء السحب
-      ================================================== */
+      const downButton =
+        item.querySelector(
+          ".product-order-btn:last-child"
+        );
 
-      handle.addEventListener(
-        "pointerup",
-        function(event){
+      downButton.addEventListener(
+        "click",
+        () => {
 
-          clearTimeout(
-            dragTimer
+          moveProductOrder(
+            product.id,
+            1
           );
-
-
-          if(
-            draggedItem !== item
-          ){
-
-            return;
-
-          }
-
-
-          try{
-
-            handle.releasePointerCapture(
-              event.pointerId
-            );
-
-          }catch(error){}
-
-
-          if(
-            isDraggingProduct
-          ){
-
-            item.classList.remove(
-              "dragging"
-            );
-
-            updateProductOrderNumbers(
-              list
-            );
-
-          }
-
-
-          draggedItem =
-            null;
-
-          isDraggingProduct =
-            false;
 
         }
       );
 
-
-      /* ==================================================
-         إلغاء السحب
-      ================================================== */
-
-      handle.addEventListener(
-        "pointercancel",
-        function(){
-
-          clearTimeout(
-            dragTimer
-          );
-
-
-          item.classList.remove(
-            "dragging"
-          );
-
-
-          draggedItem =
-            null;
-
-
-          isDraggingProduct =
-            false;
-
-        }
-      );
-
-
-      list.appendChild(
-        item
-      );
+      container.appendChild(item);
 
     }
   );
 
-
-  container.appendChild(
-    list
-  );
-
 }
 
-
 /* ==================================================
-   تحديد مكان المنتج أثناء السحب
+   تغيير ترتيب المنتج
+   direction:
+   -1 = للأعلى
+    1 = للأسفل
 ================================================== */
 
-function getDragAfterElement(
-  container,
-  y
+async function moveProductOrder(
+  productId,
+  direction
 ){
 
-  const elements = [
-
-    ...container.querySelectorAll(
-      ".product-order-item:not(.dragging)"
-    )
-
-  ];
-
-
-  return elements.reduce(
-    (
-      closest,
-      child
-    ) => {
-
-      const box =
-        child.getBoundingClientRect();
-
-
-      const offset =
-        y -
-        box.top -
-        box.height / 2;
-
-
-      if(
-        offset < 0 &&
-        offset > closest.offset
-      ){
-
-        return {
-
-          offset:
-            offset,
-
-          element:
-            child
-
-        };
-
-      }
-
-
-      return closest;
-
-    },
-    {
-
-      offset:
-        Number.NEGATIVE_INFINITY,
-
-      element:
-        null
-
-    }
-  ).element;
-
-}
-
-
-/* ==================================================
-   تحديث أرقام الترتيب
-================================================== */
-
-function updateProductOrderNumbers(
-  list
-){
-
-  const items =
-    list.querySelectorAll(
-      ".product-order-item"
+  const categorySelect =
+    document.getElementById(
+      "productOrderCategory"
     );
 
+  if(!categorySelect) return;
 
-  items.forEach(
-    (item,index) => {
+  const category =
+    categorySelect.value;
 
-      const number =
-        item.querySelector(
-          ".product-order-number"
+  if(!category) return;
+
+  /* ==============================================
+     جلب منتجات القسم بالترتيب الحالي
+  ============================================== */
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("products")
+      .select("id,display_order")
+      .eq("category", category)
+      .order("display_order", {
+        ascending:true
+      });
+
+  if(error){
+
+    console.error(
+      "خطأ تحميل ترتيب المنتجات:",
+      error
+    );
+
+    return;
+  }
+
+  if(!data || data.length < 2) return;
+
+  /* ==============================================
+     تحديد مكان المنتج
+  ============================================== */
+
+  const currentIndex =
+    data.findIndex(
+      product =>
+        String(product.id) ===
+        String(productId)
+    );
+
+  if(currentIndex === -1) return;
+
+  const newIndex =
+    currentIndex + direction;
+
+  /* ==============================================
+     منع الخروج من القائمة
+  ============================================== */
+
+  if(
+    newIndex < 0 ||
+    newIndex >= data.length
+  ){
+
+    return;
+  }
+
+  /* ==============================================
+     تبديل المنتجين
+  ============================================== */
+
+  const temp =
+    data[currentIndex];
+
+  data[currentIndex] =
+    data[newIndex];
+
+  data[newIndex] =
+    temp;
+
+  /* ==============================================
+     إعادة ترقيم display_order
+  ============================================== */
+
+  const updates =
+    data.map(
+      (product,index) => ({
+        id: product.id,
+        display_order: index + 1
+      })
+    );
+
+  /* ==============================================
+     حفظ الترتيب في Supabase
+  ============================================== */
+
+  for(
+    const product of updates
+  ){
+
+    const {
+      error:updateError
+    } =
+      await supabaseClient
+        .from("products")
+        .update({
+          display_order:
+            product.display_order
+        })
+        .eq(
+          "id",
+          product.id
         );
 
+    if(updateError){
 
-      if(number){
+      console.error(
+        "خطأ حفظ ترتيب المنتج:",
+        updateError
+      );
 
-        number.textContent =
-          index + 1;
+      alert(
+        "حدث خطأ أثناء حفظ الترتيب."
+      );
+
+      return;
+    }
+
+  }
+
+  /* ==============================================
+     تحديث القائمة مباشرة
+  ============================================== */
+
+  await loadProductOrderList();
+
+  /* ==============================================
+     تحديث مصفوفة المنتجات الموجودة في لوحة الإدارة
+  ============================================== */
+
+  if(
+    Array.isArray(products)
+  ){
+
+    updates.forEach(
+      update => {
+
+        const product =
+          products.find(
+            p =>
+              String(p.id) ===
+              String(update.id)
+          );
+
+        if(product){
+
+          product.display_order =
+            update.display_order;
+
+        }
 
       }
+    );
 
-    }
-  );
+  }
 
 }
   
