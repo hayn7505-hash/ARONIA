@@ -6185,23 +6185,42 @@ async function loadCategoriesAdmin(){
 }
 
 /* ==================================================
-   تحميل الأقسام داخل نموذج المنتج
+   تحميل الأقسام داخل نموذج المنتج + قائمة الترتيب
 ================================================== */
 
 async function loadProductCategories(){
 
-  const select =
+  const productCategory =
     document.getElementById(
       "productCategory"
     );
 
-  if(!select) return;
+  const productOrderCategory =
+    document.getElementById(
+      "productOrderCategory"
+    );
 
-  select.innerHTML = `
+
+  if(!productCategory) return;
+
+
+  productCategory.innerHTML = `
     <option value="">
       جاري تحميل الأقسام...
     </option>
   `;
+
+
+  if(productOrderCategory){
+
+    productOrderCategory.innerHTML = `
+      <option value="">
+        جاري تحميل الأقسام...
+      </option>
+    `;
+
+  }
+
 
   const {
     data,
@@ -6214,6 +6233,7 @@ async function loadProductCategories(){
         ascending:true
       });
 
+
   if(error){
 
     console.error(
@@ -6221,44 +6241,121 @@ async function loadProductCategories(){
       error
     );
 
-    select.innerHTML = `
+
+    productCategory.innerHTML = `
       <option value="">
         فشل تحميل الأقسام
       </option>
     `;
 
+
+    if(productOrderCategory){
+
+      productOrderCategory.innerHTML = `
+        <option value="">
+          فشل تحميل الأقسام
+        </option>
+      `;
+
+    }
+
+
     return;
+
   }
+
 
   if(!data || data.length === 0){
 
-    select.innerHTML = `
+    productCategory.innerHTML = `
       <option value="">
         لا توجد أقسام
       </option>
     `;
 
+
+    if(productOrderCategory){
+
+      productOrderCategory.innerHTML = `
+        <option value="">
+          لا توجد أقسام
+        </option>
+      `;
+
+    }
+
+
     return;
+
   }
 
-  select.innerHTML = `
+
+  /* =========================
+     قائمة قسم المنتج
+  ========================= */
+
+  productCategory.innerHTML = `
     <option value="">
       اختر القسم
     </option>
   `;
 
+
+  /* =========================
+     قائمة ترتيب المنتجات
+  ========================= */
+
+  if(productOrderCategory){
+
+    productOrderCategory.innerHTML = `
+      <option value="">
+        اختر القسم
+      </option>
+    `;
+
+  }
+
+
   data.forEach(category => {
 
-    const option =
+    /* =========================
+       قسم نموذج المنتج
+    ========================= */
+
+    const productOption =
       document.createElement("option");
 
-    option.value =
+    productOption.value =
       category.name;
 
-    option.textContent =
+    productOption.textContent =
       category.name;
 
-    select.appendChild(option);
+    productCategory.appendChild(
+      productOption
+    );
+
+
+    /* =========================
+       قسم ترتيب المنتجات
+    ========================= */
+
+    if(productOrderCategory){
+
+      const orderOption =
+        document.createElement("option");
+
+      orderOption.value =
+        category.name;
+
+      orderOption.textContent =
+        category.name;
+
+      productOrderCategory.appendChild(
+        orderOption
+      );
+
+    }
 
   });
 
