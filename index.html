@@ -7424,8 +7424,8 @@ error
 await db
 .from("products")
 .select("*")
-.order("id",{
-ascending:false
+.order("display_order",{
+  ascending:true
 });
 
 if(error){
