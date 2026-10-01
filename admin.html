@@ -6515,7 +6515,16 @@ async function loadProductCategories(){
 }
 
   /* ==================================================
-   تحميل قائمة ترتيب المنتجات حسب القسم
+   ترتيب المنتجات - سحب بسيط بالضغط المطول
+================================================== */
+
+let draggedItem = null;
+let dragTimer = null;
+let isDraggingProduct = false;
+
+
+/* ==================================================
+   تحميل قائمة ترتيب المنتجات
 ================================================== */
 
 function loadProductOrderList(){
@@ -6531,7 +6540,10 @@ function loadProductOrderList(){
     );
 
 
-  if(!categorySelect || !container){
+  if(
+    !categorySelect ||
+    !container
+  ){
 
     return;
 
@@ -6541,10 +6553,6 @@ function loadProductOrderList(){
   const selectedCategory =
     categorySelect.value.trim();
 
-
-  /* =========================
-     لم يتم اختيار قسم
-  ========================= */
 
   if(!selectedCategory){
 
@@ -6567,16 +6575,13 @@ function loadProductOrderList(){
   }
 
 
-  /* =========================
-     جلب منتجات القسم
-  ========================= */
-
   const categoryProducts =
     products
       .filter(product =>
         String(
           product.category || ""
-        ).trim() === selectedCategory
+        ).trim() ===
+        selectedCategory
       )
       .sort((a,b) =>
         Number(
@@ -6589,11 +6594,9 @@ function loadProductOrderList(){
       );
 
 
-  /* =========================
-     لا توجد منتجات
-  ========================= */
-
-  if(categoryProducts.length === 0){
+  if(
+    categoryProducts.length === 0
+  ){
 
     container.innerHTML = `
 
@@ -6613,10 +6616,6 @@ function loadProductOrderList(){
 
   }
 
-
-  /* =========================
-     إنشاء القائمة
-  ========================= */
 
   container.innerHTML = "";
 
@@ -6640,23 +6639,25 @@ function loadProductOrderList(){
         "product-order-item";
 
 
-      item.draggable =
-        true;
-
-
       item.dataset.productId =
         product.id;
 
 
       item.innerHTML = `
 
-        <div class="product-order-handle">
+        <div
+          class="product-order-handle"
+          title="اضغط مطولاً للسحب">
+
           ☰
+
         </div>
 
 
         <div class="product-order-number">
+
           ${index + 1}
+
         </div>
 
 
@@ -6685,180 +6686,221 @@ function loadProductOrderList(){
       `;
 
 
-      /* =========================
-   بداية السحب باللمس والماوس
-========================= */
+      const handle =
+        item.querySelector(
+          ".product-order-handle"
+        );
 
-item.addEventListener(
-  "pointerdown",
-  function(event){
 
-    event.preventDefault();
+      /* ==================================================
+         الضغط على علامة السحب
+      ================================================== */
 
-    draggedItem =
-      item;
+      handle.addEventListener(
+        "pointerdown",
+        function(event){
 
-    item.classList.add(
-      "dragging"
-    );
+          event.preventDefault();
 
-    try{
 
-      item.setPointerCapture(
-        event.pointerId
+          isDraggingProduct =
+            false;
+
+
+          draggedItem =
+            item;
+
+
+          try{
+
+            handle.setPointerCapture(
+              event.pointerId
+            );
+
+          }catch(error){}
+
+
+          /* =========================
+             ضغط مطول
+          ========================= */
+
+          dragTimer =
+            setTimeout(
+              function(){
+
+                isDraggingProduct =
+                  true;
+
+                item.classList.add(
+                  "dragging"
+                );
+
+              },
+              250
+            );
+
+        }
       );
 
-    }catch(error){}
 
-  }
-);
+      /* ==================================================
+         تحريك المنتج
+      ================================================== */
 
+      handle.addEventListener(
+        "pointermove",
+        function(event){
 
-/* =========================
-   أثناء السحب
-========================= */
+          if(
+            draggedItem !== item
+          ){
 
-item.addEventListener(
-  "pointermove",
-  function(event){
+            return;
 
-    if(
-      draggedItem !== item
-    ){
-
-      return;
-
-    }
+          }
 
 
-    event.preventDefault();
+          if(
+            !isDraggingProduct
+          ){
+
+            return;
+
+          }
 
 
-    const afterElement =
-      getDragAfterElement(
-        list,
-        event.clientY
+          event.preventDefault();
+
+
+          const afterElement =
+            getDragAfterElement(
+              list,
+              event.clientY
+            );
+
+
+          if(
+            afterElement === null
+          ){
+
+            list.appendChild(
+              item
+            );
+
+          }else{
+
+            list.insertBefore(
+              item,
+              afterElement
+            );
+
+          }
+
+
+          updateProductOrderNumbers(
+            list
+          );
+
+        }
       );
 
 
-    if(
-      afterElement === null
-    ){
+      /* ==================================================
+         انتهاء السحب
+      ================================================== */
+
+      handle.addEventListener(
+        "pointerup",
+        function(event){
+
+          clearTimeout(
+            dragTimer
+          );
+
+
+          if(
+            draggedItem !== item
+          ){
+
+            return;
+
+          }
+
+
+          try{
+
+            handle.releasePointerCapture(
+              event.pointerId
+            );
+
+          }catch(error){}
+
+
+          if(
+            isDraggingProduct
+          ){
+
+            item.classList.remove(
+              "dragging"
+            );
+
+            updateProductOrderNumbers(
+              list
+            );
+
+          }
+
+
+          draggedItem =
+            null;
+
+          isDraggingProduct =
+            false;
+
+        }
+      );
+
+
+      /* ==================================================
+         إلغاء السحب
+      ================================================== */
+
+      handle.addEventListener(
+        "pointercancel",
+        function(){
+
+          clearTimeout(
+            dragTimer
+          );
+
+
+          item.classList.remove(
+            "dragging"
+          );
+
+
+          draggedItem =
+            null;
+
+
+          isDraggingProduct =
+            false;
+
+        }
+      );
+
 
       list.appendChild(
         item
       );
 
-    }else{
-
-      list.insertBefore(
-        item,
-        afterElement
-      );
-
     }
+  );
 
 
-    updateProductOrderNumbers(
-      list
-    );
-
-  }
-);
-
-
-/* =========================
-   نهاية السحب
-========================= */
-
-item.addEventListener(
-  "pointerup",
-  function(event){
-
-    if(
-      draggedItem !== item
-    ){
-
-      return;
-
-    }
-
-
-    try{
-
-      item.releasePointerCapture(
-        event.pointerId
-      );
-
-    }catch(error){}
-
-
-    item.classList.remove(
-      "dragging"
-    );
-
-
-    draggedItem =
-      null;
-
-
-    updateProductOrderNumbers(
-      list
-    );
-
-  }
-);
-
-
-/* =========================
-   إلغاء السحب
-========================= */
-
-item.addEventListener(
-  "pointercancel",
-  function(){
-
-    if(
-      draggedItem !== item
-    ){
-
-      return;
-
-    }
-
-
-    item.classList.remove(
-      "dragging"
-    );
-
-
-    draggedItem =
-      null;
-
-
-    updateProductOrderNumbers(
-      list
-    );
-
-  }
-);
-
-
-list.appendChild(
-  item
-);
-
-}
-);
-
-
-/* =========================
-   إضافة القائمة إلى الصفحة
-========================= */
-
-container.appendChild(
-  list
-);
+  container.appendChild(
+    list
+  );
 
 }
 
@@ -6873,9 +6915,11 @@ function getDragAfterElement(
 ){
 
   const elements = [
+
     ...container.querySelectorAll(
       ".product-order-item:not(.dragging)"
     )
+
   ];
 
 
@@ -6901,11 +6945,13 @@ function getDragAfterElement(
       ){
 
         return {
+
           offset:
             offset,
 
           element:
             child
+
         };
 
       }
@@ -6915,11 +6961,13 @@ function getDragAfterElement(
 
     },
     {
+
       offset:
         Number.NEGATIVE_INFINITY,
 
       element:
         null
+
     }
   ).element;
 
