@@ -5528,41 +5528,89 @@ BOTTOM NAV
     id="navCart"
     onclick="showPage('cart')">
     <div class="nav-cart-icon">
-      <!-- Cart -->
-<span class="nav-icon">
+      <span class="nav-icon">
   <svg
     viewBox="0 0 24 24"
     aria-hidden="true"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
   >
+
+    <!-- مقبض العربة -->
     <path
-      d="M3 5h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H6"
+      d="M3 3.2H6.2L10 14.1"
+      stroke="currentColor"
+      stroke-width="1.9"
+      stroke-linecap="round"
+      stroke-linejoin="round"
     />
+
+    <!-- جسم السلة -->
+    <path
+      d="M6.2 4.2H21
+         L19.3 12.8
+         C19.05 14.05 18.15 14.8 16.9 14.8
+         H10.4
+         C9.25 14.8 8.45 14.1 8.15 13L6.2 4.2Z"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+    />
+
+    <!-- فتحات السلة الأفقية -->
+    <path
+      d="M7.4 7.1H20.4
+         M8.1 10.1H19.8"
+      stroke="currentColor"
+      stroke-width="1.15"
+      stroke-linecap="round"
+    />
+
+    <!-- فتحات السلة العمودية -->
+    <path
+      d="M10.3 4.5L12.2 14.5
+         M14.9 4.5L15.6 14.5
+         M19.2 4.5L18.2 14.5"
+      stroke="currentColor"
+      stroke-width="1.15"
+      stroke-linecap="round"
+    />
+
+    <!-- الجزء السفلي -->
+    <path
+      d="M10.2 16.2H18.1"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+    />
+
+    <!-- العجلة اليسرى -->
     <circle
-      cx="9"
+      cx="10.2"
       cy="19"
-      r="1.5"
+      r="1.75"
+      fill="currentColor"
     />
+
+    <!-- العجلة اليمنى -->
     <circle
       cx="18"
       cy="19"
-      r="1.5"
+      r="1.75"
+      fill="currentColor"
     />
+
   </svg>
+
+  <div
+    class="cart-count"
+    id="cartCount">
+  </div>
 </span>
-<div
-  class="cart-count"
-  id="cartCount">
-</div>
-</div>
+
 <span class="cart-label">
   السلة
 </span>
-</div>
-<div
-  class="nav-item"
-  id="navSettings"
-  onclick="showPage('settings')">
-  <span class="nav-icon">
     <!-- Settings -->
     <svg
       viewBox="0 0 24 24"
