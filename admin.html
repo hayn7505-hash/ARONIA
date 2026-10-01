@@ -1258,6 +1258,142 @@ body.dark-mode .product-order-btn{
 body.dark-mode .product-order-number{
   color:#aaa;
 }
+
+/* ==================================================
+   أزرار ترتيب المنتجات - تصميم احترافي
+================================================== */
+
+.product-order-controls{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  flex-shrink:0;
+
+  direction:ltr;
+}
+
+
+.product-order-btn{
+  width:38px;
+  height:38px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0;
+
+  border:1px solid #e5d6dd;
+  border-radius:10px;
+
+  background:#fff;
+
+  color:#66254D;
+
+  font-size:22px;
+  font-weight:700;
+
+  line-height:1;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 2px 6px rgba(102,37,77,.08);
+
+  transition:
+    transform .12s ease,
+    background .12s ease,
+    border-color .12s ease,
+    box-shadow .12s ease;
+
+  -webkit-tap-highlight-color:transparent;
+}
+
+
+.product-order-btn span{
+  display:block;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* الضغط */
+
+.product-order-btn:active:not(:disabled){
+
+  transform:
+    scale(.92);
+
+  background:#f5e9ef;
+
+  box-shadow:
+    0 1px 3px rgba(102,37,77,.08);
+
+}
+
+
+/* الزر المعطل */
+
+.product-order-btn:disabled{
+
+  opacity:.28;
+
+  cursor:default;
+
+  box-shadow:none;
+
+}
+
+
+/* رقم المنتج */
+
+.product-order-number{
+
+  width:28px;
+
+  flex-shrink:0;
+
+  text-align:center;
+
+  font-size:13px;
+
+  font-weight:700;
+
+  color:#777;
+
+}
+
+
+/* الوضع الليلي */
+
+body.dark-mode .product-order-btn{
+
+  background:#30252b;
+
+  border-color:#514049;
+
+  color:#fff;
+
+  box-shadow:
+    0 2px 6px rgba(0,0,0,.18);
+
+}
+
+
+body.dark-mode .product-order-btn:active:not(:disabled){
+
+  background:#45333d;
+
+}
+
+
+body.dark-mode .product-order-number{
+
+  color:#aaa;
+
+}
   
 </style>
 
@@ -6614,30 +6750,31 @@ function loadProductOrderList(){
 
         <div class="product-order-controls">
 
-          <button
-            type="button"
-            class="product-order-btn"
-            ${index === 0 ? "disabled" : ""}
-            aria-label="نقل المنتج للأعلى"
-          >
-            ↑
-          </button>
+  <button
+    type="button"
+    class="product-order-btn product-order-up"
+    ${index === 0 ? "disabled" : ""}
+    aria-label="نقل المنتج للأعلى"
+    title="نقل للأعلى"
+  >
+    <span>↑</span>
+  </button>
 
-          <button
-            type="button"
-            class="product-order-btn"
-            ${
-              index ===
-              categoryProducts.length - 1
-              ? "disabled"
-              : ""
-            }
-            aria-label="نقل المنتج للأسفل"
-          >
-            ↓
-          </button>
+  <button
+    type="button"
+    class="product-order-btn product-order-down"
+    ${
+      index === categoryProducts.length - 1
+      ? "disabled"
+      : ""
+    }
+    aria-label="نقل المنتج للأسفل"
+    title="نقل للأسفل"
+  >
+    <span>↓</span>
+  </button>
 
-        </div>
+</div>
 
 
         <div class="product-order-number">
@@ -6722,7 +6859,6 @@ function loadProductOrderList(){
 
 /* ==================================================
    تغيير ترتيب المنتج
-   direction:
    -1 = للأعلى
     1 = للأسفل
 ================================================== */
@@ -6742,7 +6878,6 @@ async function moveProductOrder(
 
   const category =
     categorySelect.value.trim();
-
 
   if(!category) return;
 
@@ -6784,7 +6919,7 @@ async function moveProductOrder(
 
 
   /* ==================================================
-     تحديد موقع المنتج
+     تحديد المنتج
   ================================================== */
 
   const currentIndex =
@@ -6806,10 +6941,6 @@ async function moveProductOrder(
     currentIndex + direction;
 
 
-  /* ==================================================
-     منع تجاوز أول أو آخر منتج
-  ================================================== */
-
   if(
     newIndex < 0 ||
     newIndex >= categoryProducts.length
@@ -6827,10 +6958,8 @@ async function moveProductOrder(
   const temp =
     categoryProducts[currentIndex];
 
-
   categoryProducts[currentIndex] =
     categoryProducts[newIndex];
-
 
   categoryProducts[newIndex] =
     temp;
@@ -6851,51 +6980,56 @@ async function moveProductOrder(
 
 
   /* ==================================================
-     حفظ الترتيب في Supabase
-  ================================================== */
-
-  for(
-    const product of categoryProducts
-  ){
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("products")
-        .update({
-          display_order:
-            product.display_order
-        })
-        .eq(
-          "id",
-          product.id
-        );
-
-
-    if(error){
-
-      console.error(
-        "خطأ حفظ ترتيب المنتج:",
-        error
-      );
-
-      alert(
-        "حدث خطأ أثناء حفظ ترتيب المنتجات."
-      );
-
-      return;
-
-    }
-
-  }
-
-
-  /* ==================================================
-     إعادة عرض القائمة
+     إعادة عرض القائمة فورًا
+     بدون انتظار Supabase
   ================================================== */
 
   loadProductOrderList();
+
+
+  /* ==================================================
+     حفظ الترتيب في الخلفية
+  ================================================== */
+
+  const updates =
+    categoryProducts.map(
+      product =>
+
+        supabaseClient
+          .from("products")
+          .update({
+            display_order:
+              product.display_order
+          })
+          .eq(
+            "id",
+            product.id
+          )
+
+    );
+
+
+  const results =
+    await Promise.all(
+      updates
+    );
+
+
+  const failed =
+    results.find(
+      result =>
+        result.error
+    );
+
+
+  if(failed){
+
+    console.error(
+      "خطأ حفظ ترتيب المنتجات:",
+      failed.error
+    );
+
+  }
 
 }
   
