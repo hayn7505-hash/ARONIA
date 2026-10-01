@@ -6504,7 +6504,7 @@ let isDraggingProduct = false;
    عرض ترتيب المنتجات حسب القسم
 ================================================== */
 
-async function loadProductOrderList(){
+function loadProductOrderList(){
 
   const categorySelect =
     document.getElementById(
@@ -6516,103 +6516,108 @@ async function loadProductOrderList(){
       "productOrderList"
     );
 
-  if(!categorySelect || !container) return;
+  if(
+    !categorySelect ||
+    !container
+  ){
 
-  const category =
-    categorySelect.value;
+    return;
 
-  if(!category){
+  }
+
+  const selectedCategory =
+    categorySelect.value.trim();
+
+  if(!selectedCategory){
 
     container.innerHTML = `
-      <div
-        style="
-          text-align:center;
-          padding:25px;
-          color:#888;
-        "
-      >
+
+      <div style="
+        text-align:center;
+        padding:25px;
+        color:#888;
+      ">
+
         اختر قسمًا لعرض المنتجات
+
       </div>
+
     `;
 
     return;
+
   }
 
-  /* ==============================================
-     جلب منتجات القسم
-  ============================================== */
+  /* ==================================================
+     جلب منتجات القسم من المنتجات المحملة مسبقًا
+  ================================================== */
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("products")
-      .select("*")
-      .eq("category", category)
-      .order("display_order", {
-        ascending:true
-      });
+  const categoryProducts =
+    products
+      .filter(product =>
 
-  if(error){
+        String(
+          product.category || ""
+        ).trim() ===
+        selectedCategory
 
-    console.error(
-      "خطأ تحميل ترتيب المنتجات:",
-      error
-    );
+      )
+      .sort((a,b) =>
 
-    container.innerHTML = `
-      <div
-        style="
-          text-align:center;
-          padding:25px;
-          color:#c00;
-        "
-      >
-        حدث خطأ أثناء تحميل المنتجات
-      </div>
-    `;
+        Number(
+          a.display_order || 999999
+        )
+        -
+        Number(
+          b.display_order || 999999
+        )
 
-    return;
-  }
+      );
 
-  if(!data || data.length === 0){
+
+  if(
+    categoryProducts.length === 0
+  ){
 
     container.innerHTML = `
-      <div
-        style="
-          text-align:center;
-          padding:25px;
-          color:#888;
-        "
-      >
+
+      <div style="
+        text-align:center;
+        padding:25px;
+        color:#888;
+      ">
+
         لا توجد منتجات في هذا القسم
+
       </div>
+
     `;
 
     return;
+
   }
 
-  /* ==============================================
-     بناء القائمة
-  ============================================== */
 
   container.innerHTML = "";
 
   container.className =
     "product-order-list";
 
-  data.forEach(
+
+  categoryProducts.forEach(
     (product,index) => {
 
       const item =
         document.createElement("div");
 
+
       item.className =
         "product-order-item";
 
+
       item.dataset.productId =
         product.id;
+
 
       item.innerHTML = `
 
@@ -6630,7 +6635,12 @@ async function loadProductOrderList(){
           <button
             type="button"
             class="product-order-btn"
-            ${index === data.length - 1 ? "disabled" : ""}
+            ${
+              index ===
+              categoryProducts.length - 1
+              ? "disabled"
+              : ""
+            }
             aria-label="نقل المنتج للأسفل"
           >
             ↓
@@ -6638,36 +6648,51 @@ async function loadProductOrderList(){
 
         </div>
 
+
         <div class="product-order-number">
+
           ${index + 1}
+
         </div>
+
 
         <img
           class="product-order-image"
-          src="${getImageURL(product.image)}"
+          src="${
+            product.image ||
+            "https://placehold.co/100"
+          }"
+          onerror="
+            this.src='https://placehold.co/100';
+          "
           alt=""
         >
 
+
         <div class="product-order-name">
+
           ${
             product.name_ar ||
             product.name ||
             "منتج ARONIA"
           }
+
         </div>
 
       `;
 
-      /* ==========================================
-         زر الأعلى
-      ========================================== */
 
-      const upButton =
-        item.querySelector(
-          ".product-order-btn:first-child"
+      /* ==================================================
+         زر الأعلى
+      ================================================== */
+
+      const buttons =
+        item.querySelectorAll(
+          ".product-order-btn"
         );
 
-      upButton.addEventListener(
+
+      buttons[0].addEventListener(
         "click",
         () => {
 
@@ -6679,16 +6704,12 @@ async function loadProductOrderList(){
         }
       );
 
-      /* ==========================================
+
+      /* ==================================================
          زر الأسفل
-      ========================================== */
+      ================================================== */
 
-      const downButton =
-        item.querySelector(
-          ".product-order-btn:last-child"
-        );
-
-      downButton.addEventListener(
+      buttons[1].addEventListener(
         "click",
         () => {
 
@@ -6699,6 +6720,7 @@ async function loadProductOrderList(){
 
         }
       );
+
 
       container.appendChild(item);
 
@@ -6726,102 +6748,127 @@ async function moveProductOrder(
 
   if(!categorySelect) return;
 
+
   const category =
-    categorySelect.value;
+    categorySelect.value.trim();
+
 
   if(!category) return;
 
-  /* ==============================================
-     جلب منتجات القسم بالترتيب الحالي
-  ============================================== */
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("products")
-      .select("id,display_order")
-      .eq("category", category)
-      .order("display_order", {
-        ascending:true
-      });
+  /* ==================================================
+     الحصول على منتجات القسم
+  ================================================== */
 
-  if(error){
+  const categoryProducts =
+    products
+      .filter(product =>
 
-    console.error(
-      "خطأ تحميل ترتيب المنتجات:",
-      error
-    );
+        String(
+          product.category || ""
+        ).trim() ===
+        category
+
+      )
+      .sort((a,b) =>
+
+        Number(
+          a.display_order || 999999
+        )
+        -
+        Number(
+          b.display_order || 999999
+        )
+
+      );
+
+
+  if(
+    categoryProducts.length < 2
+  ){
 
     return;
+
   }
 
-  if(!data || data.length < 2) return;
 
-  /* ==============================================
-     تحديد مكان المنتج
-  ============================================== */
+  /* ==================================================
+     تحديد موقع المنتج
+  ================================================== */
 
   const currentIndex =
-    data.findIndex(
+    categoryProducts.findIndex(
       product =>
         String(product.id) ===
         String(productId)
     );
 
-  if(currentIndex === -1) return;
+
+  if(currentIndex === -1){
+
+    return;
+
+  }
+
 
   const newIndex =
     currentIndex + direction;
 
-  /* ==============================================
-     منع الخروج من القائمة
-  ============================================== */
+
+  /* ==================================================
+     منع تجاوز أول أو آخر منتج
+  ================================================== */
 
   if(
     newIndex < 0 ||
-    newIndex >= data.length
+    newIndex >= categoryProducts.length
   ){
 
     return;
+
   }
 
-  /* ==============================================
-     تبديل المنتجين
-  ============================================== */
+
+  /* ==================================================
+     تبديل المنتجات
+  ================================================== */
 
   const temp =
-    data[currentIndex];
+    categoryProducts[currentIndex];
 
-  data[currentIndex] =
-    data[newIndex];
 
-  data[newIndex] =
+  categoryProducts[currentIndex] =
+    categoryProducts[newIndex];
+
+
+  categoryProducts[newIndex] =
     temp;
 
-  /* ==============================================
-     إعادة ترقيم display_order
-  ============================================== */
 
-  const updates =
-    data.map(
-      (product,index) => ({
-        id: product.id,
-        display_order: index + 1
-      })
-    );
+  /* ==================================================
+     تحديث الترتيب محليًا
+  ================================================== */
 
-  /* ==============================================
+  categoryProducts.forEach(
+    (product,index) => {
+
+      product.display_order =
+        index + 1;
+
+    }
+  );
+
+
+  /* ==================================================
      حفظ الترتيب في Supabase
-  ============================================== */
+  ================================================== */
 
   for(
-    const product of updates
+    const product of categoryProducts
   ){
 
     const {
-      error:updateError
+      error
     } =
       await supabaseClient
         .from("products")
@@ -6834,57 +6881,30 @@ async function moveProductOrder(
           product.id
         );
 
-    if(updateError){
+
+    if(error){
 
       console.error(
         "خطأ حفظ ترتيب المنتج:",
-        updateError
+        error
       );
 
       alert(
-        "حدث خطأ أثناء حفظ الترتيب."
+        "حدث خطأ أثناء حفظ ترتيب المنتجات."
       );
 
       return;
+
     }
 
   }
 
-  /* ==============================================
-     تحديث القائمة مباشرة
-  ============================================== */
 
-  await loadProductOrderList();
+  /* ==================================================
+     إعادة عرض القائمة
+  ================================================== */
 
-  /* ==============================================
-     تحديث مصفوفة المنتجات الموجودة في لوحة الإدارة
-  ============================================== */
-
-  if(
-    Array.isArray(products)
-  ){
-
-    updates.forEach(
-      update => {
-
-        const product =
-          products.find(
-            p =>
-              String(p.id) ===
-              String(update.id)
-          );
-
-        if(product){
-
-          product.display_order =
-            update.display_order;
-
-        }
-
-      }
-    );
-
-  }
+  loadProductOrderList();
 
 }
   
