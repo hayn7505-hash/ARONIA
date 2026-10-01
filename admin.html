@@ -6686,94 +6686,179 @@ function loadProductOrderList(){
 
 
       /* =========================
-         بداية السحب
-      ========================= */
+   بداية السحب باللمس والماوس
+========================= */
 
-      item.addEventListener(
-        "dragstart",
-        function(){
+item.addEventListener(
+  "pointerdown",
+  function(event){
 
-          item.classList.add(
-            "dragging"
-          );
+    event.preventDefault();
 
-        }
+    draggedItem =
+      item;
+
+    item.classList.add(
+      "dragging"
+    );
+
+    try{
+
+      item.setPointerCapture(
+        event.pointerId
+      );
+
+    }catch(error){}
+
+  }
+);
+
+
+/* =========================
+   أثناء السحب
+========================= */
+
+item.addEventListener(
+  "pointermove",
+  function(event){
+
+    if(
+      draggedItem !== item
+    ){
+
+      return;
+
+    }
+
+
+    event.preventDefault();
+
+
+    const afterElement =
+      getDragAfterElement(
+        list,
+        event.clientY
       );
 
 
-      /* =========================
-         نهاية السحب
-      ========================= */
+    if(
+      afterElement === null
+    ){
 
-      item.addEventListener(
-        "dragend",
-        function(){
-
-          item.classList.remove(
-            "dragging"
-          );
-
-          updateProductOrderNumbers(
-            list
-          );
-
-        }
+      list.appendChild(
+        item
       );
 
+    }else{
 
-      list.appendChild(item);
-
-    }
-  );
-
-
-  /* =========================
-     التحكم بمكان الإفلات
-  ========================= */
-
-  list.addEventListener(
-    "dragover",
-    function(event){
-
-      event.preventDefault();
-
-
-      const dragging =
-        list.querySelector(
-          ".dragging"
-        );
-
-
-      if(!dragging) return;
-
-
-      const afterElement =
-        getDragAfterElement(
-          list,
-          event.clientY
-        );
-
-
-      if(afterElement == null){
-
-        list.appendChild(
-          dragging
-        );
-
-      }else{
-
-        list.insertBefore(
-          dragging,
-          afterElement
-        );
-
-      }
+      list.insertBefore(
+        item,
+        afterElement
+      );
 
     }
-  );
 
 
-  container.appendChild(list);
+    updateProductOrderNumbers(
+      list
+    );
+
+  }
+);
+
+
+/* =========================
+   نهاية السحب
+========================= */
+
+item.addEventListener(
+  "pointerup",
+  function(event){
+
+    if(
+      draggedItem !== item
+    ){
+
+      return;
+
+    }
+
+
+    try{
+
+      item.releasePointerCapture(
+        event.pointerId
+      );
+
+    }catch(error){}
+
+
+    item.classList.remove(
+      "dragging"
+    );
+
+
+    draggedItem =
+      null;
+
+
+    updateProductOrderNumbers(
+      list
+    );
+
+  }
+);
+
+
+/* =========================
+   إلغاء السحب
+========================= */
+
+item.addEventListener(
+  "pointercancel",
+  function(){
+
+    if(
+      draggedItem !== item
+    ){
+
+      return;
+
+    }
+
+
+    item.classList.remove(
+      "dragging"
+    );
+
+
+    draggedItem =
+      null;
+
+
+    updateProductOrderNumbers(
+      list
+    );
+
+  }
+);
+
+
+list.appendChild(
+  item
+);
+
+}
+);
+
+
+/* =========================
+   إضافة القائمة إلى الصفحة
+========================= */
+
+container.appendChild(
+  list
+);
 
 }
 
