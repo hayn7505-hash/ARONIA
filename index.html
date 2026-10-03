@@ -10704,10 +10704,14 @@ function selectConsultationType(button, type){
   document
     .querySelectorAll(".consultation-option")
     .forEach(item => {
-      item.classList.remove("selected");
+
+      item.style.borderColor = "";
+      item.style.background = "";
+
     });
 
-  button.classList.add("selected");
+  button.style.borderColor = "#66254D";
+  button.style.background = "rgba(102,37,77,0.08)";
 
   const nextButton =
     document.querySelector(".consultation-next-btn");
