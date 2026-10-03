@@ -5226,9 +5226,28 @@ PHARMACIST CONSULTATION
             <button
   type="button"
   class="consultation-option"
-  onclick="selectConsultationType(this, 'skin')"
+  onclick="
+    document.querySelectorAll('.consultation-option').forEach(function(item){
+      item.style.borderColor = '';
+      item.style.backgroundColor = '';
+      item.style.color = '';
+    });
+
+    this.style.borderColor = '#66254D';
+    this.style.backgroundColor = 'rgba(102,37,77,0.08)';
+    this.style.color = '#66254D';
+
+    document.querySelector('.consultation-next-btn').disabled = false;
+    document.querySelector('.consultation-next-btn').style.opacity = '1';
+  "
+>
+
   <span>🧴</span>
-  <strong>البشرة</strong>
+
+  <strong>
+    البشرة
+  </strong>
+
 </button>
 
 
