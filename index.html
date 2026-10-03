@@ -10614,6 +10614,69 @@ loadMyOrders();
 
 }
 
+let selectedConsultationType = null;
+
+
+/* =====================================================
+   فتح استشارة الصيادلة
+===================================================== */
+
+function startConsultation(){
+
+  selectedConsultationType = null;
+
+  showPage("consultation");
+
+}
+
+
+/* =====================================================
+   اختيار نوع الاستشارة
+===================================================== */
+
+function selectConsultationType(button, type){
+
+  selectedConsultationType = type;
+
+  document
+    .querySelectorAll(".consultation-option")
+    .forEach(item => {
+      item.classList.remove("selected");
+    });
+
+  button.classList.add("selected");
+
+  const nextButton =
+    document.querySelector(".consultation-next-btn");
+
+  if(nextButton){
+
+    nextButton.disabled = false;
+
+  }
+
+}
+
+
+/* =====================================================
+   متابعة الاستشارة
+===================================================== */
+
+function nextConsultationStep(){
+
+  if(!selectedConsultationType){
+
+    return;
+
+  }
+
+  console.log(
+    "Consultation type:",
+    selectedConsultationType
+  );
+
+}
+
    /* =====================================================
    FEATURED OFFERS - HOME ONLY
 ===================================================== */
