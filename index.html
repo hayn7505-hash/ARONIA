@@ -10698,7 +10698,6 @@ function selectConsultationType(button, type){
 
   selectedConsultationType = type;
 
-  // إزالة التحديد من جميع الخيارات
   document
     .querySelectorAll(".consultation-option")
     .forEach(function(item){
@@ -10709,12 +10708,10 @@ function selectConsultationType(button, type){
 
     });
 
-  // تحديد الخيار الذي ضغط عليه المستخدم
   button.style.borderColor = "#66254D";
   button.style.backgroundColor = "rgba(102,37,77,0.08)";
   button.style.color = "#66254D";
 
-  // تفعيل زر المتابعة
   const nextButton =
     document.querySelector(".consultation-next-btn");
 
