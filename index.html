@@ -5109,7 +5109,7 @@ id="categoryProducts">
 </div>
 
 <!-- =====================================================
-PHARMACIST CONSULTATION PAGE
+PHARMACIST CONSULTATION
 ===================================================== -->
 
 <div
@@ -5121,17 +5121,13 @@ PHARMACIST CONSULTATION PAGE
     <div class="title">
 
       <h2>
-       استشارة الصيادلة
+        استشارة الصيادلة
       </h2>
 
     </div>
 
 
     <div class="consultation-intro">
-
-      <div class="consultation-intro-icon">
-
-</div>
 
       <h3>
         تحدث مع صيادلة ARONIA
@@ -5142,12 +5138,107 @@ PHARMACIST CONSULTATION PAGE
         واختيار المنتجات والروتين المناسب لك.
       </p>
 
+
+      <!-- نوع الاستشارة -->
+
+      <div class="consultation-step">
+
+        <div class="consultation-step-number">
+          1
+        </div>
+
+        <div class="consultation-step-content">
+
+          <h3>
+            ما نوع الاستشارة التي تحتاجها؟
+          </h3>
+
+          <p>
+            اختر المجال الأقرب إلى استفسارك
+          </p>
+
+
+          <div class="consultation-options">
+
+            <button
+              type="button"
+              class="consultation-option"
+              onclick="selectConsultationType(this,'skin')">
+
+              <span>
+                🧴
+              </span>
+
+              <strong>
+                البشرة
+              </strong>
+
+            </button>
+
+
+            <button
+              type="button"
+              class="consultation-option"
+              onclick="selectConsultationType(this,'hair')">
+
+              <span>
+                💇
+              </span>
+
+              <strong>
+                الشعر
+              </strong>
+
+            </button>
+
+
+            <button
+              type="button"
+              class="consultation-option"
+              onclick="selectConsultationType(this,'health')">
+
+              <span>
+                💊
+              </span>
+
+              <strong>
+                الأدوية والصحة
+              </strong>
+
+            </button>
+
+
+            <button
+              type="button"
+              class="consultation-option"
+              onclick="selectConsultationType(this,'other')">
+
+              <span>
+                💬
+              </span>
+
+              <strong>
+                استشارة أخرى
+              </strong>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- زر المتابعة -->
+
       <button
         type="button"
-        class="consultation-start-btn"
-        onclick="startConsultation()">
+        class="consultation-next-btn"
+        onclick="nextConsultationStep()"
+        disabled>
 
-        ابدأ الاستشارة
+        متابعة
 
       </button>
 
