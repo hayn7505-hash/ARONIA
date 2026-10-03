@@ -4494,6 +4494,69 @@ body.dark-mode .products-slider .product-image{
   gap:10px;
   margin-right:auto;
 }
+
+/* =====================================================
+   PHARMACIST CONSULTATION
+===================================================== */
+
+.consultation-option{
+  width:100%;
+  min-height:72px;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:12px 14px;
+
+  background:var(--card);
+  color:var(--text);
+
+  border:1px solid var(--border);
+  border-radius:16px;
+
+  cursor:pointer;
+  transition:all .2s ease;
+}
+
+.consultation-option span{
+  font-size:25px;
+  width:38px;
+  text-align:center;
+}
+
+.consultation-option strong{
+  font-size:14px;
+}
+
+.consultation-option.selected{
+  border-color:#66254D;
+  background:rgba(102,37,77,.08);
+  color:#66254D;
+}
+
+.consultation-next-btn{
+  width:100%;
+  margin-top:18px;
+
+  padding:13px;
+
+  border:0;
+  border-radius:14px;
+
+  background:#66254D;
+  color:#fff;
+
+  font-size:15px;
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+.consultation-next-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
   
 </style>
 
