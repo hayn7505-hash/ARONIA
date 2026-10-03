@@ -10692,7 +10692,29 @@ function startConsultation(){
 
 function selectConsultationType(button, type){
 
-  alert("الدالة تعمل: " + type);
+  selectedConsultationType = type;
+
+  // إزالة التحديد من جميع الخيارات
+  document
+    .querySelectorAll(".consultation-option")
+    .forEach(function(item){
+
+      item.classList.remove("selected");
+
+    });
+
+  // تحديد الخيار الحالي
+  button.classList.add("selected");
+
+  // تفعيل زر المتابعة
+  const nextButton =
+    document.querySelector(".consultation-next-btn");
+
+  if(nextButton){
+
+    nextButton.disabled = false;
+
+  }
 
 }
 
