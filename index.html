@@ -10773,10 +10773,91 @@ function nextConsultationStep(){
 
   }
 
-  console.log(
-    "Consultation type:",
-    selectedConsultationType
-  );
+  const intro =
+    document.querySelector(".consultation-intro");
+
+  if(!intro){
+
+    return;
+
+  }
+
+  intro.innerHTML = `
+
+    <div class="consultation-step">
+
+      <div class="consultation-step-number">
+        2
+      </div>
+
+      <div class="consultation-step-content">
+
+        <h3>
+          معلوماتك
+        </h3>
+
+        <p>
+          أخبرنا ببعض المعلومات الأساسية لنقدم لك إرشادات مناسبة.
+        </p>
+
+        <div class="consultation-form">
+
+          <label>
+            العمر
+          </label>
+
+          <input
+            type="number"
+            id="consultationAge"
+            min="1"
+            max="120"
+            placeholder="مثلاً: 25"
+          >
+
+          <label>
+            الجنس
+          </label>
+
+          <div class="consultation-options">
+
+            <button
+              type="button"
+              class="consultation-option"
+              onclick="this.parentElement.querySelectorAll('.consultation-option').forEach(x => x.classList.remove('selected')); this.classList.add('selected'); consultationGender='male';"
+            >
+              <strong>
+                ذكر
+              </strong>
+            </button>
+
+            <button
+              type="button"
+              class="consultation-option"
+              onclick="this.parentElement.querySelectorAll('.consultation-option').forEach(x => x.classList.remove('selected')); this.classList.add('selected'); consultationGender='female';"
+            >
+              <strong>
+                أنثى
+              </strong>
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="consultation-next-btn"
+      onclick="nextConsultationStep2()">
+
+      متابعة
+
+    </button>
+
+  `;
 
 }
 
