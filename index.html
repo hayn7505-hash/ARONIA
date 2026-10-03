@@ -10861,6 +10861,35 @@ function nextConsultationStep(){
 
 }
 
+function nextConsultationStep2(){
+
+  const age =
+    document.getElementById("consultationAge")?.value;
+
+  if(!age){
+
+    alert("يرجى إدخال العمر");
+
+    return;
+
+  }
+
+  if(!consultationGender){
+
+    alert("يرجى اختيار الجنس");
+
+    return;
+
+  }
+
+  alert(
+    "تم حفظ معلوماتك\n" +
+    "العمر: " + age + "\n" +
+    "الجنس: " + consultationGender
+  );
+
+}
+
    /* =====================================================
    FEATURED OFFERS - HOME ONLY
 ===================================================== */
