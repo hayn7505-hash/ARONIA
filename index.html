@@ -5223,71 +5223,106 @@ PHARMACIST CONSULTATION
 
           <div class="consultation-options">
 
-            <button
-  type="button"
-  class="consultation-option"
-  onclick="selectConsultationType(this, 'skin')"
->
-  <span>🧴</span>
+  <button
+    type="button"
+    class="consultation-option"
+    onclick="
+      document.querySelectorAll('.consultation-option').forEach(function(item){
+        item.style.borderColor = '';
+        item.style.backgroundColor = '';
+        item.style.color = '';
+      });
 
-  <strong>
-    البشرة
-  </strong>
-</button>
+      this.style.borderColor = '#66254D';
+      this.style.backgroundColor = 'rgba(102,37,77,0.08)';
+      this.style.color = '#66254D';
 
+      selectedConsultationType = 'skin';
 
-            <button
-              type="button"
-              class="consultation-option"
-              onclick="selectConsultationType(this,'hair')">
-
-              <span>
-                💇
-              </span>
-
-              <strong>
-                الشعر
-              </strong>
-
-            </button>
+      document.querySelector('.consultation-next-btn').disabled = false;
+      document.querySelector('.consultation-next-btn').style.opacity = '1';
+    "
+  >
+    <span>🧴</span>
+    <strong>البشرة</strong>
+  </button>
 
 
-            <button
-              type="button"
-              class="consultation-option"
-              onclick="selectConsultationType(this,'health')">
+  <button
+    type="button"
+    class="consultation-option"
+    onclick="
+      document.querySelectorAll('.consultation-option').forEach(function(item){
+        item.style.borderColor = '';
+        item.style.backgroundColor = '';
+        item.style.color = '';
+      });
 
-              <span>
-                💊
-              </span>
+      this.style.borderColor = '#66254D';
+      this.style.backgroundColor = 'rgba(102,37,77,0.08)';
+      this.style.color = '#66254D';
 
-              <strong>
-                الأدوية والصحة
-              </strong>
+      selectedConsultationType = 'hair';
 
-            </button>
+      document.querySelector('.consultation-next-btn').disabled = false;
+      document.querySelector('.consultation-next-btn').style.opacity = '1';
+    "
+  >
+    <span>💇</span>
+    <strong>الشعر</strong>
+  </button>
 
 
-            <button
-              type="button"
-              class="consultation-option"
-              onclick="selectConsultationType(this,'other')">
+  <button
+    type="button"
+    class="consultation-option"
+    onclick="
+      document.querySelectorAll('.consultation-option').forEach(function(item){
+        item.style.borderColor = '';
+        item.style.backgroundColor = '';
+        item.style.color = '';
+      });
 
-              <span>
-                💬
-              </span>
+      this.style.borderColor = '#66254D';
+      this.style.backgroundColor = 'rgba(102,37,77,0.08)';
+      this.style.color = '#66254D';
 
-              <strong>
-                استشارة أخرى
-              </strong>
+      selectedConsultationType = 'health';
 
-            </button>
+      document.querySelector('.consultation-next-btn').disabled = false;
+      document.querySelector('.consultation-next-btn').style.opacity = '1';
+    "
+  >
+    <span>💊</span>
+    <strong>الأدوية والصحة</strong>
+  </button>
 
-          </div>
 
-        </div>
+  <button
+    type="button"
+    class="consultation-option"
+    onclick="
+      document.querySelectorAll('.consultation-option').forEach(function(item){
+        item.style.borderColor = '';
+        item.style.backgroundColor = '';
+        item.style.color = '';
+      });
 
-      </div>
+      this.style.borderColor = '#66254D';
+      this.style.backgroundColor = 'rgba(102,37,77,0.08)';
+      this.style.color = '#66254D';
+
+      selectedConsultationType = 'other';
+
+      document.querySelector('.consultation-next-btn').disabled = false;
+      document.querySelector('.consultation-next-btn').style.opacity = '1';
+    "
+  >
+    <span>💬</span>
+    <strong>استشارة أخرى</strong>
+  </button>
+
+</div>
 
 
       <!-- زر المتابعة -->
