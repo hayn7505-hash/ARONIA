@@ -10699,12 +10699,16 @@ function selectConsultationType(button, type){
     .querySelectorAll(".consultation-option")
     .forEach(function(item){
 
-      item.classList.remove("selected");
+      item.style.borderColor = "";
+      item.style.backgroundColor = "";
+      item.style.color = "";
 
     });
 
-  // تحديد الخيار الحالي
-  button.classList.add("selected");
+  // تحديد الخيار الذي ضغط عليه المستخدم
+  button.style.borderColor = "#66254D";
+  button.style.backgroundColor = "rgba(102,37,77,0.08)";
+  button.style.color = "#66254D";
 
   // تفعيل زر المتابعة
   const nextButton =
@@ -10713,6 +10717,8 @@ function selectConsultationType(button, type){
   if(nextButton){
 
     nextButton.disabled = false;
+    nextButton.style.opacity = "1";
+    nextButton.style.cursor = "pointer";
 
   }
 
