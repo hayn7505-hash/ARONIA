@@ -4600,6 +4600,46 @@ body.dark-mode .products-slider .product-image{
   font-size:14px;
   font-weight:700;
 }
+
+.consultation-health-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:18px;
+}
+
+.consultation-check{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  min-height:52px;
+  padding:12px 14px;
+
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+
+  color:var(--text);
+  font-size:14px;
+  font-weight:600;
+
+  cursor:pointer;
+}
+
+.consultation-check input{
+  width:19px;
+  height:19px;
+  accent-color:#66254D;
+  flex-shrink:0;
+}
+
+.consultation-health-note{
+  margin-top:14px;
+  color:var(--text-soft);
+  font-size:12px;
+  line-height:1.7;
+}
   
 </style>
 
@@ -10946,64 +10986,111 @@ window.goToConsultationStep2 = function(){
 
   }
 
-  alert("تم حفظ معلوماتك بنجاح");
+  const intro =
+    document.querySelector(".consultation-intro");
+
+  if(!intro){
+
+    return;
+
+  }
+
+  intro.innerHTML = `
+
+    <div class="consultation-step">
+
+      <div class="consultation-step-number">
+        3
+      </div>
+
+      <div class="consultation-step-content">
+
+        <h3>
+          الفحص الصحي
+        </h3>
+
+        <p>
+          هل لديك أي من الحالات التالية؟
+        </p>
+
+        <div class="consultation-health-list">
+
+          <label class="consultation-check">
+            <input
+              type="checkbox"
+              value="diabetes"
+            >
+            <span>
+              السكري
+            </span>
+          </label>
+
+
+          <label class="consultation-check">
+            <input
+              type="checkbox"
+              value="hypertension"
+            >
+            <span>
+              ارتفاع ضغط الدم
+            </span>
+          </label>
+
+
+          <label class="consultation-check">
+            <input
+              type="checkbox"
+              value="kidney"
+            >
+            <span>
+              أمراض الكلى
+            </span>
+          </label>
+
+
+          <label class="consultation-check">
+            <input
+              type="checkbox"
+              value="liver"
+            >
+            <span>
+              أمراض الكبد
+            </span>
+          </label>
+
+
+          <label class="consultation-check">
+            <input
+              type="checkbox"
+              value="allergy"
+            >
+            <span>
+              حساسية من دواء أو مادة معينة
+            </span>
+          </label>
+
+        </div>
+
+        <p class="consultation-health-note">
+          إذا لم ينطبق عليك أي مما سبق، يمكنك المتابعة مباشرة.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="consultation-next-btn"
+      onclick="goToConsultationStep4()"
+    >
+      متابعة
+    </button>
+
+  `;
 
 };
-
-   /* =====================================================
-   FEATURED OFFERS - HOME ONLY
-===================================================== */
-
-const featuredSection =
-  document.getElementById(
-    "featuredOffersSection"
-  );
-
-if(featuredSection){
-
-  if(page === "home"){
-
-  featuredSection.style.display = "";
-
-  loadFeaturedOffers();
-
-}else{
-
-  featuredSection.style.display = "none";
-
-}
-
-}
-   
-if(page === "categories"){
-
-renderProducts(
-allProducts,
-"categoryProducts"
-);
-
-}
-
-if(page === "settings"){
-
-loadSettings();
-
-updateAccountUI();
-
-renderFavorites();
-
-}
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-}
-
 /* =====================================================
 ADMIN
 ===================================================== */
