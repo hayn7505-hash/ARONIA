@@ -10948,120 +10948,236 @@ function startConsultation(){
 
 window.goToConsultationStep2 = function(){
 
-  const intro =
-    document.querySelector(".consultation-intro");
+  const intro = document.querySelector(".consultation-intro");
 
   if(!intro){
-
-    alert("لم يتم العثور على محتوى الاستشارة");
-
     return;
+  }
 
+  const name = document.getElementById("consultationFullName")?.value.trim();
+  const phone = document.getElementById("consultationPhone")?.value.trim();
+  const age = document.getElementById("consultationAge")?.value;
+  const governorate = document.getElementById("consultationGovernorate")?.value;
+
+  if(!name){
+    alert("يرجى إدخال الاسم.");
+    return;
+  }
+
+  if(!phone){
+    alert("يرجى إدخال رقم الهاتف.");
+    return;
+  }
+
+  if(!age){
+    alert("يرجى إدخال العمر.");
+    return;
+  }
+
+  if(!window.consultationGender){
+    alert("يرجى اختيار الجنس.");
+    return;
+  }
+
+  if(!governorate){
+    alert("يرجى اختيار المحافظة.");
+    return;
   }
 
   intro.innerHTML = `
 
-    <div class="consultation-step">
+    <h3>
+      نوع الاستشارة
+    </h3>
 
-      <div class="consultation-step-number">
-        2
-      </div>
+    <p>
+      اختر نوع أو أنواع الاستشارة التي تحتاجها.
+    </p>
 
-      <div class="consultation-step-content">
+    <div class="consultation-options">
 
-        <h3>
-          معلوماتك
-        </h3>
+      <button
+        type="button"
+        class="consultation-option"
+        onclick="
+          this.classList.toggle('selected');
+          updateSkinTypeVisibility();
+        "
+        data-type="skin">
 
-        <p>
-          أخبرنا ببعض المعلومات الأساسية لنقدم لك إرشادات مناسبة.
-        </p>
+        <strong>العناية بالبشرة</strong>
 
-        <div class="consultation-form">
+      </button>
 
-          <label>
-            العمر
-          </label>
+      <button
+        type="button"
+        class="consultation-option"
+        onclick="
+          this.classList.toggle('selected');
+        "
+        data-type="hair">
 
-          <input
-            type="number"
-            id="consultationAge"
-            min="1"
-            max="120"
-            placeholder="مثلاً: 25"
-          >
+        <strong>العناية بالشعر</strong>
 
-          <label>
-            الجنس
-          </label>
+      </button>
 
-          <div class="consultation-options">
+      <button
+        type="button"
+        class="consultation-option"
+        onclick="
+          this.classList.toggle('selected');
+        "
+        data-type="body">
 
-            <button
-  type="button"
-  class="consultation-option"
-  onclick="
-    window.consultationGender = 'male';
+        <strong>العناية بالجسم</strong>
 
-    this.parentElement
-      .querySelectorAll('.consultation-option')
-      .forEach(function(item){
+      </button>
 
-        item.style.borderColor = '';
-        item.style.backgroundColor = '';
-        item.style.color = '';
+      <button
+        type="button"
+        class="consultation-option"
+        onclick="
+          this.classList.toggle('selected');
+        "
+        data-type="other">
 
-      });
+        <strong>استشارة أخرى</strong>
 
-    this.style.borderColor = '#66254D';
-    this.style.backgroundColor = 'rgba(102,37,77,0.08)';
-    this.style.color = '#66254D';
-  "
->
-  <strong>ذكر</strong>
-</button>
+      </button>
 
-            <button
-  type="button"
-  class="consultation-option"
-  onclick="
-    window.consultationGender = 'female';
+    </div>
 
-    this.parentElement
-      .querySelectorAll('.consultation-option')
-      .forEach(function(item){
+    <div
+      id="skinTypeContainer"
+      style="display:none;">
 
-        item.style.borderColor = '';
-        item.style.backgroundColor = '';
-        item.style.color = '';
+      <label class="consultation-field-label">
+        نوع البشرة <span>*</span>
+      </label>
 
-      });
+      <div class="consultation-options">
 
-    this.style.borderColor = '#66254D';
-    this.style.backgroundColor = 'rgba(102,37,77,0.08)';
-    this.style.color = '#66254D';
-  "
->
-  <strong>أنثى</strong>
-</button>
+        <button
+          type="button"
+          class="consultation-option"
+          onclick="this.classList.toggle('selected');">
 
-          </div>
+          <strong>دهنية</strong>
 
-        </div>
+        </button>
+
+        <button
+          type="button"
+          class="consultation-option"
+          onclick="this.classList.toggle('selected');">
+
+          <strong>جافة</strong>
+
+        </button>
+
+        <button
+          type="button"
+          class="consultation-option"
+          onclick="this.classList.toggle('selected');">
+
+          <strong>مختلطة</strong>
+
+        </button>
+
+        <button
+          type="button"
+          class="consultation-option"
+          onclick="this.classList.toggle('selected');">
+
+          <strong>حساسة</strong>
+
+        </button>
+
+        <button
+          type="button"
+          class="consultation-option"
+          onclick="this.classList.toggle('selected');">
+
+          <strong>عادية</strong>
+
+        </button>
 
       </div>
 
     </div>
 
+    <div class="consultation-form">
+
+      <label class="consultation-field-label">
+        هل أنتِ حامل أو مرضعة؟
+      </label>
+
+      <select
+        id="consultationPregnancy"
+        class="consultation-select">
+
+        <option value="">
+          اختر
+        </option>
+
+        <option value="pregnant">
+          حامل
+        </option>
+
+        <option value="breastfeeding">
+          مرضعة
+        </option>
+
+        <option value="neither">
+          لا
+        </option>
+
+      </select>
+
+    </div>
+
     <button
-  type="button"
-  class="consultation-next-btn"
-  onclick="goToConsultationStep3()"
->
-  متابعة
-</button>
+      type="button"
+      class="consultation-next-btn"
+      onclick="goToConsultationStep3()">
+
+      متابعة
+
+    </button>
 
   `;
+
+  window.updateSkinTypeVisibility = function(){
+
+    const skinButton =
+      document.querySelector('[data-type="skin"]');
+
+    const skinContainer =
+      document.getElementById("skinTypeContainer");
+
+    if(!skinButton || !skinContainer){
+      return;
+    }
+
+    if(skinButton.classList.contains("selected")){
+
+      skinContainer.style.display = "block";
+
+    }else{
+
+      skinContainer.style.display = "none";
+
+      skinContainer
+        .querySelectorAll(".consultation-option")
+        .forEach(function(item){
+
+          item.classList.remove("selected");
+
+        });
+
+    }
+
+  };
 
 };
 
