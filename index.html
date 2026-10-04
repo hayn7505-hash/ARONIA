@@ -11183,126 +11183,294 @@ window.goToConsultationStep2 = function(){
 
   window.goToConsultationStep3 = function(){
 
-  const age =
-    document.getElementById("consultationAge")?.value;
-
-  if(!age){
-
-    alert("يرجى إدخال العمر");
-
-    return;
-
-  }
-
-  if(!window.consultationGender){
-
-    alert("يرجى اختيار الجنس");
-
-    return;
-
-  }
-
-  const intro =
-    document.querySelector(".consultation-intro");
+  const intro = document.querySelector(".consultation-intro");
 
   if(!intro){
-
     return;
-
   }
 
   intro.innerHTML = `
 
-    <div class="consultation-step">
+    <h3>
+      معلومات إضافية
+    </h3>
 
-      <div class="consultation-step-number">
-        3
-      </div>
-
-      <div class="consultation-step-content">
-
-        <h3>
-          الفحص الصحي
-        </h3>
-
-        <p>
-          هل لديك أي من الحالات التالية؟
-        </p>
-
-        <div class="consultation-health-list">
-
-          <label class="consultation-check">
-            <input
-              type="checkbox"
-              value="diabetes"
-            >
-            <span>
-              السكري
-            </span>
-          </label>
+    <p>
+      هذه المعلومات تساعد الصيدلي على فهم حالتك وتقديم استشارة أدق.
+    </p>
 
 
-          <label class="consultation-check">
-            <input
-              type="checkbox"
-              value="hypertension"
-            >
-            <span>
-              ارتفاع ضغط الدم
-            </span>
-          </label>
+    <!-- =========================================
+         المشاكل والأعراض
+    ========================================== -->
 
+    <label class="consultation-field-label">
+      ما المشاكل أو الأعراض التي تعاني منها؟
+    </label>
 
-          <label class="consultation-check">
-            <input
-              type="checkbox"
-              value="kidney"
-            >
-            <span>
-              أمراض الكلى
-            </span>
-          </label>
+    <div class="consultation-health-list">
 
+      <label class="consultation-check">
+        <input type="checkbox" value="حب الشباب وآثاره">
+        <span>حب الشباب وآثاره</span>
+      </label>
 
-          <label class="consultation-check">
-            <input
-              type="checkbox"
-              value="liver"
-            >
-            <span>
-              أمراض الكبد
-            </span>
-          </label>
+      <label class="consultation-check">
+        <input type="checkbox" value="حبوب مؤلمة">
+        <span>حبوب مؤلمة</span>
+      </label>
 
+      <label class="consultation-check">
+        <input type="checkbox" value="الوردية">
+        <span>الوردية (داء العد الوردي)</span>
+      </label>
 
-          <label class="consultation-check">
-            <input
-              type="checkbox"
-              value="allergy"
-            >
-            <span>
-              حساسية من دواء أو مادة معينة
-            </span>
-          </label>
+      <label class="consultation-check">
+        <input type="checkbox" value="الكلف والتصبغات">
+        <span>الكلف والتصبغات</span>
+      </label>
 
-        </div>
+      <label class="consultation-check">
+        <input type="checkbox" value="التجاعيد العميقة">
+        <span>التجاعيد العميقة</span>
+      </label>
 
-        <p class="consultation-health-note">
-          إذا لم ينطبق عليك أي مما سبق، يمكنك المتابعة مباشرة.
-        </p>
+      <label class="consultation-check">
+        <input type="checkbox" value="الخطوط الرفيعة وتعابير الوجه">
+        <span>الخطوط الرفيعة وتعابير الوجه</span>
+      </label>
 
-      </div>
+      <label class="consultation-check">
+        <input type="checkbox" value="المسام الواسعة">
+        <span>المسام الواسعة</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="هالات سوداء">
+        <span>هالات سوداء</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="رؤوس سوداء">
+        <span>رؤوس سوداء</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="رؤوس بيضاء">
+        <span>رؤوس بيضاء</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="حبوب تحت الجلد">
+        <span>حبوب تحت الجلد</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="تصبغات الجسم">
+        <span>تصبغات الجسم</span>
+      </label>
 
     </div>
 
 
-    <button
-      type="button"
-      class="consultation-next-btn"
-      onclick="goToConsultationStep4()"
+    <!-- =========================================
+         طبيعة الشعر
+    ========================================== -->
+
+    <label class="consultation-field-label">
+      طبيعة الشعر
+    </label>
+
+    <div class="consultation-health-list">
+
+      <label class="consultation-check">
+        <input type="checkbox" value="شعر دهني">
+        <span>دهني</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="شعر جاف">
+        <span>جاف</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="شعر مجعد">
+        <span>مجعد</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="شعر ناعم">
+        <span>ناعم</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="شعر قصير">
+        <span>قصير</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="شعر طويل">
+        <span>طويل</span>
+      </label>
+
+    </div>
+
+
+    <!-- =========================================
+         الحساسية والمشاكل الصحية
+    ========================================== -->
+
+    <label class="consultation-field-label">
+      الحساسية أو المشاكل الصحية
+    </label>
+
+    <div class="consultation-health-list">
+
+      <label class="consultation-check">
+        <input type="checkbox" value="حساسية من فيتامين C">
+        <span>حساسية من فيتامين C</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="حساسية من العطور">
+        <span>حساسية من العطور</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="حساسية من الحرارة">
+        <span>حساسية من الحرارة</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="حساسية من منتجات الحليب">
+        <span>حساسية من منتجات الحليب</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="حساسية من مادة فعالة معينة">
+        <span>حساسية من مادة فعالة معينة</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="عدم انتظام الدورة الشهرية">
+        <span>عدم انتظام الدورة الشهرية (تكيسات)</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="ظهور شعر كثيف بالجسم">
+        <span>ظهور شعر كثيف بالجسم (خربطة هرمونية)</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="وردية">
+        <span>وردية</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="صدفية">
+        <span>صدفية</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="إكزيما">
+        <span>إكزيما</span>
+      </label>
+
+      <label class="consultation-check">
+        <input type="checkbox" value="لا يوجد أي مشاكل">
+        <span>لا يوجد أي مشاكل</span>
+      </label>
+
+    </div>
+
+
+    <!-- =========================================
+         الأمراض المزمنة
+    ========================================== -->
+
+    <label class="consultation-field-label">
+      الأمراض المزمنة التي تعاني منها
+    </label>
+
+    <textarea
+      id="consultationChronicConditions"
+      class="consultation-input"
+      placeholder="اكتب الأمراض المزمنة إن وجدت، أو اكتب: لا يوجد"
+      rows="4"
+      style="
+        height:auto;
+        min-height:110px;
+        padding-top:14px;
+        padding-bottom:14px;
+        resize:vertical;
+      "
+    ></textarea>
+
+
+    <!-- =========================================
+         وصف المشكلة
+    ========================================== -->
+
+    <label class="consultation-field-label">
+      اشرح مشكلتك أو ما الذي تريد معرفته
+    </label>
+
+    <textarea
+      id="consultationDescription"
+      class="consultation-input"
+      placeholder="اكتب تفاصيل المشكلة أو السؤال الذي تريد طرحه على الصيدلي..."
+      rows="5"
+      style="
+        height:auto;
+        min-height:130px;
+        padding-top:14px;
+        padding-bottom:14px;
+        resize:vertical;
+      "
+    ></textarea>
+
+
+    <!-- =========================================
+         الأزرار
+    ========================================== -->
+
+    <div
+      style="
+        display:flex;
+        gap:10px;
+        margin-top:20px;
+      "
     >
-      متابعة
-    </button>
+
+      <button
+        type="button"
+        class="consultation-next-btn"
+        style="
+          margin-top:0;
+          background:#eee;
+          color:#4E1B3A;
+          flex:1;
+        "
+        onclick="resetConsultationForm()">
+
+        مسح
+
+      </button>
+
+      <button
+        type="button"
+        class="consultation-next-btn"
+        style="
+          margin-top:0;
+          flex:2;
+        "
+        onclick="submitConsultation()">
+
+        إرسال الاستشارة
+
+      </button>
+
+    </div>
 
   `;
 
