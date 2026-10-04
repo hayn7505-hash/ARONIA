@@ -5330,7 +5330,7 @@ PHARMACIST CONSULTATION
       <button
   type="button"
   class="consultation-next-btn"
-  onclick="alert('زر متابعة يعمل')"
+  onclick="goToConsultationStep2()"
 >
   متابعة
 </button>
@@ -10763,15 +10763,7 @@ function selectConsultationType(button, type){
    متابعة الاستشارة
 ===================================================== */
 
-function nextConsultationStep(){
-
-  if(!selectedConsultationType){
-
-    alert("يرجى اختيار نوع الاستشارة");
-
-    return;
-
-  }
+function goToConsultationStep2(){
 
   const intro =
     document.querySelector(".consultation-intro");
@@ -10825,58 +10817,17 @@ function nextConsultationStep(){
             <button
               type="button"
               class="consultation-option"
-              onclick="
-                consultationGender = 'male';
-
-                this.parentElement
-                  .querySelectorAll('.consultation-option')
-                  .forEach(function(item){
-
-                    item.style.borderColor = '';
-                    item.style.backgroundColor = '';
-                    item.style.color = '';
-
-                  });
-
-                this.style.borderColor = '#66254D';
-                this.style.backgroundColor = 'rgba(102,37,77,0.08)';
-                this.style.color = '#66254D';
-              "
+              onclick="consultationGender='male'; this.style.borderColor='#66254D'; this.style.backgroundColor='rgba(102,37,77,0.08)';"
             >
-
-              <strong>
-                ذكر
-              </strong>
-
+              <strong>ذكر</strong>
             </button>
-
 
             <button
               type="button"
               class="consultation-option"
-              onclick="
-                consultationGender = 'female';
-
-                this.parentElement
-                  .querySelectorAll('.consultation-option')
-                  .forEach(function(item){
-
-                    item.style.borderColor = '';
-                    item.style.backgroundColor = '';
-                    item.style.color = '';
-
-                  });
-
-                this.style.borderColor = '#66254D';
-                this.style.backgroundColor = 'rgba(102,37,77,0.08)';
-                this.style.color = '#66254D';
-              "
+              onclick="consultationGender='female'; this.style.borderColor='#66254D'; this.style.backgroundColor='rgba(102,37,77,0.08)';"
             >
-
-              <strong>
-                أنثى
-              </strong>
-
+              <strong>أنثى</strong>
             </button>
 
           </div>
@@ -10887,55 +10838,15 @@ function nextConsultationStep(){
 
     </div>
 
-
     <button
       type="button"
       class="consultation-next-btn"
-      onclick="nextConsultationStep2()"
+      onclick="alert('الخطوة الثانية تعمل')"
     >
-
       متابعة
-
     </button>
 
   `;
-
-}
-
-
-/* =====================================================
-   حفظ معلومات الخطوة الثانية
-===================================================== */
-
-function nextConsultationStep2(){
-
-  const age =
-    document.getElementById("consultationAge")?.value;
-
-  if(!age){
-
-    alert("يرجى إدخال العمر");
-
-    return;
-
-  }
-
-  if(!consultationGender){
-
-    alert("يرجى اختيار الجنس");
-
-    return;
-
-  }
-
-  alert(
-    "تم حفظ معلوماتك\n" +
-    "العمر: " +
-    age +
-    "\n" +
-    "الجنس: " +
-    consultationGender
-  );
 
 }
 
