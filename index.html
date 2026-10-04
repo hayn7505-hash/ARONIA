@@ -10723,41 +10723,223 @@ function startConsultation(){
 
   showPage("consultation");
 
-}
+  const intro =
+    document.querySelector(".consultation-intro");
 
-
-/* =====================================================
-   اختيار نوع الاستشارة
-===================================================== */
-
-function selectConsultationType(button, type){
-
-  selectedConsultationType = type;
-
-  document
-    .querySelectorAll(".consultation-option")
-    .forEach(function(item){
-
-      item.style.borderColor = "";
-      item.style.backgroundColor = "";
-      item.style.color = "";
-
-    });
-
-  button.style.borderColor = "#66254D";
-  button.style.backgroundColor = "rgba(102,37,77,0.08)";
-  button.style.color = "#66254D";
-
-  const nextButton =
-    document.querySelector(".consultation-next-btn");
-
-  if(nextButton){
-
-    nextButton.disabled = false;
-    nextButton.style.opacity = "1";
-    nextButton.style.cursor = "pointer";
-
+  if(!intro){
+    return;
   }
+
+  intro.innerHTML = `
+
+    <h3>
+      المعلومات الشخصية
+    </h3>
+
+    <p>
+      يرجى إدخال معلوماتك الأساسية للبدء بالاستشارة.
+    </p>
+
+    <div class="consultation-form">
+
+      <!-- الاسم -->
+
+      <label class="consultation-field-label">
+        الاسم <span>*</span>
+      </label>
+
+      <input
+        type="text"
+        id="consultationFullName"
+        class="consultation-input"
+        placeholder="أدخل اسمك"
+      >
+
+
+      <!-- رقم الهاتف -->
+
+      <label class="consultation-field-label">
+        رقم الهاتف المستخدم عادةً للطلب <span>*</span>
+      </label>
+
+      <input
+        type="tel"
+        id="consultationPhone"
+        class="consultation-input"
+        placeholder="07 XXX XXX XXX"
+        inputmode="tel"
+      >
+
+
+      <!-- العمر -->
+
+      <label class="consultation-field-label">
+        العمر <span>*</span>
+      </label>
+
+      <input
+        type="number"
+        id="consultationAge"
+        class="consultation-input"
+        min="1"
+        max="120"
+        placeholder="مثلاً: 25"
+      >
+
+
+      <!-- الجنس -->
+
+      <label class="consultation-field-label">
+        الجنس <span>*</span>
+      </label>
+
+      <div class="consultation-options">
+
+        <button
+          type="button"
+          class="consultation-option"
+          onclick="
+            window.consultationGender='male';
+
+            this.parentElement
+              .querySelectorAll('.consultation-option')
+              .forEach(function(item){
+                item.style.borderColor='';
+                item.style.backgroundColor='';
+                item.style.color='';
+              });
+
+            this.style.borderColor='#66254D';
+            this.style.backgroundColor='rgba(102,37,77,0.08)';
+            this.style.color='#66254D';
+          "
+        >
+          <strong>ذكر</strong>
+        </button>
+
+        <button
+          type="button"
+          class="consultation-option"
+          onclick="
+            window.consultationGender='female';
+
+            this.parentElement
+              .querySelectorAll('.consultation-option')
+              .forEach(function(item){
+                item.style.borderColor='';
+                item.style.backgroundColor='';
+                item.style.color='';
+              });
+
+            this.style.borderColor='#66254D';
+            this.style.backgroundColor='rgba(102,37,77,0.08)';
+            this.style.color='#66254D';
+          "
+        >
+          <strong>أنثى</strong>
+        </button>
+
+      </div>
+
+
+      <!-- الحالة الاجتماعية -->
+
+      <label class="consultation-field-label">
+        الحالة الاجتماعية <span>*</span>
+      </label>
+
+      <select
+        id="consultationSocialStatus"
+        class="consultation-select"
+      >
+
+        <option value="">
+          اختر
+        </option>
+
+        <option value="mother_housewife">
+          أم وربة منزل
+        </option>
+
+        <option value="working_mother">
+          أم عاملة
+        </option>
+
+        <option value="university_student">
+          طالبة جامعية
+        </option>
+
+        <option value="single_employee">
+          عزباء موظفة
+        </option>
+
+        <option value="single_housewife">
+          عزباء ربة منزل
+        </option>
+
+        <option value="school_student">
+          طالبة مدرسة
+        </option>
+
+        <option value="bride">
+          عروس
+        </option>
+
+        <option value="male_skip">
+          أنا ذكر — تخطي السؤال
+        </option>
+
+      </select>
+
+
+      <!-- المحافظة -->
+
+      <label class="consultation-field-label">
+        المحافظة <span>*</span>
+      </label>
+
+      <select
+        id="consultationGovernorate"
+        class="consultation-select"
+      >
+
+        <option value="">
+          اختر المحافظة
+        </option>
+
+        <option value="بغداد">بغداد</option>
+        <option value="البصرة">البصرة</option>
+        <option value="نينوى">نينوى</option>
+        <option value="أربيل">أربيل</option>
+        <option value="السليمانية">السليمانية</option>
+        <option value="دهوك">دهوك</option>
+        <option value="كركوك">كركوك</option>
+        <option value="الأنبار">الأنبار</option>
+        <option value="ديالى">ديالى</option>
+        <option value="صلاح الدين">صلاح الدين</option>
+        <option value="بابل">بابل</option>
+        <option value="كربلاء">كربلاء</option>
+        <option value="النجف">النجف</option>
+        <option value="واسط">واسط</option>
+        <option value="ميسان">ميسان</option>
+        <option value="ذي قار">ذي قار</option>
+        <option value="المثنى">المثنى</option>
+        <option value="القادسية">القادسية</option>
+
+      </select>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="consultation-next-btn"
+      onclick="goToConsultationStep2()"
+    >
+      متابعة
+    </button>
+
+  `;
 
 }
 
