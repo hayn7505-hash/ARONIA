@@ -5264,165 +5264,206 @@ PHARMACIST CONSULTATION
 
   <section class="section">
 
-    <div class="title">
+  <div class="title">
+    <h2>استشارة الصيادلة</h2>
+  </div>
 
-      <h2>
-        استشارة الصيادلة
-      </h2>
+  <div class="consultation-intro">
 
-    </div>
+    <h3>المعلومات الشخصية</h3>
+
+    <p>
+      أخبرنا ببعض المعلومات الأساسية لنتمكن من تقديم استشارة مناسبة لك.
+    </p>
+
+    <div class="consultation-step">
+
+      <div class="consultation-step-number">
+        1
+      </div>
+
+      <div class="consultation-step-content">
+
+        <!-- الاسم -->
+
+        <label class="consultation-field-label">
+          الاسم
+          <span>*</span>
+        </label>
+
+        <input
+          type="text"
+          id="consultationFullName"
+          class="consultation-input"
+          placeholder="أدخل اسمك"
+        >
 
 
-    <div class="consultation-intro">
+        <!-- رقم الهاتف -->
 
-      <h3>
-        تحدث مع صيادلة ARONIA
-      </h3>
+        <label class="consultation-field-label">
+          رقم الهاتف المستخدم عادةً للطلب
+          <span>*</span>
+        </label>
 
-      <p>
-        احصل على إرشادات مخصصة تساعدك على فهم مشكلتك
-        واختيار المنتجات والروتين المناسب لك.
-      </p>
+        <input
+          type="tel"
+          id="consultationPhone"
+          class="consultation-input"
+          placeholder="07 XXX XXX XXX"
+          inputmode="tel"
+        >
 
 
-      <!-- نوع الاستشارة -->
+        <!-- العمر -->
 
-      <div class="consultation-step">
+        <label class="consultation-field-label">
+          العمر
+          <span>*</span>
+        </label>
 
-        <div class="consultation-step-number">
-          1
+        <input
+          type="number"
+          id="consultationAge"
+          class="consultation-input"
+          min="1"
+          max="120"
+          placeholder="مثلاً: 25"
+        >
+
+
+        <!-- الجنس -->
+
+        <label class="consultation-field-label">
+          الجنس
+          <span>*</span>
+        </label>
+
+        <div class="consultation-options">
+
+          <button
+            type="button"
+            class="consultation-option"
+            onclick="selectConsultationGender(this,'male')"
+          >
+            <strong>ذكر</strong>
+          </button>
+
+          <button
+            type="button"
+            class="consultation-option"
+            onclick="selectConsultationGender(this,'female')"
+          >
+            <strong>أنثى</strong>
+          </button>
+
         </div>
 
-        <div class="consultation-step-content">
 
-          <h3>
-            ما نوع الاستشارة التي تحتاجها؟
-          </h3>
+        <!-- الحالة الاجتماعية -->
 
-          <p>
-            اختر المجال الأقرب إلى استفسارك
-          </p>
+        <label class="consultation-field-label">
+          الحالة الاجتماعية
+          <span>*</span>
+        </label>
 
+        <select
+          id="consultationSocialStatus"
+          class="consultation-select"
+        >
 
-          <div class="consultation-options">
+          <option value="">
+            اختر
+          </option>
 
-  <button
-    type="button"
-    class="consultation-option"
-    onclick="
-      document.querySelectorAll('.consultation-option').forEach(function(item){
-        item.style.borderColor = '';
-        item.style.backgroundColor = '';
-        item.style.color = '';
-      });
+          <option value="mother_housewife">
+            أم وربة منزل
+          </option>
 
-      this.style.borderColor = '#66254D';
-      this.style.backgroundColor = 'rgba(102,37,77,0.08)';
-      this.style.color = '#66254D';
+          <option value="working_mother">
+            أم عاملة
+          </option>
 
-      selectedConsultationType = 'skin';
+          <option value="university_student">
+            طالبة جامعية
+          </option>
 
-      document.querySelector('.consultation-next-btn').disabled = false;
-      document.querySelector('.consultation-next-btn').style.opacity = '1';
-    "
-  >
-    <span>🧴</span>
-    <strong>البشرة</strong>
-  </button>
+          <option value="single_employee">
+            عزباء موظفة
+          </option>
 
+          <option value="single_housewife">
+            عزباء ربة منزل
+          </option>
 
-  <button
-    type="button"
-    class="consultation-option"
-    onclick="
-      document.querySelectorAll('.consultation-option').forEach(function(item){
-        item.style.borderColor = '';
-        item.style.backgroundColor = '';
-        item.style.color = '';
-      });
+          <option value="school_student">
+            طالبة مدرسة
+          </option>
 
-      this.style.borderColor = '#66254D';
-      this.style.backgroundColor = 'rgba(102,37,77,0.08)';
-      this.style.color = '#66254D';
+          <option value="bride">
+            عروس
+          </option>
 
-      selectedConsultationType = 'hair';
+          <option value="male_skip">
+            أنا ذكر — تخطي السؤال
+          </option>
 
-      document.querySelector('.consultation-next-btn').disabled = false;
-      document.querySelector('.consultation-next-btn').style.opacity = '1';
-    "
-  >
-    <span>💇</span>
-    <strong>الشعر</strong>
-  </button>
+        </select>
 
 
-  <button
-    type="button"
-    class="consultation-option"
-    onclick="
-      document.querySelectorAll('.consultation-option').forEach(function(item){
-        item.style.borderColor = '';
-        item.style.backgroundColor = '';
-        item.style.color = '';
-      });
+        <!-- المحافظة -->
 
-      this.style.borderColor = '#66254D';
-      this.style.backgroundColor = 'rgba(102,37,77,0.08)';
-      this.style.color = '#66254D';
+        <label class="consultation-field-label">
+          المحافظة
+          <span>*</span>
+        </label>
 
-      selectedConsultationType = 'health';
+        <select
+          id="consultationGovernorate"
+          class="consultation-select"
+        >
 
-      document.querySelector('.consultation-next-btn').disabled = false;
-      document.querySelector('.consultation-next-btn').style.opacity = '1';
-    "
-  >
-    <span>💊</span>
-    <strong>الأدوية والصحة</strong>
-  </button>
+          <option value="">
+            اختر المحافظة
+          </option>
 
+          <option value="بغداد">بغداد</option>
+          <option value="البصرة">البصرة</option>
+          <option value="نينوى">نينوى</option>
+          <option value="أربيل">أربيل</option>
+          <option value="السليمانية">السليمانية</option>
+          <option value="دهوك">دهوك</option>
+          <option value="كركوك">كركوك</option>
+          <option value="الأنبار">الأنبار</option>
+          <option value="ديالى">ديالى</option>
+          <option value="صلاح الدين">صلاح الدين</option>
+          <option value="بابل">بابل</option>
+          <option value="كربلاء">كربلاء</option>
+          <option value="النجف">النجف</option>
+          <option value="واسط">واسط</option>
+          <option value="ميسان">ميسان</option>
+          <option value="ذي قار">ذي قار</option>
+          <option value="المثنى">المثنى</option>
+          <option value="القادسية">القادسية</option>
 
-  <button
-    type="button"
-    class="consultation-option"
-    onclick="
-      document.querySelectorAll('.consultation-option').forEach(function(item){
-        item.style.borderColor = '';
-        item.style.backgroundColor = '';
-        item.style.color = '';
-      });
+        </select>
 
-      this.style.borderColor = '#66254D';
-      this.style.backgroundColor = 'rgba(102,37,77,0.08)';
-      this.style.color = '#66254D';
-
-      selectedConsultationType = 'other';
-
-      document.querySelector('.consultation-next-btn').disabled = false;
-      document.querySelector('.consultation-next-btn').style.opacity = '1';
-    "
-  >
-    <span>💬</span>
-    <strong>استشارة أخرى</strong>
-  </button>
-
-</div>
-
-
-      <!-- زر المتابعة -->
-
-      <button
-  type="button"
-  class="consultation-next-btn"
-  onclick="goToConsultationStep2()"
->
-  متابعة
-</button>
+      </div>
 
     </div>
 
-  </section>
 
-</div>
+    <button
+      type="button"
+      class="consultation-next-btn"
+      onclick="goToConsultationStep2()"
+    >
+      متابعة
+    </button>
+
+  </div>
+
+</section>
    
 <!-- =====================================================
 CART PAGE
