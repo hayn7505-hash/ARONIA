@@ -5293,7 +5293,7 @@ id="categoryProducts">
 </div>
 
 <!-- =====================================================
-PHARMACIST CONSULTATION
+PHARMACIST CONSULTATION PAGE
 ===================================================== -->
 
 <div
@@ -5302,206 +5302,44 @@ PHARMACIST CONSULTATION
 
   <section class="section">
 
-  <div class="title">
-    <h2>استشارة الصيادلة</h2>
-  </div>
+    <div class="title">
 
-  <div class="consultation-intro">
-
-    <h3>المعلومات الشخصية</h3>
-
-    <p>
-      أخبرنا ببعض المعلومات الأساسية لنتمكن من تقديم استشارة مناسبة لك.
-    </p>
-
-    <div class="consultation-step">
-
-      <div class="consultation-step-number">
-        1
-      </div>
-
-      <div class="consultation-step-content">
-
-        <!-- الاسم -->
-
-        <label class="consultation-field-label">
-          الاسم
-          <span>*</span>
-        </label>
-
-        <input
-          type="text"
-          id="consultationFullName"
-          class="consultation-input"
-          placeholder="أدخل اسمك"
-        >
-
-
-        <!-- رقم الهاتف -->
-
-        <label class="consultation-field-label">
-          رقم الهاتف المستخدم عادةً للطلب
-          <span>*</span>
-        </label>
-
-        <input
-          type="tel"
-          id="consultationPhone"
-          class="consultation-input"
-          placeholder="07 XXX XXX XXX"
-          inputmode="tel"
-        >
-
-
-        <!-- العمر -->
-
-        <label class="consultation-field-label">
-          العمر
-          <span>*</span>
-        </label>
-
-        <input
-          type="number"
-          id="consultationAge"
-          class="consultation-input"
-          min="1"
-          max="120"
-          placeholder="مثلاً: 25"
-        >
-
-
-        <!-- الجنس -->
-
-        <label class="consultation-field-label">
-          الجنس
-          <span>*</span>
-        </label>
-
-        <div class="consultation-options">
-
-          <button
-            type="button"
-            class="consultation-option"
-            onclick="selectConsultationGender(this,'male')"
-          >
-            <strong>ذكر</strong>
-          </button>
-
-          <button
-            type="button"
-            class="consultation-option"
-            onclick="selectConsultationGender(this,'female')"
-          >
-            <strong>أنثى</strong>
-          </button>
-
-        </div>
-
-
-        <!-- الحالة الاجتماعية -->
-
-        <label class="consultation-field-label">
-          الحالة الاجتماعية
-          <span>*</span>
-        </label>
-
-        <select
-          id="consultationSocialStatus"
-          class="consultation-select"
-        >
-
-          <option value="">
-            اختر
-          </option>
-
-          <option value="mother_housewife">
-            أم وربة منزل
-          </option>
-
-          <option value="working_mother">
-            أم عاملة
-          </option>
-
-          <option value="university_student">
-            طالبة جامعية
-          </option>
-
-          <option value="single_employee">
-            عزباء موظفة
-          </option>
-
-          <option value="single_housewife">
-            عزباء ربة منزل
-          </option>
-
-          <option value="school_student">
-            طالبة مدرسة
-          </option>
-
-          <option value="bride">
-            عروس
-          </option>
-
-          <option value="male_skip">
-            أنا ذكر — تخطي السؤال
-          </option>
-
-        </select>
-
-
-        <!-- المحافظة -->
-
-        <label class="consultation-field-label">
-          المحافظة
-          <span>*</span>
-        </label>
-
-        <select
-          id="consultationGovernorate"
-          class="consultation-select"
-        >
-
-          <option value="">
-            اختر المحافظة
-          </option>
-
-          <option value="بغداد">بغداد</option>
-          <option value="البصرة">البصرة</option>
-          <option value="نينوى">نينوى</option>
-          <option value="أربيل">أربيل</option>
-          <option value="السليمانية">السليمانية</option>
-          <option value="دهوك">دهوك</option>
-          <option value="كركوك">كركوك</option>
-          <option value="الأنبار">الأنبار</option>
-          <option value="ديالى">ديالى</option>
-          <option value="صلاح الدين">صلاح الدين</option>
-          <option value="بابل">بابل</option>
-          <option value="كربلاء">كربلاء</option>
-          <option value="النجف">النجف</option>
-          <option value="واسط">واسط</option>
-          <option value="ميسان">ميسان</option>
-          <option value="ذي قار">ذي قار</option>
-          <option value="المثنى">المثنى</option>
-          <option value="القادسية">القادسية</option>
-
-        </select>
-
-      </div>
+      <h2>
+        استشارة الصيادلة
+      </h2>
 
     </div>
 
 
-    <button
-      type="button"
-      class="consultation-next-btn"
-      onclick="goToConsultationStep2()"
-    >
-      متابعة
-    </button>
+    <div class="consultation-intro">
 
-  </div>
+      <div class="consultation-intro-icon">
+        💊
+      </div>
 
-</section>
+      <h3>
+        تحدث مع صيادلي ARONIA
+      </h3>
+
+      <p>
+        احصل على إرشادات مخصصة تساعدك على فهم مشكلتك
+        واختيار المنتجات والروتين المناسب لك.
+      </p>
+
+      <button
+        type="button"
+        class="consultation-start-btn"
+        onclick="startConsultation()">
+
+        ابدأ الاستشارة
+
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
    
 <!-- =====================================================
 CART PAGE
