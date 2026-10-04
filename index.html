@@ -11475,6 +11475,31 @@ window.goToConsultationStep2 = function(){
   `;
 
 };
+
+window.resetConsultationForm = function(){
+
+  const intro = document.querySelector(".consultation-intro");
+
+  if(!intro){
+    return;
+  }
+
+  const confirmed = confirm(
+    "هل تريد مسح جميع بيانات الاستشارة؟"
+  );
+
+  if(!confirmed){
+    return;
+  }
+
+  // إعادة المتغيرات
+  selectedConsultationType = null;
+  window.consultationGender = null;
+
+  // العودة إلى الصفحة الأولى
+  startConsultation();
+
+};
   
 /* =====================================================
 ADMIN
