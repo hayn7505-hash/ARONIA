@@ -10763,7 +10763,7 @@ function selectConsultationType(button, type){
    متابعة الاستشارة
 ===================================================== */
 
-function goToConsultationStep2(){
+window.goToConsultationStep2 = function(){
 
   const intro =
     document.querySelector(".consultation-intro");
@@ -10817,7 +10817,12 @@ function goToConsultationStep2(){
             <button
               type="button"
               class="consultation-option"
-              onclick="consultationGender='male'; this.style.borderColor='#66254D'; this.style.backgroundColor='rgba(102,37,77,0.08)';"
+              onclick="
+                consultationGender='male';
+                this.style.borderColor='#66254D';
+                this.style.backgroundColor='rgba(102,37,77,0.08)';
+                this.style.color='#66254D';
+              "
             >
               <strong>ذكر</strong>
             </button>
@@ -10825,7 +10830,12 @@ function goToConsultationStep2(){
             <button
               type="button"
               class="consultation-option"
-              onclick="consultationGender='female'; this.style.borderColor='#66254D'; this.style.backgroundColor='rgba(102,37,77,0.08)';"
+              onclick="
+                consultationGender='female';
+                this.style.borderColor='#66254D';
+                this.style.backgroundColor='rgba(102,37,77,0.08)';
+                this.style.color='#66254D';
+              "
             >
               <strong>أنثى</strong>
             </button>
@@ -10848,7 +10858,7 @@ function goToConsultationStep2(){
 
   `;
 
-}
+};
 
    /* =====================================================
    FEATURED OFFERS - HOME ONLY
