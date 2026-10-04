@@ -10941,7 +10941,22 @@ function startConsultation(){
 
 }
 
-
+  let consultationFormData = {
+  fullName: "",
+  phone: "",
+  age: "",
+  gender: "",
+  governorate: "",
+  consultationTypes: [],
+  skinType: "",
+  pregnancy: "",
+  symptoms: [],
+  hairNature: [],
+  healthIssues: [],
+  chronicConditions: "",
+  problemDescription: ""
+};
+  
 /* =====================================================
    متابعة الاستشارة
 ===================================================== */
@@ -10983,6 +10998,12 @@ window.goToConsultationStep2 = function(){
     alert("يرجى اختيار المحافظة.");
     return;
   }
+
+consultationFormData.fullName = fullName;
+consultationFormData.phone = phone;
+consultationFormData.age = age;
+consultationFormData.gender = window.consultationGender;
+consultationFormData.governorate = governorate;
 
   intro.innerHTML = `
 
