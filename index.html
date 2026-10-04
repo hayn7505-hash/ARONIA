@@ -10815,30 +10815,52 @@ window.goToConsultationStep2 = function(){
           <div class="consultation-options">
 
             <button
-              type="button"
-              class="consultation-option"
-              onclick="
-                consultationGender='male';
-                this.style.borderColor='#66254D';
-                this.style.backgroundColor='rgba(102,37,77,0.08)';
-                this.style.color='#66254D';
-              "
-            >
-              <strong>ذكر</strong>
-            </button>
+  type="button"
+  class="consultation-option"
+  onclick="
+    window.consultationGender = 'male';
+
+    this.parentElement
+      .querySelectorAll('.consultation-option')
+      .forEach(function(item){
+
+        item.style.borderColor = '';
+        item.style.backgroundColor = '';
+        item.style.color = '';
+
+      });
+
+    this.style.borderColor = '#66254D';
+    this.style.backgroundColor = 'rgba(102,37,77,0.08)';
+    this.style.color = '#66254D';
+  "
+>
+  <strong>ذكر</strong>
+</button>
 
             <button
-              type="button"
-              class="consultation-option"
-              onclick="
-                consultationGender='female';
-                this.style.borderColor='#66254D';
-                this.style.backgroundColor='rgba(102,37,77,0.08)';
-                this.style.color='#66254D';
-              "
-            >
-              <strong>أنثى</strong>
-            </button>
+  type="button"
+  class="consultation-option"
+  onclick="
+    window.consultationGender = 'female';
+
+    this.parentElement
+      .querySelectorAll('.consultation-option')
+      .forEach(function(item){
+
+        item.style.borderColor = '';
+        item.style.backgroundColor = '';
+        item.style.color = '';
+
+      });
+
+    this.style.borderColor = '#66254D';
+    this.style.backgroundColor = 'rgba(102,37,77,0.08)';
+    this.style.color = '#66254D';
+  "
+>
+  <strong>أنثى</strong>
+</button>
 
           </div>
 
@@ -10873,7 +10895,7 @@ window.goToConsultationStep2 = function(){
 
   }
 
-  if(!consultationGender){
+  if(!window.consultationGender){
 
     alert("يرجى اختيار الجنس");
 
@@ -10881,9 +10903,7 @@ window.goToConsultationStep2 = function(){
 
   }
 
-  alert(
-    "تم حفظ معلوماتك بنجاح"
-  );
+  alert("تم حفظ معلوماتك بنجاح");
 
 };
 
