@@ -11210,6 +11210,77 @@ consultationFormData.governorate = governorate;
     return;
   }
 
+  // =========================================
+// حفظ بيانات الصفحة الثانية
+// =========================================
+
+consultationFormData.consultationTypes = [];
+
+document
+  .querySelectorAll('[data-type].consultation-option.selected')
+  .forEach(function(button){
+
+    const type = button.dataset.type;
+
+    if(type === "skin"){
+      consultationFormData.consultationTypes.push(
+        "العناية بالبشرة"
+      );
+    }
+
+    if(type === "hair"){
+      consultationFormData.consultationTypes.push(
+        "العناية بالشعر"
+      );
+    }
+
+    if(type === "body"){
+      consultationFormData.consultationTypes.push(
+        "العناية بالجسم"
+      );
+    }
+
+    if(type === "other"){
+      consultationFormData.consultationTypes.push(
+        "استشارة أخرى"
+      );
+    }
+
+  });
+
+
+// نوع البشرة
+consultationFormData.skinType = "";
+
+const skinContainer =
+  document.getElementById("skinTypeContainer");
+
+if(
+  skinContainer &&
+  skinContainer.style.display !== "none"
+){
+
+  const selectedSkin =
+    skinContainer.querySelector(
+      ".consultation-option.selected"
+    );
+
+  if(selectedSkin){
+
+    consultationFormData.skinType =
+      selectedSkin.innerText.trim();
+
+  }
+
+}
+
+
+// الحمل والرضاعة
+consultationFormData.pregnancy =
+  document.getElementById(
+    "consultationPregnancy"
+  )?.value || "";
+    
   intro.innerHTML = `
 
     <h3>
