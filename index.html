@@ -5351,6 +5351,8 @@ PHARMACIST CONSULTATION
     الاستشارة
   </div>
 
+  <!-- بدء استشارة -->
+
   <div class="setting-row">
 
     <div class="setting-info">
@@ -5384,9 +5386,62 @@ PHARMACIST CONSULTATION
 
   </div>
 
-</div>
 
-  </section>
+  <!-- استشاراتي -->
+
+  <div class="setting-row">
+
+    <div class="setting-info">
+
+      <div class="setting-icon">
+        📋
+      </div>
+
+      <div class="setting-text">
+
+        <strong>
+          استشاراتي
+        </strong>
+
+        <small>
+          عرض الاستشارات السابقة ومتابعة رد الصيدلي
+        </small>
+
+      </div>
+
+    </div>
+
+    <button
+      class="settings-action"
+      style="width:auto;padding:9px 13px;"
+      onclick="toggleSettingsPanel('consultations')">
+
+      عرض
+
+    </button>
+
+  </div>
+
+
+  <!-- قائمة الاستشارات -->
+
+  <div
+    id="settingsConsultationsPanel"
+    class="settings-panel"
+    style="display:none;"
+  >
+
+    <div
+      id="myConsultationsContainer"
+    >
+
+      <p>
+        جاري تحميل الاستشارات...
+      </p>
+
+    </div>
+
+  </div>
 
 </div>
    
