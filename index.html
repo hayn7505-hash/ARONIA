@@ -11831,49 +11831,49 @@ window.submitConsultation = async function(){
     consultationFormData.gender,
 
   consultation_type:
-  consultationFormData.consultationTypes,
+  consultationFormData.consultationTypes.join("، "),
 
-  symptoms:
-    consultationFormData.symptoms,
+symptoms:
+  consultationFormData.symptoms,
 
-  problem_description:
-    consultationFormData.problemDescription,
+problem_description:
+  consultationFormData.problemDescription,
 
-  pregnancy_status:
-    consultationFormData.pregnancy,
+pregnancy_status:
+  consultationFormData.pregnancy,
 
-  chronic_conditions:
-    consultationFormData.chronicConditions,
+chronic_conditions:
+  consultationFormData.chronicConditions
+    ? [consultationFormData.chronicConditions]
+    : [],
 
-  allergies:
-    consultationFormData.healthIssues,
+allergies:
+  consultationFormData.healthIssues.join("، "),
 
-  current_medications:
-    "",
+current_medications:
+  "",
 
-  current_products:
-    "",
+current_products:
+  [],
 
-  user_goal:
-    [
-      `المحافظة: ${consultationFormData.governorate}`,
+user_goal:
+  [
+    `المحافظة: ${consultationFormData.governorate}`,
 
-      consultationFormData.skinType
-        ? `نوع البشرة: ${consultationFormData.skinType}`
-        : "",
+    consultationFormData.skinType
+      ? `نوع البشرة: ${consultationFormData.skinType}`
+      : "",
 
-      consultationFormData.hairNature.length
-        ? `طبيعة الشعر: ${consultationFormData.hairNature.join("، ")}`
-        : ""
-    ]
-    .filter(Boolean)
-    .join(" | "),
+    consultationFormData.hairNature.length
+      ? `طبيعة الشعر: ${consultationFormData.hairNature.join("، ")}`
+      : ""
+  ]
+  .filter(Boolean),
 
-  status:
-    "pending"
+status:
+  "pending"
 
-};
-
+  };
 
     // =========================================
     // إرسال إلى Supabase
