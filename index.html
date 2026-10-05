@@ -5341,109 +5341,6 @@ id="categoryProducts">
 
 </div>
 
-<!-- =====================================================
-PHARMACIST CONSULTATION
-===================================================== -->
-
-<div class="settings-group">
-
-  <div class="settings-label">
-    الاستشارة
-  </div>
-
-  <!-- بدء استشارة -->
-
-  <div class="setting-row">
-
-    <div class="setting-info">
-
-      <div class="setting-icon">
-        💊
-      </div>
-
-      <div class="setting-text">
-
-        <strong>
-          استشارة الصيادلة
-        </strong>
-
-        <small>
-          تحدث مع صيادلة ARONIA واحصل على إرشادات مخصصة
-        </small>
-
-      </div>
-
-    </div>
-
-    <button
-      class="settings-action"
-      style="width:auto;padding:9px 13px;"
-      onclick="showPage('consultation')">
-
-      استشارة
-
-    </button>
-
-  </div>
-
-
-  <!-- استشاراتي -->
-
-  <div class="setting-row">
-
-    <div class="setting-info">
-
-      <div class="setting-icon">
-        📋
-      </div>
-
-      <div class="setting-text">
-
-        <strong>
-          استشاراتي
-        </strong>
-
-        <small>
-          عرض الاستشارات السابقة ومتابعة رد الصيدلي
-        </small>
-
-      </div>
-
-    </div>
-
-    <button
-      class="settings-action"
-      style="width:auto;padding:9px 13px;"
-      onclick="toggleSettingsPanel('consultations')">
-
-      عرض
-
-    </button>
-
-  </div>
-
-
-  <!-- قائمة الاستشارات -->
-
-  <div
-    id="settingsConsultationsPanel"
-    class="settings-panel"
-    style="display:none;"
-  >
-
-    <div
-      id="myConsultationsContainer"
-    >
-
-      <p>
-        جاري تحميل الاستشارات...
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
    
 <!-- =====================================================
 CART PAGE
@@ -5666,6 +5563,8 @@ PHARMACIST CONSULTATION
     الاستشارة
   </div>
 
+  <!-- بدء استشارة -->
+
   <div class="setting-row">
 
     <div class="setting-info">
@@ -5696,6 +5595,63 @@ PHARMACIST CONSULTATION
       استشارة
 
     </button>
+
+  </div>
+
+
+  <!-- استشاراتي -->
+
+  <div class="setting-row">
+
+    <div class="setting-info">
+
+      <div class="setting-icon">
+        📋
+      </div>
+
+      <div class="setting-text">
+
+        <strong>
+          استشاراتي
+        </strong>
+
+        <small>
+          عرض الاستشارات السابقة ومتابعة رد الصيدلي
+        </small>
+
+      </div>
+
+    </div>
+
+    <button
+      class="settings-action"
+      style="width:auto;padding:9px 13px;"
+      onclick="toggleSettingsPanel('consultations')">
+
+      عرض
+
+    </button>
+
+  </div>
+
+
+  <!-- قائمة الاستشارات -->
+
+  <div
+    id="settingsConsultationsPanel"
+    class="settings-panel"
+    style="display:none;"
+  >
+
+    <div
+      id="myConsultationsContainer"
+    >
+
+      <p>
+        جاري تحميل الاستشارات...
+      </p>
+
+    </div>
 
   </div>
 
