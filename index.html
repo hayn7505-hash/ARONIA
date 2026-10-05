@@ -6693,77 +6693,151 @@ alert(
 
 }
 
-/* =====================================================
-SETTINGS PANELS
-===================================================== */
-
 function toggleSettingsPanel(panel){
 
-const favoritesPanel =
-document.getElementById(
-"settingsFavoritesPanel"
-);
+  const favoritesPanel =
+    document.getElementById(
+      "settingsFavoritesPanel"
+    );
 
-const accountPanel =
-document.getElementById(
-"settingsAccountPanel"
-);
+  const accountPanel =
+    document.getElementById(
+      "settingsAccountPanel"
+    );
 
-if(panel === "favorites"){
+  const consultationsPanel =
+    document.getElementById(
+      "settingsConsultationsPanel"
+    );
 
-if(favoritesPanel){
 
-const willShow =
-!favoritesPanel.classList.contains("show");
+  /* =====================================================
+     FAVORITES
+  ===================================================== */
 
-favoritesPanel.classList.toggle(
-"show",
-willShow
-);
+  if(panel === "favorites"){
 
-if(willShow){
+    if(favoritesPanel){
 
-renderFavorites();
+      const willShow =
+        !favoritesPanel.classList.contains("show");
 
-}
+      favoritesPanel.classList.toggle(
+        "show",
+        willShow
+      );
 
-}
+      if(willShow){
 
-if(accountPanel){
+        renderFavorites();
 
-accountPanel.classList.remove("show");
+      }
 
-}
+    }
 
-}
+    if(accountPanel){
 
-if(panel === "account"){
+      accountPanel.classList.remove(
+        "show"
+      );
 
-if(accountPanel){
+    }
 
-const willShow =
-!accountPanel.classList.contains("show");
+    if(consultationsPanel){
 
-accountPanel.classList.toggle(
-"show",
-willShow
-);
+      consultationsPanel.classList.remove(
+        "show"
+      );
 
-if(willShow){
+    }
 
-updateAccountUI();
+  }
 
-}
 
-}
+  /* =====================================================
+     ACCOUNT
+  ===================================================== */
 
-if(favoritesPanel){
+  if(panel === "account"){
 
-favoritesPanel.classList.remove("show");
+    if(accountPanel){
 
-}
+      const willShow =
+        !accountPanel.classList.contains("show");
 
-}
+      accountPanel.classList.toggle(
+        "show",
+        willShow
+      );
+
+      if(willShow){
+
+        updateAccountUI();
+
+      }
+
+    }
+
+    if(favoritesPanel){
+
+      favoritesPanel.classList.remove(
+        "show"
+      );
+
+    }
+
+    if(consultationsPanel){
+
+      consultationsPanel.classList.remove(
+        "show"
+      );
+
+    }
+
+  }
+
+
+  /* =====================================================
+     CONSULTATIONS
+  ===================================================== */
+
+  if(panel === "consultations"){
+
+    if(consultationsPanel){
+
+      const willShow =
+        !consultationsPanel.classList.contains("show");
+
+      consultationsPanel.classList.toggle(
+        "show",
+        willShow
+      );
+
+      if(willShow){
+
+        loadMyConsultations();
+
+      }
+
+    }
+
+    if(favoritesPanel){
+
+      favoritesPanel.classList.remove(
+        "show"
+      );
+
+    }
+
+    if(accountPanel){
+
+      accountPanel.classList.remove(
+        "show"
+      );
+
+    }
+
+  }
 
 }
 
