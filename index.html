@@ -11656,19 +11656,112 @@ window.resetConsultationForm = function(){
 
 };
 
-window.submitConsultation = function(){
+window.submitConsultation = async function(){
+
+  const {
+    data: { user },
+    error: userError
+  } = await supabaseClient.auth.getUser();
+
+
+  if(userError || !user){
+
+    alert("يرجى تسجيل الدخول أولاً.");
+
+    return;
+  }
+
+
+  const consultationData = {
+
+    user_id: user.id,
+
+    full_name:
+      consultationFormData.fullName,
+
+    phone:
+      consultationFormData.phone,
+
+    age:
+      Number(consultationFormData.age),
+
+    gender:
+      consultationFormData.gender,
+
+    consultation_type:
+      consultationFormData.consultationTypes.join("، "),
+
+    symptoms:
+      consultationFormData.symptoms.join("، "),
+
+    problem_description:
+      consultationFormData.problemDescription,
+
+    pregnancy_status:
+      consultationFormData.pregnancy,
+
+    chronic_conditions:
+      consultationFormData.chronicConditions,
+
+    allergies:
+      consultationFormData.healthIssues.join("، "),
+
+    current_medications:
+      "",
+
+    current_products:
+      "",
+
+    user_goal:
+      [
+        `المحافظة: ${consultationFormData.governorate}`,
+
+        consultationFormData.skinType
+          ? `نوع البشرة: ${consultationFormData.skinType}`
+          : "",
+
+        consultationFormData.hairNature.length
+          ? `طبيعة الشعر: ${consultationFormData.hairNature.join("، ")}`
+          : ""
+      ]
+      .filter(Boolean)
+      .join(" | "),
+
+    status:
+      "pending"
+
+  };
+
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("pharmacist_consultations")
+    .insert([consultationData])
+    .select()
+    .single();
+
+
+  if(error){
+
+    alert(
+      "تعذر إرسال الاستشارة:\n\n" +
+      error.message
+    );
+
+    return;
+  }
+
 
   alert(
-    "تم الوصول إلى زر إرسال الاستشارة ✅\n\n" +
-    "الاسم: " +
-    consultationFormData.fullName + "\n" +
-    "الهاتف: " +
-    consultationFormData.phone + "\n" +
-    "العمر: " +
-    consultationFormData.age + "\n" +
-    "المحافظة: " +
-    consultationFormData.governorate
+    "تم إرسال الاستشارة بنجاح ✅\n\n" +
+    "رقم الاستشارة: " +
+    data.consultation_number
   );
+
+
+  resetConsultationForm();
 
 };
   
