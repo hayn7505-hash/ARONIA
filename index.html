@@ -10963,47 +10963,93 @@ function startConsultation(){
 
 window.goToConsultationStep2 = function(){
 
-  const intro = document.querySelector(".consultation-intro");
+  const fullName =
+    document.getElementById("consultationFullName")?.value.trim();
 
-  if(!intro){
-    return;
-  }
+  const phone =
+    document.getElementById("consultationPhone")?.value.trim();
 
-  const name = document.getElementById("consultationFullName")?.value.trim();
-  const phone = document.getElementById("consultationPhone")?.value.trim();
-  const age = document.getElementById("consultationAge")?.value;
-  const governorate = document.getElementById("consultationGovernorate")?.value;
+  const age =
+    document.getElementById("consultationAge")?.value;
 
-  if(!name){
+  const governorate =
+    document.getElementById("consultationGovernorate")?.value;
+
+
+  // ================================
+  // التحقق من البيانات
+  // ================================
+
+  if(!fullName){
+
     alert("يرجى إدخال الاسم.");
+
     return;
   }
 
   if(!phone){
+
     alert("يرجى إدخال رقم الهاتف.");
+
     return;
   }
 
   if(!age){
+
     alert("يرجى إدخال العمر.");
+
     return;
   }
 
   if(!window.consultationGender){
+
     alert("يرجى اختيار الجنس.");
+
     return;
   }
 
   if(!governorate){
+
     alert("يرجى اختيار المحافظة.");
+
     return;
   }
 
-consultationFormData.fullName = fullName;
-consultationFormData.phone = phone;
-consultationFormData.age = age;
-consultationFormData.gender = window.consultationGender;
-consultationFormData.governorate = governorate;
+
+  // ================================
+  // حفظ بيانات الصفحة الأولى
+  // ================================
+
+  consultationFormData.fullName =
+    fullName;
+
+  consultationFormData.phone =
+    phone;
+
+  consultationFormData.age =
+    age;
+
+  consultationFormData.gender =
+    window.consultationGender;
+
+  consultationFormData.governorate =
+    governorate;
+
+
+  // ================================
+  // الانتقال للصفحة الثانية
+  // ================================
+
+  const intro =
+    document.querySelector(".consultation-intro");
+
+  if(!intro){
+
+    alert("تعذر فتح الصفحة التالية.");
+
+    return;
+  }
+
 
   intro.innerHTML = `
 
@@ -11020,57 +11066,58 @@ consultationFormData.governorate = governorate;
       <button
         type="button"
         class="consultation-option"
+        data-type="skin"
         onclick="
           this.classList.toggle('selected');
-          updateSkinTypeVisibility();
+          window.updateSkinTypeVisibility();
         "
-        data-type="skin">
-
+      >
         <strong>العناية بالبشرة</strong>
-
       </button>
+
 
       <button
         type="button"
         class="consultation-option"
+        data-type="hair"
         onclick="
           this.classList.toggle('selected');
         "
-        data-type="hair">
-
+      >
         <strong>العناية بالشعر</strong>
-
       </button>
+
 
       <button
         type="button"
         class="consultation-option"
+        data-type="body"
         onclick="
           this.classList.toggle('selected');
         "
-        data-type="body">
-
+      >
         <strong>العناية بالجسم</strong>
-
       </button>
+
 
       <button
         type="button"
         class="consultation-option"
+        data-type="other"
         onclick="
           this.classList.toggle('selected');
         "
-        data-type="other">
-
+      >
         <strong>استشارة أخرى</strong>
-
       </button>
 
     </div>
 
+
     <div
       id="skinTypeContainer"
-      style="display:none;">
+      style="display:none; margin-top:18px;"
+    >
 
       <label class="consultation-field-label">
         نوع البشرة <span>*</span>
@@ -11081,51 +11128,47 @@ consultationFormData.governorate = governorate;
         <button
           type="button"
           class="consultation-option"
-          onclick="this.classList.toggle('selected');">
-
+          onclick="this.classList.toggle('selected');"
+        >
           <strong>دهنية</strong>
-
         </button>
 
         <button
           type="button"
           class="consultation-option"
-          onclick="this.classList.toggle('selected');">
-
+          onclick="this.classList.toggle('selected');"
+        >
           <strong>جافة</strong>
-
         </button>
 
         <button
           type="button"
           class="consultation-option"
-          onclick="this.classList.toggle('selected');">
-
+          onclick="this.classList.toggle('selected');"
+        >
           <strong>مختلطة</strong>
-
         </button>
 
         <button
           type="button"
           class="consultation-option"
-          onclick="this.classList.toggle('selected');">
-
+          onclick="this.classList.toggle('selected');"
+        >
           <strong>حساسة</strong>
-
         </button>
 
         <button
           type="button"
           class="consultation-option"
-          onclick="this.classList.toggle('selected');">
-
+          onclick="this.classList.toggle('selected');"
+        >
           <strong>عادية</strong>
-
         </button>
 
       </div>
 
     </div>
+
 
     <div class="consultation-form">
 
@@ -11135,7 +11178,8 @@ consultationFormData.governorate = governorate;
 
       <select
         id="consultationPregnancy"
-        class="consultation-select">
+        class="consultation-select"
+      >
 
         <option value="">
           اختر
@@ -11157,42 +11201,61 @@ consultationFormData.governorate = governorate;
 
     </div>
 
+
     <button
       type="button"
       class="consultation-next-btn"
-      onclick="goToConsultationStep3()">
-
+      onclick="window.goToConsultationStep3()"
+    >
       متابعة
-
     </button>
 
   `;
 
+
+  // ================================
+  // إظهار نوع البشرة
+  // ================================
+
   window.updateSkinTypeVisibility = function(){
 
     const skinButton =
-      document.querySelector('[data-type="skin"]');
+      document.querySelector(
+        '[data-type="skin"]'
+      );
 
     const skinContainer =
-      document.getElementById("skinTypeContainer");
+      document.getElementById(
+        "skinTypeContainer"
+      );
 
     if(!skinButton || !skinContainer){
+
       return;
     }
 
-    if(skinButton.classList.contains("selected")){
 
-      skinContainer.style.display = "block";
+    if(
+      skinButton.classList.contains("selected")
+    ){
+
+      skinContainer.style.display =
+        "block";
 
     }else{
 
-      skinContainer.style.display = "none";
+      skinContainer.style.display =
+        "none";
 
       skinContainer
-        .querySelectorAll(".consultation-option")
+        .querySelectorAll(
+          ".consultation-option"
+        )
         .forEach(function(item){
 
-          item.classList.remove("selected");
+          item.classList.remove(
+            "selected"
+          );
 
         });
 
