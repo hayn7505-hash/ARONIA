@@ -11658,8 +11658,6 @@ window.resetConsultationForm = function(){
 
 window.submitConsultation = async function(){
 
-  alert("بدأ اختبار Supabase...");
-
   try {
 
     const {
@@ -11670,7 +11668,7 @@ window.submitConsultation = async function(){
     if(error){
 
       alert(
-        "Supabase أعاد خطأ:\n\n" +
+        "خطأ Supabase:\n\n" +
         error.message
       );
 
@@ -11680,23 +11678,21 @@ window.submitConsultation = async function(){
     if(!user){
 
       alert(
-        "Supabase يعمل، لكن المستخدم غير مسجل دخول."
+        "لا يوجد مستخدم مسجل الدخول."
       );
 
       return;
     }
 
     alert(
-      "Supabase يعمل بشكل صحيح ✅\n\n" +
-      "User ID:\n" +
-      user.id
+      "Supabase يعمل بشكل صحيح ✅"
     );
 
-  } catch(error){
+  }catch(error){
 
     alert(
-      "حدث خطأ أثناء الاتصال بـ Supabase:\n\n" +
-      error.message
+      "الخطأ الحقيقي:\n\n" +
+      String(error?.message || error)
     );
 
   }
