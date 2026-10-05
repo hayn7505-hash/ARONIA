@@ -11658,110 +11658,48 @@ window.resetConsultationForm = function(){
 
 window.submitConsultation = async function(){
 
-  const {
-    data: { user },
-    error: userError
-  } = await supabaseClient.auth.getUser();
+  alert("بدأ اختبار Supabase...");
 
+  try {
 
-  if(userError || !user){
+    const {
+      data: { user },
+      error
+    } = await supabaseClient.auth.getUser();
 
-    alert("يرجى تسجيل الدخول أولاً.");
+    if(error){
 
-    return;
-  }
+      alert(
+        "Supabase أعاد خطأ:\n\n" +
+        error.message
+      );
 
+      return;
+    }
 
-  const consultationData = {
+    if(!user){
 
-    user_id: user.id,
+      alert(
+        "Supabase يعمل، لكن المستخدم غير مسجل دخول."
+      );
 
-    full_name:
-      consultationFormData.fullName,
-
-    phone:
-      consultationFormData.phone,
-
-    age:
-      Number(consultationFormData.age),
-
-    gender:
-      consultationFormData.gender,
-
-    consultation_type:
-      consultationFormData.consultationTypes.join("، "),
-
-    symptoms:
-      consultationFormData.symptoms.join("، "),
-
-    problem_description:
-      consultationFormData.problemDescription,
-
-    pregnancy_status:
-      consultationFormData.pregnancy,
-
-    chronic_conditions:
-      consultationFormData.chronicConditions,
-
-    allergies:
-      consultationFormData.healthIssues.join("، "),
-
-    current_medications:
-      "",
-
-    current_products:
-      "",
-
-    user_goal:
-      [
-        `المحافظة: ${consultationFormData.governorate}`,
-
-        consultationFormData.skinType
-          ? `نوع البشرة: ${consultationFormData.skinType}`
-          : "",
-
-        consultationFormData.hairNature.length
-          ? `طبيعة الشعر: ${consultationFormData.hairNature.join("، ")}`
-          : ""
-      ]
-      .filter(Boolean)
-      .join(" | "),
-
-    status:
-      "pending"
-
-  };
-
-
-  const {
-    data,
-    error
-  } = await supabaseClient
-    .from("pharmacist_consultations")
-    .insert([consultationData])
-    .select()
-    .single();
-
-
-  if(error){
+      return;
+    }
 
     alert(
-      "تعذر إرسال الاستشارة:\n\n" +
+      "Supabase يعمل بشكل صحيح ✅\n\n" +
+      "User ID:\n" +
+      user.id
+    );
+
+  } catch(error){
+
+    alert(
+      "حدث خطأ أثناء الاتصال بـ Supabase:\n\n" +
       error.message
     );
 
-    return;
   }
-
-
-  alert(
-    "تم إرسال الاستشارة بنجاح ✅\n\n" +
-    "رقم الاستشارة: " +
-    data.consultation_number
-  );
-
-
-  resetConsultationForm();
 
 };
   
