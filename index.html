@@ -11660,39 +11660,301 @@ window.submitConsultation = async function(){
 
   try {
 
+    // =========================================
+    // جمع بيانات الصفحة الثالثة
+    // =========================================
+
+    const healthSections =
+      document.querySelectorAll(
+        ".consultation-health-list"
+      );
+
+
+    consultationFormData.symptoms = [];
+
+    if(healthSections[0]){
+
+      healthSections[0]
+        .querySelectorAll(
+          "input[type='checkbox']:checked"
+        )
+        .forEach(function(input){
+
+          consultationFormData.symptoms.push(
+            input.value
+          );
+
+        });
+
+    }
+
+
+    consultationFormData.hairNature = [];
+
+    if(healthSections[1]){
+
+      healthSections[1]
+        .querySelectorAll(
+          "input[type='checkbox']:checked"
+        )
+        .forEach(function(input){
+
+          consultationFormData.hairNature.push(
+            input.value
+          );
+
+        });
+
+    }
+
+
+    consultationFormData.healthIssues = [];
+
+    if(healthSections[2]){
+
+      healthSections[2]
+        .querySelectorAll(
+          "input[type='checkbox']:checked"
+        )
+        .forEach(function(input){
+
+          consultationFormData.healthIssues.push(
+            input.value
+          );
+
+        });
+
+    }
+
+
+    consultationFormData.chronicConditions =
+      document
+        .getElementById(
+          "consultationChronicConditions"
+        )
+        ?.value.trim() || "";
+
+
+    consultationFormData.problemDescription =
+      document
+        .getElementById(
+          "consultationDescription"
+        )
+        ?.value.trim() || "";
+
+
+    // =========================================
+    // التحقق
+    // =========================================
+
+    if(
+      !consultationFormData.consultationTypes ||
+      consultationFormData.consultationTypes.length === 0
+    ){
+
+      alert(
+        "يرجى اختيار نوع الاستشارة."
+      );
+
+      return;
+    }
+
+
+    if(
+      consultationFormData.consultationTypes.includes(
+        "العناية بالبشرة"
+      ) &&
+      !consultationFormData.skinType
+    ){
+
+      alert(
+        "يرجى اختيار نوع البشرة."
+      );
+
+      return;
+    }
+
+
+    if(
+      !consultationFormData.problemDescription
+    ){
+
+      alert(
+        "يرجى كتابة وصف المشكلة أو السؤال."
+      );
+
+      return;
+    }
+
+
+    // =========================================
+    // المستخدم
+    // =========================================
+
     const {
       data: { user },
+      error: userError
+    } = await db.auth.getUser();
+
+
+    if(userError || !user){
+
+      alert(
+        "يرجى تسجيل الدخول أولاً."
+      );
+
+      return;
+    }
+
+
+    // =========================================
+    // تجهيز البيانات
+    // =========================================
+
+    const consultationData = {
+
+      user_id:
+        user.id,
+
+      full_name:
+        consultationFormData.fullName,
+
+      phone:
+        consultationFormData.phone,
+
+      age:
+        Number(
+          consultationFormData.age
+        ),
+
+      gender:
+        consultationFormData.gender,
+
+      consultation_type:
+        consultationFormData.consultationTypes.join("، "),
+
+      symptoms:
+        consultationFormData.symptoms.join("، "),
+
+      problem_description:
+        consultationFormData.problemDescription,
+
+      pregnancy_status:
+        consultationFormData.pregnancy,
+
+      chronic_conditions:
+        consultationFormData.chronicConditions,
+
+      allergies:
+        consultationFormData.healthIssues.join("، "),
+
+      current_medications:
+        "",
+
+      current_products:
+        "",
+
+      user_goal:
+        [
+          `المحافظة: ${consultationFormData.governorate}`,
+
+          consultationFormData.skinType
+            ? `نوع البشرة: ${consultationFormData.skinType}`
+            : "",
+
+          consultationFormData.hairNature.length
+            ? `طبيعة الشعر: ${consultationFormData.hairNature.join("، ")}`
+            : ""
+        ]
+        .filter(Boolean)
+        .join(" | "),
+
+      status:
+        "pending"
+
+    };
+
+
+    // =========================================
+    // إرسال إلى Supabase
+    // =========================================
+
+    const {
+      data,
       error
-    } = await supabaseClient.auth.getUser();
+    } = await db
+      .from("pharmacist_consultations")
+      .insert([
+        consultationData
+      ])
+      .select()
+      .single();
+
+
+    // =========================================
+    // الخطأ
+    // =========================================
 
     if(error){
 
       alert(
-        "خطأ Supabase:\n\n" +
+        "تعذر إرسال الاستشارة:\n\n" +
         error.message
       );
 
       return;
     }
 
-    if(!user){
 
-      alert(
-        "لا يوجد مستخدم مسجل الدخول."
-      );
-
-      return;
-    }
+    // =========================================
+    // النجاح
+    // =========================================
 
     alert(
-      "Supabase يعمل بشكل صحيح ✅"
+      "تم إرسال الاستشارة بنجاح ✅\n\n" +
+      "رقم الاستشارة:\n" +
+      data.consultation_number
     );
+
+
+    // =========================================
+    // تصفير النموذج
+    // =========================================
+
+    consultationFormData = {
+
+      fullName: "",
+      phone: "",
+      age: "",
+      gender: "",
+      governorate: "",
+      consultationTypes: [],
+      skinType: "",
+      pregnancy: "",
+      symptoms: [],
+      hairNature: [],
+      healthIssues: [],
+      chronicConditions: "",
+      problemDescription: ""
+
+    };
+
+
+    selectedConsultationType = null;
+
+    window.consultationGender = null;
+
+
+    startConsultation();
+
 
   }catch(error){
 
     alert(
-      "الخطأ الحقيقي:\n\n" +
-      String(error?.message || error)
+      "حدث خطأ أثناء إرسال الاستشارة:\n\n" +
+      String(
+        error?.message || error
+      )
     );
 
   }
