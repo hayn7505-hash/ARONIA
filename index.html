@@ -6857,12 +6857,11 @@ async function loadMyConsultations(){
     return;
   }
 
-  container.innerHTML = `
+  container.innerHTML = 
     <p>
       جاري تحميل الاستشارات...
     </p>
-  `;
-
+  ;
 
   try{
 
@@ -6878,11 +6877,11 @@ async function loadMyConsultations(){
 
     if(userError || !user){
 
-      container.innerHTML = `
+      container.innerHTML = 
         <p>
           يرجى تسجيل الدخول لعرض استشاراتك.
         </p>
-      `;
+      ;
 
       return;
 
@@ -6898,14 +6897,14 @@ async function loadMyConsultations(){
       error
     } = await db
       .from("pharmacist_consultations")
-      .select(`
+      .select(
         id,
         consultation_number,
         consultation_type,
         status,
         pharmacist_reply,
         created_at
-      `)
+      )
       .eq(
         "user_id",
         user.id
@@ -6913,18 +6912,18 @@ async function loadMyConsultations(){
       .order(
         "created_at",
         {
-          ascending:false
+          ascending: false
         }
       );
 
 
     if(error){
 
-      container.innerHTML = `
+      container.innerHTML = 
         <p>
           تعذر تحميل الاستشارات.
         </p>
-      `;
+      ;
 
       alert(
         "خطأ تحميل الاستشارات:\n\n" +
@@ -6945,15 +6944,34 @@ async function loadMyConsultations(){
       data.length === 0
     ){
 
-      container.innerHTML = `
+      container.innerHTML = 
         <div style="
           padding:20px;
           text-align:center;
           color:var(--text-soft);
         ">
-          لا توجد استشارات حتى الآن.
+
+          <div style="
+            font-size:32px;
+            margin-bottom:10px;
+          ">
+            📋
+          </div>
+
+          <strong>
+            لا توجد استشارات حتى الآن
+          </strong>
+
+          <p style="
+            margin-top:8px;
+            font-size:13px;
+          ">
+            عند إرسال استشارة جديدة
+            ستظهر هنا لمتابعة رد الصيدلي.
+          </p>
+
         </div>
-      `;
+      ;
 
       return;
 
@@ -6970,20 +6988,44 @@ async function loadMyConsultations(){
         let statusText =
           "قيد الانتظار";
 
+
         if(item.status === "in_progress"){
+
           statusText =
             "قيد المعالجة";
+
         }
+
 
         if(item.status === "answered"){
+
           statusText =
             "تمت الإجابة";
+
         }
 
+
         if(item.status === "closed"){
+
           statusText =
             "مغلقة";
+
         }
+
+
+        const consultationDate =
+          item.created_at
+            ? new Date(
+                item.created_at
+              ).toLocaleDateString(
+                "ar-IQ",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric"
+                }
+              )
+            : "";
 
 
         return `
@@ -7023,14 +7065,29 @@ async function loadMyConsultations(){
               font-size:13px;
             ">
 
-              ${item.consultation_type || ""}
+              ${
+                item.consultation_type || ""
+              }
 
             </div>
+            ${
+              consultationDate
+                ? 
+                  <div style="
+                    margin-top:6px;
+                    color:var(--text-soft);
+                    font-size:12px;
+                  ">
+                    📅 ${consultationDate}
+                  </div>
+                
+                : ""
+            }
 
 
             ${
               item.pharmacist_reply
-                ? `
+                ? 
                   <div style="
                     margin-top:12px;
                     padding:12px;
@@ -7039,21 +7096,36 @@ async function loadMyConsultations(){
                     font-size:13px;
                     line-height:1.7;
                   ">
+
                     <strong>
-                      رد الصيدلي:
+                      💬 رد الصيدلي:
                     </strong>
 
-                    <div style="margin-top:5px;">
+                    <div style="
+                      margin-top:5px;
+                    ">
                       ${item.pharmacist_reply}
                     </div>
+
                   </div>
-                `
-                : ""
+                
+                : 
+                  <div style="
+                    margin-top:12px;
+                    padding:10px;
+                    border-radius:10px;
+                    background:rgba(102,37,77,.04);
+                    color:var(--text-soft);
+                    font-size:12px;
+                  ">
+                    ⏳ بانتظار رد الصيدلي
+                  </div>
+                
             }
 
           </div>
 
-        `;
+        ;
 
       }
     ).join("");
@@ -7061,7 +7133,12 @@ async function loadMyConsultations(){
 
   }catch(error){
 
-    container.innerHTML = `
+    console.error(
+      "loadMyConsultations error:",
+      error
+    );
+
+    container.innerHTML = 
       <p>
         حدث خطأ أثناء تحميل الاستشارات.
       </p>
@@ -7077,7 +7154,7 @@ async function loadMyConsultations(){
   }
 
 }
-
+  
 /* =====================================================
 AUTH MESSAGE
 ===================================================== */
