@@ -6847,64 +6847,50 @@ function toggleSettingsPanel(panel){
 }
 
 async function loadMyConsultations(){
-
   const container =
     document.getElementById(
       "myConsultationsContainer"
     );
-
   if(!container){
     return;
   }
-
-  container.innerHTML = 
+  container.innerHTML = `
     <p>
       جاري تحميل الاستشارات...
     </p>
-  ;
-
+  `;
   try{
-
     /* =========================================
        المستخدم الحالي
     ========================================= */
-
     const {
       data: { user },
       error: userError
     } = await db.auth.getUser();
-
-
     if(userError || !user){
-
-      container.innerHTML = 
+      container.innerHTML = `
         <p>
           يرجى تسجيل الدخول لعرض استشاراتك.
         </p>
-      ;
-
+      `;
       return;
-
     }
-
-
     /* =========================================
        جلب الاستشارات
     ========================================= */
-
     const {
       data,
       error
     } = await db
       .from("pharmacist_consultations")
-      .select(
+      .select(`
         id,
         consultation_number,
         consultation_type,
         status,
         pharmacist_reply,
         created_at
-      )
+      `)
       .eq(
         "user_id",
         user.id
@@ -6915,53 +6901,40 @@ async function loadMyConsultations(){
           ascending: false
         }
       );
-
-
     if(error){
-
-      container.innerHTML = 
+      container.innerHTML = `
         <p>
           تعذر تحميل الاستشارات.
         </p>
-      ;
-
+      `;
       alert(
         "خطأ تحميل الاستشارات:\n\n" +
         error.message
       );
-
       return;
-
     }
-
-
     /* =========================================
        لا توجد استشارات
     ========================================= */
-
     if(
       !data ||
       data.length === 0
     ){
-
-      container.innerHTML = 
+      container.innerHTML = `
         <div style="
           padding:20px;
           text-align:center;
           color:var(--text-soft);
         ">
-
           <div style="
             font-size:32px;
             margin-bottom:10px;
           ">
             📋
           </div>
-
           <strong>
             لا توجد استشارات حتى الآن
           </strong>
-
           <p style="
             margin-top:8px;
             font-size:13px;
@@ -6969,50 +6942,29 @@ async function loadMyConsultations(){
             عند إرسال استشارة جديدة
             ستظهر هنا لمتابعة رد الصيدلي.
           </p>
-
         </div>
-      ;
-
+      `;
       return;
-
     }
-
-
     /* =========================================
        عرض الاستشارات
     ========================================= */
-
     container.innerHTML = data.map(
       function(item){
-
         let statusText =
           "قيد الانتظار";
-
-
         if(item.status === "in_progress"){
-
           statusText =
             "قيد المعالجة";
-
         }
-
-
         if(item.status === "answered"){
-
           statusText =
             "تمت الإجابة";
-
         }
-
-
         if(item.status === "closed"){
-
           statusText =
             "مغلقة";
-
         }
-
-
         const consultationDate =
           item.created_at
             ? new Date(
@@ -7026,10 +6978,7 @@ async function loadMyConsultations(){
                 }
               )
             : "";
-
-
         return `
-
           <div
             class="my-consultation-card"
             style="
@@ -7040,39 +6989,29 @@ async function loadMyConsultations(){
               border-radius:16px;
             "
           >
-
             <div style="
               display:flex;
               justify-content:space-between;
               align-items:center;
               gap:10px;
             ">
-
               <strong>
                 ${item.consultation_number || "استشارة"}
               </strong>
-
               <span>
                 ${statusText}
               </span>
-
             </div>
-
-
             <div style="
               margin-top:8px;
               color:var(--text-soft);
               font-size:13px;
             ">
-
-              ${
-                item.consultation_type || ""
-              }
-
+              ${item.consultation_type || ""}
             </div>
             ${
               consultationDate
-                ? 
+                ? `
                   <div style="
                     margin-top:6px;
                     color:var(--text-soft);
@@ -7080,14 +7019,12 @@ async function loadMyConsultations(){
                   ">
                     📅 ${consultationDate}
                   </div>
-                
+                `
                 : ""
             }
-
-
             ${
               item.pharmacist_reply
-                ? 
+                ? `
                   <div style="
                     margin-top:12px;
                     padding:12px;
@@ -7096,20 +7033,17 @@ async function loadMyConsultations(){
                     font-size:13px;
                     line-height:1.7;
                   ">
-
                     <strong>
                       💬 رد الصيدلي:
                     </strong>
-
                     <div style="
                       margin-top:5px;
                     ">
                       ${item.pharmacist_reply}
                     </div>
-
                   </div>
-                
-                : 
+                `
+                : `
                   <div style="
                     margin-top:12px;
                     padding:10px;
@@ -7120,39 +7054,29 @@ async function loadMyConsultations(){
                   ">
                     ⏳ بانتظار رد الصيدلي
                   </div>
-                
+                `
             }
-
           </div>
-
-        ;
-
+        `;
       }
     ).join("");
-
-
   }catch(error){
-
     console.error(
       "loadMyConsultations error:",
       error
     );
-
-    container.innerHTML = 
+    container.innerHTML = `
       <p>
         حدث خطأ أثناء تحميل الاستشارات.
       </p>
     `;
-
     alert(
       "حدث خطأ:\n\n" +
       String(
         error?.message || error
       )
     );
-
   }
-
 }
   
 /* =====================================================
