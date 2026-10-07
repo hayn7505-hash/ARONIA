@@ -4484,6 +4484,160 @@ async function loadConsultationsAdmin(){
       }
     ).join("");
 }
+
+/* ==================================================
+   تحميل صور الاستشارة للمدير
+================================================== */
+
+async function loadConsultationImagesAdmin(id){
+
+  const container =
+    document.getElementById(
+      "consultation-images-" + id
+    );
+
+  if(!container){
+    return;
+  }
+
+  container.innerHTML = `
+    <div style="
+      text-align:center;
+      color:#888;
+      padding:10px;
+    ">
+      جاري تحميل الصور...
+    </div>
+  `;
+
+  const {
+    data:images,
+    error
+  } =
+    await supabaseClient
+      .from("consultation_images")
+      .select(
+        "id, file_path, created_at"
+      )
+      .eq(
+        "consultation_id",
+        id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:true
+        }
+      );
+
+  if(error){
+    container.innerHTML = `
+      <div style="
+        color:#b33;
+        text-align:center;
+        padding:10px;
+      ">
+        تعذر تحميل الصور.
+      </div>
+    `;
+    return;
+  }
+
+  if(
+    !images ||
+    images.length === 0
+  ){
+    container.innerHTML = "";
+    return;
+  }
+
+  const imageHTML = [];
+
+  for(
+    const image of images
+  ){
+
+    const {
+      data:signedData,
+      error:signedError
+    } =
+      await supabaseClient
+        .storage
+        .from("consultation-images")
+        .createSignedUrl(
+          image.file_path,
+          3600
+        );
+
+    if(
+      signedError ||
+      !signedData ||
+      !signedData.signedUrl
+    ){
+      continue;
+    }
+
+    imageHTML.push(`
+      <a
+        href="${signedData.signedUrl}"
+        target="_blank"
+        rel="noopener"
+        style="
+          display:block;
+          border-radius:14px;
+          overflow:hidden;
+          background:#f5f5f5;
+          aspect-ratio:1;
+        "
+      >
+        <img
+          src="${signedData.signedUrl}"
+          alt="صورة الاستشارة"
+          style="
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:block;
+          "
+        >
+      </a>
+    `);
+  }
+
+  if(imageHTML.length === 0){
+    container.innerHTML = `
+      <div style="
+        text-align:center;
+        color:#888;
+        padding:10px;
+      ">
+        تعذر فتح صور الاستشارة.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <div style="
+      margin-top:15px;
+    ">
+      <strong>
+        🖼️ صور المشكلة
+      </strong>
+
+      <div style="
+        display:grid;
+        grid-template-columns:
+          repeat(3,1fr);
+        gap:8px;
+        margin-top:10px;
+      ">
+        ${imageHTML.join("")}
+      </div>
+    </div>
+  `;
+}
+  
 /* ==================================================
    فتح / إغلاق تفاصيل الاستشارة
 ================================================== */
