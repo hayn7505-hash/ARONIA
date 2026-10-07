@@ -4115,41 +4115,46 @@ async function loadConsultationsAdmin(){
     </div>
   `;
   const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("pharmacist_consultations")
-      .select(`
-        id,
-        user_id,
-        consultation_number,
-        full_name,
-        phone,
-        age,
-        gender,
-        consultation_type,
-        symptoms,
-        problem_description,
-        problem_duration,
-        pregnancy_status,
-        chronic_conditions,
-        allergies,
-        current_medications,
-        current_products,
-        user_goal,
-        status,
-        pharmacist_reply,
-        pharmacist_id,
-        created_at,
-        updated_at
-      `)
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
+  data,
+  error
+} =
+  await supabaseClient
+    .from("pharmacist_consultations")
+    .select(`
+      id,
+      user_id,
+      consultation_number,
+      full_name,
+      phone,
+      age,
+      gender,
+      consultation_type,
+      symptoms,
+      problem_description,
+      problem_duration,
+      pregnancy_status,
+      chronic_conditions,
+      allergies,
+      current_medications,
+      current_products,
+      user_goal,
+      status,
+      pharmacist_reply,
+      pharmacist_id,
+      admin_archived,
+      created_at,
+      updated_at
+    `)
+    .eq(
+      "admin_archived",
+      false
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
   if(error){
     console.error(
       "CONSULTATIONS ERROR:",
