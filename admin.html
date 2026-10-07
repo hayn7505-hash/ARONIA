@@ -4807,6 +4807,64 @@ async function closeConsultation(id){
   }
   await loadConsultationsAdmin();
 }
+
+/* ==================================================
+   حذف الاستشارة
+================================================== */
+
+async function deleteConsultation(id){
+
+  if(
+    !hasPermission(
+      "consultations.delete"
+    )
+  ){
+    alert(
+      "ليس لديك صلاحية حذف الاستشارات."
+    );
+    return;
+  }
+
+  const confirmed =
+    confirm(
+      "هل أنت متأكد من حذف هذه الاستشارة؟\n\n" +
+      "سيتم حذف الاستشارة من قائمة المدير."
+    );
+
+  if(!confirmed){
+    return;
+  }
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from(
+        "pharmacist_consultations"
+      )
+      .delete()
+      .eq(
+        "id",
+        id
+      );
+
+  if(error){
+
+    alert(
+      "فشل حذف الاستشارة:\n\n" +
+      error.message
+    );
+
+    return;
+  }
+
+  alert(
+    "تم حذف الاستشارة بنجاح ✅"
+  );
+
+  await loadConsultationsAdmin();
+
+}
   
 /* =========================
    عرض الطلبات الحالية
