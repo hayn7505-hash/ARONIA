@@ -4477,6 +4477,31 @@ async function loadConsultationsAdmin(){
                       >
                         إغلاق الاستشارة
                       </button>
+                      ${
+  hasPermission("consultations.delete") &&
+  (
+    item.status === "answered" ||
+    item.status === "closed"
+  )
+    ? `
+      <button
+        class="edit"
+        style="
+          margin-right:7px;
+          background:#8b2f2f;
+          color:white;
+        "
+        onclick="
+          deleteConsultation(
+            ${item.id}
+          )
+        "
+      >
+        🗑️ حذف الاستشارة
+      </button>
+    `
+    : ""
+}
                     </div>
                   `
                   : ""
