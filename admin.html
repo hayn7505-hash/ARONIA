@@ -4771,69 +4771,80 @@ async function replyToConsultation(id){
   }
 
   /* =====================================================
-   إرسال إشعار للمستخدم عند الرد
-===================================================== */
-
-const {
-  data:consultationData,
-  error:consultationError
-} =
-  await supabaseClient
-    .from("pharmacist_consultations")
-    .select(
-      "user_id, consultation_number"
-    )
-    .eq(
-      "id",
-      id
-    )
-    .single();
-
-if(
-  !consultationError &&
-  consultationData &&
-  consultationData.user_id
-){
+     إرسال إشعار للمستخدم عند الرد
+  ===================================================== */
 
   const {
-    error:notificationError
+    data:consultationData,
+    error:consultationError
   } =
     await supabaseClient
-      .from("notifications")
-      .insert({
-        user_id:
-          consultationData.user_id,
+      .from("pharmacist_consultations")
+      .select(
+        "user_id, consultation_number"
+      )
+      .eq(
+        "id",
+        id
+      )
+      .single();
 
-        title:
-          "تم الرد على استشارتك 💊",
+  if(consultationError){
 
-        message:
-          "قام الصيدلي بالرد على استشارتك رقم " +
-          (
-            consultationData.consultation_number ||
-            ""
-          ) +
-          ". يمكنك فتح استشاراتي لعرض الرد.",
-
-        is_read:false
-      });
-
-  if(notificationError){
-
-    console.error(
-      "Consultation notification error:",
-      notificationError
+    alert(
+      "تم حفظ الرد، لكن تعذر الحصول على بيانات المستخدم:\n\n" +
+      consultationError.message
     );
 
+    return;
   }
 
-}
+  if(
+    consultationData &&
+    consultationData.user_id
+  ){
+
+    const {
+      error:notificationError
+    } =
+      await supabaseClient
+        .from("notifications")
+        .insert({
+          user_id:
+            consultationData.user_id,
+
+          title:
+            "تم الرد على استشارتك 💊",
+
+          message:
+            "قام الصيدلي بالرد على استشارتك رقم " +
+            (
+              consultationData.consultation_number ||
+              ""
+            ) +
+            ". يمكنك فتح استشاراتي لعرض الرد.",
+
+          is_read:false
+        });
+
+    if(notificationError){
+
+      alert(
+        "تم حفظ الرد، لكن تعذر إرسال الإشعار:\n\n" +
+        notificationError.message
+      );
+
+      return;
+    }
+
+  }
   
   alert(
     "تم إرسال رد الصيدلي بنجاح ✅"
   );
   await loadConsultationsAdmin();
 }
+  
 /* ==================================================
    إغلاق الاستشارة
 ================================================== */
