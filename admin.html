@@ -4074,6 +4074,547 @@ async function loadOrders(){
 
 }
 
+/* ==================================================
+   استشارات الصيادلة - ADMIN
+================================================== */
+async function loadConsultationsAdmin(){
+  if(
+    !hasPermission("consultations.view")
+  ){
+    const container =
+      document.getElementById(
+        "consultationsAdminContainer"
+      );
+    if(container){
+      container.innerHTML = `
+        <div style="
+          text-align:center;
+          padding:30px;
+          color:#888;
+        ">
+          لا تملك صلاحية مشاهدة الاستشارات.
+        </div>
+      `;
+    }
+    return;
+  }
+  const container =
+    document.getElementById(
+      "consultationsAdminContainer"
+    );
+  if(!container){
+    return;
+  }
+  container.innerHTML = `
+    <div style="
+      text-align:center;
+      padding:30px;
+      color:#888;
+    ">
+      جاري تحميل الاستشارات...
+    </div>
+  `;
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("pharmacist_consultations")
+      .select(`
+        id,
+        user_id,
+        consultation_number,
+        full_name,
+        phone,
+        age,
+        gender,
+        consultation_type,
+        symptoms,
+        problem_description,
+        problem_duration,
+        pregnancy_status,
+        chronic_conditions,
+        allergies,
+        current_medications,
+        current_products,
+        user_goal,
+        status,
+        pharmacist_reply,
+        pharmacist_id,
+        created_at,
+        updated_at
+      `)
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+  if(error){
+    console.error(
+      "CONSULTATIONS ERROR:",
+      error
+    );
+    container.innerHTML = `
+      <div style="
+        text-align:center;
+        padding:30px;
+        color:#b33;
+      ">
+        فشل تحميل الاستشارات.
+        <br><br>
+        ${escapeHTML(error.message)}
+      </div>
+    `;
+    return;
+  }
+  if(
+    !data ||
+    data.length === 0
+  ){
+    container.innerHTML = `
+      <div style="
+        text-align:center;
+        padding:40px;
+        color:#888;
+      ">
+        لا توجد استشارات حتى الآن 💊
+      </div>
+    `;
+    return;
+  }
+  container.innerHTML =
+    data.map(
+      function(item){
+        let statusText =
+          "قيد الانتظار";
+        if(
+          item.status === "in_progress"
+        ){
+          statusText =
+            "قيد المعالجة";
+        }
+        if(
+          item.status === "answered"
+        ){
+          statusText =
+            "تمت الإجابة";
+        }
+        if(
+          item.status === "closed"
+        ){
+          statusText =
+            "مغلقة";
+        }
+        const date =
+          item.created_at
+            ? new Date(
+                item.created_at
+              ).toLocaleDateString(
+                "ar-IQ",
+                {
+                  year:"numeric",
+                  month:"long",
+                  day:"numeric"
+                }
+              )
+            : "";
+        return `
+          <div
+            class="order-card"
+            style="
+              margin-top:15px;
+            "
+          >
+            <div class="order-header">
+              <div>
+                <div class="order-id">
+                  ${escapeHTML(
+                    item.consultation_number ||
+                    "استشارة"
+                  )}
+                </div>
+                <div
+                  style="
+                    margin-top:5px;
+                    color:var(--text-secondary);
+                    font-size:13px;
+                  "
+                >
+                  ${escapeHTML(
+                    item.full_name ||
+                    "مستخدم"
+                  )}
+                </div>
+              </div>
+              <span class="new-badge">
+                ${statusText}
+              </span>
+            </div>
+            <div class="order-info">
+              <div>
+                <strong>
+                  نوع الاستشارة:
+                </strong>
+                ${escapeHTML(
+                  item.consultation_type ||
+                  "-"
+                )}
+              </div>
+              <div>
+                <strong>
+                  الهاتف:
+                </strong>
+                ${escapeHTML(
+                  item.phone ||
+                  "-"
+                )}
+              </div>
+              <div>
+                <strong>
+                  العمر:
+                </strong>
+                ${item.age || "-"}
+              </div>
+              <div>
+                <strong>
+                  تاريخ الإرسال:
+                </strong>
+                ${date}
+              </div>
+            </div>
+            <div class="actions">
+              <button
+                class="primary"
+                onclick="
+                  openConsultationAdmin(
+                    ${item.id}
+                  )
+                "
+              >
+                عرض الاستشارة
+              </button>
+            </div>
+            <div
+              id="consultation-${item.id}"
+              style="
+                display:none;
+                margin-top:15px;
+              "
+            >
+              <div
+                style="
+                  padding:15px;
+                  background:var(--surface-soft);
+                  border-radius:15px;
+                  line-height:1.9;
+                "
+              >
+                <strong>
+                  وصف المشكلة
+                </strong>
+                <div>
+                  ${escapeHTML(
+                    item.problem_description ||
+                    "لا يوجد"
+                  )}
+                </div>
+                <div style="margin-top:10px;">
+                  <strong>
+                    مدة المشكلة:
+                  </strong>
+                  ${escapeHTML(
+                    item.problem_duration ||
+                    "-"
+                  )}
+                </div>
+                <div style="margin-top:10px;">
+                  <strong>
+                    الأعراض:
+                  </strong>
+                  ${
+                    Array.isArray(item.symptoms)
+                      ? escapeHTML(
+                          item.symptoms.join("، ")
+                        )
+                      : "-"
+                  }
+                </div>
+                <div style="margin-top:10px;">
+                  <strong>
+                    الأمراض المزمنة:
+                  </strong>
+                  ${
+                    Array.isArray(
+                      item.chronic_conditions
+                    )
+                      ? escapeHTML(
+                          item.chronic_conditions.join("، ")
+                        )
+                      : "-"
+                  }
+                </div>
+                <div style="margin-top:10px;">
+                  <strong>
+                    الحساسية:
+                  </strong>
+                  ${escapeHTML(
+                    item.allergies ||
+                    "-"
+                  )}
+                </div>
+                <div style="margin-top:10px;">
+                  <strong>
+                    الأدوية الحالية:
+                  </strong>
+                  ${escapeHTML(
+                    item.current_medications ||
+                    "-"
+                  )}
+                </div>
+                <div style="margin-top:10px;">
+                  <strong>
+                    المنتجات الحالية:
+                  </strong>
+                  ${
+                    Array.isArray(
+                      item.current_products
+                    )
+                      ? escapeHTML(
+                          item.current_products.join("، ")
+                        )
+                      : "-"
+                  }
+                </div>
+                <div style="margin-top:10px;">
+                  <strong>
+                    هدف المستخدم:
+                  </strong>
+                  ${
+                    Array.isArray(
+                      item.user_goal
+                    )
+                      ? escapeHTML(
+                          item.user_goal.join("، ")
+                        )
+                      : "-"
+                  }
+                </div>
+                <div style="margin-top:10px;">
+                  <strong>
+                    الحمل:
+                  </strong>
+                  ${escapeHTML(
+                    item.pregnancy_status ||
+                    "-"
+                  )}
+                </div>
+              </div>
+              ${
+                item.pharmacist_reply
+                  ? `
+                    <div
+                      style="
+                        margin-top:15px;
+                        padding:15px;
+                        border-radius:15px;
+                        background:rgba(102,37,77,.06);
+                        line-height:1.8;
+                      "
+                    >
+                      <strong>
+                        💬 الرد الحالي
+                      </strong>
+                      <div style="margin-top:7px;">
+                        ${escapeHTML(
+                          item.pharmacist_reply
+                        )}
+                      </div>
+                    </div>
+                  `
+                  : ""
+              }
+              ${
+                hasPermission(
+                  "consultations.reply"
+                )
+                  ? `
+                    <div style="
+                      margin-top:15px;
+                    ">
+                      <strong>
+                        ✍️ رد الصيدلي
+                      </strong>
+                      <textarea
+                        id="reply-${item.id}"
+                        placeholder="اكتب رد الصيدلي هنا..."
+                      >${escapeHTML(
+                        item.pharmacist_reply || ""
+                      )}</textarea>
+                      <button
+                        class="primary"
+                        onclick="
+                          replyToConsultation(
+                            ${item.id}
+                          )
+                        "
+                      >
+                        إرسال الرد
+                      </button>
+                      <button
+                        class="edit"
+                        style="
+                          margin-right:7px;
+                        "
+                        onclick="
+                          closeConsultation(
+                            ${item.id}
+                          )
+                        "
+                      >
+                        إغلاق الاستشارة
+                      </button>
+                    </div>
+                  `
+                  : ""
+              }
+            </div>
+          </div>
+        `;
+      }
+    ).join("");
+}
+/* ==================================================
+   فتح / إغلاق تفاصيل الاستشارة
+================================================== */
+function openConsultationAdmin(id){
+  const element =
+    document.getElementById(
+      "consultation-" + id
+    );
+  if(!element){
+    return;
+  }
+  const willShow =
+    element.style.display === "none";
+  element.style.display =
+    willShow
+      ? "block"
+      : "none";
+}
+/* ==================================================
+   الرد على الاستشارة
+================================================== */
+async function replyToConsultation(id){
+  if(
+    !hasPermission(
+      "consultations.reply"
+    )
+  ){
+    alert(
+      "ليس لديك صلاحية الرد على الاستشارات."
+    );
+    return;
+  }
+  const textarea =
+    document.getElementById(
+      "reply-" + id
+    );
+  if(!textarea){
+    return;
+  }
+  const reply =
+    textarea.value.trim();
+  if(!reply){
+    alert(
+      "اكتب رد الصيدلي أولاً."
+    );
+    return;
+  }
+  const {
+    data: {
+      user
+    }
+  } =
+    await supabaseClient
+      .auth
+      .getUser();
+  if(!user){
+    alert(
+      "يرجى تسجيل الدخول."
+    );
+    return;
+  }
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("pharmacist_consultations")
+      .update({
+        pharmacist_reply:
+          reply,
+        pharmacist_id:
+          user.id,
+        status:
+          "answered",
+        updated_at:
+          new Date().toISOString()
+      })
+      .eq(
+        "id",
+        id
+      );
+  if(error){
+    alert(
+      "فشل إرسال الرد:\n\n" +
+      error.message
+    );
+    return;
+  }
+  alert(
+    "تم إرسال رد الصيدلي بنجاح ✅"
+  );
+  await loadConsultationsAdmin();
+}
+/* ==================================================
+   إغلاق الاستشارة
+================================================== */
+async function closeConsultation(id){
+  if(
+    !hasPermission(
+      "consultations.reply"
+    )
+  ){
+    alert(
+      "ليس لديك صلاحية إغلاق الاستشارة."
+    );
+    return;
+  }
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("pharmacist_consultations")
+      .update({
+        status:
+          "closed",
+        updated_at:
+          new Date().toISOString()
+      })
+      .eq(
+        "id",
+        id
+      );
+  if(error){
+    alert(
+      "فشل إغلاق الاستشارة:\n\n" +
+      error.message
+    );
+    return;
+  }
+  await loadConsultationsAdmin();
+}
+  
 /* =========================
    عرض الطلبات الحالية
 ========================= */
