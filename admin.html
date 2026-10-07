@@ -4769,6 +4769,66 @@ async function replyToConsultation(id){
     );
     return;
   }
+
+  /* =====================================================
+   إرسال إشعار للمستخدم عند الرد
+===================================================== */
+
+const {
+  data:consultationData,
+  error:consultationError
+} =
+  await supabaseClient
+    .from("pharmacist_consultations")
+    .select(
+      "user_id, consultation_number"
+    )
+    .eq(
+      "id",
+      id
+    )
+    .single();
+
+if(
+  !consultationError &&
+  consultationData &&
+  consultationData.user_id
+){
+
+  const {
+    error:notificationError
+  } =
+    await supabaseClient
+      .from("notifications")
+      .insert({
+        user_id:
+          consultationData.user_id,
+
+        title:
+          "تم الرد على استشارتك 💊",
+
+        message:
+          "قام الصيدلي بالرد على استشارتك رقم " +
+          (
+            consultationData.consultation_number ||
+            ""
+          ) +
+          ". يمكنك فتح استشاراتي لعرض الرد.",
+
+        is_read:false
+      });
+
+  if(notificationError){
+
+    console.error(
+      "Consultation notification error:",
+      notificationError
+    );
+
+  }
+
+}
+  
   alert(
     "تم إرسال رد الصيدلي بنجاح ✅"
   );
