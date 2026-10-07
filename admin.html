@@ -2403,6 +2403,52 @@ class="container hidden">
 </div>
 
 <!-- ==================================================
+     استشارات الصيادلة
+================================================== -->
+<div class="admin-section">
+  <button
+    class="admin-section-header"
+    type="button"
+    onclick="toggleAdminSection(this)">
+    <div>
+      <div class="admin-section-title">
+        💊 استشارات الصيادلة
+      </div>
+      <span class="admin-section-subtitle">
+        استقبال الاستشارات ومراجعتها والرد عليها
+      </span>
+    </div>
+    <span class="admin-section-arrow">
+      ▼
+    </span>
+  </button>
+  <div class="admin-section-content">
+    <div class="admin-subsection">
+      <div class="top">
+        <h3>
+          💊 الاستشارات الواردة
+        </h3>
+        <button
+          class="primary"
+          onclick="loadConsultationsAdmin()">
+          تحديث الاستشارات
+        </button>
+      </div>
+      <div
+        id="consultationsAdminContainer">
+        <div style="
+          text-align:center;
+          padding:30px;
+          color:#888;
+        ">
+          جاري تحميل الاستشارات...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<!-- ==================================================
      المدراء والصلاحيات
 ================================================== -->
 <div
