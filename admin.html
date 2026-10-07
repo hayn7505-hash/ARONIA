@@ -4642,19 +4642,30 @@ async function loadConsultationImagesAdmin(id){
    فتح / إغلاق تفاصيل الاستشارة
 ================================================== */
 function openConsultationAdmin(id){
+
   const element =
     document.getElementById(
       "consultation-" + id
     );
+
   if(!element){
     return;
   }
+
   const willShow =
     element.style.display === "none";
+
   element.style.display =
     willShow
       ? "block"
       : "none";
+
+  if(willShow){
+
+    loadConsultationImagesAdmin(id);
+
+  }
+
 }
 /* ==================================================
    الرد على الاستشارة
