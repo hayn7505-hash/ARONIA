@@ -4814,7 +4814,7 @@ async function closeConsultation(id){
 }
 
 /* ==================================================
-   حذف الاستشارة
+   إخفاء الاستشارة من لوحة المدير
 ================================================== */
 
 async function deleteConsultation(id){
@@ -4832,8 +4832,8 @@ async function deleteConsultation(id){
 
   const confirmed =
     confirm(
-      "هل أنت متأكد من حذف هذه الاستشارة؟\n\n" +
-      "سيتم حذف الاستشارة من قائمة المدير."
+      "هل تريد إزالة هذه الاستشارة من قائمة لوحة المدير؟\n\n" +
+      "الاستشارة والرد سيبقيان محفوظين للمستخدم."
     );
 
   if(!confirmed){
@@ -4847,7 +4847,11 @@ async function deleteConsultation(id){
       .from(
         "pharmacist_consultations"
       )
-      .delete()
+      .update({
+        admin_archived:true,
+        updated_at:
+          new Date().toISOString()
+      })
       .eq(
         "id",
         id
@@ -4856,7 +4860,7 @@ async function deleteConsultation(id){
   if(error){
 
     alert(
-      "فشل حذف الاستشارة:\n\n" +
+      "فشل إزالة الاستشارة من القائمة:\n\n" +
       error.message
     );
 
@@ -4864,7 +4868,7 @@ async function deleteConsultation(id){
   }
 
   alert(
-    "تم حذف الاستشارة بنجاح ✅"
+    "تمت إزالة الاستشارة من قائمة المدير ✅"
   );
 
   await loadConsultationsAdmin();
