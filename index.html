@@ -5659,6 +5659,791 @@ body.dark-mode .status-cancelled{
   }
 
 }
+
+/* =====================================================
+   ARONIA — SPRING COLOR IDENTITY
+   LILAC + LIGHT YELLOW + SOFT GRAY
+   FINAL OVERRIDE
+===================================================== */
+
+:root{
+
+  /* =========================
+     BACKGROUNDS
+  ========================= */
+
+  --bg:#F5F5F7;
+  --card:#FFFFFF;
+  --card-soft:#F0EFF3;
+
+
+  /* =========================
+     TEXT
+  ========================= */
+
+  --text:#44444A;
+  --text-soft:#77777F;
+  --heading:#3E3E45;
+
+
+  /* =========================
+     PRIMARY — LILAC
+  ========================= */
+
+  --primary:#9B7BC4;
+  --primary-dark:#8061AA;
+  --primary-light:#C8B5E3;
+
+
+  /* =========================
+     SECONDARY
+  ========================= */
+
+  --secondary:#B29BD2;
+
+
+  /* =========================
+     ACCENTS — SPRING YELLOW
+  ========================= */
+
+  --accent:#F9E7A8;
+  --accent-light:#FFF3C9;
+  --gold:#D8B84C;
+
+
+  /* =========================
+     BORDERS
+  ========================= */
+
+  --border:#E1E0E5;
+
+
+  /* =========================
+     NAVIGATION
+  ========================= */
+
+  --nav:#FFFFFF;
+
+
+  /* =========================
+     SHADOW
+  ========================= */
+
+  --shadow:
+    0 4px 18px rgba(80,70,90,.08);
+
+
+  /* =========================
+     STATUS
+  ========================= */
+
+  --success:#6F947D;
+  --danger:#B96B78;
+  --warning:#C99A45;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode{
+
+  --bg:#242329;
+  --card:#2E2C33;
+  --card-soft:#39363F;
+
+  --text:#F5F3F7;
+  --text-soft:#C5C1CA;
+  --heading:#FFFFFF;
+
+  --primary:#B59AD8;
+  --primary-dark:#9B7BC4;
+  --primary-light:#C8B5E3;
+
+  --secondary:#B59AD8;
+
+  --accent:#E8D48A;
+  --accent-light:#514B3A;
+  --gold:#E0C66C;
+
+  --border:#48454E;
+
+  --nav:#29272E;
+
+  --shadow:
+    0 4px 18px rgba(0,0,0,.28);
+
+  --success:#7DA58D;
+  --danger:#D27C89;
+  --warning:#D6A85C;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+  background:var(--nav);
+  border-color:var(--border);
+}
+
+.logo{
+  color:var(--primary-dark);
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+  background:
+    linear-gradient(
+      135deg,
+      #FFFFFF 0%,
+      #F2EDF8 65%,
+      #FFF7D9 100%
+    );
+}
+
+body.dark-mode .hero{
+
+  background:
+    linear-gradient(
+      135deg,
+      #302C36,
+      #28252D
+    );
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.shop-btn,
+.add-btn,
+.checkout-btn,
+.confirm-order,
+.auth-main-btn,
+.gender-save,
+.consultation-next-btn{
+
+  background:var(--primary-dark) !important;
+  color:#FFFFFF !important;
+}
+
+.shop-btn:hover,
+.add-btn:hover,
+.checkout-btn:hover{
+
+  background:#72539B !important;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.home-search-box,
+.hero .home-search-box{
+
+  background:#F0EFF3 !important;
+
+  border-color:#DEDCE4 !important;
+
+  box-shadow:
+    0 4px 14px rgba(80,70,90,.07) !important;
+}
+
+.home-search-box span,
+.hero .home-search-box span{
+
+  color:var(--primary-dark) !important;
+}
+
+.home-search-box:focus-within{
+
+  background:#F0EFF3 !important;
+
+  border-color:var(--primary) !important;
+
+  box-shadow:
+    0 5px 20px rgba(155,123,196,.15) !important;
+}
+
+
+/* =====================================================
+   TITLES
+===================================================== */
+
+.title h2,
+.orders-title{
+
+  color:var(--heading);
+}
+
+.view-all{
+
+  color:var(--primary-dark);
+}
+
+
+/* =====================================================
+   CATEGORIES
+===================================================== */
+
+.category-icon{
+
+  background:#FFFFFF;
+
+  box-shadow:
+    0 4px 12px rgba(80,70,90,.09);
+}
+
+.category p{
+
+  color:var(--text);
+}
+
+
+/* =====================================================
+   PRODUCT CARDS
+===================================================== */
+
+.product-card,
+.category-product-card,
+.aronia-slider-card{
+
+  background:var(--card);
+
+  border-color:var(--border);
+
+  box-shadow:var(--shadow);
+}
+
+
+/* =====================================================
+   PRODUCT PRICE
+===================================================== */
+
+.price,
+.cart-price,
+.order-product-price,
+.products-slider .product-price{
+
+  color:var(--primary-dark) !important;
+}
+
+
+/* =====================================================
+   FAVORITE
+===================================================== */
+
+.favorite-btn,
+.products-slider .card-favorite{
+
+  background:#FFFFFF !important;
+
+  color:#99939F !important;
+}
+
+.favorite-btn.active,
+.products-slider .favorite-btn.active,
+.products-slider .card-favorite.active,
+.category-products-grid .card-favorite.active{
+
+  color:var(--primary-dark) !important;
+}
+
+
+/* =====================================================
+   CART COUNT
+===================================================== */
+
+.cart-count{
+
+  background:var(--primary-dark);
+}
+
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
+.bottom-nav{
+
+  background:var(--nav);
+
+  border-top-color:var(--border);
+}
+
+.nav-item.active,
+.nav-item:hover{
+
+  color:var(--primary-dark);
+}
+
+
+/* =====================================================
+   CART
+===================================================== */
+
+.cart-item,
+.cart-total{
+
+  background:var(--card);
+
+  border-color:var(--border);
+}
+
+.qty button{
+
+  background:var(--card-soft);
+
+  color:var(--primary-dark);
+}
+
+.qty button:hover{
+
+  background:var(--accent-light);
+}
+
+
+/* =====================================================
+   ORDERS
+===================================================== */
+
+.status-new{
+
+  background:#EEE7F7 !important;
+  color:#8061AA !important;
+}
+
+.status-preparing{
+
+  background:#FFF3D4 !important;
+  color:#A87D2F !important;
+}
+
+.status-shipped,
+.status-completed{
+
+  background:#EAF4EE !important;
+  color:#527C63 !important;
+}
+
+.status-cancelled{
+
+  background:#F9E9EC !important;
+  color:#A95463 !important;
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+.settings-group,
+.account-box{
+
+  background:var(--card);
+
+  border-color:var(--border);
+}
+
+.setting-icon{
+
+  color:var(--primary-dark);
+}
+
+.settings-action,
+.account-action{
+
+  background:var(--card-soft);
+
+  color:var(--text);
+}
+
+.account-action.primary{
+
+  background:var(--primary-dark);
+}
+
+
+/* =====================================================
+   TOGGLE
+===================================================== */
+
+.slider{
+
+  background:#DCD9E0;
+}
+
+.switch input:checked + .slider{
+
+  background:var(--primary-dark);
+}
+
+
+/* =====================================================
+   MODALS
+===================================================== */
+
+.modal-box,
+.gender-box,
+.checkout-box,
+.auth-box{
+
+  background:var(--card);
+
+  border-color:var(--border);
+}
+
+.modal-close,
+.checkout-close{
+
+  background:var(--card-soft);
+
+  color:var(--primary-dark);
+}
+
+.modal-box{
+
+  border-top-color:var(--primary);
+}
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+.auth-logo{
+
+  color:var(--primary-dark);
+}
+
+.auth-input{
+
+  background:var(--card);
+
+  border-color:var(--border);
+}
+
+.auth-input:focus{
+
+  border-color:var(--primary);
+}
+
+.auth-secondary-btn{
+
+  background:var(--card-soft);
+
+  color:var(--primary-dark);
+}
+
+
+/* =====================================================
+   GENDER
+===================================================== */
+
+.gender-option{
+
+  background:var(--card);
+
+  border-color:var(--border);
+}
+
+.gender-option.selected{
+
+  background:var(--primary-dark);
+
+  border-color:var(--primary-dark);
+}
+
+
+/* =====================================================
+   CONSULTATION
+===================================================== */
+
+.consultation-option{
+
+  background:var(--card);
+
+  border-color:var(--border);
+}
+
+.consultation-option.selected{
+
+  border-color:var(--primary);
+
+  background:rgba(155,123,196,.12);
+
+  color:var(--primary-dark);
+}
+
+.consultation-check{
+
+  background:var(--card);
+
+  border-color:var(--border);
+}
+
+.consultation-check input{
+
+  accent-color:var(--primary-dark);
+}
+
+.consultation-field-label span{
+
+  color:var(--primary-dark);
+}
+
+.consultation-input,
+.consultation-select,
+.consultation-form input[type="number"]{
+
+  background:var(--card);
+
+  color:var(--text);
+
+  border-color:var(--border);
+}
+
+.consultation-input:focus,
+.consultation-select:focus,
+.consultation-form input[type="number"]:focus{
+
+  border-color:var(--primary);
+
+  box-shadow:
+    0 0 0 3px rgba(155,123,196,.15);
+}
+
+.consultation-start-btn{
+
+  background:
+    linear-gradient(
+      135deg,
+      #9B7BC4,
+      #8061AA
+    );
+
+  box-shadow:
+    0 8px 20px rgba(128,97,170,.22);
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+.notification-btn,
+.consultation-header-btn{
+
+  color:var(--primary-dark);
+}
+
+.notification-item{
+
+  background:var(--card);
+
+  border-color:var(--border);
+}
+
+.notification-item.unread{
+
+  background:#F0EDF4;
+
+  border-color:var(--primary-light);
+}
+
+
+/* =====================================================
+   QUANTITY
+===================================================== */
+
+.qty-minus,
+.qty-plus,
+.qty-delete{
+
+  background:var(--card-soft);
+
+  color:var(--primary-dark);
+}
+
+
+/* =====================================================
+   RESET / DANGER
+===================================================== */
+
+.reset-settings{
+
+  background:#F9E9EC;
+
+  color:var(--danger);
+}
+
+
+/* =====================================================
+   ADMIN / LOGOUT
+===================================================== */
+
+.admin-btn{
+
+  background:#EEEAF1;
+
+  color:#685872;
+}
+
+.logout-btn{
+
+  background:#F9E9EC;
+
+  color:#A55F6C;
+}
+
+
+/* =====================================================
+   OUT OF STOCK
+===================================================== */
+
+.add-btn:disabled{
+
+  background:#E4E4E6 !important;
+
+  color:#88888F !important;
+
+  border-color:#E4E4E6 !important;
+}
+
+
+/* =====================================================
+   PRODUCT IMAGES
+===================================================== */
+
+body.dark-mode .product-image,
+body.dark-mode .products-slider .product-image{
+
+  background:#FFFFFF !important;
+}
+
+body.dark-mode .category-icon{
+
+  background:#FFFFFF;
+}
+
+
+/* =====================================================
+   BANNER
+===================================================== */
+
+.banner-slider{
+
+  background:var(--card);
+
+  border-color:var(--border);
+}
+
+.banner-dot.active{
+
+  background:var(--gold);
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode .home-search-box,
+body.dark-mode .hero .home-search-box{
+
+  background:#302D35 !important;
+
+  border-color:#48454E !important;
+}
+
+body.dark-mode .home-search-box:focus-within{
+
+  border-color:#B59AD8 !important;
+}
+
+body.dark-mode .favorite-btn,
+body.dark-mode .products-slider .card-favorite{
+
+  background:#FFFFFF !important;
+
+  color:#99939F !important;
+}
+
+body.dark-mode .favorite-btn.active,
+body.dark-mode .products-slider .card-favorite.active{
+
+  color:#8061AA !important;
+}
+
+body.dark-mode .notification-item.unread{
+
+  background:#39363F;
+}
+
+
+/* =====================================================
+   SPRING PRODUCT CARD ACCENT
+===================================================== */
+
+.category-product-card,
+.aronia-slider-card{
+
+  border:1px solid var(--border) !important;
+
+  border-radius:14px !important;
+
+  overflow:hidden;
+}
+
+
+/* =====================================================
+   SPRING YELLOW — SPECIAL HIGHLIGHTS
+===================================================== */
+
+.product-card:hover{
+
+  border-color:#D9CCE8;
+}
+
+.featured-cart-controls .quantity-btn,
+.featured-cart-controls .quantity-value{
+
+  background:var(--accent-light);
+
+  color:#806A32;
+}
+
+.featured-cart-controls .remove-cart-btn{
+
+  color:var(--danger);
+}
+
+
+/* =====================================================
+   FINAL MOBILE VERTICAL CARDS
+===================================================== */
+
+@media(max-width:699px){
+
+  .category-product-card,
+  .aronia-slider-card{
+
+    aspect-ratio:2 / 3 !important;
+
+    border-radius:13px !important;
+  }
+
+}
   
 </style>
 
