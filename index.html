@@ -5554,6 +5554,111 @@ body.dark-mode .status-cancelled{
   background:#493138;
   color:#D27C89;
 }
+
+/* =====================================================
+   ARONIA - بطاقات المنتجات العمودية
+   يوضع في آخر ملف CSS
+===================================================== */
+
+.category-product-card,
+.aronia-slider-card {
+
+  /* مستطيل عمودي */
+  width: 100%;
+  aspect-ratio: 3 / 4;
+
+  /* منع البطاقة من التحول إلى مربع */
+  min-height: 0;
+
+  border-radius: 14px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================
+   صورة المنتج
+========================= */
+
+.category-product-card img,
+.aronia-slider-card img {
+
+  width: 100%;
+  height: 58%;
+
+  object-fit: contain;
+
+  display: block;
+}
+
+
+/* =========================
+   محتوى البطاقة
+========================= */
+
+.category-product-card .product-info,
+.aronia-slider-card .product-info {
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 8px;
+}
+
+
+/* =========================
+   اسم المنتج
+========================= */
+
+.category-product-card .product-name,
+.aronia-slider-card .product-name {
+
+  line-height: 1.4;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+
+/* =========================
+   زر أضف إلى السلة
+========================= */
+
+.category-product-card button,
+.aronia-slider-card button {
+
+  max-width: 100%;
+}
+
+
+/* =========================
+   الهاتف
+========================= */
+
+@media (max-width: 699px){
+
+  .category-product-card,
+  .aronia-slider-card {
+
+    aspect-ratio: 3 / 4;
+    border-radius: 12px;
+  }
+
+  .category-product-card img,
+  .aronia-slider-card img {
+
+    height: 56%;
+  }
+
+}
   
 </style>
 
