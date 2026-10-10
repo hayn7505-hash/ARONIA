@@ -5662,195 +5662,582 @@ body.dark-mode .status-cancelled{
 
 
 
-/* =========================================
-ARONIA — NEW COLOR THEME
-========================================= */
+/* =====================================================
+ARONIA — WARM BLUE & TERRACOTTA IDENTITY
+SKY BLUE + SAND + CORAL + DARK RED
+===================================================== */
 
 :root {
 –bg: #FFFFFF;
 –card: #FFFFFF;
 –card-soft: #CEE6F2;
 
-–text: #492724;
-–text-soft: #795B55;
-
+–text: #49302D;
+–text-soft: #80645C;
 –heading: #962E2A;
 
 –primary: #962E2A;
-–primary-dark: #70201D;
+–primary-dark: #762522;
 –primary-light: #E3867D;
 
 –secondary: #E3867D;
-–accent: #E9B796;
-–accent-light: #F9EDE4;
 
+–accent: #E9B796;
+–accent-light: #F8EDE4;
 –gold: #E9B796;
 
-–border: #E8D5CA;
+–border: #E9D5C8;
 –nav: #FFFFFF;
 
-–shadow: 0 4px 18px rgba(150, 46, 42, 0.10);
+–shadow: 0 4px 18px rgba(150, 46, 42, .10);
 
 –success: #56836A;
 –danger: #962E2A;
 –warning: #B87932;
 }
 
-/* =========================================
+/* =========================
 DARK MODE
-========================================= */
+DARK BROWN + DEEP RED
+========================= */
 
 body.dark-mode {
-–bg: #201719;
-–card: #2D2021;
-–card-soft: #3B292A;
+–bg: #211A1A;
+–card: #2E2323;
+–card-soft: #3A2D2D;
 
-–text: #F8EFEB;
-–text-soft: #D7BCB4;
-
+–text: #F8F0EB;
+–text-soft: #D7C1B7;
 –heading: #E3867D;
 
 –primary: #E3867D;
 –primary-dark: #962E2A;
 –primary-light: #E9B796;
 
-–secondary: #E3867D;
-–accent: #E9B796;
-–accent-light: #49302E;
+–secondary: #E9B796;
 
+–accent: #CEE6F2;
+–accent-light: #3A3438;
 –gold: #E9B796;
 
-–border: #573938;
-–nav: #261B1D;
+–border: #55403D;
+–nav: #261D1D;
 
-–shadow: 0 4px 18px rgba(0, 0, 0, 0.30);
+–shadow: 0 4px 18px rgba(0, 0, 0, .30);
 
-–success: #83B697;
-–danger: #F08B83;
+–success: #85B398;
+–danger: #F08078;
 –warning: #E9B796;
 }
 
-/* =========================================
-GENERAL COLORS
-========================================= */
+/* =========================
+HEADER
+========================= */
 
-body {
-background-color: var(–bg);
-color: var(–text);
+header {
+background: var(–nav);
+border-color: var(–border);
 }
 
-body.dark-mode {
-background-color: var(–bg);
-color: var(–text);
+.logo {
+color: var(–primary-dark);
 }
 
-/* HEADINGS */
+/* =========================
+HERO
+========================= */
 
-h1,
-h2,
-h3,
-h4,
-.section-title {
+.hero {
+background: linear-gradient(
+135deg,
+#FFFFFF 0%,
+#CEE6F2 55%,
+#E9B796 100%
+);
+}
+
+body.dark-mode .hero {
+background: linear-gradient(
+135deg,
+#3A2D2D,
+#211A1A
+);
+}
+
+/* =========================
+BUTTONS
+========================= */
+
+.shop-btn,
+.add-btn,
+.checkout-btn,
+.confirm-order,
+.auth-main-btn,
+.gender-save,
+.consultation-next-btn {
+background: var(–primary-dark) !important;
+color: #FFFFFF !important;
+}
+
+.shop-btn:hover,
+.add-btn:hover,
+.checkout-btn:hover {
+background: var(–primary) !important;
+}
+
+/* =========================
+SEARCH
+========================= */
+
+.home-search-box,
+.hero .home-search-box {
+background: #CEE6F2 !important;
+border-color: #E9B796 !important;
+box-shadow: 0 4px 14px rgba(150, 46, 42, .08) !important;
+}
+
+.home-search-box span,
+.hero .home-search-box span {
+color: var(–primary-dark) !important;
+}
+
+.home-search-box:focus-within {
+background: var(–card) !important;
+border-color: var(–primary) !important;
+box-shadow: 0 5px 20px rgba(150, 46, 42, .16) !important;
+}
+
+/* =========================
+TITLES
+========================= */
+
+.title h2,
+.orders-title {
 color: var(–heading);
 }
 
-/* CARDS */
+.view-all {
+color: var(–primary-dark);
+}
+
+/* =========================
+CATEGORIES
+========================= */
+
+.category-icon {
+background: #FFFFFF;
+box-shadow: var(–shadow);
+}
+
+.category p {
+color: var(–text);
+}
+
+/* =========================
+PRODUCT CARDS
+========================= */
 
 .product-card,
-.category-card,
-.settings-group,
-.order-card,
-.modal-content {
-background-color: var(–card);
+.category-product-card,
+.aronia-slider-card {
+background: var(–card);
+border-color: var(–border);
+box-shadow: var(–shadow);
+}
+
+.category-product-card,
+.aronia-slider-card {
+border: 1px solid var(–border) !important;
+border-radius: 14px !important;
+overflow: hidden;
+}
+
+/* =========================
+PRODUCT PRICE
+========================= */
+
+.price,
+.cart-price,
+.order-product-price,
+.products-slider .product-price {
+color: var(–primary-dark) !important;
+}
+
+/* =========================
+FAVORITES
+========================= */
+
+.favorite-btn,
+.products-slider .card-favorite {
+background: #FFFFFF !important;
+color: #B9A7A3 !important;
+}
+
+.favorite-btn.active,
+.products-slider .favorite-btn.active,
+.products-slider .card-favorite.active,
+.category-products-grid .card-favorite.active {
+color: #962E2A !important;
+}
+
+/* =========================
+CART COUNT
+========================= */
+
+.cart-count {
+background: var(–primary-dark);
+}
+
+/* =========================
+BOTTOM NAV
+========================= */
+
+.bottom-nav {
+background: var(–nav);
+border-top-color: var(–border);
+}
+
+.nav-item.active,
+.nav-item:hover {
+color: var(–primary-dark);
+}
+
+/* =========================
+CART
+========================= */
+
+.cart-item,
+.cart-total {
+background: var(–card);
 border-color: var(–border);
 }
 
-/* BUTTONS */
-
-button,
-.btn-primary,
-.checkout-btn {
-–button-bg: var(–primary);
+.qty button {
+background: var(–card-soft);
+color: var(–primary-dark);
 }
 
-.btn-primary,
-.checkout-btn {
-background-color: var(–primary);
+.qty button:hover {
+background: var(–accent-light);
+}
+
+/* =========================
+ORDERS
+========================= */
+
+.status-new {
+background: #F8E4E2 !important;
+color: #962E2A !important;
+}
+
+.status-preparing {
+background: #F8EDE4 !important;
+color: #8A5D37 !important;
+}
+
+.status-shipped,
+.status-completed {
+background: #EAF4EE !important;
+color: #527C63 !important;
+}
+
+.status-cancelled {
+background: #F9E9E7 !important;
+color: #962E2A !important;
+}
+
+/* =========================
+SETTINGS
+========================= */
+
+.settings-group,
+.account-box {
+background: var(–card);
+border-color: var(–border);
+}
+
+.setting-icon {
+color: var(–primary-dark);
+}
+
+.settings-action,
+.account-action {
+background: var(–card-soft);
+color: var(–text);
+}
+
+.account-action.primary {
+background: var(–primary-dark);
 color: #FFFFFF;
 }
 
-/* SECONDARY DETAILS */
+/* =========================
+TOGGLE
+========================= */
 
-.price,
-.active,
-.selected {
-color: var(–primary);
+.slider {
+background: #D8D2D0;
 }
 
-.badge,
-.product-badge {
-background-color: var(–accent);
-color: #492724;
+.switch input:checked + .slider {
+background: var(–primary-dark);
 }
 
-/* SEARCH */
+/* =========================
+MODALS
+========================= */
 
-input,
-textarea,
-select {
-background-color: var(–card);
+.modal-box,
+.gender-box,
+.checkout-box,
+.auth-box {
+background: var(–card);
+border-color: var(–border);
+}
+
+.modal-close,
+.checkout-close {
+background: var(–card-soft);
+color: var(–primary-dark);
+}
+
+.modal-box {
+border-top-color: var(–primary);
+}
+
+/* =========================
+AUTH
+========================= */
+
+.auth-logo {
+color: var(–primary-dark);
+}
+
+.auth-input {
+background: var(–card);
+border-color: var(–border);
+}
+
+.auth-input:focus {
+border-color: var(–primary);
+}
+
+.auth-secondary-btn {
+background: var(–card-soft);
+color: var(–primary-dark);
+}
+
+/* =========================
+GENDER
+========================= */
+
+.gender-option {
+background: var(–card);
+border-color: var(–border);
+}
+
+.gender-option.selected {
+background: var(–primary-dark);
+border-color: var(–primary-dark);
+color: #FFFFFF;
+}
+
+/* =========================
+CONSULTATION
+========================= */
+
+.consultation-option {
+background: var(–card);
+border-color: var(–border);
+}
+
+.consultation-option.selected {
+border-color: var(–primary);
+background: rgba(206, 230, 242, .45);
+color: var(–primary-dark);
+}
+
+.consultation-check {
+background: var(–card);
+border-color: var(–border);
+}
+
+.consultation-check input {
+accent-color: var(–primary-dark);
+}
+
+.consultation-field-label span {
+color: var(–primary-dark);
+}
+
+.consultation-input,
+.consultation-select,
+.consultation-form input[type=“number”] {
+background: var(–card);
 color: var(–text);
 border-color: var(–border);
 }
 
-/* BOTTOM NAVIGATION */
+.consultation-input:focus,
+.consultation-select:focus,
+.consultation-form input[type=“number”]:focus {
+border-color: var(–primary);
+box-shadow: 0 0 0 3px rgba(227, 134, 125, .20);
+}
 
-.bottom-nav {
-background-color: var(–nav);
+.consultation-start-btn {
+background: linear-gradient(
+135deg,
+#962E2A,
+#E3867D
+);
+
+box-shadow: 0 8px 20px rgba(150, 46, 42, .20);
+}
+
+/* =========================
+NOTIFICATIONS
+========================= */
+
+.notification-btn,
+.consultation-header-btn {
+color: var(–primary-dark);
+}
+
+.notification-item {
+background: var(–card);
 border-color: var(–border);
 }
 
-/* FAVORITE HEART */
+.notification-item.unread {
+background: #CEE6F2;
+border-color: #E9B796;
+}
 
-.favorite-btn,
-.favorite-heart {
+/* =========================
+QUANTITY
+========================= */
+
+.qty-minus,
+.qty-plus,
+.qty-delete {
+background: var(–card-soft);
+color: var(–primary-dark);
+}
+
+/* =========================
+RESET / DANGER
+========================= */
+
+.reset-settings {
+background: #F8E4E2;
+color: var(–danger);
+}
+
+/* =========================
+ADMIN / LOGOUT
+========================= */
+
+.admin-btn {
+background: #CEE6F2;
 color: #962E2A;
 }
 
-/* PRODUCT IMAGE BACKGROUND */
-
-.product-image,
-.product-image-container {
-background-color: #FFFFFF;
+.logout-btn {
+background: #F9E9E7;
+color: #962E2A;
 }
 
-/* DARK MODE IMAGES */
+/* =========================
+OUT OF STOCK
+========================= */
+
+.add-btn:disabled {
+background: #E5E3E5 !important;
+color: #88888F !important;
+border-color: #E5E3E5 !important;
+}
+
+/* =========================
+PRODUCT IMAGES
+========================= */
 
 body.dark-mode .product-image,
-body.dark-mode .product-image-container {
-background-color: #FFFFFF;
+body.dark-mode .products-slider .product-image,
+body.dark-mode .category-icon {
+background: #FFFFFF !important;
 }
 
-/* DARK MODE FORM ELEMENTS */
+/* =========================
+BANNER
+========================= */
 
-body.dark-mode input,
-body.dark-mode textarea,
-body.dark-mode select {
-background-color: var(–card);
-color: var(–text);
+.banner-slider {
+background: var(–card);
 border-color: var(–border);
 }
 
-body.dark-mode .bottom-nav {
-background-color: var(–nav);
+.banner-dot.active {
+background: var(–primary-dark);
 }
 
-/* KEEP PRODUCT CARDS PORTRAIT */
+/* =========================
+DARK MODE DETAILS
+========================= */
 
-.product-card .product-image,
-.category-product-card .product-image {
-aspect-ratio: 2 / 3;
-object-fit: cover;
+body.dark-mode .home-search-box,
+body.dark-mode .hero .home-search-box {
+background: #3A2D2D !important;
+border-color: var(–border) !important;
+}
+
+body.dark-mode .home-search-box:focus-within {
+border-color: var(–primary) !important;
+}
+
+body.dark-mode .favorite-btn,
+body.dark-mode .products-slider .card-favorite {
+background: #FFFFFF !important;
+color: #B9A7A3 !important;
+}
+
+body.dark-mode .favorite-btn.active,
+body.dark-mode .products-slider .card-favorite.active {
+color: #962E2A !important;
+}
+
+body.dark-mode .notification-item.unread {
+background: var(–card-soft);
+}
+
+/* =========================
+SPECIAL HIGHLIGHTS
+========================= */
+
+.product-card:hover {
+border-color: var(–primary-light);
+}
+
+.featured-cart-controls .quantity-btn,
+.featured-cart-controls .quantity-value {
+background: var(–accent-light);
+color: #962E2A;
+}
+
+.featured-cart-controls .remove-cart-btn {
+color: var(–danger);
+}
+
+/* =========================
+MOBILE VERTICAL CARDS
+========================= */
+
+@media (max-width: 699px) {
+.category-product-card,
+.aronia-slider-card {
+aspect-ratio: 2 / 3 !important;
+border-radius: 13px !important;
+}
 }
 
 
