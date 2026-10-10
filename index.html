@@ -5662,582 +5662,195 @@ body.dark-mode .status-cancelled{
 
 
 
-/* =====================================================
-   ARONIA — PINK IDENTITY
-   WHITE + PINK
-===================================================== */
+/* =========================================
+ARONIA — NEW COLOR THEME
+========================================= */
 
 :root {
-  --bg: #FFFFFF;
-  --card: #FFFFFF;
-  --card-soft: #FFF2FA;
+–bg: #FFFFFF;
+–card: #FFFFFF;
+–card-soft: #CEE6F2;
 
-  --text: #59364D;
-  --text-soft: #906B83;
-  --heading: #EE61BD;
+–text: #492724;
+–text-soft: #795B55;
 
-  --primary: #EE61BD;
-  --primary-dark: #F24AB8;
-  --primary-light: #FDB2E7;
+–heading: #962E2A;
 
-  --secondary: #FB93D7;
+–primary: #962E2A;
+–primary-dark: #70201D;
+–primary-light: #E3867D;
 
-  --accent: #FDB2E7;
-  --accent-light: #FFF0FA;
-  --gold: #EE61BD;
+–secondary: #E3867D;
+–accent: #E9B796;
+–accent-light: #F9EDE4;
 
-  --border: #F8D5EC;
-  --nav: #FFFFFF;
+–gold: #E9B796;
 
-  --shadow: 0 4px 18px rgba(238, 97, 189, .10);
+–border: #E8D5CA;
+–nav: #FFFFFF;
 
-  --success: #6F947D;
-  --danger: #D94F82;
-  --warning: #C98A45;
+–shadow: 0 4px 18px rgba(150, 46, 42, 0.10);
+
+–success: #56836A;
+–danger: #962E2A;
+–warning: #B87932;
 }
 
-/* =========================
-   DARK MODE
-   DARK PINK + DARK INDIGO
-========================= */
+/* =========================================
+DARK MODE
+========================================= */
 
 body.dark-mode {
-  --bg: #211827;
-  --card: #2C2034;
-  --card-soft: #38243F;
+–bg: #201719;
+–card: #2D2021;
+–card-soft: #3B292A;
 
-  --text: #FBEFF8;
-  --text-soft: #D7BBD1;
-  --heading: #FDB2E7;
+–text: #F8EFEB;
+–text-soft: #D7BCB4;
 
-  --primary: #FB93D7;
-  --primary-dark: #EE61BD;
-  --primary-light: #FDB2E7;
+–heading: #E3867D;
 
-  --secondary: #F24AB8;
+–primary: #E3867D;
+–primary-dark: #962E2A;
+–primary-light: #E9B796;
 
-  --accent: #EE61BD;
-  --accent-light: #452B4A;
-  --gold: #FDB2E7;
+–secondary: #E3867D;
+–accent: #E9B796;
+–accent-light: #49302E;
 
-  --border: #51334F;
-  --nav: #1B1526;
+–gold: #E9B796;
 
-  --shadow: 0 4px 18px rgba(0, 0, 0, .30);
+–border: #573938;
+–nav: #261B1D;
 
-  --success: #85B398;
-  --danger: #F080A8;
-  --warning: #D6B16C;
+–shadow: 0 4px 18px rgba(0, 0, 0, 0.30);
+
+–success: #83B697;
+–danger: #F08B83;
+–warning: #E9B796;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* =========================================
+GENERAL COLORS
+========================================= */
 
-header {
-  background: var(--nav);
-  border-color: var(--border);
+body {
+background-color: var(–bg);
+color: var(–text);
 }
 
-.logo {
-  color: var(--primary-dark);
+body.dark-mode {
+background-color: var(–bg);
+color: var(–text);
 }
 
-/* =========================
-   HERO
-========================= */
+/* HEADINGS */
 
-.hero {
-  background: linear-gradient(
-    135deg,
-    #FFFFFF 0%,
-    #FFF2FA 55%,
-    #FDB2E7 100%
-  );
+h1,
+h2,
+h3,
+h4,
+.section-title {
+color: var(–heading);
 }
 
-body.dark-mode .hero {
-  background: linear-gradient(
-    135deg,
-    #38243F,
-    #211827
-  );
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.shop-btn,
-.add-btn,
-.checkout-btn,
-.confirm-order,
-.auth-main-btn,
-.gender-save,
-.consultation-next-btn {
-  background: var(--primary-dark) !important;
-  color: #FFFFFF !important;
-}
-
-.shop-btn:hover,
-.add-btn:hover,
-.checkout-btn:hover {
-  background: var(--primary) !important;
-}
-
-/* =========================
-   SEARCH
-========================= */
-
-.home-search-box,
-.hero .home-search-box {
-  background: #FFF2FA !important;
-  border-color: #FDB2E7 !important;
-  box-shadow: 0 4px 14px rgba(238, 97, 189, .08) !important;
-}
-
-.home-search-box span,
-.hero .home-search-box span {
-  color: var(--primary-dark) !important;
-}
-
-.home-search-box:focus-within {
-  background: var(--card) !important;
-  border-color: var(--primary) !important;
-  box-shadow: 0 5px 20px rgba(238, 97, 189, .18) !important;
-}
-
-/* =========================
-   TITLES
-========================= */
-
-.title h2,
-.orders-title {
-  color: var(--heading);
-}
-
-.view-all {
-  color: var(--primary-dark);
-}
-
-/* =========================
-   CATEGORIES
-========================= */
-
-.category-icon {
-  background: #FFFFFF;
-  box-shadow: var(--shadow);
-}
-
-.category p {
-  color: var(--text);
-}
-
-/* =========================
-   PRODUCT CARDS
-========================= */
+/* CARDS */
 
 .product-card,
-.category-product-card,
-.aronia-slider-card {
-  background: var(--card);
-  border-color: var(--border);
-  box-shadow: var(--shadow);
+.category-card,
+.settings-group,
+.order-card,
+.modal-content {
+background-color: var(–card);
+border-color: var(–border);
 }
 
-.category-product-card,
-.aronia-slider-card {
-  border: 1px solid var(--border) !important;
-  border-radius: 14px !important;
-  overflow: hidden;
+/* BUTTONS */
+
+button,
+.btn-primary,
+.checkout-btn {
+–button-bg: var(–primary);
 }
 
-/* =========================
-   PRODUCT PRICE
-========================= */
+.btn-primary,
+.checkout-btn {
+background-color: var(–primary);
+color: #FFFFFF;
+}
+
+/* SECONDARY DETAILS */
 
 .price,
-.cart-price,
-.order-product-price,
-.products-slider .product-price {
-  color: var(--primary-dark) !important;
+.active,
+.selected {
+color: var(–primary);
 }
 
-/* =========================
-   FAVORITES
-========================= */
-
-.favorite-btn,
-.products-slider .card-favorite {
-  background: #FFFFFF !important;
-  color: #B9A7B3 !important;
+.badge,
+.product-badge {
+background-color: var(–accent);
+color: #492724;
 }
 
-.favorite-btn.active,
-.products-slider .favorite-btn.active,
-.products-slider .card-favorite.active,
-.category-products-grid .card-favorite.active {
-  color: #F24AB8 !important;
+/* SEARCH */
+
+input,
+textarea,
+select {
+background-color: var(–card);
+color: var(–text);
+border-color: var(–border);
 }
 
-/* =========================
-   CART COUNT
-========================= */
-
-.cart-count {
-  background: var(--primary-dark);
-}
-
-/* =========================
-   BOTTOM NAV
-========================= */
+/* BOTTOM NAVIGATION */
 
 .bottom-nav {
-  background: var(--nav);
-  border-top-color: var(--border);
+background-color: var(–nav);
+border-color: var(–border);
 }
 
-.nav-item.active,
-.nav-item:hover {
-  color: var(--primary-dark);
+/* FAVORITE HEART */
+
+.favorite-btn,
+.favorite-heart {
+color: #962E2A;
 }
 
-/* =========================
-   CART
-========================= */
+/* PRODUCT IMAGE BACKGROUND */
 
-.cart-item,
-.cart-total {
-  background: var(--card);
-  border-color: var(--border);
+.product-image,
+.product-image-container {
+background-color: #FFFFFF;
 }
 
-.qty button {
-  background: var(--card-soft);
-  color: var(--primary-dark);
-}
-
-.qty button:hover {
-  background: var(--accent-light);
-}
-
-/* =========================
-   ORDERS
-========================= */
-
-.status-new {
-  background: #FCE5F4 !important;
-  color: #B82E86 !important;
-}
-
-.status-preparing {
-  background: #FFF0D7 !important;
-  color: #986C2E !important;
-}
-
-.status-shipped,
-.status-completed {
-  background: #EAF4EE !important;
-  color: #527C63 !important;
-}
-
-.status-cancelled {
-  background: #F9E9EC !important;
-  color: #A95463 !important;
-}
-
-/* =========================
-   SETTINGS
-========================= */
-
-.settings-group,
-.account-box {
-  background: var(--card);
-  border-color: var(--border);
-}
-
-.setting-icon {
-  color: var(--primary-dark);
-}
-
-.settings-action,
-.account-action {
-  background: var(--card-soft);
-  color: var(--text);
-}
-
-.account-action.primary {
-  background: var(--primary-dark);
-  color: #FFFFFF;
-}
-
-/* =========================
-   TOGGLE
-========================= */
-
-.slider {
-  background: #E7D8E3;
-}
-
-.switch input:checked + .slider {
-  background: var(--primary-dark);
-}
-
-/* =========================
-   MODALS
-========================= */
-
-.modal-box,
-.gender-box,
-.checkout-box,
-.auth-box {
-  background: var(--card);
-  border-color: var(--border);
-}
-
-.modal-close,
-.checkout-close {
-  background: var(--card-soft);
-  color: var(--primary-dark);
-}
-
-.modal-box {
-  border-top-color: var(--primary);
-}
-
-/* =========================
-   AUTH
-========================= */
-
-.auth-logo {
-  color: var(--primary-dark);
-}
-
-.auth-input {
-  background: var(--card);
-  border-color: var(--border);
-}
-
-.auth-input:focus {
-  border-color: var(--primary);
-}
-
-.auth-secondary-btn {
-  background: var(--card-soft);
-  color: var(--primary-dark);
-}
-
-/* =========================
-   GENDER
-========================= */
-
-.gender-option {
-  background: var(--card);
-  border-color: var(--border);
-}
-
-.gender-option.selected {
-  background: var(--primary-dark);
-  border-color: var(--primary-dark);
-  color: #FFFFFF;
-}
-
-/* =========================
-   CONSULTATION
-========================= */
-
-.consultation-option {
-  background: var(--card);
-  border-color: var(--border);
-}
-
-.consultation-option.selected {
-  border-color: var(--primary);
-  background: rgba(251, 147, 215, .16);
-  color: var(--primary-dark);
-}
-
-.consultation-check {
-  background: var(--card);
-  border-color: var(--border);
-}
-
-.consultation-check input {
-  accent-color: var(--primary-dark);
-}
-
-.consultation-field-label span {
-  color: var(--primary-dark);
-}
-
-.consultation-input,
-.consultation-select,
-.consultation-form input[type="number"] {
-  background: var(--card);
-  color: var(--text);
-  border-color: var(--border);
-}
-
-.consultation-input:focus,
-.consultation-select:focus,
-.consultation-form input[type="number"]:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(251, 147, 215, .20);
-}
-
-.consultation-start-btn {
-  background: linear-gradient(
-    135deg,
-    #EE61BD,
-    #F24AB8
-  );
-
-  box-shadow: 0 8px 20px rgba(238, 97, 189, .24);
-}
-
-/* =========================
-   NOTIFICATIONS
-========================= */
-
-.notification-btn,
-.consultation-header-btn {
-  color: var(--primary-dark);
-}
-
-.notification-item {
-  background: var(--card);
-  border-color: var(--border);
-}
-
-.notification-item.unread {
-  background: #FFF0FA;
-  border-color: var(--primary-light);
-}
-
-/* =========================
-   QUANTITY
-========================= */
-
-.qty-minus,
-.qty-plus,
-.qty-delete {
-  background: var(--card-soft);
-  color: var(--primary-dark);
-}
-
-/* =========================
-   RESET / DANGER
-========================= */
-
-.reset-settings {
-  background: #FCE5F0;
-  color: var(--danger);
-}
-
-/* =========================
-   ADMIN / LOGOUT
-========================= */
-
-.admin-btn {
-  background: #FFF0FA;
-  color: #B82E86;
-}
-
-.logout-btn {
-  background: #F9E9EC;
-  color: #A55F6C;
-}
-
-/* =========================
-   OUT OF STOCK
-========================= */
-
-.add-btn:disabled {
-  background: #E5E3E5 !important;
-  color: #88888F !important;
-  border-color: #E5E3E5 !important;
-}
-
-/* =========================
-   PRODUCT IMAGES
-========================= */
+/* DARK MODE IMAGES */
 
 body.dark-mode .product-image,
-body.dark-mode .products-slider .product-image,
-body.dark-mode .category-icon {
-  background: #FFFFFF !important;
+body.dark-mode .product-image-container {
+background-color: #FFFFFF;
 }
 
-/* =========================
-   BANNER
-========================= */
+/* DARK MODE FORM ELEMENTS */
 
-.banner-slider {
-  background: var(--card);
-  border-color: var(--border);
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+background-color: var(–card);
+color: var(–text);
+border-color: var(–border);
 }
 
-.banner-dot.active {
-  background: var(--primary-dark);
+body.dark-mode .bottom-nav {
+background-color: var(–nav);
 }
 
-/* =========================
-   DARK MODE DETAILS
-========================= */
+/* KEEP PRODUCT CARDS PORTRAIT */
 
-body.dark-mode .home-search-box,
-body.dark-mode .hero .home-search-box {
-  background: #38243F !important;
-  border-color: var(--border) !important;
-}
-
-body.dark-mode .home-search-box:focus-within {
-  border-color: var(--primary) !important;
-}
-
-body.dark-mode .favorite-btn,
-body.dark-mode .products-slider .card-favorite {
-  background: #FFFFFF !important;
-  color: #B9A7B3 !important;
-}
-
-body.dark-mode .favorite-btn.active,
-body.dark-mode .products-slider .card-favorite.active {
-  color: #F24AB8 !important;
-}
-
-body.dark-mode .notification-item.unread {
-  background: var(--card-soft);
-}
-
-/* =========================
-   SPECIAL HIGHLIGHTS
-========================= */
-
-.product-card:hover {
-  border-color: var(--primary-light);
-}
-
-.featured-cart-controls .quantity-btn,
-.featured-cart-controls .quantity-value {
-  background: var(--accent-light);
-  color: #B82E86;
-}
-
-.featured-cart-controls .remove-cart-btn {
-  color: var(--danger);
-}
-
-/* =========================
-   MOBILE VERTICAL CARDS
-========================= */
-
-@media (max-width: 699px) {
-  .category-product-card,
-  .aronia-slider-card {
-    aspect-ratio: 2 / 3 !important;
-    border-radius: 13px !important;
-  }
+.product-card .product-image,
+.category-product-card .product-image {
+aspect-ratio: 2 / 3;
+object-fit: cover;
 }
 
 
