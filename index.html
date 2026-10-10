@@ -3334,6 +3334,521 @@ body.dark-mode .add-to-cart:disabled {
   color: #D0DCD3 !important;
   -webkit-text-fill-color: #D0DCD3 !important;
 }
+
+/* =====================================================
+   ARONIA — FINAL MINT & CREAM COLOR SYSTEM
+   LIGHT + DARK MODE
+===================================================== */
+/* =========================
+   1. ROOT COLORS
+========================= */
+:root {
+  color-scheme: light;
+  --primary: #55A98C;
+  --primary-dark: #39866D;
+  --primary-light: #8CCBB2;
+  --secondary: #79BDA3;
+  --bg: #FFFCF3;
+  --card: #FFFFFF;
+  --card-soft: #F5F1E3;
+  --text: #293B34;
+  --text-soft: #68776D;
+  --heading: #293B34;
+  --accent: #E6DDBD;
+  --accent-light: #F0E9D5;
+  --gold: #C7B77F;
+  --border: #E4E6D9;
+  --nav: #FFFFFF;
+  --success: #39866D;
+  --danger: #B94A5C;
+  --warning: #C88A3D;
+  --shadow: 0 4px 18px rgba(41, 59, 52, .08);
+  --button-text: #FFFFFF;
+  --input-bg: #FFFFFF;
+  --disabled-bg: #E4E6D9;
+  --disabled-text: #53645A;
+}
+/* =========================
+   2. DARK MODE COLORS
+========================= */
+body.dark-mode {
+  color-scheme: dark;
+  --bg: #18251F;
+  --card: #22332B;
+  --card-soft: #2C3D32;
+  --text: #F2F4EC;
+  --text-soft: #B7C7BC;
+  --heading: #F8FFF9;
+  --primary: #72C3A2;
+  --primary-dark: #55A98C;
+  --primary-light: #91D5B8;
+  --secondary: #8CCBB2;
+  --accent: #BDB28D;
+  --accent-light: #D5CBA9;
+  --gold: #D5C18A;
+  --border: #394A3F;
+  --nav: #1D2C24;
+  --success: #72C3A2;
+  --danger: #D97983;
+  --warning: #E0BD70;
+  --shadow: 0 4px 18px rgba(0, 0, 0, .28);
+  --button-text: #18251F;
+  --input-bg: #22332B;
+  --disabled-bg: #394A3F;
+  --disabled-text: #D0DCD3;
+}
+/* =========================
+   3. PAGE AND TEXT
+========================= */
+html,
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+body {
+  transition:
+    background-color .2s ease,
+    color .2s ease;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading);
+}
+p,
+label,
+small {
+  color: var(--text);
+}
+::placeholder {
+  color: var(--text-soft);
+  opacity: .85;
+}
+/* =========================
+   4. CARDS AND SURFACES
+========================= */
+.product-card,
+.category-product-card,
+.aronia-slider-card,
+.notification-item,
+.consultation-option,
+.settings-group,
+.modal-content,
+.product-modal-content,
+.cart-item,
+.order-card,
+.offer-card {
+  color: var(--text);
+  border-color: var(--border);
+}
+.product-card,
+.category-product-card,
+.aronia-slider-card,
+.notification-item,
+.settings-group,
+.modal-content,
+.product-modal-content,
+.cart-item,
+.order-card,
+.offer-card {
+  background-color: var(--card);
+}
+/* =========================
+   5. ALL BUTTON BASE
+========================= */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  font-family: inherit;
+  transition:
+    background-color .2s ease,
+    color .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+button:focus-visible,
+input[type="button"]:focus-visible,
+input[type="submit"]:focus-visible,
+input[type="reset"]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+/* =========================
+   6. PRIMARY BUTTONS
+========================= */
+.consultation-next-btn,
+.consultation-start-btn,
+.add-btn:not(:disabled),
+.add-to-cart:not(:disabled),
+.checkout-btn,
+.submit-btn,
+.primary-btn,
+.buy-now-btn {
+  background: var(--primary-dark) !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  border: 1px solid var(--primary-dark) !important;
+  font-weight: 700;
+  opacity: 1;
+  text-shadow: none;
+}
+.consultation-next-btn:hover,
+.consultation-start-btn:hover,
+.add-btn:not(:disabled):hover,
+.add-to-cart:not(:disabled):hover,
+.checkout-btn:hover,
+.submit-btn:hover,
+.primary-btn:hover,
+.buy-now-btn:hover {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+/* =========================
+   7. SECONDARY BUTTONS
+========================= */
+.secondary-btn,
+.cancel-btn,
+.back-btn,
+.settings-btn {
+  background: var(--card-soft) !important;
+  color: var(--text) !important;
+  -webkit-text-fill-color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+/* =========================
+   8. DISABLED BUTTONS
+========================= */
+button:disabled,
+.add-btn:disabled,
+.add-to-cart:disabled,
+.consultation-next-btn:disabled,
+.consultation-start-btn:disabled {
+  background: var(--disabled-bg) !important;
+  color: var(--disabled-text) !important;
+  -webkit-text-fill-color: var(--disabled-text) !important;
+  border-color: var(--border) !important;
+  opacity: 1 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+/* =========================
+   9. FORM INPUTS
+========================= */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]),
+textarea,
+select,
+.consultation-input,
+.consultation-select {
+  background-color: var(--input-bg);
+  color: var(--text);
+  border-color: var(--border);
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary) !important;
+  outline-color: var(--primary);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-soft);
+  opacity: .85;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--primary-dark);
+}
+/* =========================
+   10. PRODUCT CARDS
+========================= */
+.product-card,
+.category-product-card,
+.aronia-slider-card {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.product-card h3,
+.product-card .product-name,
+.category-product-card h3,
+.aronia-slider-card h3,
+.product-title {
+  color: var(--text);
+}
+.product-price,
+.price {
+  color: var(--primary-dark);
+  font-weight: 800;
+}
+body.dark-mode .product-price,
+body.dark-mode .price {
+  color: var(--primary-light);
+}
+/* تبقى صور المنتجات بيضاء */
+.product-image {
+  background: #FFFFFF;
+}
+body.dark-mode .product-image,
+body.dark-mode .products-slider .product-image {
+  background: #FFFFFF !important;
+}
+/* =========================
+   11. FAVORITE BUTTONS
+========================= */
+.card-favorite,
+.favorite-btn {
+  color: var(--text-soft);
+}
+.card-favorite.active,
+.favorite-btn.active,
+.favorite-btn.is-favorite {
+  color: var(--danger) !important;
+}
+/* =========================
+   12. CATEGORY IMAGES
+========================= */
+.category-icon {
+  background: var(--card);
+  box-shadow: 0 3px 10px rgba(41, 59, 52, .08);
+}
+.categories .category,
+#homeCategoriesContainer .category,
+#categoriesContainer .category {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+/* =========================
+   13. NOTIFICATION BUTTONS
+========================= */
+.notification-btn,
+.consultation-header-btn {
+  background: transparent !important;
+  color: var(--primary-dark) !important;
+  border: 0 !important;
+}
+body.dark-mode .notification-btn,
+body.dark-mode .consultation-header-btn {
+  color: var(--primary-light) !important;
+}
+.notification-count {
+  background: var(--danger);
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+.notifications-container {
+  color: var(--text);
+}
+.notification-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.notification-item.unread {
+  background: var(--card-soft);
+  border-color: var(--primary-light);
+}
+.notification-item-title {
+  color: var(--text);
+}
+.notification-item-message,
+.notification-item-time {
+  color: var(--text-soft);
+}
+/* =========================
+   14. PHARMACIST CONSULTATION
+========================= */
+.consultation-option {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+.consultation-option strong,
+.consultation-option span {
+  color: inherit;
+}
+.consultation-option.selected {
+  background: var(--card-soft) !important;
+  color: var(--primary-dark) !important;
+  border: 2px solid var(--primary) !important;
+}
+body.dark-mode .consultation-option.selected {
+  color: var(--primary-light) !important;
+}
+.consultation-form label,
+.consultation-field-label {
+  color: var(--text);
+}
+.consultation-field-label span {
+  color: var(--primary-dark);
+}
+.consultation-health-note {
+  color: var(--text-soft);
+}
+.consultation-check {
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--border);
+}
+.consultation-check input {
+  accent-color: var(--primary-dark);
+}
+.consultation-input,
+.consultation-select,
+.consultation-form input[type="number"] {
+  background: var(--input-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.consultation-input:focus,
+.consultation-select:focus,
+.consultation-form input[type="number"]:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(85, 169, 140, .16);
+}
+.consultation-next-btn,
+.consultation-start-btn {
+  background: var(--primary-dark) !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  border: 0 !important;
+}
+.consultation-start-btn::before {
+  color: inherit;
+}
+/* =========================
+   15. CART QUANTITY CONTROLS
+========================= */
+.featured-cart-controls .quantity-btn,
+.quantity-btn {
+  background: var(--primary-dark);
+  color: #FFFFFF;
+  border-color: var(--primary-dark);
+}
+.featured-cart-controls .quantity-value,
+.quantity-value {
+  color: var(--text);
+}
+.featured-cart-controls .remove-cart-btn,
+.remove-cart-btn {
+  background: var(--card-soft);
+  color: var(--danger);
+  border-color: var(--border);
+}
+/* =========================
+   16. CART / NAVIGATION
+========================= */
+nav,
+.bottom-nav,
+#bottomNav {
+  background: var(--nav);
+  border-color: var(--border);
+}
+.nav-item,
+.nav-link {
+  color: var(--text-soft);
+}
+.nav-item.active,
+.nav-link.active {
+  color: var(--primary-dark);
+}
+body.dark-mode .nav-item.active,
+body.dark-mode .nav-link.active {
+  color: var(--primary-light);
+}
+/* =========================
+   17. BADGES AND STATUS
+========================= */
+.status-success,
+.badge-success {
+  background: #E5F3EB;
+  color: #286A50;
+}
+.status-warning,
+.badge-warning {
+  background: #FFF0D8;
+  color: #85551C;
+}
+.status-danger,
+.badge-danger {
+  background: #FBEAEC;
+  color: #A52F43;
+}
+body.dark-mode .status-success,
+body.dark-mode .badge-success {
+  background: #294A39;
+  color: #A5E0BF;
+}
+body.dark-mode .status-warning,
+body.dark-mode .badge-warning {
+  background: #4B4028;
+  color: #F0D59B;
+}
+body.dark-mode .status-danger,
+body.dark-mode .badge-danger {
+  background: #4C2D33;
+  color: #F0A5AD;
+}
+/* =========================
+   18. DIVIDERS AND SCROLLBARS
+========================= */
+hr {
+  border-color: var(--border);
+}
+* {
+  scrollbar-color: var(--primary-light) var(--card-soft);
+}
+/* =========================
+   19. DARK MODE TEXT FIX
+========================= */
+body.dark-mode {
+  background-color: var(--bg);
+  color: var(--text);
+}
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: var(--heading);
+}
+body.dark-mode .product-card,
+body.dark-mode .category-product-card,
+body.dark-mode .aronia-slider-card,
+body.dark-mode .notification-item,
+body.dark-mode .settings-group,
+body.dark-mode .modal-content,
+body.dark-mode .product-modal-content,
+body.dark-mode .cart-item,
+body.dark-mode .order-card,
+body.dark-mode .offer-card {
+  background-color: var(--card);
+  color: var(--text);
+  border-color: var(--border);
+}
+/* =========================
+   20. FINAL BUTTON TEXT FIX
+========================= */
+.consultation-next-btn *,
+.consultation-start-btn *,
+.add-btn:not(:disabled) *,
+.add-to-cart:not(:disabled) *,
+.checkout-btn *,
+.submit-btn *,
+.primary-btn *,
+.buy-now-btn * {
+  color: inherit;
+}
+button {
+  text-shadow: none;
+}
   
 </style>
 
