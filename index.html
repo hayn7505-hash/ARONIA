@@ -4265,6 +4265,144 @@ body.dark-mode .active,
 body.dark-mode .selected {
   border-color: var(--primary);
 }
+
+/* =====================================================
+   ARONIA — DARK MODE GOLD EDITION
+   الوضع الليلي فقط
+===================================================== */
+body.dark-mode {
+  --bg: #18251F;
+  --card: #22332B;
+  --card-soft: #2C3D32;
+  --text: #F2F0E7;
+  --text-soft: #BDBDB0;
+  --heading: #FFF9E9;
+  --primary: #D5BD82;
+  --primary-dark: #B89A59;
+  --primary-light: #E8D8AC;
+  --accent: #D5BD82;
+  --accent-light: #E8D8AC;
+  --gold: #D5BD82;
+  --border: #4A493A;
+  --nav: #1D2C24;
+  --success: #9CC9A8;
+  --danger: #D97983;
+  --warning: #E4C77D;
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  background-color: var(--bg);
+  color: var(--text);
+}
+/* الخلفيات */
+body.dark-mode,
+body.dark-mode main,
+body.dark-mode .page,
+body.dark-mode .page-content {
+  background-color: var(--bg);
+  color: var(--text);
+}
+/* البطاقات */
+body.dark-mode .product-card,
+body.dark-mode .category-product-card,
+body.dark-mode .aronia-slider-card,
+body.dark-mode .settings-group,
+body.dark-mode .setting-row,
+body.dark-mode .modal-content,
+body.dark-mode .product-modal-content {
+  background-color: var(--card);
+  color: var(--text);
+  border-color: var(--border);
+  box-shadow: var(--shadow);
+}
+/* العناوين */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode .section-title {
+  color: var(--heading);
+}
+/* الحقول */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #202E25 !important;
+  color: var(--text) !important;
+  border: 1px solid #8F7A4E !important;
+  border-radius: 10px;
+  outline-color: var(--gold);
+}
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 2px rgba(213, 189, 130, 0.15);
+}
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #BDBDB0;
+}
+/* الأزرار الذهبية */
+body.dark-mode button.primary,
+body.dark-mode .primary-btn,
+body.dark-mode .checkout-btn,
+body.dark-mode .shop-now-btn,
+body.dark-mode button[type="submit"] {
+  background: linear-gradient(135deg, #E8D8AC, #C5A968) !important;
+  color: #263027 !important;
+  border: 1px solid #E8D8AC !important;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
+}
+/* الأزرار الثانوية */
+body.dark-mode .secondary-btn,
+body.dark-mode .outline-btn {
+  background: transparent !important;
+  color: #E8D8AC !important;
+  border: 1px solid #8F7A4E !important;
+}
+/* شريط التنقل */
+body.dark-mode nav,
+body.dark-mode .bottom-nav,
+body.dark-mode .bottom-navigation {
+  background-color: var(--nav);
+  border-color: var(--border);
+}
+body.dark-mode .bottom-nav .active,
+body.dark-mode .bottom-navigation .active {
+  color: #E8D8AC !important;
+}
+/* =====================================================
+   FAVORITE HEART — إزالة مظهر المربع
+===================================================== */
+/* القلب فوق صورة المنتج البيضاء؛ لذلك تبقى خلفيته شفافة */
+body.dark-mode .product-card .favorite-btn.card-favorite,
+body.dark-mode .category-product-card .favorite-btn.card-favorite,
+body.dark-mode .aronia-slider-card .favorite-btn.card-favorite {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: #68776D !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+/* القلب عند التفعيل */
+body.dark-mode .product-card .favorite-btn.card-favorite.active,
+body.dark-mode .category-product-card .favorite-btn.card-favorite.active,
+body.dark-mode .aronia-slider-card .favorite-btn.card-favorite.active {
+  color: #B94A5C !important;
+}
+/* إزالة أي خلفية تظهر عند الضغط */
+body.dark-mode .favorite-btn.card-favorite:hover,
+body.dark-mode .favorite-btn.card-favorite:focus,
+body.dark-mode .favorite-btn.card-favorite:active {
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
   
 </style>
 
