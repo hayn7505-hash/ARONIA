@@ -3952,6 +3952,36 @@ header,
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
+
+/* ARONIA — REMOVE FAVORITE BUTTON BOX */
+.card-favorite,
+.favorite-btn {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 50% !important;
+}
+/* عند الضغط أو المرور */
+.card-favorite:hover,
+.card-favorite:focus,
+.card-favorite:active,
+.favorite-btn:hover,
+.favorite-btn:focus,
+.favorite-btn:active {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* إزالة الإطار الداخلي إن وجد */
+.card-favorite::before,
+.card-favorite::after,
+.favorite-btn::before,
+.favorite-btn::after {
+  border: none !important;
+  box-shadow: none !important;
+}
   
 </style>
 
