@@ -5660,172 +5660,111 @@ body.dark-mode .status-cancelled{
 
 }
 
+
 /* =====================================================
-   ARONIA — FINAL COLOR IDENTITY
-   BURGUNDY + ROSE + SOFT PINK + LIGHT YELLOW
-   FINAL OVERRIDE
+   ARONIA — DARK ROSE & CREAM
+   DARK MODE — ROSE & DEEP INDIGO
 ===================================================== */
 
-:root{
+:root {
+  --bg: #F7EFE8;
+  --card: #FFFCF9;
+  --card-soft: #F1E5DF;
 
-  /* =========================
-     BACKGROUNDS
-  ========================= */
+  --text: #493640;
+  --text-soft: #88717B;
+  --heading: #702747;
 
-  --bg:#FFF8FA;
-  --card:#FFFFFF;
-  --card-soft:#FFF1F3;
+  --primary: #702747;
+  --primary-dark: #581D38;
+  --primary-light: #D9A9B9;
 
+  --secondary: #BD7890;
 
-  /* =========================
-     TEXT
-  ========================= */
+  --accent: #E8B8C4;
+  --accent-light: #F8E7DC;
+  --gold: #C7A36A;
 
-  --text:#4F3042;
-  --text-soft:#876A78;
-  --heading:#601D49;
+  --border: #E7D5D4;
+  --nav: #FFFCF9;
 
+  --shadow: 0 4px 18px rgba(83, 34, 58, .09);
 
-  /* =========================
-     PRIMARY — BURGUNDY
-  ========================= */
-
-  --primary:#601D49;
-  --primary-dark:#4B1638;
-  --primary-light:#8A426B;
-
-
-  /* =========================
-     SECONDARY — ROSE
-  ========================= */
-
-  --secondary:#BD5579;
-
-
-  /* =========================
-     ACCENTS
-  ========================= */
-
-  --accent:#EA9D9D;
-  --accent-light:#FFEBB8;
-  --gold:#D5A94F;
-
-
-  /* =========================
-     BORDERS
-  ========================= */
-
-  --border:#F0CACA;
-
-
-  /* =========================
-     NAVIGATION
-  ========================= */
-
-  --nav:#FFFFFF;
-
-
-  /* =========================
-     SHADOW
-  ========================= */
-
-  --shadow:
-    0 4px 18px rgba(96,29,73,.09);
-
-
-  /* =========================
-     STATUS
-  ========================= */
-
-  --success:#6F947D;
-  --danger:#B95E6D;
-  --warning:#C99A45;
+  --success: #6F947D;
+  --danger: #B95E6D;
+  --warning: #B88942;
 }
 
-
-/* =====================================================
+/* =========================
    DARK MODE
-===================================================== */
+========================= */
 
-body.dark-mode{
+body.dark-mode {
+  --bg: #24213D;
+  --card: #302943;
+  --card-soft: #392B49;
 
-  --bg:#241A21;
-  --card:#30232B;
-  --card-soft:#3A2932;
+  --text: #F5EDF4;
+  --text-soft: #C7B8CC;
+  --heading: #FFF5FA;
 
-  --text:#F8EDF2;
-  --text-soft:#D8BFC9;
-  --heading:#FFFFFF;
+  --primary: #D78DA9;
+  --primary-dark: #BD7890;
+  --primary-light: #E8B8C4;
 
-  --primary:#D98AA8;
-  --primary-dark:#BD5579;
-  --primary-light:#EA9D9D;
+  --secondary: #BD7890;
 
-  --secondary:#BD5579;
+  --accent: #D9A0B5;
+  --accent-light: #49364D;
+  --gold: #D7BC83;
 
-  --accent:#EA9D9D;
-  --accent-light:#55452A;
-  --gold:#E5C66A;
+  --border: #4B3C55;
+  --nav: #211E35;
 
-  --border:#513742;
+  --shadow: 0 4px 18px rgba(0, 0, 0, .28);
 
-  --nav:#2B2026;
-
-  --shadow:
-    0 4px 18px rgba(0,0,0,.30);
-
-  --success:#7DA58D;
-  --danger:#D27C89;
-  --warning:#D6A85C;
+  --success: #85B398;
+  --danger: #DF8797;
+  --warning: #D6B16C;
 }
 
-
-/* =====================================================
+/* =========================
    HEADER
-===================================================== */
+========================= */
 
-header{
-
-  background:var(--nav);
-
-  border-color:var(--border);
+header {
+  background: var(--nav);
+  border-color: var(--border);
 }
 
-.logo{
-
-  color:var(--primary);
+.logo {
+  color: var(--primary);
 }
 
-
-/* =====================================================
+/* =========================
    HERO
-===================================================== */
+========================= */
 
-.hero{
-
-  background:
-    linear-gradient(
-      135deg,
-      #FFFFFF 0%,
-      #FFF0F3 60%,
-      #FFEBB8 100%
-    );
+.hero {
+  background: linear-gradient(
+    135deg,
+    #FFFCF9 0%,
+    #F7E8E8 65%,
+    #F5E8D8 100%
+  );
 }
 
-body.dark-mode .hero{
-
-  background:
-    linear-gradient(
-      135deg,
-      #35232D,
-      #291E24
-    );
+body.dark-mode .hero {
+  background: linear-gradient(
+    135deg,
+    #30243D,
+    #24213D
+  );
 }
 
-
-/* =====================================================
+/* =========================
    BUTTONS
-===================================================== */
+========================= */
 
 .shop-btn,
 .add-btn,
@@ -5833,625 +5772,472 @@ body.dark-mode .hero{
 .confirm-order,
 .auth-main-btn,
 .gender-save,
-.consultation-next-btn{
-
-  background:var(--primary) !important;
-
-  color:#FFFFFF !important;
+.consultation-next-btn {
+  background: var(--primary-dark) !important;
+  color: #FFFFFF !important;
 }
 
 .shop-btn:hover,
 .add-btn:hover,
-.checkout-btn:hover{
-
-  background:var(--secondary) !important;
+.checkout-btn:hover {
+  background: var(--secondary) !important;
 }
 
-
-/* =====================================================
+/* =========================
    SEARCH
-===================================================== */
+========================= */
 
 .home-search-box,
-.hero .home-search-box{
-
-  background:#FFF4F5 !important;
-
-  border-color:var(--accent) !important;
-
-  box-shadow:
-    0 4px 14px rgba(96,29,73,.07) !important;
+.hero .home-search-box {
+  background: var(--card-soft) !important;
+  border-color: var(--border) !important;
+  box-shadow: var(--shadow) !important;
 }
 
 .home-search-box span,
-.hero .home-search-box span{
-
-  color:var(--primary) !important;
+.hero .home-search-box span {
+  color: var(--primary) !important;
 }
 
-.home-search-box:focus-within{
-
-  background:#FFFFFF !important;
-
-  border-color:var(--secondary) !important;
-
-  box-shadow:
-    0 5px 20px rgba(189,85,121,.16) !important;
+.home-search-box:focus-within {
+  background: var(--card) !important;
+  border-color: var(--secondary) !important;
+  box-shadow: 0 5px 20px rgba(112, 39, 71, .13) !important;
 }
 
-
-/* =====================================================
+/* =========================
    TITLES
-===================================================== */
+========================= */
 
 .title h2,
-.orders-title{
-
-  color:var(--heading);
+.orders-title {
+  color: var(--heading);
 }
 
-.view-all{
-
-  color:var(--secondary);
+.view-all {
+  color: var(--primary);
 }
 
-
-/* =====================================================
+/* =========================
    CATEGORIES
-===================================================== */
+========================= */
 
-.category-icon{
-
-  background:#FFFFFF;
-
-  box-shadow:
-    0 4px 12px rgba(96,29,73,.10);
+.category-icon {
+  background: #FFFFFF;
+  box-shadow: var(--shadow);
 }
 
-.category p{
-
-  color:var(--text);
+.category p {
+  color: var(--text);
 }
 
-
-/* =====================================================
+/* =========================
    PRODUCT CARDS
-===================================================== */
+========================= */
 
 .product-card,
 .category-product-card,
-.aronia-slider-card{
-
-  background:var(--card);
-
-  border-color:var(--border);
-
-  box-shadow:var(--shadow);
+.aronia-slider-card {
+  background: var(--card);
+  border-color: var(--border);
+  box-shadow: var(--shadow);
 }
 
+.category-product-card,
+.aronia-slider-card {
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+}
 
-/* =====================================================
+/* =========================
    PRODUCT PRICE
-===================================================== */
+========================= */
 
 .price,
 .cart-price,
 .order-product-price,
-.products-slider .product-price{
-
-  color:var(--primary) !important;
+.products-slider .product-price {
+  color: var(--primary) !important;
 }
 
-
-/* =====================================================
-   FAVORITE
-===================================================== */
+/* =========================
+   FAVORITES
+========================= */
 
 .favorite-btn,
-.products-slider .card-favorite{
-
-  background:#FFFFFF !important;
-
-  color:#B9A7AF !important;
+.products-slider .card-favorite {
+  background: #FFFFFF !important;
+  color: #A89AA1 !important;
 }
 
 .favorite-btn.active,
 .products-slider .favorite-btn.active,
 .products-slider .card-favorite.active,
-.category-products-grid .card-favorite.active{
-
-  color:#BD5579 !important;
+.category-products-grid .card-favorite.active {
+  color: #BD5579 !important;
 }
 
-
-/* =====================================================
+/* =========================
    CART COUNT
-===================================================== */
+========================= */
 
-.cart-count{
-
-  background:var(--secondary);
+.cart-count {
+  background: var(--primary);
 }
 
+/* =========================
+   BOTTOM NAVIGATION
+========================= */
 
-/* =====================================================
-   BOTTOM NAV
-===================================================== */
-
-.bottom-nav{
-
-  background:var(--nav);
-
-  border-top-color:var(--border);
+.bottom-nav {
+  background: var(--nav);
+  border-top-color: var(--border);
 }
 
 .nav-item.active,
-.nav-item:hover{
-
-  color:var(--primary);
+.nav-item:hover {
+  color: var(--primary);
 }
 
-
-/* =====================================================
+/* =========================
    CART
-===================================================== */
+========================= */
 
 .cart-item,
-.cart-total{
-
-  background:var(--card);
-
-  border-color:var(--border);
+.cart-total {
+  background: var(--card);
+  border-color: var(--border);
 }
 
-.qty button{
-
-  background:var(--card-soft);
-
-  color:var(--primary);
+.qty button {
+  background: var(--card-soft);
+  color: var(--primary);
 }
 
-.qty button:hover{
-
-  background:var(--accent-light);
+.qty button:hover {
+  background: var(--accent-light);
 }
 
+/* =========================
+   ORDER STATUS
+========================= */
 
-/* =====================================================
-   ORDERS
-===================================================== */
-
-.status-new{
-
-  background:#F6E7EF !important;
-
-  color:#601D49 !important;
+.status-new {
+  background: #F4E3EA !important;
+  color: #702747 !important;
 }
 
-.status-preparing{
-
-  background:#FFF3D4 !important;
-
-  color:#9A7125 !important;
+.status-preparing {
+  background: #F8EED8 !important;
+  color: #8D692F !important;
 }
 
 .status-shipped,
-.status-completed{
-
-  background:#EAF4EE !important;
-
-  color:#527C63 !important;
+.status-completed {
+  background: #EAF4EE !important;
+  color: #527C63 !important;
 }
 
-.status-cancelled{
-
-  background:#F9E9EC !important;
-
-  color:#A95463 !important;
+.status-cancelled {
+  background: #F9E9EC !important;
+  color: #A95463 !important;
 }
 
-
-/* =====================================================
+/* =========================
    SETTINGS
-===================================================== */
+========================= */
 
 .settings-group,
-.account-box{
-
-  background:var(--card);
-
-  border-color:var(--border);
+.account-box {
+  background: var(--card);
+  border-color: var(--border);
 }
 
-.setting-icon{
-
-  color:var(--primary);
+.setting-icon {
+  color: var(--primary);
 }
 
 .settings-action,
-.account-action{
-
-  background:var(--card-soft);
-
-  color:var(--text);
+.account-action {
+  background: var(--card-soft);
+  color: var(--text);
 }
 
-.account-action.primary{
-
-  background:var(--primary);
+.account-action.primary {
+  background: var(--primary);
+  color: #FFFFFF;
 }
 
-
-/* =====================================================
+/* =========================
    TOGGLE
-===================================================== */
+========================= */
 
-.slider{
-
-  background:#E5D5DC;
+.slider {
+  background: #D8C9D0;
 }
 
-.switch input:checked + .slider{
-
-  background:var(--secondary);
+.switch input:checked + .slider {
+  background: var(--secondary);
 }
 
-
-/* =====================================================
+/* =========================
    MODALS
-===================================================== */
+========================= */
 
 .modal-box,
 .gender-box,
 .checkout-box,
-.auth-box{
-
-  background:var(--card);
-
-  border-color:var(--border);
+.auth-box {
+  background: var(--card);
+  border-color: var(--border);
 }
 
 .modal-close,
-.checkout-close{
-
-  background:var(--card-soft);
-
-  color:var(--primary);
+.checkout-close {
+  background: var(--card-soft);
+  color: var(--primary);
 }
 
-.modal-box{
-
-  border-top-color:var(--secondary);
+.modal-box {
+  border-top-color: var(--primary);
 }
 
-
-/* =====================================================
+/* =========================
    AUTH
-===================================================== */
+========================= */
 
-.auth-logo{
-
-  color:var(--primary);
+.auth-logo {
+  color: var(--primary);
 }
 
-.auth-input{
-
-  background:var(--card);
-
-  border-color:var(--border);
+.auth-input {
+  background: var(--card);
+  border-color: var(--border);
 }
 
-.auth-input:focus{
-
-  border-color:var(--secondary);
+.auth-input:focus {
+  border-color: var(--secondary);
 }
 
-.auth-secondary-btn{
-
-  background:var(--card-soft);
-
-  color:var(--primary);
+.auth-secondary-btn {
+  background: var(--card-soft);
+  color: var(--primary);
 }
 
-
-/* =====================================================
+/* =========================
    GENDER
-===================================================== */
+========================= */
 
-.gender-option{
-
-  background:var(--card);
-
-  border-color:var(--border);
+.gender-option {
+  background: var(--card);
+  border-color: var(--border);
 }
 
-.gender-option.selected{
-
-  background:var(--primary);
-
-  border-color:var(--primary);
+.gender-option.selected {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #FFFFFF;
 }
 
-
-/* =====================================================
+/* =========================
    CONSULTATION
-===================================================== */
+========================= */
 
-.consultation-option{
-
-  background:var(--card);
-
-  border-color:var(--border);
+.consultation-option {
+  background: var(--card);
+  border-color: var(--border);
 }
 
-.consultation-option.selected{
-
-  border-color:var(--secondary);
-
-  background:rgba(189,85,121,.10);
-
-  color:var(--primary);
+.consultation-option.selected {
+  border-color: var(--secondary);
+  background: rgba(189, 120, 144, .13);
+  color: var(--primary);
 }
 
-.consultation-check{
-
-  background:var(--card);
-
-  border-color:var(--border);
+.consultation-check {
+  background: var(--card);
+  border-color: var(--border);
 }
 
-.consultation-check input{
-
-  accent-color:var(--secondary);
+.consultation-check input {
+  accent-color: var(--primary);
 }
 
-.consultation-field-label span{
-
-  color:var(--primary);
+.consultation-field-label span {
+  color: var(--primary);
 }
 
 .consultation-input,
 .consultation-select,
-.consultation-form input[type="number"]{
-
-  background:var(--card);
-
-  color:var(--text);
-
-  border-color:var(--border);
+.consultation-form input[type="number"] {
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--border);
 }
 
 .consultation-input:focus,
 .consultation-select:focus,
-.consultation-form input[type="number"]:focus{
-
-  border-color:var(--secondary);
-
-  box-shadow:
-    0 0 0 3px rgba(234,157,157,.20);
+.consultation-form input[type="number"]:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(189, 120, 144, .17);
 }
 
-.consultation-start-btn{
+.consultation-start-btn {
+  background: linear-gradient(
+    135deg,
+    #702747,
+    #BD7890
+  );
 
-  background:
-    linear-gradient(
-      135deg,
-      #601D49,
-      #BD5579
-    );
-
-  box-shadow:
-    0 8px 20px rgba(96,29,73,.22);
+  box-shadow: 0 8px 20px rgba(112, 39, 71, .20);
 }
 
-
-/* =====================================================
+/* =========================
    NOTIFICATIONS
-===================================================== */
+========================= */
 
 .notification-btn,
-.consultation-header-btn{
-
-  color:var(--primary);
+.consultation-header-btn {
+  color: var(--primary);
 }
 
-.notification-item{
-
-  background:var(--card);
-
-  border-color:var(--border);
+.notification-item {
+  background: var(--card);
+  border-color: var(--border);
 }
 
-.notification-item.unread{
-
-  background:#FFF1F3;
-
-  border-color:var(--accent);
+.notification-item.unread {
+  background: var(--card-soft);
+  border-color: var(--primary-light);
 }
 
-
-/* =====================================================
+/* =========================
    QUANTITY
-===================================================== */
+========================= */
 
 .qty-minus,
 .qty-plus,
-.qty-delete{
-
-  background:var(--card-soft);
-
-  color:var(--primary);
+.qty-delete {
+  background: var(--card-soft);
+  color: var(--primary);
 }
 
-
-/* =====================================================
+/* =========================
    RESET / DANGER
-===================================================== */
+========================= */
 
-.reset-settings{
-
-  background:#F9E9EC;
-
-  color:var(--danger);
+.reset-settings {
+  background: #F9E9EC;
+  color: var(--danger);
 }
 
-
-/* =====================================================
+/* =========================
    ADMIN / LOGOUT
-===================================================== */
+========================= */
 
-.admin-btn{
-
-  background:#F5EAF0;
-
-  color:var(--primary);
+.admin-btn {
+  background: var(--card-soft);
+  color: var(--primary);
 }
 
-.logout-btn{
-
-  background:#F9E9EC;
-
-  color:#A55F6C;
+.logout-btn {
+  background: #F9E9EC;
+  color: #A55F6C;
 }
 
-
-/* =====================================================
+/* =========================
    OUT OF STOCK
-===================================================== */
+========================= */
 
-.add-btn:disabled{
-
-  background:#E5E3E5 !important;
-
-  color:#88888F !important;
-
-  border-color:#E5E3E5 !important;
+.add-btn:disabled {
+  background: #E5E1E3 !important;
+  color: #88888F !important;
+  border-color: #E5E1E3 !important;
 }
 
-
-/* =====================================================
+/* =========================
    PRODUCT IMAGES
-===================================================== */
+========================= */
 
 body.dark-mode .product-image,
-body.dark-mode .products-slider .product-image{
-
-  background:#FFFFFF !important;
+body.dark-mode .products-slider .product-image,
+body.dark-mode .category-icon {
+  background: #FFFFFF !important;
 }
 
-body.dark-mode .category-icon{
+/* =========================
+   BANNERS
+========================= */
 
-  background:#FFFFFF;
+.banner-slider {
+  background: var(--card);
+  border-color: var(--border);
 }
 
-
-/* =====================================================
-   BANNER
-===================================================== */
-
-.banner-slider{
-
-  background:var(--card);
-
-  border-color:var(--border);
+.banner-dot.active {
+  background: var(--secondary);
 }
 
-.banner-dot.active{
-
-  background:var(--secondary);
-}
-
-
-/* =====================================================
-   DARK MODE
-===================================================== */
+/* =========================
+   DARK MODE FIXES
+========================= */
 
 body.dark-mode .home-search-box,
-body.dark-mode .hero .home-search-box{
-
-  background:#34262E !important;
-
-  border-color:#513742 !important;
+body.dark-mode .hero .home-search-box {
+  background: #302943 !important;
+  border-color: var(--border) !important;
 }
 
-body.dark-mode .home-search-box:focus-within{
-
-  border-color:#BD5579 !important;
+body.dark-mode .home-search-box:focus-within {
+  border-color: var(--secondary) !important;
 }
 
 body.dark-mode .favorite-btn,
-body.dark-mode .products-slider .card-favorite{
-
-  background:#FFFFFF !important;
-
-  color:#99939F !important;
+body.dark-mode .products-slider .card-favorite {
+  background: #FFFFFF !important;
+  color: #A89AA1 !important;
 }
 
 body.dark-mode .favorite-btn.active,
-body.dark-mode .products-slider .card-favorite.active{
-
-  color:#BD5579 !important;
+body.dark-mode .products-slider .card-favorite.active {
+  color: #BD7890 !important;
 }
 
-body.dark-mode .notification-item.unread{
-
-  background:#3A2932;
+body.dark-mode .notification-item.unread {
+  background: var(--card-soft);
 }
 
-
-/* =====================================================
-   FINAL PRODUCT CARDS
-===================================================== */
-
-.category-product-card,
-.aronia-slider-card{
-
-  border:1px solid var(--border) !important;
-
-  border-radius:14px !important;
-
-  overflow:hidden;
-}
-
-
-/* =====================================================
+/* =========================
    SPECIAL HIGHLIGHTS
-===================================================== */
+========================= */
 
-.product-card:hover{
-
-  border-color:var(--accent);
+.product-card:hover {
+  border-color: var(--accent);
 }
 
 .featured-cart-controls .quantity-btn,
-.featured-cart-controls .quantity-value{
-
-  background:var(--accent-light);
-
-  color:#765B18;
+.featured-cart-controls .quantity-value {
+  background: var(--accent-light);
+  color: var(--primary-dark);
 }
 
-.featured-cart-controls .remove-cart-btn{
-
-  color:var(--danger);
+.featured-cart-controls .remove-cart-btn {
+  color: var(--danger);
 }
 
+/* =========================
+   MOBILE VERTICAL CARDS
+========================= */
 
-/* =====================================================
-   FINAL MOBILE VERTICAL CARDS
-===================================================== */
-
-@media(max-width:699px){
-
+@media (max-width: 699px) {
   .category-product-card,
-  .aronia-slider-card{
-
-    aspect-ratio:2 / 3 !important;
-
-    border-radius:13px !important;
+  .aronia-slider-card {
+    aspect-ratio: 2 / 3 !important;
+    border-radius: 13px !important;
   }
-
 }
+
   
 </style>
 
