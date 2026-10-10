@@ -3148,6 +3148,91 @@ body.dark-mode .products-slider .product-image{
   margin-left:8px;
   font-size:16px;
 }
+
+/* =====================================================
+   ARONIA — FIX TRANSPARENT BUTTONS
+===================================================== */
+/* أزرار الاستشارة */
+.consultation-next-btn,
+.consultation-start-btn {
+  background: linear-gradient(
+    135deg,
+    #55A98C,
+    #39866D
+  ) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  opacity: 1 !important;
+}
+/* خيارات الاستشارة غير المحددة */
+.consultation-option {
+  background: #FFFFFF !important;
+  color: #293B34 !important;
+  border: 1px solid #E4E6D9 !important;
+}
+/* خيار الاستشارة المحدد */
+.consultation-option.selected {
+  background: #F5F1E3 !important;
+  color: #39866D !important;
+  border: 2px solid #55A98C !important;
+}
+/* أزرار الكمية والسلة */
+.featured-cart-controls .quantity-btn {
+  background: #55A98C !important;
+  color: #FFFFFF !important;
+  border: none !important;
+}
+.featured-cart-controls .remove-cart-btn {
+  background: #F5F1E3 !important;
+  color: #B94A5C !important;
+  border: 1px solid #E4E6D9 !important;
+}
+/* زر إضافة المنتج */
+.add-btn:not(:disabled),
+.add-to-cart:not(:disabled) {
+  background: #55A98C !important;
+  color: #FFFFFF !important;
+  border: 1px solid #55A98C !important;
+  opacity: 1 !important;
+}
+/* المنتج غير المتوفر */
+.add-btn:disabled,
+.add-to-cart:disabled {
+  background: #F5F1E3 !important;
+  color: #68776D !important;
+  border: 1px solid #E4E6D9 !important;
+  opacity: 1 !important;
+}
+/* أزرار الإشعارات والاستشارة في الهيدر */
+.notification-btn,
+.consultation-header-btn {
+  background: transparent !important;
+  color: #39866D !important;
+}
+/* الوضع الليلي */
+body.dark-mode .consultation-option {
+  background: #22332B !important;
+  color: #F2F4EC !important;
+  border-color: #394A3F !important;
+}
+body.dark-mode .consultation-option.selected {
+  background: #2C3D32 !important;
+  color: #91D5B8 !important;
+  border-color: #72C3A2 !important;
+}
+body.dark-mode .consultation-next-btn,
+body.dark-mode .consultation-start-btn {
+  background: linear-gradient(
+    135deg,
+    #72C3A2,
+    #55A98C
+  ) !important;
+  color: #18251F !important;
+}
+body.dark-mode .featured-cart-controls .quantity-btn {
+  background: #55A98C !important;
+  color: #FFFFFF !important;
+}
   
 </style>
 
