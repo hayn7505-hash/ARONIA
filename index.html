@@ -4104,6 +4104,49 @@ body.dark-mode .aronia-slider-card .favorite-btn.card-favorite {
 .favorite-btn.card-favorite::after {
   box-shadow: none !important;
 }
+
+/* =====================================================
+   ARONIA — FAVORITE BUTTON
+   نفس الشكل والألوان في الوضعين
+===================================================== */
+.product-card .favorite-btn.card-favorite,
+.product-card .favorite-btn.card-favorite:hover,
+.product-card .favorite-btn.card-favorite:focus,
+.product-card .favorite-btn.card-favorite:active,
+.category-product-card .favorite-btn.card-favorite,
+.aronia-slider-card .favorite-btn.card-favorite {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #68776D !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+/* القلب عند إضافته للمفضلة */
+.product-card .favorite-btn.card-favorite.active,
+.category-product-card .favorite-btn.card-favorite.active,
+.aronia-slider-card .favorite-btn.card-favorite.active {
+  color: #B94A5C !important;
+}
+/* تثبيت الألوان نفسها في الوضع الليلي */
+body.dark-mode .product-card .favorite-btn.card-favorite,
+body.dark-mode .product-card .favorite-btn.card-favorite:hover,
+body.dark-mode .product-card .favorite-btn.card-favorite:focus,
+body.dark-mode .product-card .favorite-btn.card-favorite:active,
+body.dark-mode .category-product-card .favorite-btn.card-favorite,
+body.dark-mode .aronia-slider-card .favorite-btn.card-favorite {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  color: #68776D !important;
+}
+body.dark-mode .product-card .favorite-btn.card-favorite.active,
+body.dark-mode .category-product-card .favorite-btn.card-favorite.active,
+body.dark-mode .aronia-slider-card .favorite-btn.card-favorite.active {
+  color: #B94A5C !important;
+}
   
 </style>
 
