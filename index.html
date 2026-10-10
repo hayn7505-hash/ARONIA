@@ -3982,6 +3982,60 @@ header,
   border: none !important;
   box-shadow: none !important;
 }
+
+/* =====================================================
+   ARONIA — REMOVE FAVORITE SQUARE COMPLETELY
+===================================================== */
+.products-slider .card-favorite,
+.category-products-grid .card-favorite,
+.product-card .card-favorite,
+.card-favorite,
+.favorite-btn {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+/* إزالة المربع في جميع الحالات */
+.products-slider .card-favorite:hover,
+.products-slider .card-favorite:focus,
+.products-slider .card-favorite:active,
+.products-slider .card-favorite:focus-visible,
+.card-favorite:hover,
+.card-favorite:focus,
+.card-favorite:active,
+.card-favorite:focus-visible,
+.favorite-btn:hover,
+.favorite-btn:focus,
+.favorite-btn:active,
+.favorite-btn:focus-visible {
+  background: transparent !important;
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* إزالة أي زخرفة ترسم إطارًا */
+.card-favorite::before,
+.card-favorite::after,
+.favorite-btn::before,
+.favorite-btn::after {
+  content: none !important;
+  display: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+/* الإبقاء على القلب واضحًا */
+.card-favorite,
+.favorite-btn {
+  color: #68776D;
+  font-size: 25px;
+  line-height: 1;
+  padding: 4px !important;
+}
   
 </style>
 
