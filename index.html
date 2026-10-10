@@ -4147,6 +4147,124 @@ body.dark-mode .category-product-card .favorite-btn.card-favorite.active,
 body.dark-mode .aronia-slider-card .favorite-btn.card-favorite.active {
   color: #B94A5C !important;
 }
+
+/* =====================================================
+   ARONIA — FINAL DARK MODE
+   تحسين تناسق الوضع الليلي فقط
+===================================================== */
+body.dark-mode {
+  --bg: #18251F;
+  --card: #22332B;
+  --card-soft: #2C3D32;
+  --text: #F2F4EC;
+  --text-soft: #B7C7BC;
+  --heading: #F8FFF9;
+  --primary: #72C3A2;
+  --primary-dark: #55A98C;
+  --primary-light: #91D5B8;
+  --secondary: #8CCBB2;
+  --accent: #BDB28D;
+  --accent-light: #D5CBA9;
+  --gold: #D5C18A;
+  --border: #394A3F;
+  --nav: #1D2C24;
+  --success: #72C3A2;
+  --danger: #D97983;
+  --warning: #E0BD70;
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  background-color: var(--bg);
+  color: var(--text);
+}
+/* الخلفية العامة */
+body.dark-mode,
+body.dark-mode main,
+body.dark-mode .page,
+body.dark-mode .page-content {
+  background-color: var(--bg);
+  color: var(--text);
+}
+/* البطاقات والحاويات */
+body.dark-mode .product-card,
+body.dark-mode .category-product-card,
+body.dark-mode .aronia-slider-card,
+body.dark-mode .settings-group,
+body.dark-mode .setting-row,
+body.dark-mode .modal-content,
+body.dark-mode .product-modal-content,
+body.dark-mode .offer-card {
+  background-color: var(--card);
+  color: var(--text);
+  border-color: var(--border);
+  box-shadow: var(--shadow);
+}
+/* العناوين */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode .section-title,
+body.dark-mode .setting-text strong {
+  color: var(--heading);
+}
+/* النصوص الثانوية */
+body.dark-mode p,
+body.dark-mode small,
+body.dark-mode .text-muted,
+body.dark-mode .setting-description {
+  color: var(--text-soft);
+}
+/* الأزرار الرئيسية */
+body.dark-mode button.primary,
+body.dark-mode .primary-btn,
+body.dark-mode .checkout-btn,
+body.dark-mode .shop-now-btn {
+  background-color: var(--primary);
+  color: #18251F;
+  border-color: var(--primary);
+}
+/* الحقول ومربعات البحث */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: var(--card-soft);
+  color: var(--text);
+  border-color: var(--border);
+}
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: var(--text-soft);
+  opacity: 0.8;
+}
+/* شريط التنقل */
+body.dark-mode nav,
+body.dark-mode .bottom-nav,
+body.dark-mode .bottom-navigation {
+  background-color: var(--nav);
+  border-color: var(--border);
+}
+/* الفواصل والحدود */
+body.dark-mode hr,
+body.dark-mode .divider {
+  border-color: var(--border);
+}
+/* صور المنتجات تبقى بيضاء */
+body.dark-mode .product-image,
+body.dark-mode .products-slider .product-image {
+  background-color: #FFFFFF;
+}
+/* لا نغيّر ألوان زر المفضلة الحالي */
+body.dark-mode .favorite-btn.card-favorite {
+  background-color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+/* الروابط والعناصر النشطة */
+body.dark-mode a {
+  color: var(--primary-light);
+}
+body.dark-mode .active,
+body.dark-mode .selected {
+  border-color: var(--primary);
+}
   
 </style>
 
