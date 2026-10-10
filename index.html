@@ -3849,6 +3849,109 @@ body.dark-mode .offer-card {
 button {
   text-shadow: none;
 }
+
+/* =====================================================
+   ARONIA — FIX HEADER TRANSPARENCY & OVERLAP
+===================================================== */
+/* الهيدر العلوي */
+header,
+.main-header,
+.site-header,
+#mainHeader,
+.header {
+  background: var(--card) !important;
+  background-color: var(--card) !important;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  isolation: isolate;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 3px 12px rgba(41, 59, 52, .07);
+}
+/* الوضع الليلي */
+body.dark-mode header,
+body.dark-mode .main-header,
+body.dark-mode .site-header,
+body.dark-mode #mainHeader,
+body.dark-mode .header {
+  background: var(--nav) !important;
+  background-color: var(--nav) !important;
+  border-bottom-color: var(--border);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .22);
+}
+/* حاوية الشعار */
+.logo,
+.header-logo,
+.site-logo,
+.logo-container,
+.header-brand {
+  background: transparent;
+  position: relative;
+  z-index: 2;
+}
+/* صورة الشعار */
+.logo img,
+.header-logo img,
+.site-logo img,
+.logo-container img,
+.header-brand img {
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
+}
+/* مجموعة أزرار الهيدر */
+.header-actions {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: auto;
+}
+/* زر الإشعارات وزر الاستشارة */
+.notification-btn,
+.consultation-header-btn {
+  position: relative;
+  z-index: 4;
+  flex-shrink: 0;
+  background: var(--card) !important;
+  color: var(--primary-dark) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px;
+  min-width: 40px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* الوضع الليلي للأزرار */
+body.dark-mode .notification-btn,
+body.dark-mode .consultation-header-btn {
+  background: var(--card) !important;
+  color: var(--primary-light) !important;
+  border-color: var(--border) !important;
+}
+/* عداد الإشعارات */
+.notification-count {
+  z-index: 5;
+  pointer-events: none;
+}
+/* لا تجعل محتوى الصفحة يتجاوز الهيدر */
+main,
+#app,
+.page-container {
+  position: relative;
+  z-index: 0;
+}
+/* منع الهيدر من إظهار المحتوى من خلاله */
+header,
+.main-header,
+.site-header,
+#mainHeader,
+.header {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
   
 </style>
 
