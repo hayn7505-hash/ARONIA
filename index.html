@@ -24,163 +24,146 @@ content="width=device-width, initial-scale=1.0">
 <style>
 
 /* =====================================================
-ROOT — ARONIA FINAL COLOR IDENTITY
+ROOT — ARONIA MINT & CREAM COLOR IDENTITY
 ===================================================== */
 
 :root{
 
-  /* =========================
-     BACKGROUNDS
-  ========================= */
+/* =========================
+BACKGROUNDS
+========================= */
 
-  --bg:#FFF8F5;
-  --card:#FFFFFF;
-  --card-soft:#F9F0F4;
+–bg:#FFFCF3;
+–card:#FFFFFF;
+–card-soft:#F5F1E3;
 
+/* =========================
+TEXT
+========================= */
 
-  /* =========================
-     TEXT
-  ========================= */
+–text:#293B34;
+–text-soft:#68776D;
+–heading:#293B34;
 
-  --text:#2E2529;
-  --text-soft:#6F6269;
-  --heading:#2E2529;
+/* =========================
+PRIMARY — ARONIA MINT
+========================= */
 
+–primary:#55A98C;
+–primary-dark:#39866D;
+–primary-light:#8CCBB2;
 
-  /* =========================
-     PRIMARY — ARONIA
-  ========================= */
+/* =========================
+SECONDARY
+========================= */
 
-  --primary:#66254D;
-  --primary-dark:#4E1B3A;
-  --primary-light:#8A5273;
+–secondary:#79BDA3;
 
+/* =========================
+ACCENTS
+========================= */
 
-  /* =========================
-     SECONDARY
-  ========================= */
+–accent:#E6DDBD;
+–accent-light:#F0E9D5;
+–gold:#C7B77F;
 
-  --secondary:#A66B8B;
+/* =========================
+BORDERS
+========================= */
 
+–border:#E4E6D9;
 
-  /* =========================
-     ACCENTS
-  ========================= */
+/* =========================
+NAVIGATION
+========================= */
 
-  --accent:#D6B56D;
-  --accent-light:#E8D3A3;
-  --gold:#D6B56D;
+–nav:#FFFFFF;
 
+/* =========================
+SHADOW
+========================= */
 
-  /* =========================
-     BORDERS
-  ========================= */
+–shadow:0 4px 18px rgba(41,59,52,.08);
 
-  --border:#E8DDE3;
+/* =========================
+STATUS COLORS
+========================= */
 
-
-  /* =========================
-     NAVIGATION
-  ========================= */
-
-  --nav:#FFFFFF;
-
-
-  /* =========================
-     SHADOW
-  ========================= */
-
-  --shadow:0 4px 18px rgba(46,37,41,.08);
-
-
-  /* =========================
-     STATUS COLORS
-  ========================= */
-
-  --success:#3F8065;
-  --danger:#B94A5C;
-  --warning:#C88A3D;
+–success:#39866D;
+–danger:#B94A5C;
+–warning:#C88A3D;
 
 }
 
-
 /* =====================================================
-DARK MODE — ARONIA
+DARK MODE — ARONIA MINT & CREAM
 ===================================================== */
 
 body.dark-mode{
 
-  /* =========================
-     BACKGROUNDS
-  ========================= */
+/* =========================
+BACKGROUNDS
+========================= */
 
-  --bg:#211A1E;
-  --card:#2B2227;
-  --card-soft:#382C33;
+–bg:#18251F;
+–card:#22332B;
+–card-soft:#2C3D32;
 
+/* =========================
+TEXT
+========================= */
 
-  /* =========================
-     TEXT
-  ========================= */
+–text:#F2F4EC;
+–text-soft:#B7C7BC;
+–heading:#F8FFF9;
 
-  --text:#F7F1F4;
-  --text-soft:#C8BCC2;
-  --heading:#FFF8FB;
+/* =========================
+PRIMARY
+========================= */
 
+–primary:#72C3A2;
+–primary-dark:#55A98C;
+–primary-light:#91D5B8;
 
-  /* =========================
-     PRIMARY
-  ========================= */
+/* =========================
+SECONDARY
+========================= */
 
-  --primary:#8A5273;
-  --primary-dark:#6F3B5B;
-  --primary-light:#A66B8B;
+–secondary:#8CCBB2;
 
+/* =========================
+ACCENTS
+========================= */
 
-  /* =========================
-     SECONDARY
-  ========================= */
+–accent:#BDB28D;
+–accent-light:#D5CBA9;
+–gold:#D5C18A;
 
-  --secondary:#A66B8B;
+/* =========================
+BORDERS
+========================= */
 
+–border:#394A3F;
 
-  /* =========================
-     ACCENTS
-  ========================= */
+/* =========================
+NAVIGATION
+========================= */
 
-  --accent:#D6B56D;
-  --accent-light:#E8D3A3;
-  --gold:#D6B56D;
+–nav:#1D2C24;
 
+/* =========================
+SHADOW
+========================= */
 
-  /* =========================
-     BORDERS
-  ========================= */
+–shadow:0 4px 18px rgba(0,0,0,.28);
 
-  --border:#4A3942;
+/* =========================
+STATUS COLORS
+========================= */
 
-
-  /* =========================
-     NAVIGATION
-  ========================= */
-
-  --nav:#261E22;
-
-
-  /* =========================
-     SHADOW
-  ========================= */
-
-  --shadow:0 4px 18px rgba(0,0,0,.28);
-
-
-  /* =========================
-     STATUS COLORS
-  ========================= */
-
-  --success:#5E9A7D;
-  --danger:#D06A7A;
-  --warning:#D39A4D;
+–success:#72C3A2;
+–danger:#D97983;
+–warning:#E0BD70;
 
 }
 
@@ -231,129 +214,126 @@ select{
 }
 
 /* =====================================================
-   HEADER — ARONIA
+HEADER — ARONIA MINT & CREAM
 ===================================================== */
 
 header{
 
-  background:var(--nav);
+background:var(–nav);
 
-  padding:15px 18px;
+padding:15px 18px;
 
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
+display:flex;
+justify-content:flex-start;
+align-items:center;
 
-  position:sticky;
-  top:0;
-  z-index:100;
+position:sticky;
+top:0;
+z-index:100;
 
-  box-shadow:0 2px 12px rgba(46,37,41,.07);
+box-shadow:0 2px 12px rgba(41,59,52,.07);
 
-  border-bottom:1px solid var(--border);
+border-bottom:1px solid var(–border);
 }
-
 
 .logo{
 
-  font-size:27px;
+font-size:27px;
 
-  font-weight:700;
+font-weight:700;
 
-  letter-spacing:2.5px;
+letter-spacing:2.5px;
 
-  color:var(--primary);
+color:var(–primary);
 }
   
 /* =====================================================
-HERO — ARONIA
+HERO — ARONIA MINT & CREAM
 ===================================================== */
 
 .hero{
 
-  margin:16px;
+margin:16px;
 
-  padding:32px 24px;
+padding:32px 24px;
 
-  border-radius:26px;
+border-radius:26px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #FFF8F5,
-      #F9F0F4
-    );
+background:
+linear-gradient(
+135deg,
+#FFFCF3,
+#E6DDBD
+);
 
-  position:relative;
+position:relative;
 
-  overflow:hidden;
+overflow:hidden;
 
 }
 
 /* =========================
-   DARK HERO
+DARK HERO — MINT & CREAM
 ========================= */
 
 body.dark-mode .hero{
 
-  background:
-    linear-gradient(
-      135deg,
-      #293936,
-      #202B28
-    );
+background:
+linear-gradient(
+135deg,
+#2C4036,
+#1D2C24
+);
 
 }
 
-
 /* =========================
-   HERO TITLE
+HERO TITLE
 ========================= */
 
 .hero h1{
 
-  font-size:30px;
+font-size:30px;
 
-  font-weight:700;
+font-weight:700;
 
-  line-height:1.35;
+line-height:1.35;
 
-  color:var(--text);
+color:var(–text);
 
-  margin-bottom:12px;
+margin-bottom:12px;
 
 }
 
 body.dark-mode .hero h1{
 
-  color:var(--heading);
+color:var(–heading);
 
 }
 
-
 /* =========================
-   HERO TEXT
+HERO TEXT
 ========================= */
 
 .hero p{
 
-  line-height:1.9;
+line-height:1.9;
 
-  color:var(--text-soft);
+color:var(–text-soft);
 
-  margin-bottom:20px;
+margin-bottom:20px;
 
-  font-size:14px;
+font-size:14px;
 
-  font-weight:400;
+font-weight:400;
 
-  max-width:400px;
+max-width:400px;
 
 }
 
 body.dark-mode .hero p{
 
-  color:var(--text-soft);
+color:var(–text-soft);
 
 }
 
@@ -420,89 +400,89 @@ class="banner-container">
 </section>
    
 /* =====================================================
-   HOME SEARCH — ARONIA
+HOME SEARCH — ARONIA MINT & CREAM
 ===================================================== */
 
 .home-search-box{
-  position:relative !important;
-  width:100% !important;
-  height:54px !important;
-  margin-top:32px !important;
-  margin-bottom:0 !important;
-  display:block !important;
-  box-sizing:border-box !important;
+position:relative !important;
+width:100% !important;
+height:54px !important;
+margin-top:32px !important;
+margin-bottom:0 !important;
+display:block !important;
+box-sizing:border-box !important;
 
-  background:#F9F0F4 !important;
-  border:1px solid #E8DDE3 !important;
-  border-radius:16px !important;
+background:#F5F7EF !important;
+border:1px solid #DCE7DD !important;
+border-radius:16px !important;
 
-  box-shadow:0 5px 18px rgba(46,37,41,.08) !important;
+box-shadow:0 5px 18px rgba(41,59,52,.08) !important;
 
-  overflow:hidden !important;
+overflow:hidden !important;
 }
 
 .home-search-box span{
-  position:absolute !important;
-  left:17px !important;
-  right:auto !important;
-  top:50% !important;
-  transform:translateY(-50%) !important;
-  width:24px !important;
-  height:24px !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  margin:0 !important;
-  padding:0 !important;
-  font-size:20px !important;
-  line-height:1 !important;
+position:absolute !important;
+left:17px !important;
+right:auto !important;
+top:50% !important;
+transform:translateY(-50%) !important;
+width:24px !important;
+height:24px !important;
+display:flex !important;
+align-items:center !important;
+justify-content:center !important;
+margin:0 !important;
+padding:0 !important;
+font-size:20px !important;
+line-height:1 !important;
 
-  color:#66254D !important;
+color:#39866D !important;
 
-  z-index:10 !important;
-  pointer-events:none !important;
+z-index:10 !important;
+pointer-events:none !important;
 }
 
 .home-search-box input{
-  position:absolute !important;
-  top:0 !important;
-  left:0 !important;
-  width:100% !important;
-  height:100% !important;
-  box-sizing:border-box !important;
-  margin:0 !important;
-  padding:0 20px 0 55px !important;
-  border:0 !important;
-  outline:0 !important;
-  background:transparent !important;
+position:absolute !important;
+top:0 !important;
+left:0 !important;
+width:100% !important;
+height:100% !important;
+box-sizing:border-box !important;
+margin:0 !important;
+padding:0 20px 0 55px !important;
+border:0 !important;
+outline:0 !important;
+background:transparent !important;
 
-  color:#2E2529 !important;
+color:#293B34 !important;
 
-  font-size:14px !important;
-  font-weight:400 !important;
-  line-height:1.5 !important;
+font-size:14px !important;
+font-weight:400 !important;
+line-height:1.5 !important;
 
-  text-align:right !important;
-  direction:rtl !important;
-  box-shadow:none !important;
+text-align:right !important;
+direction:rtl !important;
+box-shadow:none !important;
 }
 
 .home-search-box input::placeholder{
-  color:#9A8D94 !important;
-  opacity:1 !important;
-  font-weight:400 !important;
+color:#829087 !important;
+opacity:1 !important;
+font-weight:400 !important;
 }
 
 .home-search-box input:focus{
-  border:0 !important;
-  outline:0 !important;
-  box-shadow:none !important;
+border:0 !important;
+outline:0 !important;
+box-shadow:none !important;
 }
 
 .home-search-box:focus-within{
-  background:#F9F0F4 !important;
-  border-color:#66254D !important;
-  box-shadow:0 5px 20px rgba(102,37,77,.12) !important;
+background:#F5F7EF !important;
+border-color:#55A98C !important;
+box-shadow:0 5px 20px rgba(85,169,140,.16) !important;
 }
 
 /* =====================================================
@@ -554,117 +534,67 @@ class="banner-container">
 }
 
 /* =====================================================
-   CATEGORIES — ARONIA COLOR IDENTITY
+   CATEGORIES — ARONIA MINT & CREAM
 ===================================================== */
-
 .categories{
-
   display:grid;
-
   grid-template-columns:repeat(4,1fr);
-
   gap:10px;
-
 }
-
 .category{
-
   background:transparent;
-
   border:none;
-
   border-radius:0;
-
   padding:0;
-
   text-align:center;
-
   box-shadow:none;
-
   cursor:pointer;
-
   transition:transform .2s ease;
-
 }
-
 .category:hover{
-
   background:transparent;
-
   border-color:transparent;
-
   box-shadow:none;
-
 }
-
 .category:active{
-
   transform:scale(.96);
-
 }
-   
 .category-icon{
-
   width:90px;
   height:90px;
-
   margin:0 auto 8px;
-
   border-radius:50%;
-
   overflow:hidden;
-
   background:#FFFFFF;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   box-shadow:
-    0 3px 10px rgba(46,37,41,.08);
-
+    0 3px 10px rgba(41,59,52,.09);
 }
-
 .category-icon img{
-
   width:100%;
   height:100%;
-
   object-fit:cover;
-
   display:block;
-
 }
-
 .category p{
-
   font-size:12px;
-
   color:var(--text);
-
 }
-
+  
 /* =====================================================
    MOBILE
 ===================================================== */
-
 @media(max-width:699px){
-
   .category-icon{
-
     width:78px;
     height:78px;
-
   }
-
 }
-
 /* =====================================================
-   PRODUCTS — ARONIA COLOR IDENTITY
+   PRODUCTS — ARONIA MINT & CREAM
 ===================================================== */
-
 .products{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -672,7 +602,6 @@ class="banner-container">
   width:100%;
   box-sizing:border-box;
 }
-
 .product-card{
   background:var(--card);
   border-radius:16px;
@@ -683,131 +612,88 @@ class="banner-container">
   min-width:0;
   width:100%;
   box-sizing:border-box;
-
   border:1px solid var(--border);
 }
-
 body.dark-mode .product-card{
   border-color:var(--border);
 }
 
-
 /* =========================
    PRODUCT IMAGE
 ========================= */
-
 .product-image{
   width:100%;
   height:150px;
-
   border-radius:13px;
-
   background:#FFFFFF;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   overflow:hidden;
   cursor:pointer;
 }
-
 .product-image img{
   width:82%;
   height:82%;
-
   object-fit:contain;
-
   display:block;
-
   background:transparent;
 }
-
-
 /* =========================
    PRODUCT NAME
 ========================= */
-
 .product-card h3{
   height:38px;
   min-height:38px;
-
   font-size:13px;
   margin:8px 3px 5px;
-
   line-height:1.45;
-
   color:var(--text);
-
   overflow:hidden;
 }
-
-
 /* =========================
    PRICE
 ========================= */
-
 .price{
   height:20px;
-
   margin:0 3px 7px;
-
   color:var(--primary);
-
   font-weight:bold;
   font-size:13px;
-
   direction:rtl;
 }
-
-
 /* =========================
    PRODUCT ACTIONS
 ========================= */
-
 .product-actions{
   display:flex;
   gap:5px;
-
   margin-top:auto;
-
   height:34px;
 }
-
-
 /* =========================
    ADD TO CART
 ========================= */
-
 .add-btn{
   flex:1;
-
   background:var(--primary);
   color:#FFFFFF;
-
   padding:7px 4px;
-
   border-radius:10px;
-
   font-size:11px;
-
   transition:
     background .2s ease,
     transform .15s ease;
 }
-
 .add-btn:hover{
   background:var(--primary-dark);
 }
-
 .add-btn:active{
   transform:scale(.98);
 }
-
 .add-btn:disabled{
-  background:#FBECEF;
+  background:#F7E9E8;
   color:#B94A5C;
-
   cursor:not-allowed;
   opacity:.8;
 }
@@ -816,112 +702,69 @@ body.dark-mode .product-card{
 /* =========================
    FAVORITE
 ========================= */
-
 .favorite-btn{
   width:34px;
-
   background:#FFFFFF;
-  color:#9A8D94;
-
+  color:#9A9F97;
   border-radius:10px;
   border:none;
-
   font-size:17px;
-
   transition:
     color .2s ease,
     transform .2s ease;
 }
-
 /* عند إضافة المنتج للمفضلة */
 .favorite-btn.active{
-  color:#66254D;
+  color:#55A98C;
   font-size:25px;
   transform:scale(1.08);
 }
-   
 /* =====================================================
 EMPTY
 ===================================================== */
-
 .empty{
-
-text-align:center;
-
-padding:40px 15px;
-
-color:var(--text-soft);
-
-grid-column:1/-1;
-
-line-height:1.8;
-
+  text-align:center;
+  padding:40px 15px;
+  color:var(--text-soft);
+  grid-column:1/-1;
+  line-height:1.8;
 }
 
 /* =====================================================
-   BOTTOM NAV — ARONIA
+   BOTTOM NAV — ARONIA MINT & CREAM
 ===================================================== */
-
 .bottom-nav{
-
   position:fixed;
-
   bottom:0;
-
   right:0;
-
   left:0;
-
   height:70px;
-
   background:var(--nav);
-
   display:flex;
-
   justify-content:space-around;
-
   align-items:center;
-
-  box-shadow:0 -3px 15px rgba(46,37,41,.09);
-
+  box-shadow:0 -3px 15px rgba(41,59,52,.09);
   z-index:200;
-
   border-top:1px solid var(--border);
-
 }
-
-
 /* =========================
    NAV ITEM
 ========================= */
-
 .nav-item{
-
   text-align:center;
-
   color:var(--text-soft);
-
   font-size:10px;
-
   cursor:pointer;
-
   min-width:45px;
-
   transition:
     color .2s ease,
     transform .2s ease;
 }
-
 .nav-item span{
-
   display:block;
-
   font-size:21px;
-
   margin-bottom:3px;
-
 }
-
 /* =========================
    NAV SVG ICONS
 ========================= */
@@ -943,17 +786,11 @@ line-height:1.8;
   stroke-linecap:round;
   stroke-linejoin:round;
 }
-
 .nav-item:hover{
-
   color:var(--primary);
-
 }
-
 .nav-item:active{
-
   transform:scale(.94);
-
 }
 
 
@@ -1264,279 +1101,43 @@ display:block;
   transform:scale(.98);
 
 }
-   
-/* =====================================================
-   ORDERS — ARONIA
-===================================================== */
-
-.orders-section{
-
-  margin-top:30px;
-
-  padding-top:20px;
-
-  border-top:1px solid var(--border);
-
-  text-align:right;
-
-}
-
-.orders-title{
-
-  font-size:20px;
-
-  font-weight:bold;
-
-  color:var(--heading);
-
-  margin-bottom:15px;
-
-}
-
-.order-card{
-
-  background:var(--card);
-
-  border:1px solid var(--border);
-
-  border-radius:18px;
-
-  padding:15px;
-
-  margin-bottom:12px;
-
-  text-align:right;
-
-  box-shadow:var(--shadow);
-
-}
-
-.order-header{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin-bottom:12px;
-
-}
-
-.order-id{
-
-  font-weight:bold;
-
-  color:var(--heading);
-
-  font-size:14px;
-
-}
-
-.order-date{
-
-  font-size:11px;
-
-  color:var(--text-soft);
-
-  margin-top:4px;
-
-}
-
-.order-status{
-
-  display:inline-block;
-
-  padding:6px 11px;
-
-  border-radius:20px;
-
-  font-size:11px;
-
-  font-weight:bold;
-
-  margin-bottom:12px;
-
-}
-
-
-/* =========================
-   ORDER STATUS
+   /* =========================
+   ORDER STATUS — MINT & CREAM
 ========================= */
-
 .status-new{
-
-  background:#F9F0F4;
-
-  color:#66254D;
-
+  background:#E5F3EC;
+  color:#39866D;
   font-size:12px;
-
   font-weight:600;
-
   line-height:1.4;
-
 }
-
 .status-preparing{
-
-  background:#FFF4DF;
-
-  color:#C88A3D;
-
+  background:#F5EEDB;
+  color:#927A3E;
   font-size:12px;
-
   font-weight:600;
-
   line-height:1.4;
-
 }
-
 .status-shipped{
-
-  background:#EAF5EF;
-
-  color:#3F8065;
-
+  background:#E3F2E9;
+  color:#39866D;
   font-size:12px;
-
   font-weight:600;
-
   line-height:1.4;
-
 }
-
 .status-completed{
-
-  background:#EAF5EF;
-
-  color:#3F8065;
-
+  background:#E3F2E9;
+  color:#39866D;
   font-size:12px;
-
   font-weight:600;
-
   line-height:1.4;
-
 }
-
 .status-cancelled{
-
-  background:#FBECEF;
-
+  background:#F8E9E8;
   color:#B94A5C;
-
   font-size:12px;
-
   font-weight:600;
-
   line-height:1.4;
-
-}
-
-
-.order-products{
-
-  border-top:1px solid var(--border);
-
-  border-bottom:1px solid var(--border);
-
-  padding:10px 0;
-
-  margin:5px 0 10px;
-
-}
-
-.order-product{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  gap:10px;
-
-  font-size:13px;
-
-  font-weight:400;
-
-  line-height:1.5;
-
-  padding:6px 0;
-
-}
-
-.order-product-name{
-
-  flex:1;
-
-}
-
-.order-product-price{
-
-  color:var(--primary);
-
-  font-weight:600;
-
-  white-space:nowrap;
-
-}
-
-.order-total{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  font-weight:700;
-
-  color:var(--heading);
-
-  font-size:15px;
-
-  line-height:1.5;
-
-}
-
-.orders-loading{
-
-  text-align:center;
-
-  padding:20px;
-
-  color:var(--text-soft);
-
-  font-size:13px;
-
-  font-weight:400;
-
-  line-height:1.5;
-
-}
-
-.orders-empty{
-
-  background:var(--card-soft);
-
-  border:1px solid var(--border);
-
-  border-radius:18px;
-
-  padding:25px 15px;
-
-  text-align:center;
-
-  color:var(--text-soft);
-
-  font-size:13px;
-
-  font-weight:400;
-
-  line-height:1.8;
-
 }
 
 /* =====================================================
@@ -1667,9 +1268,8 @@ display:block;
 
 
 /* =====================================================
-   ACCOUNT — FONT & SIZE
+   ACCOUNT — ARONIA MINT & CREAM
 ===================================================== */
-
 .account-box{
   background:var(--card);
   border-radius:22px;
@@ -1678,19 +1278,16 @@ display:block;
   box-shadow:var(--shadow);
   border:1px solid var(--border);
 }
-
 .account-icon{
   font-size:50px;
   margin-bottom:15px;
 }
-
 .account-box h2{
   color:var(--heading);
   font-size:20px;
   font-weight:700;
   line-height:1.4;
 }
-
 .account-user{
   margin-top:10px;
   color:var(--text-soft);
@@ -1698,14 +1295,12 @@ display:block;
   font-weight:400;
   line-height:1.6;
 }
-
 .account-buttons{
   margin-top:20px;
   display:flex;
   flex-direction:column;
   gap:10px;
 }
-
 .account-action{
   width:100%;
   padding:13px;
@@ -1716,771 +1311,412 @@ display:block;
   font-weight:600;
   line-height:1.5;
 }
-
 .account-action.primary{
   background:var(--primary);
   color:#FFFFFF;
   font-weight:600;
 }
-
 .admin-btn{
   padding:13px;
   border-radius:14px;
-  background:#eee1dd;
-  color:#745d58;
+  background:#E6DDBD;
+  color:#59654D;
   display:none;
   font-size:14px;
   font-weight:600;
   line-height:1.5;
 }
-
 .logout-btn{
   padding:13px;
   border-radius:14px;
-  background:#f3dfdc;
-  color:#a15e5e;
+  background:#F8E9E8;
+  color:#B94A5C;
   display:none;
   font-size:14px;
   font-weight:600;
   line-height:1.5;
 }
-
 /* =====================================================
-TOGGLE — ARONIA
+TOGGLE — ARONIA MINT & CREAM
 ===================================================== */
-
 .switch{
-
   position:relative;
-
   width:50px;
-
   height:28px;
-
   flex-shrink:0;
-
 }
-
 .switch input{
-
   opacity:0;
-
   width:0;
-
   height:0;
-
 }
-
 .slider{
-
   position:absolute;
-
   inset:0;
-
-  background:#E8DDE3;
-
+  background:#E6DDBD;
   border-radius:30px;
-
   transition:.25s;
-
   cursor:pointer;
-
 }
-
 .slider::before{
-
   content:"";
-
   position:absolute;
-
   width:22px;
-
   height:22px;
-
   right:3px;
-
   top:3px;
-
   background:#FFFFFF;
-
   border-radius:50%;
-
   transition:.25s;
-
-  box-shadow:0 2px 5px rgba(46,37,41,.15);
-
+  box-shadow:0 2px 5px rgba(41,59,52,.15);
 }
-
 .switch input:checked + .slider{
-
   background:var(--primary);
-
 }
-
 .switch input:checked + .slider::before{
-
   transform:translateX(-22px);
-
 }
  
 /* =====================================================
-RESET SETTINGS — ARONIA
+RESET SETTINGS — ARONIA MINT & CREAM
 ===================================================== */
-
 .reset-settings{
-
   width:100%;
-
   padding:14px;
-
   border-radius:14px;
-
-  background:#FBECEF;
-
+  background:#F8E9E8;
   color:var(--danger);
-
   font-size:14px;
-
 }
-
 /* =====================================================
-PRODUCT MODAL — ARONIA
+PRODUCT MODAL — ARONIA MINT & CREAM
 ===================================================== */
-
 .modal{
-
   display:none;
-
   position:fixed;
-
   inset:0;
-
-  background:rgba(46,37,41,.38);
-
+  background:rgba(41,59,52,.38);
   z-index:500;
-
   align-items:flex-end;
-
   justify-content:center;
-
 }
-
 .modal.show{
-
   display:flex;
-
 }
-
 .modal-box{
-
   width:100%;
-
   max-width:550px;
-
   background:var(--card);
-
   border-radius:25px 25px 0 0;
-
   padding:20px;
-
   max-height:90vh;
-
   overflow:auto;
-
   color:var(--text);
-
   border-top:2px solid var(--primary-light);
-
-  box-shadow:0 -8px 30px rgba(46,37,41,.12);
-
+  box-shadow:0 -8px 30px rgba(41,59,52,.12);
 }
-
 .modal-close{
-
   float:left;
-
   background:var(--card-soft);
-
   color:var(--primary);
-
   width:35px;
-
   height:35px;
-
   border-radius:50%;
-
   font-size:18px;
-
   transition:
     background .2s ease,
     transform .15s ease;
 }
-
 .modal-close:hover{
-
   background:var(--accent-light);
-
 }
-
 .modal-close:active{
-
   transform:scale(.92);
-
 }
-
 .modal-image{
-
   width:100%;
-
   height:280px;
-
   object-fit:contain;
-
   background:var(--card-soft);
-
   border-radius:18px;
-
   margin-bottom:15px;
-
 }
-
 .modal-box h2{
-
   margin-bottom:10px;
-
   color:var(--heading);
-
   font-size:22px;
-
   font-weight:700;
-
   line-height:1.4;
-
 }
-
 .modal-description{
-
   line-height:2;
-
   color:var(--text-soft);
-
   margin:10px 0 20px;
-
   font-size:14px;
-
   font-weight:400;
-
   white-space:pre-line;
-
 }
 
 /* =====================================================
-AUTH — ARONIA
+AUTH — ARONIA MINT & CREAM
 ===================================================== */
-
 .auth-overlay{
-
   position:fixed;
-
   inset:0;
-
   background:var(--bg);
-
   z-index:10000;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   padding:20px;
-
   overflow:auto;
-
 }
-
 .auth-box{
-
   width:100%;
-
   max-width:430px;
-
   background:var(--card);
-
   border-radius:28px;
-
   padding:28px 22px;
-
-  box-shadow:0 8px 35px rgba(46,37,41,.08);
-
+  box-shadow:0 8px 35px rgba(41,59,52,.08);
   text-align:center;
-
   border:1px solid var(--border);
-
 }
-
 .auth-logo{
-
   font-size:32px;
-
   font-weight:bold;
-
   letter-spacing:3px;
-
   color:var(--primary);
-
   margin-bottom:8px;
-
 }
-
 .auth-subtitle{
-
   color:var(--text-soft);
-
   font-size:14px;
-
   margin-bottom:25px;
-
 }
-
 .auth-input{
-
   width:100%;
-
   padding:14px 15px;
-
   border:1px solid var(--border);
-
   border-radius:13px;
-
   margin-bottom:10px;
-
   font-size:15px;
-
   outline:none;
-
   background:var(--card);
-
   color:var(--text);
-
 }
-
 .auth-input:focus{
-
   border-color:var(--primary);
-
 }
-
 .auth-main-btn{
-
   width:100%;
-
   padding:14px;
-
   border-radius:14px;
-
   background:var(--primary);
-
   color:#FFFFFF;
-
   font-size:16px;
-
   font-weight:bold;
-
   margin-top:5px;
-
 }
-
 .auth-secondary-btn{
-
   width:100%;
-
   padding:13px;
-
   border-radius:14px;
-
   background:var(--card-soft);
-
   color:var(--primary);
-
   font-size:15px;
-
   margin-top:10px;
-
 }
-
 .google-btn{
-
   width:100%;
-
   padding:13px;
-
   border-radius:14px;
-
   background:var(--card);
-
   border:1px solid var(--border);
-
   color:var(--text);
-
   font-size:15px;
-
   margin-top:10px;
-
 }
-
 .auth-divider{
-
   display:flex;
-
   align-items:center;
-
   gap:10px;
-
   margin:18px 0;
-
-  color:var(--text-light);
-
+  color:var(--text-soft);
   font-size:12px;
-
 }
-
 .auth-divider::before,
 .auth-divider::after{
-
   content:"";
-
   height:1px;
-
   background:var(--border);
-
   flex:1;
-
 }
-
 .auth-message{
-
   min-height:22px;
-
   margin-top:12px;
-
   font-size:13px;
-
   color:var(--danger);
-
 }
-
 .auth-user{
-
   font-size:13px;
-
   color:var(--text-soft);
-
   margin-top:8px;
-
   word-break:break-word;
-
 }
 
 /* =====================================================
-GENDER SELECT — ARONIA
+GENDER SELECT — ARONIA MINT & CREAM
 ===================================================== */
-
 .gender-title{
-
   font-size:13px;
-
   color:var(--heading);
-
   text-align:right;
-
   margin:8px 2px 7px;
-
 }
-
 .gender-options{
-
   display:grid;
-
   grid-template-columns:1fr 1fr;
-
   gap:10px;
-
   margin-bottom:10px;
-
 }
-
 .gender-option{
-
   padding:13px 8px;
-
   border:1px solid var(--border);
-
   border-radius:13px;
-
   background:var(--card);
-
   color:var(--text);
-
   font-size:14px;
-
   cursor:pointer;
-
   transition:.2s;
-
 }
-
 .gender-option.selected{
-
   background:var(--primary);
-
   border-color:var(--primary);
-
   color:#FFFFFF;
-
 }
-
-
 /* =====================================================
 GENDER MODAL
 ===================================================== */
-
 .gender-overlay{
-
   position:fixed;
-
   inset:0;
-
-  background:rgba(46,37,41,.55);
-
+  background:rgba(41,59,52,.55);
   z-index:20000;
-
   display:none;
-
   align-items:center;
-
   justify-content:center;
-
   padding:20px;
-
 }
-
 .gender-overlay.show{
-
   display:flex;
-
 }
-
 .gender-box{
-
   width:100%;
-
   max-width:420px;
-
   background:var(--card);
-
   border-radius:25px;
-
   padding:25px 20px;
-
   text-align:center;
-
-  box-shadow:0 15px 50px rgba(46,37,41,.20);
-
+  box-shadow:0 15px 50px rgba(41,59,52,.20);
 }
-
 .gender-box h2{
-
   color:var(--heading);
-
   font-size:20px;
-
   margin-bottom:10px;
-
 }
-
 .gender-box p{
-
   color:var(--text-soft);
-
   font-size:13px;
-
   line-height:1.8;
-
   margin-bottom:20px;
-
 }
-
 .gender-box .gender-options{
-
   margin-bottom:15px;
-
 }
-
 .gender-save{
-
   width:100%;
-
   padding:14px;
-
   border-radius:14px;
-
   background:var(--primary);
-
   color:#FFFFFF;
-
   font-size:15px;
-
   font-weight:bold;
-
 }
 
 /* =====================================================
-CHECKOUT — ARONIA
+CHECKOUT — ARONIA MINT & CREAM
 ===================================================== */
-
 .checkout-overlay{
-
   position:fixed;
-
   inset:0;
-
-  background:rgba(46,37,41,.55);
-
+  background:rgba(41,59,52,.55);
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   z-index:99999;
-
   padding:20px;
-
 }
-
 .checkout-box{
-
   background:var(--card);
-
   width:100%;
-
   max-width:500px;
-
   max-height:90vh;
-
   overflow:auto;
-
   border-radius:22px;
-
   padding:25px;
-
   direction:rtl;
-
-  box-shadow:0 15px 50px rgba(46,37,41,.20);
-
+  box-shadow:0 15px 50px rgba(41,59,52,.20);
   color:var(--text);
-
 }
-
 .checkout-header{
-
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
-
   margin-bottom:20px;
-
 }
-
 .checkout-header h2{
-
   margin:0;
-
   color:var(--heading);
-
 }
-
 .checkout-close{
-
   background:var(--card-soft);
-
   color:var(--primary);
-
   width:38px;
-
   height:38px;
-
   border-radius:50%;
-
   font-size:22px;
-
 }
-
 .checkout-box label{
-
   display:block;
-
   font-size:13px;
-
   margin-bottom:6px;
-
   color:var(--heading);
-
 }
-
 .checkout-box input,
 .checkout-box textarea{
-
   width:100%;
-
   padding:13px;
-
   margin-bottom:16px;
-
   border:1px solid var(--border);
-
   border-radius:12px;
-
   font-size:16px;
-
   background:var(--card);
-
   color:var(--text);
-
   outline:none;
-
 }
-
 .checkout-box textarea{
-
   min-height:85px;
-
   resize:vertical;
-
 }
-
 .confirm-order{
-
   width:100%;
-
   padding:15px;
-
   border-radius:14px;
-
   background:var(--primary);
-
   color:#FFFFFF;
-
   font-size:16px;
-
   font-weight:700;
-
   line-height:1.5;
-
 }
  
 /* =====================================================
@@ -2554,1093 +1790,678 @@ body.dark-mode input:-webkit-autofill{
 /* =========================
    ARONIA BANNER
 ========================= */
-
 #bannerContainer{
   display:block;
   width:100%;
   clear:both;
   margin-bottom:20px;
 }
-
 .banner-slider{
   position:relative;
   width:100%;
   overflow:hidden;
-
   border-radius:22px;
-
   background:var(--card);
-
-  box-shadow:0 8px 25px rgba(46,37,41,.10);
-
+  box-shadow:0 8px 25px rgba(41,59,52,.10);
   touch-action:pan-y;
-
   border:1px solid var(--border);
 }
-
 .banner-track{
   display:flex;
-
   width:100%;
-
   transition:transform 0.45s ease;
-
   direction:ltr;
 }
-
 .banner-slide{
   min-width:100%;
   width:100%;
 }
-
 .banner-slide img{
   display:block;
-
   width:100%;
-
   aspect-ratio:3 / 1;
-
   object-fit:cover;
 }
-
 .banner-slide a{
   display:block;
 }
-
 /* =========================
    BANNER DOTS
 ========================= */
-
 .banner-dots{
   position:absolute;
-
   bottom:10px;
   left:50%;
-
   transform:translateX(-50%);
-
   display:flex;
-
   gap:6px;
-
   z-index:5;
 }
-
 .banner-dot{
   width:7px;
   height:7px;
-
   border-radius:50%;
-
   background:rgba(255,255,255,.70);
-
   cursor:pointer;
-
   transition:
     background .2s ease,
     transform .2s ease;
 }
-
 .banner-dot.active{
-
   background:var(--gold);
-
   transform:scale(1.25);
-
 }
  
 /* =========================
    MOBILE
 ========================= */
-
 @media(max-width:700px){
-
   .banner-slider{
-
     border-radius:16px;
-
   }
-
   .banner-slide img{
-
     aspect-ratio:3 / 1;
-
     object-fit:cover;
-
   }
-
   .banner-arrow{
-
     width:32px;
     height:32px;
-
     font-size:18px;
-
   }
-
 }
-
 /* =====================================================
    HERO FINAL LAYOUT
 ===================================================== */
-
 .hero{
   display:flex;
   flex-direction:column;
   align-items:flex-start;
 }
-
 /* الزر أولاً */
 .hero .shop-btn{
   order:3;
 }
-
 /* البحث بعد الزر */
 .hero .home-search-box{
   order:4;
   align-self:stretch;
   margin-top:14px;
 }
-
 /* =====================================================
-   SEARCH FINAL STYLE
+   SEARCH FINAL STYLE — MINT & CREAM
 ===================================================== */
-
 .hero .home-search-box{
   position:relative;
-
   width:88%;
   max-width:340px;
   height:42px;
-
   margin-left:auto;
   margin-right:auto;
-
-  background:#F9F0F4;
-
-  border:1px solid #E8DDE3;
+  background:#F5F1E3;
+  border:1px solid #E4E6D9;
   border-radius:12px;
-
   box-sizing:border-box;
   overflow:hidden;
-
-  box-shadow:0 2px 8px rgba(46,37,41,.10);
+  box-shadow:0 2px 8px rgba(41,59,52,.10);
 }
-
 .hero .home-search-box span{
   position:absolute;
-
   left:12px;
   right:auto;
-
   top:50%;
   transform:translateY(-50%);
-
   width:20px;
   height:20px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   margin:0;
   padding:0;
-
   font-size:16px;
   line-height:1;
-
   z-index:5;
-
   pointer-events:none;
-
   color:var(--primary);
 }
-
 .hero .home-search-box input{
   position:absolute;
-
   top:0;
   right:0;
-
   width:100%;
   height:100%;
-
   margin:0;
   padding:0 14px 0 42px;
-
   border:none;
   outline:none;
-
   background:transparent;
-
   box-sizing:border-box;
-
   color:var(--text);
   font-size:13px;
-
   direction:rtl;
   text-align:right;
 }
-
 .hero .home-search-box input::placeholder{
-  color:var(--text-light);
+  color:var(--text-soft);
   opacity:1;
 }
 
 /* =====================================================
    ARONIA - PRODUCT CARDS FINAL
 ===================================================== */
-
 /* السلايدر */
 .products-slider{
-
     display:flex !important;
-
     flex-direction:row !important;
-
     flex-wrap:nowrap !important;
-
     gap:10px !important;
-
     width:100% !important;
-
     overflow-x:auto !important;
-
     overflow-y:hidden !important;
-
     padding:5px 2px 12px !important;
-
     margin:0 !important;
-
     box-sizing:border-box !important;
-
     scrollbar-width:none;
-
     -webkit-overflow-scrolling:touch;
-
     scroll-snap-type:x mandatory;
 }
-
 .products-slider::-webkit-scrollbar{
     display:none;
 }
-
-
 /* =====================================================
    ARONIA — PRODUCT CARDS
    2 CARDS / VIEW — HORIZONTAL SLIDER
 ===================================================== */
-
-/* =====================================================
-   حاوية السلايدر
-===================================================== */
-
+/* حاوية السلايدر */
 .products-slider{
     width:100% !important;
-
     display:flex !important;
     flex-wrap:nowrap !important;
-
     gap:18px !important;
-
     overflow-x:auto !important;
     overflow-y:hidden !important;
-
     padding:0 10px 12px !important;
-
     box-sizing:border-box !important;
-
     scroll-behavior:smooth !important;
-
     -webkit-overflow-scrolling:touch !important;
-
     scrollbar-width:none !important;
 }
-
 .products-slider::-webkit-scrollbar{
     display:none !important;
 }
-
-
 /* =====================================================
    بطاقة المنتج
 ===================================================== */
-
 .products-slider .product-card{
-
     flex:0 0 calc((100% - 18px) / 2) !important;
-
     width:calc((100% - 18px) / 2) !important;
-
     min-width:calc((100% - 18px) / 2) !important;
-
     max-width:calc((100% - 18px) / 2) !important;
-
     height:auto !important;
-
     min-height:0 !important;
-
     max-height:none !important;
-
     box-sizing:border-box !important;
-
     display:flex !important;
-
     flex-direction:column !important;
-
     overflow:hidden !important;
-
     background:var(--card) !important;
-
     border:1px solid var(--border) !important;
-
     box-shadow:var(--shadow) !important;
 }
-
-
 /* =====================================================
    صورة المنتج
 ===================================================== */
-
 .products-slider .product-image{
-
     width:100% !important;
-
     height:auto !important;
-
     min-height:0 !important;
-
     max-height:none !important;
-
     aspect-ratio:1 / 1 !important;
-
     display:flex !important;
-
     align-items:center !important;
-
     justify-content:center !important;
-
     overflow:hidden !important;
-
     box-sizing:border-box !important;
-
     background:var(--card) !important;
 }
-
-
 /* =====================================================
    صورة المنتج نفسها
 ===================================================== */
-
 .products-slider .product-image img{
-
     width:76% !important;
-
     height:76% !important;
-
     max-width:100% !important;
-
     max-height:100% !important;
-
     object-fit:contain !important;
-
     display:block !important;
 }
-
-
 /* =====================================================
    معلومات المنتج
 ===================================================== */
-
 .products-slider .product-info{
-
     width:100% !important;
-
     box-sizing:border-box !important;
-
     padding:10px 8px 12px !important;
-
     display:flex !important;
-
     flex-direction:column !important;
 }
-
-
 /* =====================================================
    اسم المنتج
 ===================================================== */
-
 .products-slider .product-name{
-
     width:100% !important;
-
     margin:0 !important;
-
     font-size:14px !important;
-
     font-weight:600 !important;
-
     line-height:1.5 !important;
-
     min-height:0 !important;
-
     max-height:none !important;
-
     overflow:hidden !important;
-
     box-sizing:border-box !important;
-
     color:var(--text) !important;
 }
-
-
 /* =====================================================
    السعر
 ===================================================== */
-
 .products-slider .product-price{
-
     margin-top:7px !important;
-
     font-size:15px !important;
-
     font-weight:700 !important;
-
     line-height:1.4 !important;
-
     color:var(--primary) !important;
 }
-
-
 /* =====================================================
    الأزرار
 ===================================================== */
-
 .products-slider .product-actions{
-
     width:100% !important;
-
     margin-top:10px !important;
-
     display:flex !important;
-
     align-items:center !important;
-
     justify-content:space-between !important;
-
     box-sizing:border-box !important;
 }
-
-
 /* =====================================================
    زر أضف إلى السلة
 ===================================================== */
-
 .products-slider .add-to-cart{
-
     max-width:calc(100% - 42px) !important;
-
     height:40px !important;
-
     padding:0 10px !important;
-
     white-space:nowrap !important;
-
     overflow:hidden !important;
-
     text-overflow:ellipsis !important;
-
     font-size:13px !important;
-
     font-weight:600 !important;
-
     line-height:1.4 !important;
-
     box-sizing:border-box !important;
-
     background:var(--primary) !important;
-
     color:#FFFFFF !important;
 }
-
-
 /* =====================================================
    زر المفضلة
 ===================================================== */
-
 .products-slider .favorite-btn{
-
     width:36px !important;
-
     height:36px !important;
-
     min-width:36px !important;
-
     flex:0 0 36px !important;
-
     box-sizing:border-box !important;
-
     display:flex !important;
-
     align-items:center !important;
-
     justify-content:center !important;
-
     background:#FFFFFF !important;
-
     color:var(--primary) !important;
-
     border:1px solid var(--border) !important;
-
     font-size:20px !important;
-
     line-height:1 !important;
-
     transition:
         transform .2s ease,
         color .2s ease !important;
 }
-
-
 /* =====================================================
    عند الإضافة للمفضلة
 ===================================================== */
-
 .products-slider .favorite-btn.active{
-
     background:#FFFFFF !important;
-
     color:var(--primary) !important;
-
     transform:scale(1.12) !important;
-
 }
 
 
 /* =====================================================
-   MOBILE
-   بطاقتان فقط داخل الشاشة
+   ARONIA — PRODUCTS & SLIDERS
+   MINT & CREAM FINAL
 ===================================================== */
-
-@media (max-width:699px){
-
-    .products-slider{
-
-        display:flex !important;
-
-        flex-wrap:nowrap !important;
-
-        gap:18px !important;
-
-        overflow-x:auto !important;
-
-        overflow-y:hidden !important;
-
-        padding:0 8px 12px !important;
-
-        scrollbar-width:none !important;
-
-        -webkit-overflow-scrolling:touch !important;
-    }
-
-    .products-slider::-webkit-scrollbar{
-        display:none !important;
-    }
-
-    .products-slider .product-card{
-
-        flex:0 0 calc((100% - 18px) / 2) !important;
-
-        width:calc((100% - 18px) / 2) !important;
-
-        min-width:calc((100% - 18px) / 2) !important;
-
-        max-width:calc((100% - 18px) / 2) !important;
-    }
-
-    .products-slider .product-image{
-
-        aspect-ratio:1 / 1 !important;
-    }
-
-    .products-slider .product-image img{
-
-        width:76% !important;
-
-        height:76% !important;
-    }
-
-    .products-slider .product-info{
-
-        padding:10px 8px 12px !important;
-    }
-
-    .products-slider .product-name{
-
-        font-size:14px !important;
-
-        line-height:1.4 !important;
-    }
-
-    .products-slider .product-price{
-
-        font-size:15px !important;
-    }
-
-    .products-slider .add-to-cart{
-
-        height:40px !important;
-
-        font-size:13px !important;
-
-        padding:0 9px !important;
-    }
-}
-
-
 /* =====================================================
-   DESKTOP
+   MAIN PRODUCTS SLIDER
 ===================================================== */
-
-@media (min-width:700px){
-
-    .products-slider .product-card{
-
-        flex:0 0 calc((100% - 54px) / 4) !important;
-
-        width:calc((100% - 54px) / 4) !important;
-
-        min-width:calc((100% - 54px) / 4) !important;
-
-        max-width:calc((100% - 54px) / 4) !important;
-    }
-}
-   
-/* =====================================================
-   IMAGE CONTAINER
-===================================================== */
-
-.products-slider .product-image{
-
-    width:100% !important;
-
-    height:110px !important;
-
-    min-height:110px !important;
-
-    max-height:110px !important;
-
+.products-slider{
     display:flex !important;
-
-    align-items:center !important;
-
-    justify-content:center !important;
-
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    gap:18px !important;
+    width:100% !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    padding:5px 8px 12px !important;
+    margin:0 !important;
+    box-sizing:border-box !important;
+    scrollbar-width:none !important;
+    -webkit-overflow-scrolling:touch !important;
+    scroll-snap-type:x mandatory !important;
+}
+.products-slider::-webkit-scrollbar{
+    display:none !important;
+}
+/* =====================================================
+   PRODUCT CARDS
+===================================================== */
+.products-slider .product-card,
+.products-slider .aronia-slider-card{
+    flex:0 0 calc((100% - 18px) / 2) !important;
+    width:calc((100% - 18px) / 2) !important;
+    min-width:calc((100% - 18px) / 2) !important;
+    max-width:calc((100% - 18px) / 2) !important;
+    height:auto !important;
+    box-sizing:border-box !important;
+    margin:0 !important;
     overflow:hidden !important;
-
+    background:var(--card) !important;
+    color:var(--text) !important;
+    border:1px solid var(--border) !important;
+    box-shadow:var(--shadow) !important;
+    scroll-snap-align:start !important;
+}
+/* =====================================================
+   PRODUCT IMAGE — REGULAR CARDS
+===================================================== */
+.products-slider .product-image{
+    width:100% !important;
+    height:110px !important;
+    min-height:110px !important;
+    max-height:110px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    overflow:hidden !important;
     border-radius:12px !important;
-
     box-sizing:border-box !important;
+    background:var(--card) !important;
 }
-
-
-/* =====================================================
-   PRODUCT IMAGE - SAFE & RESPONSIVE
-===================================================== */
-
-.products-slider .product-image{
-
-    width:100% !important;
-
-    height:110px !important;
-
-    min-height:110px !important;
-
-    max-height:110px !important;
-
-    display:flex !important;
-
-    align-items:center !important;
-
-    justify-content:center !important;
-
-    overflow:hidden !important;
-
-    box-sizing:border-box !important;
-
-}
-
-
 .products-slider .product-image img{
-
-    width:100% !important;
-
-    height:100% !important;
-
-    object-fit:contain !important;
-
-    object-position:center !important;
-
     display:block !important;
-
+    width:100% !important;
+    height:100% !important;
+    max-width:100% !important;
+    max-height:100% !important;
+    object-fit:contain !important;
+    object-position:center !important;
 }
-
-
+/* =====================================================
+   ARONIA SLIDER IMAGE
+===================================================== */
+.products-slider .aronia-product-image{
+    width:100% !important;
+    height:140px !important;
+    min-height:140px !important;
+    max-height:140px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+    background:var(--card) !important;
+}
+.products-slider .aronia-product-image img{
+    display:block !important;
+    width:auto !important;
+    height:auto !important;
+    max-width:100% !important;
+    max-height:100% !important;
+    object-fit:contain !important;
+    object-position:center !important;
+}
+/* =====================================================
+   PRODUCT INFO
+===================================================== */
+.products-slider .product-info{
+    width:100% !important;
+    box-sizing:border-box !important;
+    padding:10px 8px 12px !important;
+    display:flex !important;
+    flex-direction:column !important;
+}
 /* =====================================================
    PRODUCT NAME
 ===================================================== */
-
+.products-slider .product-name,
 .products-slider .product-card h3{
-
-    font-size:12px !important;
-
-    line-height:1.4 !important;
-
+    width:100% !important;
     height:34px !important;
-
     min-height:34px !important;
-
     max-height:34px !important;
-
-    overflow:hidden !important;
-
     margin:7px 0 4px !important;
-
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+    color:var(--text) !important;
+    font-size:12px !important;
+    font-weight:600 !important;
+    line-height:1.4 !important;
     text-align:center !important;
 }
-
-
 /* =====================================================
-   PRICE
+   PRODUCT PRICE
 ===================================================== */
-
+.products-slider .product-price,
 .products-slider .product-card .price{
-
-    font-size:12px !important;
-
-    line-height:1.3 !important;
-
     margin:0 0 7px !important;
-
+    font-size:12px !important;
+    font-weight:700 !important;
+    line-height:1.4 !important;
+    color:var(--primary) !important;
     text-align:center !important;
-
     white-space:nowrap !important;
 }
-
-
 /* =====================================================
-   ACTIONS
+   PRODUCT ACTIONS
 ===================================================== */
-
+.products-slider .product-actions,
 .products-slider .product-card .product-actions{
-
     display:flex !important;
-
     align-items:center !important;
-
+    justify-content:space-between !important;
     gap:4px !important;
-
     width:100% !important;
-
+    margin-top:10px !important;
+    box-sizing:border-box !important;
 }
-
-
-/* =====================================================
-   FAVORITE
-===================================================== */
-
-.products-slider .product-card .favorite-btn{
-
-    flex:0 0 28px !important;
-
-    width:28px !important;
-
-    height:30px !important;
-
-    padding:0 !important;
-
-    font-size:15px !important;
-
-}
-
-
 /* =====================================================
    ADD TO CART
 ===================================================== */
-
+.products-slider .add-to-cart,
 .products-slider .product-card .add-btn{
-
     flex:1 1 auto !important;
-
     width:auto !important;
-
     min-width:0 !important;
-
-    height:30px !important;
-
-    padding:4px 3px !important;
-
-    font-size:9px !important;
-
+    max-width:calc(100% - 32px) !important;
+    height:36px !important;
+    padding:4px 6px !important;
+    box-sizing:border-box !important;
+    border-radius:10px !important;
+    background:var(--primary) !important;
+    color:#FFFFFF !important;
+    font-size:11px !important;
+    font-weight:600 !important;
+    line-height:1.4 !important;
     white-space:nowrap !important;
-
     overflow:hidden !important;
-
     text-overflow:ellipsis !important;
 }
-
-   .product-image {
-    width: 100%;
-    height: 110px;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-}
-
 /* =====================================================
-   ARONIA PRODUCTS SLIDER
+   FAVORITE BUTTON
 ===================================================== */
-
-.products-slider{
-
+.products-slider .favorite-btn,
+.products-slider .product-card .favorite-btn{
+    flex:0 0 30px !important;
+    width:30px !important;
+    min-width:30px !important;
+    height:30px !important;
+    padding:0 !important;
     display:flex !important;
-
-    flex-direction:row !important;
-
-    flex-wrap:nowrap !important;
-
-    gap:10px !important;
-
-    width:100% !important;
-
-    overflow-x:auto !important;
-
-    overflow-y:hidden !important;
-
-    padding:5px 2px 12px !important;
-
-    margin:0 !important;
-
-    box-sizing:border-box !important;
-
-    scrollbar-width:none;
-
-    -webkit-overflow-scrolling:touch;
-
-    scroll-snap-type:x mandatory;
-
-}
-
-.products-slider::-webkit-scrollbar{
-    display:none;
-}
-
-
-/* =====================================================
-   CARD
-   حجم متوسط — ليست عريضة
-===================================================== */
-
-.products-slider .aronia-slider-card{
-
-    flex:0 0 31% !important;
-
-    width:31% !important;
-
-    min-width:31% !important;
-
-    max-width:31% !important;
-
-    box-sizing:border-box !important;
-
-    margin:0 !important;
-
-    scroll-snap-align:start;
-
-}
-
-
-/* =====================================================
-   IMAGE BOX
-===================================================== */
-
-.products-slider .aronia-product-image{
-
-    width:100% !important;
-
-    height:140px !important;
-
-    min-height:140px !important;
-
-    max-height:140px !important;
-
-    display:flex !important;
-
     align-items:center !important;
-
     justify-content:center !important;
-
-    overflow:hidden !important;
-
     box-sizing:border-box !important;
-
+    background:var(--card) !important;
+    color:var(--primary) !important;
+    border:1px solid var(--border) !important;
+    font-size:17px !important;
+    line-height:1 !important;
+    transition:
+        transform .2s ease,
+        color .2s ease !important;
 }
-
-
-/* =====================================================
-   PRODUCT IMAGE
-   لا يتم قص الصورة
-===================================================== */
-
-.products-slider .aronia-product-image img{
-
-    display:block !important;
-
-    width:auto !important;
-
-    height:auto !important;
-
-    max-width:100% !important;
-
-    max-height:100% !important;
-
-    object-fit:contain !important;
-
+.products-slider .favorite-btn.active,
+.products-slider .product-card .favorite-btn.active{
+    background:var(--card) !important;
+    color:var(--primary) !important;
+    transform:scale(1.12) !important;
 }
-
 /* =====================================================
-CATEGORY PAGE - 2 PRODUCTS PER ROW
+   CATEGORY PAGE — TWO PRODUCTS PER ROW
 ===================================================== */
-
 .category-products-grid{
-  display:grid !important;
-  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
-  gap:12px !important;
-  width:100% !important;
-  overflow:visible !important;
-  padding:5px 2px 20px !important;
-  margin:0 !important;
-  box-sizing:border-box !important;
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px !important;
+    width:100% !important;
+    overflow:visible !important;
+    padding:5px 2px 20px !important;
+    margin:0 !important;
+    box-sizing:border-box !important;
 }
-
 .category-products-grid .category-product-card{
-  width:100% !important;
-  min-width:0 !important;
-  max-width:none !important;
-  margin:0 !important;
-  box-sizing:border-box !important;
-  padding:8px !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:8px !important;
+    box-sizing:border-box !important;
+    background:var(--card) !important;
+    color:var(--text) !important;
+    border:1px solid var(--border) !important;
+    box-shadow:var(--shadow) !important;
 }
-
-/* حجم صورة موحد بدون قص */
-.category-products-grid .aronia-product-image{
-  width:100% !important;
-  height:140px !important;
-  min-height:140px !important;
-  max-height:140px !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  overflow:hidden !important;
-  box-sizing:border-box !important;
-}
-
-.category-products-grid .aronia-product-image img{
-  display:block !important;
-  width:auto !important;
-  height:auto !important;
-  max-width:100% !important;
-  max-height:100% !important;
-  object-fit:contain !important;
-}
-
 /* =====================================================
-PRODUCT QUANTITY CONTROLS
+   CATEGORY PRODUCT IMAGE
 ===================================================== */
-
+.category-products-grid .aronia-product-image{
+    width:100% !important;
+    height:140px !important;
+    min-height:140px !important;
+    max-height:140px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+    background:var(--card) !important;
+}
+.category-products-grid .aronia-product-image img{
+    display:block !important;
+    width:auto !important;
+    height:auto !important;
+    max-width:100% !important;
+    max-height:100% !important;
+    object-fit:contain !important;
+    object-position:center !important;
+}
+/* =====================================================
+   PRODUCT QUANTITY CONTROLS
+===================================================== */
 .product-quantity{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    width:100%;
 }
-
 .product-quantity button{
-  border:none;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    border:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
-
 .qty-minus,
 .qty-plus{
-  width:30px;
-  height:30px;
-  border-radius:8px;
-  font-size:18px;
-  font-weight:bold;
-  background:#f3f3f3;
+    width:30px;
+    height:30px;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:bold;
+    background:var(--card-soft);
+    color:var(--primary-dark);
+    border:1px solid var(--border);
 }
-
 .qty-number{
-  min-width:28px;
-  text-align:center;
-  font-size:15px;
-  font-weight:bold;
+    min-width:28px;
+    text-align:center;
+    font-size:15px;
+    font-weight:bold;
+    color:var(--text);
 }
-
 .qty-delete{
-  width:30px;
-  height:30px;
-  border-radius:8px;
-  font-size:15px;
-  background:#f3f3f3;
+    width:30px;
+    height:30px;
+    border-radius:8px;
+    font-size:15px;
+    background:#F8E9E8;
+    color:var(--danger);
 }
-
-/* =========================
-   Featured Offers Slider
-========================= */
-
-#featuredOffersContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 14px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  padding: 8px 4px 16px;
-  direction: rtl;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+/* =====================================================
+   FEATURED OFFERS SLIDER
+===================================================== */
+#featuredOffersContainer{
+    display:flex;
+    flex-direction:row;
+    gap:14px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    padding:8px 4px 16px;
+    direction:rtl;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
 }
-
-#featuredOffersContainer::-webkit-scrollbar {
-  display: none;
+#featuredOffersContainer::-webkit-scrollbar{
+    display:none;
 }
-
-#featuredOffersContainer .product-card {
-  flex: 0 0 190px;
-  width: 190px;
-  min-width: 190px;
-  scroll-snap-align: start;
+#featuredOffersContainer .product-card{
+    flex:0 0 190px;
+    width:190px;
+    min-width:190px;
+    background:var(--card);
+    color:var(--text);
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    scroll-snap-align:start;
+}
+/* =====================================================
+   DESKTOP
+===================================================== */
+@media (min-width:700px){
+    .products-slider .product-card,
+    .products-slider .aronia-slider-card{
+        flex:0 0 calc((100% - 54px) / 4) !important;
+        width:calc((100% - 54px) / 4) !important;
+        min-width:calc((100% - 54px) / 4) !important;
+        max-width:calc((100% - 54px) / 4) !important;
+    }
 }
 
 /* =====================================================
-   PRODUCT IMAGE — RESPONSIVE
+   ARONIA — PRODUCT IMAGE RESPONSIVE
 ===================================================== */
-
 .product-image{
   width:100%;
   height:auto;
@@ -3648,661 +2469,329 @@ PRODUCT QUANTITY CONTROLS
   object-fit:contain;
   display:block;
 }
-
-
 /* =====================================================
-   ARONIA — FINAL MOBILE SLIDER OVERRIDE
-   MOBILE = 2 CARDS ONLY
-   WIDER + SHORTER CARDS
+   ARONIA — FINAL MOBILE SLIDER
+   WIDER CARDS + 4px GAP
 ===================================================== */
-
 @media screen and (max-width:699px){
-
-    /* =================================================
-       السلايدر
-    ================================================= */
-
-    body .products-slider{
-
-        display:flex !important;
-
-        flex-direction:row !important;
-
-        flex-wrap:nowrap !important;
-
-        width:100% !important;
-
-        gap:4px !important;
-
-        overflow-x:auto !important;
-
-        overflow-y:hidden !important;
-
-        padding:0 4px 10px !important;
-
-        box-sizing:border-box !important;
-
-        scroll-snap-type:x mandatory !important;
-
-        -webkit-overflow-scrolling:touch !important;
-
-        scrollbar-width:none !important;
-    }
-
-    body .products-slider::-webkit-scrollbar{
-        display:none !important;
-    }
-
-
-    /* =================================================
-       البطاقة — العرض 50% + 23px
-       الارتفاع أكبر بـ 8px
-    ================================================= */
-
-    body .products-slider .product-card{
-
-        flex:0 0 calc(50% + 23px) !important;
-
-        width:calc(50% + 23px) !important;
-
-        min-width:calc(50% + 23px) !important;
-
-        max-width:calc(50% + 23px) !important;
-
-        height:auto !important;
-
-        min-height:8px !important;
-
-        box-sizing:border-box !important;
-
-        display:flex !important;
-
-        flex-direction:column !important;
-
-        overflow:visible !important;
-
-        scroll-snap-align:start !important;
-    }
-
-
-    /* =================================================
-       صورة المنتج — أكبر
-    ================================================= */
-
-    body .products-slider .product-image{
-
-        width:100% !important;
-
-        height:140px !important;
-
-        min-height:140px !important;
-
-        max-height:140px !important;
-
-        aspect-ratio:auto !important;
-
-        display:flex !important;
-
-        align-items:center !important;
-
-        justify-content:center !important;
-
-        overflow:hidden !important;
-
-        box-sizing:border-box !important;
-    }
-
-
-    body .products-slider .product-image img{
-
-        width:85% !important;
-
-        height:85% !important;
-
-        max-width:100% !important;
-
-        max-height:100% !important;
-
-        object-fit:contain !important;
-
-        display:block !important;
-    }
-
-
-    /* =================================================
-       معلومات المنتج
-    ================================================= */
-
-    body .products-slider .product-info{
-
-        width:100% !important;
-
-        padding:7px 7px 17px !important;
-
-        box-sizing:border-box !important;
-    }
-
-
-    /* اسم المنتج */
-
-    body .products-slider .product-name{
-
-        font-size:14px !important;
-
-        line-height:1.3 !important;
-
-        margin:0 !important;
-
-        min-height:0 !important;
-
-        max-height:36px !important;
-
-        overflow:hidden !important;
-    }
-
-
-    /* السعر */
-
-    body .products-slider .product-price{
-
-        font-size:15px !important;
-
-        line-height:1.3 !important;
-
-        margin-top:4px !important;
-    }
-
-
-    /* =================================================
-       الأزرار
-    ================================================= */
-
-    body .products-slider .product-actions{
-
-        width:100% !important;
-
-        margin-top:6px !important;
-
-        display:flex !important;
-
-        align-items:center !important;
-
-        justify-content:space-between !important;
-
-        gap:5px !important;
-
-        box-sizing:border-box !important;
-
-        flex-wrap:nowrap !important;
-    }
-
-
-    /* =================================================
-       زر أضف إلى السلة
-    ================================================= */
-
-    body .products-slider .add-to-cart{
-
-        flex:1 1 auto !important;
-
-        width:auto !important;
-
-        min-width:0 !important;
-
-        max-width:none !important;
-
-        height:36px !important;
-
-        padding:0 7px !important;
-
-        font-size:12px !important;
-
-        white-space:nowrap !important;
-
-        overflow:hidden !important;
-
-        text-overflow:ellipsis !important;
-
-        box-sizing:border-box !important;
-    }
-
-
-    /* =================================================
-       زر المفضلة
-    ================================================= */
-
-    body .products-slider .favorite-btn{
-
-        width:32px !important;
-
-        min-width:32px !important;
-
-        height:32px !important;
-
-        flex:0 0 32px !important;
-
-        box-sizing:border-box !important;
-    }
+  body .products-slider{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    width:100% !important;
+    gap:4px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    padding:0 4px 10px !important;
+    box-sizing:border-box !important;
+    scroll-snap-type:x mandatory !important;
+    -webkit-overflow-scrolling:touch !important;
+    scrollbar-width:none !important;
+  }
+  body .products-slider::-webkit-scrollbar{
+    display:none !important;
+  }
+  /* بطاقات المنتجات */
+  body .products-slider .product-card{
+    flex:0 0 calc(50% + 23px) !important;
+    width:calc(50% + 23px) !important;
+    min-width:calc(50% + 23px) !important;
+    max-width:calc(50% + 23px) !important;
+    height:auto !important;
+    min-height:8px !important;
+    box-sizing:border-box !important;
+    display:flex !important;
+    flex-direction:column !important;
+    position:relative !important;
+    overflow:visible !important;
+    scroll-snap-align:start !important;
+  }
+  /* صورة المنتج */
+  body .products-slider .product-image{
+    width:100% !important;
+    height:140px !important;
+    min-height:140px !important;
+    max-height:140px !important;
+    aspect-ratio:auto !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+    background:var(--card) !important;
+  }
+  body .products-slider .product-image img{
+    width:85% !important;
+    height:85% !important;
+    max-width:100% !important;
+    max-height:100% !important;
+    object-fit:contain !important;
+    object-position:center !important;
+    display:block !important;
+  }
+  /* معلومات المنتج */
+  body .products-slider .product-info{
+    width:100% !important;
+    padding:7px 7px 17px !important;
+    box-sizing:border-box !important;
+  }
+  body .products-slider .product-name{
+    font-size:14px !important;
+    line-height:1.3 !important;
+    margin:0 !important;
+    min-height:0 !important;
+    max-height:36px !important;
+    overflow:hidden !important;
+    color:var(--text) !important;
+  }
+  body .products-slider .product-price{
+    font-size:15px !important;
+    line-height:1.3 !important;
+    margin-top:4px !important;
+    color:var(--primary) !important;
+  }
+  /* الأزرار */
+  body .products-slider .product-actions{
+    width:100% !important;
+    margin-top:6px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:5px !important;
+    flex-wrap:nowrap !important;
+    box-sizing:border-box !important;
+  }
+  body .products-slider .add-to-cart,
+  body .products-slider .product-actions .add-btn{
+    flex:1 1 auto !important;
+    width:auto !important;
+    min-width:0 !important;
+    max-width:none !important;
+    height:36px !important;
+    padding:0 7px !important;
+    font-size:12px !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    box-sizing:border-box !important;
+    background:var(--primary) !important;
+    color:#FFFFFF !important;
+  }
+  body .products-slider .favorite-btn{
+    width:32px !important;
+    min-width:32px !important;
+    height:32px !important;
+    flex:0 0 32px !important;
+    box-sizing:border-box !important;
+  }
 }
-
-
 /* =====================================================
-   ARONIA — SMALL MOBILE
-   2 WIDER CARDS + 4px GAP
+   SMALL MOBILE
 ===================================================== */
-
 @media screen and (max-width:430px){
-
-    /* السلايدر */
-
-    body .products-slider{
-
-        gap:4px !important;
-
-        padding-left:4px !important;
-
-        padding-right:4px !important;
-    }
-
-
-    /* =================================================
-       البطاقات — العرض 50% + 23px
-       الارتفاع أكبر بـ 8px
-    ================================================= */
-
-    body .products-slider .product-card{
-
-        flex:0 0 calc(50% + 23px) !important;
-
-        width:calc(50% + 23px) !important;
-
-        min-width:calc(50% + 23px) !important;
-
-        max-width:calc(50% + 23px) !important;
-
-        height:auto !important;
-
-        min-height:8px !important;
-
-        box-sizing:border-box !important;
-
-        display:flex !important;
-
-        flex-direction:column !important;
-
-        overflow:visible !important;
-    }
-
-
-    /* =================================================
-       صورة المنتج — أكبر
-    ================================================= */
-
-    body .products-slider .product-image{
-
-        height:105px !important;
-
-        min-height:105px !important;
-
-        max-height:105px !important;
-    }
-
-
-    body .products-slider .product-image img{
-
-        width:85% !important;
-
-        height:85% !important;
-
-        max-width:100% !important;
-
-        max-height:100% !important;
-
-        object-fit:contain !important;
-    }
-
-
-    /* =================================================
-       معلومات المنتج
-    ================================================= */
-
-    body .products-slider .product-info{
-
-        padding:5px 7px 15px !important;
-    }
-
-
-    /* اسم المنتج */
-
-    body .products-slider .product-name{
-
-        font-size:12px !important;
-
-        line-height:1.3 !important;
-
-        max-height:31px !important;
-    }
-
-
-    /* السعر */
-
-    body .products-slider .product-price{
-
-        font-size:13px !important;
-
-        margin-top:3px !important;
-    }
-
-
-    /* =================================================
-       الأزرار
-    ================================================= */
-
-    body .products-slider .product-actions{
-
-        margin-top:4px !important;
-
-        gap:4px !important;
-    }
-
-
-    /* زر أضف إلى السلة */
-
-    body .products-slider .add-to-cart{
-
-        height:32px !important;
-
-        font-size:11px !important;
-
-        padding:0 6px !important;
-
-        max-width:none !important;
-    }
-
-
-    /* زر المفضلة */
-
-    body .products-slider .favorite-btn{
-
-        width:30px !important;
-
-        min-width:30px !important;
-
-        height:30px !important;
-
-        flex:0 0 30px !important;
-    }
+  body .products-slider{
+    gap:4px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
+  }
+  body .products-slider .product-card{
+    flex:0 0 calc(50% + 23px) !important;
+    width:calc(50% + 23px) !important;
+    min-width:calc(50% + 23px) !important;
+    max-width:calc(50% + 23px) !important;
+  }
+  body .products-slider .product-image{
+    height:105px !important;
+    min-height:105px !important;
+    max-height:105px !important;
+  }
+  body .products-slider .product-info{
+    padding:5px 7px 15px !important;
+  }
+  body .products-slider .product-name{
+    font-size:12px !important;
+    line-height:1.3 !important;
+    max-height:31px !important;
+  }
+  body .products-slider .product-price{
+    font-size:13px !important;
+    margin-top:3px !important;
+  }
+  body .products-slider .product-actions{
+    margin-top:4px !important;
+    gap:4px !important;
+  }
+  body .products-slider .add-to-cart,
+  body .products-slider .product-actions .add-btn{
+    height:32px !important;
+    font-size:11px !important;
+    padding:0 6px !important;
+    max-width:none !important;
+  }
+  body .products-slider .favorite-btn{
+    width:30px !important;
+    min-width:30px !important;
+    height:30px !important;
+    flex:0 0 30px !important;
+  }
 }
-
-
 /* =====================================================
-   ARONIA — FINAL CARD LAYOUT
+   ARONIA — CARD LAYOUT
 ===================================================== */
-
-/* البطاقة */
-
 .products-slider .product-card,
-.category-products-grid .product-card{
-
+.category-products-grid .product-card,
+.category-products-grid .category-product-card{
   position:relative !important;
-
   box-sizing:border-box !important;
 }
-
-
-/* =========================
-   المفضلة — أعلى اليسار
-========================= */
-
+/* =====================================================
+   FAVORITE — TOP LEFT
+===================================================== */
 .products-slider .card-favorite,
 .category-products-grid .card-favorite{
-
   position:absolute !important;
-
   top:8px !important;
-
   left:8px !important;
-
   width:32px !important;
-
   height:32px !important;
-
   min-width:32px !important;
-
   padding:0 !important;
-
   display:flex !important;
-
   align-items:center !important;
-
   justify-content:center !important;
-
   background:#FFFFFF !important;
-
   color:#999999 !important;
-
   border:0 !important;
-
   border-radius:9px !important;
-
   font-size:20px !important;
-
   line-height:1 !important;
-
   z-index:20 !important;
 }
-
-
 .products-slider .card-favorite.active,
 .category-products-grid .card-favorite.active{
-
   color:var(--primary) !important;
-
   transform:scale(1.08) !important;
 }
-
-
-/* =========================
-   منطقة الأزرار
-========================= */
-
+/* =====================================================
+   PRODUCT ACTIONS
+===================================================== */
 .products-slider .product-actions,
 .category-products-grid .product-actions{
-
   width:100% !important;
-
   display:flex !important;
-
   align-items:center !important;
-
   gap:0 !important;
-
   margin-top:8px !important;
-
   box-sizing:border-box !important;
 }
-
-
-/* =========================
-   أضف إلى السلة
-========================= */
-
+/* =====================================================
+   ADD TO CART — FULL WIDTH
+===================================================== */
 .products-slider .product-actions .add-btn,
 .category-products-grid .product-actions .add-btn{
-
   width:100% !important;
-
   max-width:none !important;
-
   min-width:0 !important;
-
   flex:1 1 100% !important;
-
   height:34px !important;
-
   box-sizing:border-box !important;
 }
-
-
-/* =========================
-   الكمية بعد إضافة المنتج
-========================= */
-
+/* =====================================================
+   QUANTITY CONTROLS
+===================================================== */
 .products-slider .product-actions .product-quantity,
 .category-products-grid .product-actions .product-quantity{
-
   width:100% !important;
-
   flex:1 1 100% !important;
-
   box-sizing:border-box !important;
 }
-
-
-/* لا توجد مفضلة داخل صف الأزرار */
-
+/* إخفاء المفضلة داخل صف الأزرار فقط */
 .products-slider .product-actions .favorite-btn,
 .category-products-grid .product-actions .favorite-btn{
-
   display:none !important;
 }
-
-
 /* =====================================================
    MOBILE + IPAD
 ===================================================== */
-
 @media screen and (max-width:1199px){
-
   .products-slider{
-
     gap:4px !important;
   }
-
 }
 
 
 /* =====================================================
    MOBILE الصغير
 ===================================================== */
-
 @media screen and (max-width:430px){
-
   .products-slider{
-
     gap:4px !important;
   }
-
   .products-slider .card-favorite{
-
     width:30px !important;
-
     height:30px !important;
-
     min-width:30px !important;
-
     top:7px !important;
-
     left:7px !important;
-
     font-size:19px !important;
   }
-
 }
-
-
 /* =====================================================
    ARONIA — MOBILE PRODUCT IMAGE
-   تكبير صورة المنتج داخل البطاقة
 ===================================================== */
-
 @media (max-width:600px){
-
   .product-card .product-image{
-
     width:100% !important;
-
     height:180px !important;
-
     display:flex !important;
-
     align-items:center !important;
-
     justify-content:center !important;
-
     overflow:hidden !important;
   }
-
-
   .product-card .product-image img{
-
     width:95% !important;
-
     height:95% !important;
-
     max-width:100% !important;
-
     max-height:100% !important;
-
     object-fit:contain !important;
-
     object-position:center !important;
-
     display:block !important;
   }
-
 }
-
 /* =====================================================
    ARONIA — CATEGORY IMAGES
 ===================================================== */
-
 .category-icon{
   width:90px;
   height:90px;
-
   margin:0 auto 8px;
-
   border-radius:50%;
-
   overflow:hidden;
-
-  background:#FFFDF8;
-
+  background:var(--card);
   display:flex;
   align-items:center;
   justify-content:center;
-
-  box-shadow:0 3px 10px rgba(41,67,63,.08);
+  box-shadow:0 3px 10px rgba(41,59,52,.08);
 }
-
 .category-icon img{
   width:100%;
   height:100%;
-
   object-fit:cover;
-
   display:block;
 }
-
 /* الموبايل */
 @media(max-width:699px){
-
   .category-icon{
     width:78px;
     height:78px;
   }
-
 }
-
 /* =====================================================
-   REMOVE CATEGORY OUTER BOX — FINAL
+   REMOVE CATEGORY OUTER BOX
 ===================================================== */
-
 .categories .category,
 #homeCategoriesContainer .category,
 #categoriesContainer .category{
-
   background:transparent !important;
   border:none !important;
   border-radius:0 !important;
@@ -4310,37 +2799,29 @@ PRODUCT QUANTITY CONTROLS
   padding:0 !important;
   margin:0 !important;
 }
-
 .categories .category:hover,
 .categories .category:focus{
-
   background:transparent !important;
   border:none !important;
   box-shadow:none !important;
 }
-
 .categories .category-icon{
-
   border-radius:50% !important;
   overflow:hidden !important;
 }
-
-/* =========================
-   منتج غير متوفر
-========================= */
-
+/* =====================================================
+   OUT OF STOCK
+===================================================== */
 .add-btn:disabled{
-  background:#e5e5e5 !important;
-  color:#888 !important;
-  border-color:#e5e5e5 !important;
+  background:var(--card-soft) !important;
+  color:var(--text-soft) !important;
+  border-color:var(--border) !important;
   cursor:not-allowed !important;
   opacity:1 !important;
 }
-
 /* =====================================================
-   NOTIFICATIONS
+   NOTIFICATIONS BUTTON
 ===================================================== */
-
 .notification-btn{
   position:relative;
   background:transparent;
@@ -4349,11 +2830,10 @@ PRODUCT QUANTITY CONTROLS
   padding:6px;
   border:0;
 }
-
 .consultation-header-btn{
   position:relative;
   background:transparent;
-  color:#66254D;
+  color:var(--primary);
   font-size:24px;
   padding:6px;
   border:0;
@@ -4361,35 +2841,26 @@ PRODUCT QUANTITY CONTROLS
   align-items:center;
   justify-content:center;
 }
-  
 .notification-count{
   position:absolute;
   top:-2px;
   right:-4px;
-
   min-width:18px;
   height:18px;
-
   padding:0 5px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   background:var(--danger);
   color:#fff;
-
   border-radius:50px;
-
   font-size:10px;
   font-weight:700;
   line-height:1;
 }
-
- /* =====================================================
-    NOTIFICATIONS
- ===================================================== */
-
+/* =====================================================
+   NOTIFICATIONS LIST
+===================================================== */
 .notifications-container{
   display:flex;
   flex-direction:column;
@@ -4398,47 +2869,42 @@ PRODUCT QUANTITY CONTROLS
   max-height:60vh;
   overflow-y:auto;
 }
-
 .notification-item{
   padding:14px;
   border:1px solid var(--border);
   border-radius:14px;
   background:var(--card);
 }
-
 .notification-item.unread{
-  background:var(--surface-soft);
+  background:var(--card-soft);
   border-color:var(--primary-light);
 }
-
 .notification-item-title{
   font-size:14px;
   font-weight:700;
   color:var(--text);
   margin-bottom:5px;
 }
-
 .notification-item-message{
   font-size:13px;
   line-height:1.7;
-  color:var(--text-secondary);
+  color:var(--text-soft);
 }
-
 .notification-item-time{
   margin-top:7px;
   font-size:11px;
-  color:var(--text-light);
+  color:var(--text-soft);
 }
-
-/* خلفية صور المنتجات تبقى بيضاء في الوضع الليلي */
-body.dark-mode .product-image{
-  background:#fff !important;
-}
-
+/* =====================================================
+   PRODUCT IMAGES STAY WHITE IN DARK MODE
+===================================================== */
+body.dark-mode .product-image,
 body.dark-mode .products-slider .product-image{
   background:#fff !important;
 }
-
+/* =====================================================
+   FEATURED CART CONTROLS
+===================================================== */
 .featured-cart-controls{
   width:100%;
   display:flex;
@@ -4447,7 +2913,6 @@ body.dark-mode .products-slider .product-image{
   gap:8px;
   margin-top:8px;
 }
-
 .featured-cart-controls .quantity-btn,
 .featured-cart-controls .remove-cart-btn{
   width:36px;
@@ -4460,12 +2925,10 @@ body.dark-mode .products-slider .product-image{
   border-radius:10px;
   box-sizing:border-box;
 }
-
 .featured-cart-controls .quantity-btn{
   font-size:19px;
   font-weight:bold;
 }
-
 .featured-cart-controls .quantity-value{
   width:36px;
   min-width:36px;
@@ -4475,172 +2938,145 @@ body.dark-mode .products-slider .product-image{
   justify-content:center;
   font-size:15px;
   font-weight:bold;
+  color:var(--text);
 }
-
 .featured-cart-controls .remove-cart-btn{
   font-size:18px;
   line-height:1;
   color:var(--danger);
   background:transparent;
 }
-
 /* =====================================================
    HEADER ACTIONS
 ===================================================== */
-
 .header-actions{
   display:flex;
   align-items:center;
   gap:10px;
   margin-right:auto;
 }
-
 /* =====================================================
-   PHARMACIST CONSULTATION
+   PHARMACIST CONSULTATION — OPTIONS
 ===================================================== */
-
 .consultation-option{
   width:100%;
   min-height:72px;
-
   display:flex;
   align-items:center;
   gap:12px;
-
   padding:12px 14px;
-
   background:var(--card);
   color:var(--text);
-
   border:1px solid var(--border);
   border-radius:16px;
-
   cursor:pointer;
   transition:all .2s ease;
 }
-
 .consultation-option span{
   font-size:25px;
   width:38px;
   text-align:center;
 }
-
 .consultation-option strong{
   font-size:14px;
 }
-
 .consultation-option.selected{
-  border-color:#66254D;
-  background:rgba(102,37,77,.08);
-  color:#66254D;
+  border-color:var(--primary);
+  background:var(--card-soft);
+  color:var(--primary-dark);
 }
-
+/* =====================================================
+   CONSULTATION NEXT BUTTON
+===================================================== */
 .consultation-next-btn{
   width:100%;
   margin-top:18px;
-
   padding:13px;
-
   border:0;
   border-radius:14px;
-
-  background:#66254D;
+  background:var(--primary);
   color:#fff;
-
   font-size:15px;
   font-weight:700;
-
   cursor:pointer;
 }
-
 .consultation-next-btn:disabled{
   opacity:.45;
   cursor:not-allowed;
 }
-
+/* =====================================================
+   CONSULTATION AGE INPUT
+===================================================== */
 .consultation-form input[type="number"]{
   width:100%;
   height:52px;
   padding:0 15px;
   margin-top:8px;
   margin-bottom:18px;
-
   background:var(--card);
   color:var(--text);
-
   border:1px solid var(--border);
   border-radius:14px;
-
   font-size:16px;
   font-family:inherit;
-
   outline:none;
   box-sizing:border-box;
-
-  transition:border-color .2s ease,
-             box-shadow .2s ease;
+  transition:border-color .2s ease, box-shadow .2s ease;
 }
-
 .consultation-form input[type="number"]:focus{
-  border-color:#66254D;
-  box-shadow:0 0 0 3px rgba(102,37,77,.10);
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(85,169,140,.14);
 }
-
 .consultation-form input[type="number"]::placeholder{
   color:var(--text-soft);
   opacity:.7;
 }
-
 .consultation-form label{
   display:block;
   margin-top:8px;
   margin-bottom:5px;
-
   color:var(--text);
   font-size:14px;
   font-weight:700;
 }
-
+/* =====================================================
+   CONSULTATION HEALTH CHECKBOXES
+===================================================== */
 .consultation-health-list{
   display:flex;
   flex-direction:column;
   gap:10px;
   margin-top:18px;
 }
-
 .consultation-check{
   display:flex;
   align-items:center;
   gap:12px;
-
   min-height:52px;
   padding:12px 14px;
-
   background:var(--card);
   border:1px solid var(--border);
   border-radius:14px;
-
   color:var(--text);
   font-size:14px;
   font-weight:600;
-
   cursor:pointer;
 }
-
 .consultation-check input{
   width:19px;
   height:19px;
-  accent-color:#66254D;
+  accent-color:var(--primary);
   flex-shrink:0;
 }
-
 .consultation-health-note{
   margin-top:14px;
   color:var(--text-soft);
   font-size:12px;
   line-height:1.7;
 }
-
+/* =====================================================
+   CONSULTATION FORM LABELS
+===================================================== */
 .consultation-field-label{
   display:block;
   margin-top:16px;
@@ -4649,11 +3085,12 @@ body.dark-mode .products-slider .product-image{
   font-size:14px;
   font-weight:700;
 }
-
 .consultation-field-label span{
-  color:#66254D;
+  color:var(--primary-dark);
 }
-
+/* =====================================================
+   CONSULTATION INPUTS
+===================================================== */
 .consultation-input,
 .consultation-select{
   width:100%;
@@ -4668,60 +3105,44 @@ body.dark-mode .products-slider .product-image{
   outline:none;
   box-sizing:border-box;
 }
-
 .consultation-input:focus,
 .consultation-select:focus{
-  border-color:#66254D;
-  box-shadow:0 0 0 3px rgba(102,37,77,.10);
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(85,169,140,.14);
 }
-
 .consultation-select{
   appearance:auto;
 }
-
-  .consultation-start-btn{
+/* =====================================================
+   CONSULTATION START BUTTON
+===================================================== */
+.consultation-start-btn{
   width:100%;
   min-height:54px;
   margin-top:20px;
   padding:14px 20px;
-
   background:linear-gradient(
     135deg,
-    #66254D,
-    #4E1B3A
+    var(--primary),
+    var(--primary-dark)
   );
-
   color:#FFFFFF;
-
   border:0;
   border-radius:16px;
-
   font-family:inherit;
   font-size:16px;
   font-weight:800;
-
   cursor:pointer;
-
-  box-shadow:
-    0 8px 20px rgba(102,37,77,.22);
-
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease,
-    opacity .2s ease;
+  box-shadow:0 8px 20px rgba(41,59,52,.14);
+  transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
 }
-
 .consultation-start-btn:hover{
   transform:translateY(-2px);
-
-  box-shadow:
-    0 11px 24px rgba(102,37,77,.28);
+  box-shadow:0 11px 24px rgba(41,59,52,.18);
 }
-
 .consultation-start-btn:active{
   transform:scale(.98);
 }
-
 .consultation-start-btn::before{
   content:"✦";
   margin-left:8px;
