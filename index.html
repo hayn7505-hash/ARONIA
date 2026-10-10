@@ -4403,6 +4403,50 @@ body.dark-mode .favorite-btn.card-favorite:active {
   box-shadow: none !important;
   outline: none !important;
 }
+
+/* =====================================================
+   ARONIA — FAVORITE HEART FINAL FIX
+   توحيد القلب قبل الضغط وبعده
+===================================================== */
+body.dark-mode button.favorite-btn.card-favorite,
+body.dark-mode button.favorite-btn.card-favorite:hover,
+body.dark-mode button.favorite-btn.card-favorite:focus,
+body.dark-mode button.favorite-btn.card-favorite:active,
+body.dark-mode button.favorite-btn.card-favorite.active {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  filter: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+/* توحيد حجم SVG ومكانه */
+body.dark-mode button.favorite-btn.card-favorite svg {
+  display: block !important;
+  width: 23px !important;
+  height: 23px !important;
+  margin: 0 !important;
+  transform: none !important;
+  filter: none !important;
+}
+/* القلب غير المفعّل */
+body.dark-mode button.favorite-btn.card-favorite:not(.active) {
+  color: #68776D !important;
+}
+/* القلب المفعّل */
+body.dark-mode button.favorite-btn.card-favorite.active {
+  color: #B94A5C !important;
+}
+/* منع ظهور خلفية عند الضغط */
+body.dark-mode button.favorite-btn.card-favorite:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
   
 </style>
 
