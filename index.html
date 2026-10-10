@@ -4054,6 +4054,56 @@ body.dark-mode .favorite-btn {
   border-color: var(--card) !important;
   box-shadow: none !important;
 }
+
+/* =====================================================
+   ARONIA — FAVORITE BUTTON
+   MATCH PRODUCT CARD BACKGROUND
+===================================================== */
+/* الوضع النهاري */
+.product-card .favorite-btn.card-favorite,
+.category-product-card .favorite-btn.card-favorite,
+.aronia-slider-card .favorite-btn.card-favorite {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #68776D;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+/* الوضع الليلي */
+body.dark-mode .product-card .favorite-btn.card-favorite,
+body.dark-mode .category-product-card .favorite-btn.card-favorite,
+body.dark-mode .aronia-slider-card .favorite-btn.card-favorite {
+  background: #22332B !important;
+  background-color: #22332B !important;
+  border: 1px solid #22332B !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #B7C7BC;
+}
+/* القلب المحدد يبقى بلون واضح */
+.product-card .favorite-btn.card-favorite.active,
+.category-product-card .favorite-btn.card-favorite.active,
+.aronia-slider-card .favorite-btn.card-favorite.active {
+  color: #B94A5C !important;
+}
+/* لا يتغير المربع عند الضغط أو المرور */
+.product-card .favorite-btn.card-favorite:hover,
+.product-card .favorite-btn.card-favorite:focus,
+.product-card .favorite-btn.card-favorite:active,
+.aronia-slider-card .favorite-btn.card-favorite:hover,
+.aronia-slider-card .favorite-btn.card-favorite:focus,
+.aronia-slider-card .favorite-btn.card-favorite:active {
+  box-shadow: none !important;
+  outline: none !important;
+}
+/* إزالة أي زخرفة إضافية */
+.favorite-btn.card-favorite::before,
+.favorite-btn.card-favorite::after {
+  box-shadow: none !important;
+}
   
 </style>
 
