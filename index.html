@@ -2679,256 +2679,71 @@ body.dark-mode .products-slider .product-image {
 
 
 /* =====================================================
-   ARONIA — FIX TRANSPARENT BUTTONS
-===================================================== */
-/* أزرار الاستشارة */
-.consultation-next-btn,
-.consultation-start-btn {
-  background: linear-gradient(
-    135deg,
-    #55A98C,
-    #39866D
-  ) !important;
-  color: #FFFFFF !important;
-  border: none !important;
-  opacity: 1 !important;
-}
-/* خيارات الاستشارة غير المحددة */
-.consultation-option {
-  background: #FFFFFF !important;
-  color: #293B34 !important;
-  border: 1px solid #E4E6D9 !important;
-}
-/* خيار الاستشارة المحدد */
-.consultation-option.selected {
-  background: #F5F1E3 !important;
-  color: #39866D !important;
-  border: 2px solid #55A98C !important;
-}
-/* أزرار الكمية والسلة */
-.featured-cart-controls .quantity-btn {
-  background: #55A98C !important;
-  color: #FFFFFF !important;
-  border: none !important;
-}
-.featured-cart-controls .remove-cart-btn {
-  background: #F5F1E3 !important;
-  color: #B94A5C !important;
-  border: 1px solid #E4E6D9 !important;
-}
-/* زر إضافة المنتج */
-.add-btn:not(:disabled),
-.add-to-cart:not(:disabled) {
-  background: #55A98C !important;
-  color: #FFFFFF !important;
-  border: 1px solid #55A98C !important;
-  opacity: 1 !important;
-}
-/* المنتج غير المتوفر */
-.add-btn:disabled,
-.add-to-cart:disabled {
-  background: #F5F1E3 !important;
-  color: #68776D !important;
-  border: 1px solid #E4E6D9 !important;
-  opacity: 1 !important;
-}
-/* أزرار الإشعارات والاستشارة في الهيدر */
-.notification-btn,
-.consultation-header-btn {
-  background: transparent !important;
-  color: #39866D !important;
-}
-/* الوضع الليلي */
-body.dark-mode .consultation-option {
-  background: #22332B !important;
-  color: #F2F4EC !important;
-  border-color: #394A3F !important;
-}
-body.dark-mode .consultation-option.selected {
-  background: #2C3D32 !important;
-  color: #91D5B8 !important;
-  border-color: #72C3A2 !important;
-}
-body.dark-mode .consultation-next-btn,
-body.dark-mode .consultation-start-btn {
-  background: linear-gradient(
-    135deg,
-    #72C3A2,
-    #55A98C
-  ) !important;
-  color: #18251F !important;
-}
-body.dark-mode .featured-cart-controls .quantity-btn {
-  background: #55A98C !important;
-  color: #FFFFFF !important;
-}
-
-/* =====================================================
-   ARONIA — BUTTON TEXT VISIBILITY FIX
-===================================================== */
-/* أزرار الاستشارة الرئيسية */
-.consultation-next-btn,
-.consultation-start-btn {
-  background: #39866D !important;
-  color: #FFFFFF !important;
-  -webkit-text-fill-color: #FFFFFF !important;
-  font-weight: 800 !important;
-  opacity: 1 !important;
-  text-shadow: none !important;
-  border: none !important;
-}
-/* خيارات الاستشارة */
-.consultation-option {
-  background: #FFFFFF !important;
-  color: #293B34 !important;
-  -webkit-text-fill-color: #293B34 !important;
-  border: 1px solid #E4E6D9 !important;
-  font-weight: 700 !important;
-}
-.consultation-option strong,
-.consultation-option span {
-  color: inherit !important;
-  -webkit-text-fill-color: currentColor !important;
-}
-.consultation-option.selected {
-  background: #F5F1E3 !important;
-  color: #293B34 !important;
-  border: 2px solid #39866D !important;
-}
-/* زر إضافة المنتج */
-.add-btn:not(:disabled),
-.add-to-cart:not(:disabled) {
-  background: #39866D !important;
-  color: #FFFFFF !important;
-  -webkit-text-fill-color: #FFFFFF !important;
-  border: 1px solid #39866D !important;
-  font-weight: 700 !important;
-  opacity: 1 !important;
-  text-shadow: none !important;
-}
-/* المنتج غير المتوفر */
-.add-btn:disabled,
-.add-to-cart:disabled {
-  background: #E4E6D9 !important;
-  color: #53645A !important;
-  -webkit-text-fill-color: #53645A !important;
-  border: 1px solid #D5DCCF !important;
-  opacity: 1 !important;
-}
-/* أزرار زيادة ونقصان الكمية */
-.featured-cart-controls .quantity-btn {
-  background: #39866D !important;
-  color: #FFFFFF !important;
-  -webkit-text-fill-color: #FFFFFF !important;
-  border: none !important;
-  font-weight: 800 !important;
-}
-/* زر حذف المنتج من السلة */
-.featured-cart-controls .remove-cart-btn {
-  background: #FBEAEC !important;
-  color: #A52F43 !important;
-  -webkit-text-fill-color: #A52F43 !important;
-  border: 1px solid #EBCBD0 !important;
-}
-/* أرقام الكمية */
-.featured-cart-controls .quantity-value {
-  color: var(--text) !important;
-  -webkit-text-fill-color: var(--text) !important;
-  font-weight: 800 !important;
-}
-/* الوضع الليلي */
-body.dark-mode .consultation-option {
-  background: #22332B !important;
-  color: #F2F4EC !important;
-  -webkit-text-fill-color: #F2F4EC !important;
-  border-color: #394A3F !important;
-}
-body.dark-mode .consultation-option.selected {
-  background: #2C3D32 !important;
-  color: #FFFFFF !important;
-  -webkit-text-fill-color: #FFFFFF !important;
-  border-color: #72C3A2 !important;
-}
-body.dark-mode .consultation-next-btn,
-body.dark-mode .consultation-start-btn,
-body.dark-mode .add-btn:not(:disabled),
-body.dark-mode .add-to-cart:not(:disabled) {
-  background: #55A98C !important;
-  color: #18251F !important;
-  -webkit-text-fill-color: #18251F !important;
-}
-body.dark-mode .add-btn:disabled,
-body.dark-mode .add-to-cart:disabled {
-  background: #394A3F !important;
-  color: #D0DCD3 !important;
-  -webkit-text-fill-color: #D0DCD3 !important;
-}
-
-/* =====================================================
-   ARONIA — FINAL MINT & CREAM COLOR SYSTEM
+   ARONIA — FINAL COLOR SYSTEM
+   TURQUOISE + NAVY + WHITE
    LIGHT + DARK MODE
 ===================================================== */
-/* =========================
+/* =====================================================
    1. ROOT COLORS
-========================= */
+===================================================== */
 :root {
   color-scheme: light;
-  --primary: #55A98C;
-  --primary-dark: #39866D;
-  --primary-light: #8CCBB2;
-  --secondary: #79BDA3;
-  --bg: #FFFCF3;
+  --primary: #2EC4B6;
+  --primary-dark: #0F2D5B;
+  --primary-light: #78DED4;
+  --secondary: #20A99D;
+  --bg: #F3FAFA;
   --card: #FFFFFF;
-  --card-soft: #F5F1E3;
-  --text: #293B34;
-  --text-soft: #68776D;
-  --heading: #293B34;
-  --accent: #E6DDBD;
-  --accent-light: #F0E9D5;
-  --gold: #C7B77F;
-  --border: #E4E6D9;
+  --card-soft: #DDF8F5;
+  --text: #0F2D5B;
+  --text-soft: #61758D;
+  --heading: #0F2D5B;
+  --accent: #2EC4B6;
+  --accent-light: #DDF8F5;
+  --gold: #2EC4B6;
+  --border: #DCEBEA;
   --nav: #FFFFFF;
-  --success: #39866D;
+  --success: #20866F;
   --danger: #B94A5C;
   --warning: #C88A3D;
-  --shadow: 0 4px 18px rgba(41, 59, 52, .08);
-  --button-text: #FFFFFF;
+  --shadow: 0 4px 18px rgba(15, 45, 91, .08);
+  --button-text: #0F2D5B;
   --input-bg: #FFFFFF;
-  --disabled-bg: #E4E6D9;
-  --disabled-text: #53645A;
+  --disabled-bg: #E8F0F0;
+  --disabled-text: #61758D;
 }
-/* =========================
+/* =====================================================
    2. DARK MODE COLORS
-========================= */
+===================================================== */
 body.dark-mode {
   color-scheme: dark;
-  --bg: #18251F;
-  --card: #22332B;
-  --card-soft: #2C3D32;
-  --text: #F2F4EC;
-  --text-soft: #B7C7BC;
-  --heading: #F8FFF9;
-  --primary: #72C3A2;
-  --primary-dark: #55A98C;
-  --primary-light: #91D5B8;
-  --secondary: #8CCBB2;
-  --accent: #BDB28D;
-  --accent-light: #D5CBA9;
-  --gold: #D5C18A;
-  --border: #394A3F;
-  --nav: #1D2C24;
-  --success: #72C3A2;
-  --danger: #D97983;
-  --warning: #E0BD70;
+  --bg: #101D2E;
+  --card: #192B40;
+  --card-soft: #20394D;
+  --text: #F1F8FC;
+  --text-soft: #B5C8D8;
+  --heading: #FFFFFF;
+  --primary: #55D6C8;
+  --primary-dark: #2EC4B6;
+  --primary-light: #8AE8DE;
+  --secondary: #78DED4;
+  --accent: #55D6C8;
+  --accent-light: #20394D;
+  --gold: #78DED4;
+  --border: #30475A;
+  --nav: #142338;
+  --success: #72D8B8;
+  --danger: #E58B96;
+  --warning: #E8C078;
   --shadow: 0 4px 18px rgba(0, 0, 0, .28);
-  --button-text: #18251F;
-  --input-bg: #22332B;
-  --disabled-bg: #394A3F;
-  --disabled-text: #D0DCD3;
+  --button-text: #0F2D5B;
+  --input-bg: #192B40;
+  --disabled-bg: #30475A;
+  --disabled-text: #C0CEDA;
 }
-/* =========================
+/* =====================================================
    3. PAGE AND TEXT
-========================= */
+===================================================== */
 html,
 body {
   background-color: var(--bg);
@@ -2956,9 +2771,9 @@ small {
   color: var(--text-soft);
   opacity: .85;
 }
-/* =========================
+/* =====================================================
    4. CARDS AND SURFACES
-========================= */
+===================================================== */
 .product-card,
 .category-product-card,
 .aronia-slider-card,
@@ -2985,9 +2800,9 @@ small {
 .offer-card {
   background-color: var(--card);
 }
-/* =========================
-   5. ALL BUTTON BASE
-========================= */
+/* =====================================================
+   5. BUTTON BASE AND FOCUS
+===================================================== */
 button,
 input[type="button"],
 input[type="submit"],
@@ -3006,9 +2821,12 @@ input[type="reset"]:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
 }
-/* =========================
+button {
+  text-shadow: none;
+}
+/* =====================================================
    6. PRIMARY BUTTONS
-========================= */
+===================================================== */
 .consultation-next-btn,
 .consultation-start-btn,
 .add-btn:not(:disabled),
@@ -3035,12 +2853,17 @@ input[type="reset"]:focus-visible {
 .buy-now-btn:hover {
   background: var(--primary) !important;
   border-color: var(--primary) !important;
-  color: #FFFFFF !important;
-  -webkit-text-fill-color: #FFFFFF !important;
+  color: #0F2D5B !important;
+  -webkit-text-fill-color: #0F2D5B !important;
 }
-/* =========================
+.consultation-next-btn:disabled,
+.consultation-start-btn:disabled {
+  opacity: .45 !important;
+  cursor: not-allowed !important;
+}
+/* =====================================================
    7. SECONDARY BUTTONS
-========================= */
+===================================================== */
 .secondary-btn,
 .cancel-btn,
 .back-btn,
@@ -3050,9 +2873,9 @@ input[type="reset"]:focus-visible {
   -webkit-text-fill-color: var(--text) !important;
   border: 1px solid var(--border) !important;
 }
-/* =========================
+/* =====================================================
    8. DISABLED BUTTONS
-========================= */
+===================================================== */
 button:disabled,
 .add-btn:disabled,
 .add-to-cart:disabled,
@@ -3065,10 +2888,11 @@ button:disabled,
   opacity: 1 !important;
   cursor: not-allowed !important;
   box-shadow: none !important;
+  text-shadow: none !important;
 }
-/* =========================
+/* =====================================================
    9. FORM INPUTS
-========================= */
+===================================================== */
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]),
 textarea,
 select,
@@ -3091,11 +2915,11 @@ textarea::placeholder {
 }
 input[type="checkbox"],
 input[type="radio"] {
-  accent-color: var(--primary-dark);
+  accent-color: var(--primary);
 }
-/* =========================
+/* =====================================================
    10. PRODUCT CARDS
-========================= */
+===================================================== */
 .product-card,
 .category-product-card,
 .aronia-slider-card {
@@ -3120,7 +2944,10 @@ body.dark-mode .product-price,
 body.dark-mode .price {
   color: var(--primary-light);
 }
-/* تبقى صور المنتجات بيضاء */
+/* =====================================================
+   11. PRODUCT IMAGES
+   KEEP WHITE IN DARK MODE
+===================================================== */
 .product-image {
   background: #FFFFFF;
 }
@@ -3128,9 +2955,9 @@ body.dark-mode .product-image,
 body.dark-mode .products-slider .product-image {
   background: #FFFFFF !important;
 }
-/* =========================
-   11. FAVORITE BUTTONS
-========================= */
+/* =====================================================
+   12. FAVORITE BUTTONS
+===================================================== */
 .card-favorite,
 .favorite-btn {
   color: var(--text-soft);
@@ -3140,12 +2967,12 @@ body.dark-mode .products-slider .product-image {
 .favorite-btn.is-favorite {
   color: var(--danger) !important;
 }
-/* =========================
-   12. CATEGORY IMAGES
-========================= */
+/* =====================================================
+   13. CATEGORY IMAGES
+===================================================== */
 .category-icon {
   background: var(--card);
-  box-shadow: 0 3px 10px rgba(41, 59, 52, .08);
+  box-shadow: 0 3px 10px rgba(15, 45, 91, .08);
 }
 .categories .category,
 #homeCategoriesContainer .category,
@@ -3154,9 +2981,9 @@ body.dark-mode .products-slider .product-image {
   border-color: transparent !important;
   box-shadow: none !important;
 }
-/* =========================
-   13. NOTIFICATION BUTTONS
-========================= */
+/* =====================================================
+   14. NOTIFICATIONS
+===================================================== */
 .notification-btn,
 .consultation-header-btn {
   background: transparent !important;
@@ -3190,9 +3017,9 @@ body.dark-mode .consultation-header-btn {
 .notification-item-time {
   color: var(--text-soft);
 }
-/* =========================
-   14. PHARMACIST CONSULTATION
-========================= */
+/* =====================================================
+   15. PHARMACIST CONSULTATION
+===================================================== */
 .consultation-option {
   background: var(--card) !important;
   color: var(--text) !important;
@@ -3200,7 +3027,8 @@ body.dark-mode .consultation-header-btn {
 }
 .consultation-option strong,
 .consultation-option span {
-  color: inherit;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
 }
 .consultation-option.selected {
   background: var(--card-soft) !important;
@@ -3226,7 +3054,7 @@ body.dark-mode .consultation-option.selected {
   border-color: var(--border);
 }
 .consultation-check input {
-  accent-color: var(--primary-dark);
+  accent-color: var(--primary);
 }
 .consultation-input,
 .consultation-select,
@@ -3239,7 +3067,7 @@ body.dark-mode .consultation-option.selected {
 .consultation-select:focus,
 .consultation-form input[type="number"]:focus {
   border-color: var(--primary) !important;
-  box-shadow: 0 0 0 3px rgba(85, 169, 140, .16);
+  box-shadow: 0 0 0 3px rgba(46, 196, 182, .16);
 }
 .consultation-next-btn,
 .consultation-start-btn {
@@ -3248,12 +3076,9 @@ body.dark-mode .consultation-option.selected {
   -webkit-text-fill-color: #FFFFFF !important;
   border: 0 !important;
 }
-.consultation-start-btn::before {
-  color: inherit;
-}
-/* =========================
-   15. CART QUANTITY CONTROLS
-========================= */
+/* =====================================================
+   16. CART QUANTITY CONTROLS
+===================================================== */
 .featured-cart-controls .quantity-btn,
 .quantity-btn {
   background: var(--primary-dark);
@@ -3270,9 +3095,9 @@ body.dark-mode .consultation-option.selected {
   color: var(--danger);
   border-color: var(--border);
 }
-/* =========================
-   16. CART / NAVIGATION
-========================= */
+/* =====================================================
+   17. NAVIGATION
+===================================================== */
 nav,
 .bottom-nav,
 #bottomNav {
@@ -3291,9 +3116,9 @@ body.dark-mode .nav-item.active,
 body.dark-mode .nav-link.active {
   color: var(--primary-light);
 }
-/* =========================
-   17. BADGES AND STATUS
-========================= */
+/* =====================================================
+   18. STATUS BADGES
+===================================================== */
 .status-success,
 .badge-success {
   background: #E5F3EB;
@@ -3324,18 +3149,18 @@ body.dark-mode .badge-danger {
   background: #4C2D33;
   color: #F0A5AD;
 }
-/* =========================
-   18. DIVIDERS AND SCROLLBARS
-========================= */
+/* =====================================================
+   19. DIVIDERS AND SCROLLBARS
+===================================================== */
 hr {
   border-color: var(--border);
 }
 * {
   scrollbar-color: var(--primary-light) var(--card-soft);
 }
-/* =========================
-   19. DARK MODE TEXT FIX
-========================= */
+/* =====================================================
+   20. DARK MODE — SURFACES AND TEXT
+===================================================== */
 body.dark-mode {
   background-color: var(--bg);
   color: var(--text);
@@ -3362,9 +3187,9 @@ body.dark-mode .offer-card {
   color: var(--text);
   border-color: var(--border);
 }
-/* =========================
-   20. FINAL BUTTON TEXT FIX
-========================= */
+/* =====================================================
+   21. BUTTON TEXT VISIBILITY
+===================================================== */
 .consultation-next-btn *,
 .consultation-start-btn *,
 .add-btn:not(:disabled) *,
@@ -3375,14 +3200,14 @@ body.dark-mode .offer-card {
 .buy-now-btn * {
   color: inherit;
 }
-button {
-  text-shadow: none;
-}
 
 /* =====================================================
-   ARONIA — FIX HEADER TRANSPARENCY & OVERLAP
+   ARONIA — HEADER + FAVORITE HEART FINAL CSS
+   TURQUOISE + NAVY + WHITE
 ===================================================== */
-/* الهيدر العلوي */
+/* =====================================================
+   1. HEADER — خلفية ثابتة وواضحة
+===================================================== */
 header,
 .main-header,
 .site-header,
@@ -3395,7 +3220,9 @@ header,
   z-index: 1000;
   isolation: isolate;
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 3px 12px rgba(41, 59, 52, .07);
+  box-shadow: 0 3px 12px rgba(15, 45, 91, 0.07);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 /* الوضع الليلي */
 body.dark-mode header,
@@ -3406,9 +3233,11 @@ body.dark-mode .header {
   background: var(--nav) !important;
   background-color: var(--nav) !important;
   border-bottom-color: var(--border);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, .22);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.22);
 }
-/* حاوية الشعار */
+/* =====================================================
+   2. LOGO — الشعار
+===================================================== */
 .logo,
 .header-logo,
 .site-logo,
@@ -3418,7 +3247,6 @@ body.dark-mode .header {
   position: relative;
   z-index: 2;
 }
-/* صورة الشعار */
 .logo img,
 .header-logo img,
 .site-logo img,
@@ -3428,7 +3256,9 @@ body.dark-mode .header {
   max-width: 100%;
   object-fit: contain;
 }
-/* مجموعة أزرار الهيدر */
+/* =====================================================
+   3. HEADER ACTIONS — أزرار الهيدر
+===================================================== */
 .header-actions {
   position: relative;
   z-index: 3;
@@ -3437,23 +3267,22 @@ body.dark-mode .header {
   gap: 10px;
   margin-right: auto;
 }
-/* زر الإشعارات وزر الاستشارة */
 .notification-btn,
 .consultation-header-btn {
   position: relative;
   z-index: 4;
   flex-shrink: 0;
-  background: var(--card) !important;
-  color: var(--primary-dark) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 12px;
   min-width: 40px;
   min-height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  background: var(--card) !important;
+  color: var(--primary-dark) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px;
 }
-/* الوضع الليلي للأزرار */
+/* أزرار الهيدر في الوضع الليلي */
 body.dark-mode .notification-btn,
 body.dark-mode .consultation-header-btn {
   background: var(--card) !important;
@@ -3465,75 +3294,37 @@ body.dark-mode .consultation-header-btn {
   z-index: 5;
   pointer-events: none;
 }
-/* لا تجعل محتوى الصفحة يتجاوز الهيدر */
+/* =====================================================
+   4. PREVENT CONTENT OVERLAP
+===================================================== */
 main,
 #app,
 .page-container {
   position: relative;
   z-index: 0;
 }
-/* منع الهيدر من إظهار المحتوى من خلاله */
-header,
-.main-header,
-.site-header,
-#mainHeader,
-.header {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-/* ARONIA — REMOVE FAVORITE BUTTON BOX */
-.card-favorite,
-.favorite-btn {
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  border-radius: 50% !important;
-}
-/* عند الضغط أو المرور */
-.card-favorite:hover,
-.card-favorite:focus,
-.card-favorite:active,
-.favorite-btn:hover,
-.favorite-btn:focus,
-.favorite-btn:active {
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-/* إزالة الإطار الداخلي إن وجد */
-.card-favorite::before,
-.card-favorite::after,
-.favorite-btn::before,
-.favorite-btn::after {
-  border: none !important;
-  box-shadow: none !important;
-}
-
 /* =====================================================
-   ARONIA — REMOVE FAVORITE SQUARE COMPLETELY
+   5. FAVORITE HEART — إزالة المربع بالكامل
 ===================================================== */
-.products-slider .card-favorite,
-.category-products-grid .card-favorite,
-.product-card .card-favorite,
+/* جميع أزرار المفضلة */
 .card-favorite,
 .favorite-btn {
   background: transparent !important;
   background-color: transparent !important;
-  border: 0 !important;
-  outline: 0 !important;
+  border: none !important;
+  outline: none !important;
   box-shadow: none !important;
   border-radius: 0 !important;
   appearance: none !important;
   -webkit-appearance: none !important;
+  color: var(--text-soft) !important;
+  font-size: 25px;
+  line-height: 1;
+  padding: 4px !important;
+  transform: none;
+  filter: none;
 }
-/* إزالة المربع في جميع الحالات */
-.products-slider .card-favorite:hover,
-.products-slider .card-favorite:focus,
-.products-slider .card-favorite:active,
-.products-slider .card-favorite:focus-visible,
+/* إزالة المربع عند المرور أو الضغط */
 .card-favorite:hover,
 .card-favorite:focus,
 .card-favorite:active,
@@ -3543,164 +3334,100 @@ header,
 .favorite-btn:active,
 .favorite-btn:focus-visible {
   background: transparent !important;
-  border: 0 !important;
+  background-color: transparent !important;
+  border: none !important;
   outline: none !important;
   box-shadow: none !important;
+  transform: none;
+  filter: none;
 }
-/* إزالة أي زخرفة ترسم إطارًا */
+/* منع ظهور زخارف إضافية */
 .card-favorite::before,
 .card-favorite::after,
 .favorite-btn::before,
 .favorite-btn::after {
   content: none !important;
   display: none !important;
-  border: 0 !important;
   box-shadow: none !important;
 }
-/* الإبقاء على القلب واضحًا */
-.card-favorite,
-.favorite-btn {
-  color: #68776D;
-  font-size: 25px;
-  line-height: 1;
-  padding: 4px !important;
-}
-
 /* =====================================================
-   ARONIA — FAVORITE BORDER MATCHES CARD BACKGROUND
+   6. FAVORITE HEART — تثبيت الشكل داخل بطاقات المنتجات
 ===================================================== */
-/* الوضع النهاري */
-.card-favorite,
-.favorite-btn {
-  background-color: var(--card) !important;
-  border-color: var(--card) !important;
-  box-shadow: none !important;
-}
-/* الوضع الليلي */
-body.dark-mode .card-favorite,
-body.dark-mode .favorite-btn {
-  background-color: var(--card) !important;
-  border-color: var(--card) !important;
-  box-shadow: none !important;
-}
-
-/* =====================================================
-   ARONIA — FAVORITE BUTTON
-   MATCH PRODUCT CARD BACKGROUND
-===================================================== */
-/* الوضع النهاري */
 .product-card .favorite-btn.card-favorite,
 .category-product-card .favorite-btn.card-favorite,
-.aronia-slider-card .favorite-btn.card-favorite {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  border: 1px solid #FFFFFF !important;
+.aronia-slider-card .favorite-btn.card-favorite,
+.products-slider .card-favorite,
+.category-products-grid .card-favorite {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  color: #68776D;
-  -webkit-appearance: none !important;
+  border-radius: 0 !important;
+  color: var(--text-soft) !important;
   appearance: none !important;
+  -webkit-appearance: none !important;
 }
-/* الوضع الليلي */
-body.dark-mode .product-card .favorite-btn.card-favorite,
-body.dark-mode .category-product-card .favorite-btn.card-favorite,
-body.dark-mode .aronia-slider-card .favorite-btn.card-favorite {
-  background: #22332B !important;
-  background-color: #22332B !important;
-  border: 1px solid #22332B !important;
-  outline: none !important;
-  box-shadow: none !important;
-  color: #B7C7BC;
-}
-/* القلب المحدد يبقى بلون واضح */
-.product-card .favorite-btn.card-favorite.active,
-.category-product-card .favorite-btn.card-favorite.active,
-.aronia-slider-card .favorite-btn.card-favorite.active {
-  color: #B94A5C !important;
-}
-/* لا يتغير المربع عند الضغط أو المرور */
+/* توحيد الشكل في الحالات التفاعلية */
 .product-card .favorite-btn.card-favorite:hover,
 .product-card .favorite-btn.card-favorite:focus,
 .product-card .favorite-btn.card-favorite:active,
+.category-product-card .favorite-btn.card-favorite:hover,
+.category-product-card .favorite-btn.card-favorite:focus,
+.category-product-card .favorite-btn.card-favorite:active,
 .aronia-slider-card .favorite-btn.card-favorite:hover,
 .aronia-slider-card .favorite-btn.card-favorite:focus,
 .aronia-slider-card .favorite-btn.card-favorite:active {
-  box-shadow: none !important;
-  outline: none !important;
-}
-/* إزالة أي زخرفة إضافية */
-.favorite-btn.card-favorite::before,
-.favorite-btn.card-favorite::after {
-  box-shadow: none !important;
-}
-
-/* =====================================================
-   ARONIA — FAVORITE BUTTON
-   نفس الشكل والألوان في الوضعين
-===================================================== */
-.product-card .favorite-btn.card-favorite,
-.product-card .favorite-btn.card-favorite:hover,
-.product-card .favorite-btn.card-favorite:focus,
-.product-card .favorite-btn.card-favorite:active,
-.category-product-card .favorite-btn.card-favorite,
-.aronia-slider-card .favorite-btn.card-favorite {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  border: 1px solid #FFFFFF !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  color: #68776D !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
 }
-/* القلب عند إضافته للمفضلة */
+/* القلب المفعّل */
 .product-card .favorite-btn.card-favorite.active,
 .category-product-card .favorite-btn.card-favorite.active,
-.aronia-slider-card .favorite-btn.card-favorite.active {
-  color: #B94A5C !important;
+.aronia-slider-card .favorite-btn.card-favorite.active,
+.card-favorite.active,
+.favorite-btn.active {
+  color: var(--danger) !important;
 }
-/* تثبيت الألوان نفسها في الوضع الليلي */
+/* منع تغيير شكل القلب في الوضع الليلي */
 body.dark-mode .product-card .favorite-btn.card-favorite,
-body.dark-mode .product-card .favorite-btn.card-favorite:hover,
-body.dark-mode .product-card .favorite-btn.card-favorite:focus,
-body.dark-mode .product-card .favorite-btn.card-favorite:active,
 body.dark-mode .category-product-card .favorite-btn.card-favorite,
-body.dark-mode .aronia-slider-card .favorite-btn.card-favorite {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-  border-color: #FFFFFF !important;
-  color: #68776D !important;
+body.dark-mode .aronia-slider-card .favorite-btn.card-favorite,
+body.dark-mode .card-favorite,
+body.dark-mode .favorite-btn {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: var(--text-soft) !important;
 }
+/* القلب المحدد في الوضع الليلي */
 body.dark-mode .product-card .favorite-btn.card-favorite.active,
 body.dark-mode .category-product-card .favorite-btn.card-favorite.active,
-body.dark-mode .aronia-slider-card .favorite-btn.card-favorite.active {
-  color: #B94A5C !important;
+body.dark-mode .aronia-slider-card .favorite-btn.card-favorite.active,
+body.dark-mode .card-favorite.active,
+body.dark-mode .favorite-btn.active {
+  color: var(--danger) !important;
 }
-
+/* إذا كان القلب SVG */
+button.favorite-btn.card-favorite svg,
+button.card-favorite svg {
+  display: block;
+  width: 23px;
+  height: 23px;
+  margin: 0;
+  transform: none;
+  filter: none;
+}
 /* =====================================================
-   ARONIA — FINAL DARK MODE
-   تحسين تناسق الوضع الليلي فقط
+   7. DARK MODE — اعتماد ألوان الهوية الحالية
+   لا تستبدل ألوان النظام العامة هنا
 ===================================================== */
 body.dark-mode {
-  --bg: #18251F;
-  --card: #22332B;
-  --card-soft: #2C3D32;
-  --text: #F2F4EC;
-  --text-soft: #B7C7BC;
-  --heading: #F8FFF9;
-  --primary: #72C3A2;
-  --primary-dark: #55A98C;
-  --primary-light: #91D5B8;
-  --secondary: #8CCBB2;
-  --accent: #BDB28D;
-  --accent-light: #D5CBA9;
-  --gold: #D5C18A;
-  --border: #394A3F;
-  --nav: #1D2C24;
-  --success: #72C3A2;
-  --danger: #D97983;
-  --warning: #E0BD70;
-  --shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
   background-color: var(--bg);
   color: var(--text);
 }
@@ -3712,7 +3439,7 @@ body.dark-mode .page-content {
   background-color: var(--bg);
   color: var(--text);
 }
-/* البطاقات والحاويات */
+/* بطاقات المنتجات والحاويات */
 body.dark-mode .product-card,
 body.dark-mode .category-product-card,
 body.dark-mode .aronia-slider-card,
@@ -3748,10 +3475,10 @@ body.dark-mode .primary-btn,
 body.dark-mode .checkout-btn,
 body.dark-mode .shop-now-btn {
   background-color: var(--primary);
-  color: #18251F;
+  color: var(--primary-dark);
   border-color: var(--primary);
 }
-/* الحقول ومربعات البحث */
+/* الحقول */
 body.dark-mode input,
 body.dark-mode select,
 body.dark-mode textarea {
@@ -3771,241 +3498,33 @@ body.dark-mode .bottom-navigation {
   background-color: var(--nav);
   border-color: var(--border);
 }
-/* الفواصل والحدود */
+/* الفواصل */
 body.dark-mode hr,
 body.dark-mode .divider {
   border-color: var(--border);
 }
-/* صور المنتجات تبقى بيضاء */
-body.dark-mode .product-image,
-body.dark-mode .products-slider .product-image {
-  background-color: #FFFFFF;
-}
-/* لا نغيّر ألوان زر المفضلة الحالي */
-body.dark-mode .favorite-btn.card-favorite {
-  background-color: #FFFFFF !important;
-  border-color: #FFFFFF !important;
-}
-/* الروابط والعناصر النشطة */
+/* الروابط */
 body.dark-mode a {
   color: var(--primary-light);
 }
+/* العناصر النشطة */
 body.dark-mode .active,
 body.dark-mode .selected {
   border-color: var(--primary);
 }
-
 /* =====================================================
-   ARONIA — DARK MODE GOLD EDITION
-   الوضع الليلي فقط
-===================================================== */
-body.dark-mode {
-  --bg: #18251F;
-  --card: #22332B;
-  --card-soft: #2C3D32;
-  --text: #F2F0E7;
-  --text-soft: #BDBDB0;
-  --heading: #FFF9E9;
-  --primary: #D5BD82;
-  --primary-dark: #B89A59;
-  --primary-light: #E8D8AC;
-  --accent: #D5BD82;
-  --accent-light: #E8D8AC;
-  --gold: #D5BD82;
-  --border: #4A493A;
-  --nav: #1D2C24;
-  --success: #9CC9A8;
-  --danger: #D97983;
-  --warning: #E4C77D;
-  --shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
-  background-color: var(--bg);
-  color: var(--text);
-}
-/* الخلفيات */
-body.dark-mode,
-body.dark-mode main,
-body.dark-mode .page,
-body.dark-mode .page-content {
-  background-color: var(--bg);
-  color: var(--text);
-}
-/* البطاقات */
-body.dark-mode .product-card,
-body.dark-mode .category-product-card,
-body.dark-mode .aronia-slider-card,
-body.dark-mode .settings-group,
-body.dark-mode .setting-row,
-body.dark-mode .modal-content,
-body.dark-mode .product-modal-content {
-  background-color: var(--card);
-  color: var(--text);
-  border-color: var(--border);
-  box-shadow: var(--shadow);
-}
-/* العناوين */
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode h4,
-body.dark-mode .section-title {
-  color: var(--heading);
-}
-/* الحقول */
-body.dark-mode input,
-body.dark-mode select,
-body.dark-mode textarea {
-  background-color: #202E25 !important;
-  color: var(--text) !important;
-  border: 1px solid #8F7A4E !important;
-  border-radius: 10px;
-  outline-color: var(--gold);
-}
-body.dark-mode input:focus,
-body.dark-mode select:focus,
-body.dark-mode textarea:focus {
-  border-color: var(--gold) !important;
-  box-shadow: 0 0 0 2px rgba(213, 189, 130, 0.15);
-}
-body.dark-mode input::placeholder,
-body.dark-mode textarea::placeholder {
-  color: #BDBDB0;
-}
-/* الأزرار الذهبية */
-body.dark-mode button.primary,
-body.dark-mode .primary-btn,
-body.dark-mode .checkout-btn,
-body.dark-mode .shop-now-btn,
-body.dark-mode button[type="submit"] {
-  background: linear-gradient(135deg, #E8D8AC, #C5A968) !important;
-  color: #263027 !important;
-  border: 1px solid #E8D8AC !important;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
-}
-/* الأزرار الثانوية */
-body.dark-mode .secondary-btn,
-body.dark-mode .outline-btn {
-  background: transparent !important;
-  color: #E8D8AC !important;
-  border: 1px solid #8F7A4E !important;
-}
-/* شريط التنقل */
-body.dark-mode nav,
-body.dark-mode .bottom-nav,
-body.dark-mode .bottom-navigation {
-  background-color: var(--nav);
-  border-color: var(--border);
-}
-body.dark-mode .bottom-nav .active,
-body.dark-mode .bottom-navigation .active {
-  color: #E8D8AC !important;
-}
-/* =====================================================
-   FAVORITE HEART — إزالة مظهر المربع
-===================================================== */
-/* القلب فوق صورة المنتج البيضاء؛ لذلك تبقى خلفيته شفافة */
-body.dark-mode .product-card .favorite-btn.card-favorite,
-body.dark-mode .category-product-card .favorite-btn.card-favorite,
-body.dark-mode .aronia-slider-card .favorite-btn.card-favorite {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  color: #68776D !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-/* القلب عند التفعيل */
-body.dark-mode .product-card .favorite-btn.card-favorite.active,
-body.dark-mode .category-product-card .favorite-btn.card-favorite.active,
-body.dark-mode .aronia-slider-card .favorite-btn.card-favorite.active {
-  color: #B94A5C !important;
-}
-/* إزالة أي خلفية تظهر عند الضغط */
-body.dark-mode .favorite-btn.card-favorite:hover,
-body.dark-mode .favorite-btn.card-favorite:focus,
-body.dark-mode .favorite-btn.card-favorite:active {
-  background: transparent !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* =====================================================
-   ARONIA — FAVORITE HEART FINAL FIX
-   توحيد القلب قبل الضغط وبعده
-===================================================== */
-body.dark-mode button.favorite-btn.card-favorite,
-body.dark-mode button.favorite-btn.card-favorite:hover,
-body.dark-mode button.favorite-btn.card-favorite:focus,
-body.dark-mode button.favorite-btn.card-favorite:active,
-body.dark-mode button.favorite-btn.card-favorite.active {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  transform: none !important;
-  filter: none !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-/* توحيد حجم SVG ومكانه */
-body.dark-mode button.favorite-btn.card-favorite svg {
-  display: block !important;
-  width: 23px !important;
-  height: 23px !important;
-  margin: 0 !important;
-  transform: none !important;
-  filter: none !important;
-}
-/* القلب غير المفعّل */
-body.dark-mode button.favorite-btn.card-favorite:not(.active) {
-  color: #68776D !important;
-}
-/* القلب المفعّل */
-body.dark-mode button.favorite-btn.card-favorite.active {
-  color: #B94A5C !important;
-}
-/* منع ظهور خلفية عند الضغط */
-body.dark-mode button.favorite-btn.card-favorite:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* =====================================================
-   ARONIA — DARK MODE PRODUCT IMAGE AREA
-   الجزء العلوي أبيض والسفلي يبقى كما هو
+   8. PRODUCT IMAGES — تبقى بيضاء في الوضع الليلي
 ===================================================== */
 body.dark-mode .product-card .product-image,
 body.dark-mode .category-product-card .product-image,
-body.dark-mode .aronia-slider-card .product-image {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-}
-/* إذا كانت الصورة داخل حاوية مستقلة */
+body.dark-mode .aronia-slider-card .product-image,
 body.dark-mode .product-card .product-image-container,
 body.dark-mode .category-product-card .product-image-container,
-body.dark-mode .aronia-slider-card .product-image-container {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
-}
-/* القلب فوق المنطقة البيضاء */
-body.dark-mode .product-card .favorite-btn.card-favorite,
-body.dark-mode .category-product-card .favorite-btn.card-favorite,
-body.dark-mode .aronia-slider-card .favorite-btn.card-favorite {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-/* صورة المنتج */
+body.dark-mode .aronia-slider-card .product-image-container,
 body.dark-mode .product-card .product-image img,
 body.dark-mode .category-product-card .product-image img,
 body.dark-mode .aronia-slider-card .product-image img {
+  background: #FFFFFF !important;
   background-color: #FFFFFF !important;
 }
   
