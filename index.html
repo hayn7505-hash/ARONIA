@@ -3527,6 +3527,13 @@ body.dark-mode .aronia-slider-card .product-image img {
   background: #FFFFFF !important;
   background-color: #FFFFFF !important;
 }
+
+.cart-bag-icon {
+  width: 26px;
+  height: 26px;
+  display: block;
+  flex-shrink: 0;
+}
   
 </style>
 
@@ -4775,38 +4782,49 @@ BOTTOM NAV
     onclick="showPage('cart')">
     <div class="nav-cart-icon">
       <span class="nav-icon">
-  <svg
-    viewBox="0 0 24 24"
-    aria-hidden="true"
-  >
-    <path
-      d="M3.5 5h2l2 10a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 1.9-1.5L21 8H6"
-    />
-
-    <path
-      d="M8 8h11"
-    />
-
-    <circle
-      cx="9"
-      cy="19"
-      r="1.4"
-    />
-
-    <circle
-      cx="18"
-      cy="19"
-      r="1.4"
-    />
-  </svg>
+<svg
+  class="cart-bag-icon"
+  viewBox="0 0 24 24"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <!-- مقبض الكيس -->
+  <path
+    d="M8 8V6
+       C8 3.8 9.5 2.5 12 2.5
+       S16 3.8 16 6V8"
+    fill="none"
+    stroke="#0F2D5B"
+    stroke-width="1.8"
+    stroke-linecap="round"
+  />
+  <!-- جسم الكيس -->
+  <path
+    d="M5 7.5H19L18 20
+       Q18 21 17 21H7
+       Q6 21 6 20Z"
+    fill="#2EC4B6"
+    stroke="#0F2D5B"
+    stroke-width="1.5"
+    stroke-linejoin="round"
+  />
+  <!-- تفصيل أمامي -->
+  <path
+    d="M9 11V13
+       C9 14.8 10.1 16 12 16
+       S15 14.8 15 13V11"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+</svg>
 </span>
-
 <div
   class="cart-count"
   id="cartCount">
 </div>
 </div>
-
 <span class="cart-label">
   السلة
 </span>
