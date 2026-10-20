@@ -10005,58 +10005,49 @@ function startConsultation(){
 
 
       <!-- الجنس -->
-
-      <label class="consultation-field-label">
-        الجنس <span>*</span>
-      </label>
-
-      <div class="consultation-options">
-
-        <button
-          type="button"
-          class="consultation-option"
-          onclick="
-            window.consultationGender='male';
-
-            this.parentElement
-              .querySelectorAll('.consultation-option')
-              .forEach(function(item){
-                item.style.borderColor='';
-                item.style.backgroundColor='';
-                item.style.color='';
-              });
-
-            this.style.borderColor='#66254D';
-            this.style.backgroundColor='rgba(102,37,77,0.08)';
-            this.style.color='#66254D';
-          "
-        >
-          <strong>ذكر</strong>
-        </button>
-
-        <button
-          type="button"
-          class="consultation-option"
-          onclick="
-            window.consultationGender='female';
-
-            this.parentElement
-              .querySelectorAll('.consultation-option')
-              .forEach(function(item){
-                item.style.borderColor='';
-                item.style.backgroundColor='';
-                item.style.color='';
-              });
-
-            this.style.borderColor='#66254D';
-            this.style.backgroundColor='rgba(102,37,77,0.08)';
-            this.style.color='#66254D';
-          "
-        >
-          <strong>أنثى</strong>
-        </button>
-
-      </div>
+<label class="consultation-field-label">
+  الجنس <span>*</span>
+</label>
+<div class="consultation-options">
+  <button
+    type="button"
+    class="consultation-option"
+    data-gender="male"
+    onclick="selectConsultationGender(this)"
+  >
+    <strong>ذكر</strong>
+  </button>
+  <button
+    type="button"
+    class="consultation-option"
+    data-gender="female"
+    onclick="selectConsultationGender(this)"
+  >
+    <strong>أنثى</strong>
+  </button>
+</div>
+<script>
+  window.consultationGender =
+    window.consultationGender || '';
+  window.selectConsultationGender = function(button) {
+    window.consultationGender =
+      button.dataset.gender;
+    const options =
+      button.parentElement.querySelectorAll(
+        '.consultation-option'
+      );
+    options.forEach(function(item) {
+      item.classList.remove('selected');
+      item.style.borderColor = '';
+      item.style.backgroundColor = '';
+      item.style.color = '';
+    });
+    button.classList.add('selected');
+    button.style.borderColor = '#2EC4B6';
+    button.style.backgroundColor = '#DDF8F5';
+    button.style.color = '#0F2D5B';
+  };
+</script>
 
       <!-- المحافظة -->
 
