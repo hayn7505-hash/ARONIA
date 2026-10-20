@@ -10004,7 +10004,7 @@ function startConsultation(){
       >
 
 
-      <!-- الجنس -->
+   <!-- الجنس -->
 <label class="consultation-field-label">
   الجنس <span>*</span>
 </label>
@@ -10013,7 +10013,21 @@ function startConsultation(){
     type="button"
     class="consultation-option"
     data-gender="male"
-    onclick="selectConsultationGender(this)"
+    onclick="
+      window.consultationGender = 'male';
+      this.parentElement
+        .querySelectorAll('.consultation-option')
+        .forEach(function(item) {
+          item.classList.remove('selected');
+          item.style.borderColor = '';
+          item.style.backgroundColor = '';
+          item.style.color = '';
+        });
+      this.classList.add('selected');
+      this.style.borderColor = '#2EC4B6';
+      this.style.backgroundColor = '#DDF8F5';
+      this.style.color = '#0F2D5B';
+    "
   >
     <strong>ذكر</strong>
   </button>
@@ -10021,33 +10035,25 @@ function startConsultation(){
     type="button"
     class="consultation-option"
     data-gender="female"
-    onclick="selectConsultationGender(this)"
+    onclick="
+      window.consultationGender = 'female';
+      this.parentElement
+        .querySelectorAll('.consultation-option')
+        .forEach(function(item) {
+          item.classList.remove('selected');
+          item.style.borderColor = '';
+          item.style.backgroundColor = '';
+          item.style.color = '';
+        });
+      this.classList.add('selected');
+      this.style.borderColor = '#2EC4B6';
+      this.style.backgroundColor = '#DDF8F5';
+      this.style.color = '#0F2D5B';
+    "
   >
     <strong>أنثى</strong>
   </button>
 </div>
-<script>
-  window.consultationGender =
-    window.consultationGender || '';
-  window.selectConsultationGender = function(button) {
-    window.consultationGender =
-      button.dataset.gender;
-    const options =
-      button.parentElement.querySelectorAll(
-        '.consultation-option'
-      );
-    options.forEach(function(item) {
-      item.classList.remove('selected');
-      item.style.borderColor = '';
-      item.style.backgroundColor = '';
-      item.style.color = '';
-    });
-    button.classList.add('selected');
-    button.style.borderColor = '#2EC4B6';
-    button.style.backgroundColor = '#DDF8F5';
-    button.style.color = '#0F2D5B';
-  };
-</script>
 
       <!-- المحافظة -->
 
