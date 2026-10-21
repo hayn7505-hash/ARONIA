@@ -1,13 +1,14 @@
+
 {
-  "name": "ARONIA | متجر الجمال والعناية",
+  "name": "ARONIA",
   "short_name": "ARONIA",
-  "description": "متجر الجمال والعناية",
+  "description": "ARONIA",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#fffaf8",
-  "theme_color": "#b9867d",
+  "background_color": "#FFFFFF",
+  "theme_color": "#2EC4B6",
   "icons": [
     {
       "src": "icon-192.png",
