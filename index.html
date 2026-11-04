@@ -3624,6 +3624,67 @@ body.dark-mode .aronia-slider-card .product-image img {
   object-fit: contain;
   border-radius: 24px;
 }
+
+
+/* =====================================================
+   ARONIA — ALIGN ADD TO CART BUTTONS
+   FIXED BOTTOM ALIGNMENT
+===================================================== */
+
+/* توحيد ارتفاع البطاقات ومحاذاة محتوياتها */
+
+.products-slider {
+  align-items: stretch !important;
+}
+
+/* البطاقة */
+
+.products-slider .product-card,
+.products-slider .aronia-slider-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: auto !important;
+}
+
+/* مساحة معلومات المنتج */
+
+.products-slider .product-info {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* توحيد مساحة اسم المنتج */
+
+.products-slider .product-name,
+.products-slider .product-card h3 {
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+}
+
+/* توحيد مساحة السعر */
+
+.products-slider .product-price,
+.products-slider .product-card .price {
+  min-height: 22px !important;
+  margin-bottom: 7px !important;
+}
+
+/* تثبيت زر السلة أسفل البطاقة */
+
+.products-slider .product-actions {
+  margin-top: auto !important;
+  width: 100% !important;
+  flex-shrink: 0 !important;
+}
+
   
 </style>
 
