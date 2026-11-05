@@ -11527,12 +11527,19 @@ if(
 
     if(imageError){
 
-      alert(
-        "تم رفع الصورة، لكن تعذر حفظ بياناتها:\n\n" +
-        imageError.message
-      );
+  imageUploadFailed = true;
 
-    }
+  console.error(
+    "Consultation image record error:",
+    imageError
+  );
+
+  await db
+    .storage
+    .from("consultation-images")
+    .remove([filePath]);
+
+}
 
   }
 
