@@ -5970,8 +5970,8 @@ async function loadMyConsultations(){
               gap:10px;
             ">
               <strong>
-                ${item.consultation_number || "استشارة"}
-              </strong>
+  ${escapeHTML(item.consultation_number || "استشارة")}
+</strong>
               <span>
                 ${statusText}
               </span>
@@ -5981,7 +5981,7 @@ async function loadMyConsultations(){
               color:var(--text-soft);
               font-size:13px;
             ">
-              ${item.consultation_type || ""}
+              ${escapeHTML(item.consultation_type || "")}
             </div>
             ${
               consultationDate
@@ -6013,7 +6013,7 @@ async function loadMyConsultations(){
                     <div style="
                       margin-top:5px;
                     ">
-                      ${item.pharmacist_reply}
+                      ${escapeHTML(item.pharmacist_reply)}
                     </div>
                   </div>
                 `
