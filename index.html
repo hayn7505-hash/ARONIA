@@ -11670,9 +11670,14 @@ START
 ===================================================== */
 let bannerTimer = null;
 async function loadBanner(){
-  const container =
-    document.getElementById("bannerContainer");
-  if(!container) return;
+  const section =
+  document.getElementById("bannerSection");
+
+const container =
+  document.getElementById("bannerContainer");
+
+if(!container || !section) return;
+  
   const { data, error } = await db
     .from("banners")
     .select("*")
