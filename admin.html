@@ -9132,6 +9132,15 @@ async function loadAdmins(){
   for(
     const admin of data
   ){
+    if(
+
+    !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId || "")
+
+  ){
+
+    return;
+
+  }
     await loadAdminUserPermissions(
       admin.user_id
     );
