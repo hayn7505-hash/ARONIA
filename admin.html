@@ -9220,7 +9220,7 @@ async function loadAdminUserPermissions(
                   font-size:12px;
                 "
               >
-                ${item.permission}
+                ${escapeHTML(item.permission || "")}
               </span>
             `
           )
