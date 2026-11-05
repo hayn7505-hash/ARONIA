@@ -11684,17 +11684,22 @@ if(!container || !section) return;
     .eq("is_active", true)
     .order("id", { ascending: false });
   if(error){
-    console.error("Banner loading error:", error);
-    container.innerHTML = "";
-    container.style.display = "none";
-    return;
-  }
-  if(!data || data.length === 0){
-    container.innerHTML = "";
-    container.style.display = "none";
-    return;
-  }
-  container.style.display = "block";
+  console.error("Banner loading error:", error);
+  container.innerHTML = "";
+  container.style.display = "none";
+  section.style.display = "none";
+  return;
+}
+
+if(!data || data.length === 0){
+  container.innerHTML = "";
+  container.style.display = "none";
+  section.style.display = "none";
+  return;
+}
+
+container.style.display = "block";
+section.style.display = "block";
   container.innerHTML = `
     <div class="banner-slider">
       <div class="banner-track">
