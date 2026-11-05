@@ -6850,14 +6850,14 @@ async function openNotifications(){
           <div
             class="notification-item-title">
 
-            ${notification.title}
+            ${escapeHTML(notification.title || "")}
 
           </div>
 
           <div
             class="notification-item-message">
 
-            ${notification.message}
+            ${escapeHTML(notification.message || "")}
 
           </div>
 
