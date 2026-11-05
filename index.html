@@ -11494,13 +11494,15 @@ if(
 
     if(uploadError){
 
-      alert(
-        "تم إنشاء الاستشارة، لكن تعذر رفع إحدى الصور:\n\n" +
-        uploadError.message
-      );
+  imageUploadFailed = true;
 
-      continue;
-    }
+  console.error(
+    "Consultation image upload error:",
+    uploadError
+  );
+
+  continue;
+}
 
 
     // حفظ بيانات الصورة
