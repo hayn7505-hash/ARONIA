@@ -10098,20 +10098,6 @@ return;
 
 }
 
-if(page === "account"){
-
-showPage("settings");
-
-setTimeout(() => {
-
-toggleSettingsPanel("account");
-
-},50);
-
-return;
-
-}
-
 if(page === "search"){
 
 showPage("home");
@@ -10146,6 +10132,12 @@ if(target){
 target.classList.add(
 "active"
 );
+
+if(page === "account"){
+
+updateAccountUI();
+
+}
 
 }
 
