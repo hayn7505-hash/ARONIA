@@ -5670,16 +5670,12 @@ alert(
 
 }
 
+
 function toggleSettingsPanel(panel){
 
   const favoritesPanel =
     document.getElementById(
       "settingsFavoritesPanel"
-    );
-
-  const accountPanel =
-    document.getElementById(
-      "settingsAccountPanel"
     );
 
   const consultationsPanel =
@@ -5709,57 +5705,6 @@ function toggleSettingsPanel(panel){
         renderFavorites();
 
       }
-
-    }
-
-    if(accountPanel){
-
-      accountPanel.classList.remove(
-        "show"
-      );
-
-    }
-
-    if(consultationsPanel){
-
-      consultationsPanel.classList.remove(
-        "show"
-      );
-
-    }
-
-  }
-
-
-  /* =====================================================
-     ACCOUNT
-  ===================================================== */
-
-  if(panel === "account"){
-
-    if(accountPanel){
-
-      const willShow =
-        !accountPanel.classList.contains("show");
-
-      accountPanel.classList.toggle(
-        "show",
-        willShow
-      );
-
-      if(willShow){
-
-        updateAccountUI();
-
-      }
-
-    }
-
-    if(favoritesPanel){
-
-      favoritesPanel.classList.remove(
-        "show"
-      );
 
     }
 
@@ -5806,17 +5751,10 @@ function toggleSettingsPanel(panel){
 
     }
 
-    if(accountPanel){
-
-      accountPanel.classList.remove(
-        "show"
-      );
-
-    }
-
   }
 
 }
+
 
 async function loadMyConsultations(){
   const container =
