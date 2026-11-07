@@ -3686,6 +3686,156 @@ body.dark-mode .aronia-slider-card .product-image img {
     opacity: 1;
   }
 }
+
+/* ==============================
+   ARONIA FLOATING SQUARES
+============================== */
+
+.splash-shapes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.splash-content {
+  position: relative;
+  z-index: 1;
+}
+
+.splash-shapes span {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(46, 196, 182, .35);
+  border-radius: 5px;
+  background: rgba(46, 196, 182, .07);
+  opacity: 0;
+  animation: squareFloat 7s ease-in-out infinite;
+}
+
+/* أحجام ومواقع مختلفة */
+
+.splash-shapes span:nth-child(1) {
+  width: 18px;
+  height: 18px;
+  left: 12%;
+  top: 22%;
+  animation-delay: 0s;
+}
+
+.splash-shapes span:nth-child(2) {
+  width: 30px;
+  height: 30px;
+  right: 13%;
+  top: 18%;
+  animation-delay: 1.2s;
+}
+
+.splash-shapes span:nth-child(3) {
+  width: 12px;
+  height: 12px;
+  left: 22%;
+  top: 65%;
+  animation-delay: 2s;
+}
+
+.splash-shapes span:nth-child(4) {
+  width: 24px;
+  height: 24px;
+  right: 18%;
+  top: 68%;
+  animation-delay: 3s;
+}
+
+.splash-shapes span:nth-child(5) {
+  width: 14px;
+  height: 14px;
+  left: 7%;
+  top: 45%;
+  animation-delay: 1.7s;
+}
+
+.splash-shapes span:nth-child(6) {
+  width: 20px;
+  height: 20px;
+  right: 8%;
+  top: 43%;
+  animation-delay: 3.8s;
+}
+
+.splash-shapes span:nth-child(7) {
+  width: 10px;
+  height: 10px;
+  left: 35%;
+  top: 12%;
+  animation-delay: 2.5s;
+}
+
+.splash-shapes span:nth-child(8) {
+  width: 16px;
+  height: 16px;
+  right: 35%;
+  top: 85%;
+  animation-delay: 4s;
+}
+
+.splash-shapes span:nth-child(9) {
+  width: 26px;
+  height: 26px;
+  left: 42%;
+  top: 8%;
+  animation-delay: 1s;
+}
+
+.splash-shapes span:nth-child(10) {
+  width: 13px;
+  height: 13px;
+  right: 42%;
+  top: 78%;
+  animation-delay: 3.2s;
+}
+
+.splash-shapes span:nth-child(11) {
+  width: 22px;
+  height: 22px;
+  left: 5%;
+  top: 82%;
+  animation-delay: 4.5s;
+}
+
+.splash-shapes span:nth-child(12) {
+  width: 15px;
+  height: 15px;
+  right: 5%;
+  top: 83%;
+  animation-delay: 2.8s;
+}
+
+@keyframes squareFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 15px) rotate(0deg);
+  }
+
+  25% {
+    opacity: .8;
+  }
+
+  50% {
+    opacity: .35;
+    transform: translate(12px, -18px) rotate(45deg);
+  }
+
+  75% {
+    opacity: .7;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-10px, -35px) rotate(90deg);
+  }
+}
   
 </style>
 
