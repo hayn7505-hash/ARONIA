@@ -3554,6 +3554,44 @@ body.dark-mode .aronia-slider-card .product-image img {
   animation: splashAppear .8s ease both;
 }
 
+.splash-logo-image {
+  animation:
+    logoEntrance 1.4s ease both,
+    logoGlow 2.8s ease-in-out 1.4s infinite;
+  transform-origin: center;
+}
+
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(.82) rotate(-3deg);
+  }
+
+  65% {
+    opacity: 1;
+    transform: scale(1.04) rotate(1deg);
+  }
+
+  82% {
+    transform: scale(.98) rotate(-.5deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 12px rgba(46, 196, 182, .45));
+  }
+}
+
 .splash-logo {
   color: #0F2D5B;
   font-size: 42px;
