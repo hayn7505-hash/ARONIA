@@ -12058,29 +12058,43 @@ if ("serviceWorker" in navigator) {
 
 
 <script>
+
 (function () {
+  let openingStarted = false;
+
   function hideAroniaSplash() {
     const splash = document.getElementById("aroniaSplash");
 
-    if (!splash) return;
+    if (!splash || openingStarted) return;
 
-    splash.classList.add("splash-hidden");
+    openingStarted = true;
 
+    // بدء حركة الاقتراب والتشقق والانفتاح
+    splash.classList.add("splash-opening");
+
+    // بعد انتهاء الحركة تختفي شاشة الافتتاح
     setTimeout(function () {
-      splash.remove();
-    }, 600);
+      splash.classList.add("splash-hidden");
+
+      setTimeout(function () {
+        splash.remove();
+      }, 600);
+
+    }, 1800);
   }
 
   if (document.readyState === "complete") {
-    setTimeout(hideAroniaSplash, 1200);
+    setTimeout(hideAroniaSplash, 3000);
   } else {
     window.addEventListener("load", function () {
       setTimeout(hideAroniaSplash, 3000);
     }, { once: true });
   }
 
-  setTimeout(hideAroniaSplash, 5000);
+  // حماية في حال تأخر تحميل الصفحة
+  setTimeout(hideAroniaSplash, 8000);
 })();
+
 </script>
 </body>
 </html>
