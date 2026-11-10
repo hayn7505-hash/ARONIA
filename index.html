@@ -4042,52 +4042,6 @@ body.dark-mode .aronia-slider-card .product-image img {
   visibility: visible;
 }
 
-
-/* INSTANT STORE REVEAL */
-
-#aroniaSplash.splash-opening .splash-content {
-  animation: splashContentExit .45s ease-in forwards;
-}
-
-@keyframes splashContentExit {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(1.5);
-  }
-}
-
-
-/* REVEAL STORE FROM THE FIRST CRACK */
-
-#aroniaSplash.splash-opening {
-  background: transparent !important;
-  transition: none !important;
-}
-
-#aroniaSplash.splash-opening .splash-shapes {
-  opacity: 0;
-  transition: opacity .2s ease;
-}
-
-#aroniaSplash.splash-opening .splash-paper {
-  background: transparent !important;
-}
-
-/* Keep only the moving paper pieces visible */
-#aroniaSplash.splash-opening .splash-paper span {
-  background: linear-gradient(
-    135deg,
-    #FFFFFF 0%,
-    #F8FCFB 100%
-  );
-}
-
-
 /* CLEAR WHITE PAPER WITH DEPTH */
 
 #aroniaSplash .splash-paper span {
