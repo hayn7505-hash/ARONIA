@@ -4042,6 +4042,25 @@ body.dark-mode .aronia-slider-card .product-image img {
   visibility: visible;
 }
 
+
+/* INSTANT STORE REVEAL */
+
+#aroniaSplash.splash-opening .splash-content {
+  animation: splashContentExit .45s ease-in forwards;
+}
+
+@keyframes splashContentExit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
 </style>
 
 </head>
