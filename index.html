@@ -3552,19 +3552,6 @@ body.dark-mode .aronia-slider-card .product-image img {
 }
 
 /* انكشاف المتجر تدريجياً من الأعلى */
-#aroniaSplash.splash-opening::before {
-  animation: splashCurtainReveal 5s cubic-bezier(.55,.05,.8,.4) forwards;
-}
-
-@keyframes splashCurtainReveal {
-  from {
-    clip-path: inset(0 0 0 0);
-  }
-
-  to {
-    clip-path: inset(100% 0 0 0);
-  }
-}
 
 #aroniaSplash.splash-hidden {
   opacity: 0;
