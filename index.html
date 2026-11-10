@@ -3553,7 +3553,7 @@ body.dark-mode .aronia-slider-card .product-image img {
 
 /* انكشاف المتجر تدريجياً من الأعلى */
 #aroniaSplash.splash-opening::before {
-  animation: splashCurtainReveal 5s linear forwards;
+  animation: splashCurtainReveal 5s cubic-bezier(.55,.05,.8,.4) forwards;
 }
 
 @keyframes splashCurtainReveal {
