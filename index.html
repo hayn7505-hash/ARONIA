@@ -3863,6 +3863,34 @@ body.dark-mode .aronia-slider-card .product-image img {
 .splash-shapes span:nth-child(10) { animation-delay: .2s !important; }
 .splash-shapes span:nth-child(11) { animation-delay: .3s !important; }
 .splash-shapes span:nth-child(12) { animation-delay: .4s !important; }
+
+/* GLOW TRAIL EFFECT */
+
+.splash-shapes span {
+  box-shadow:
+    0 0 8px rgba(46, 196, 182, .45),
+    0 0 18px rgba(46, 196, 182, .25),
+    0 0 30px rgba(46, 196, 182, .12);
+  filter: drop-shadow(0 0 6px rgba(46, 196, 182, .5));
+}
+
+.splash-shapes span::after {
+  content: "";
+  position: absolute;
+  width: 180%;
+  height: 180%;
+  left: -40%;
+  top: -40%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(46, 196, 182, .28) 0%,
+    rgba(46, 196, 182, .12) 35%,
+    transparent 75%
+  );
+  filter: blur(7px);
+  z-index: -1;
+}
   
 </style>
 
