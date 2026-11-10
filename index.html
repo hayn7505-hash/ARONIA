@@ -4087,6 +4087,39 @@ body.dark-mode .aronia-slider-card .product-image img {
   );
 }
 
+
+/* CLEAR WHITE PAPER WITH DEPTH */
+
+#aroniaSplash .splash-paper span {
+  background: #FFFFFF !important;
+  opacity: 1 !important;
+
+  box-shadow:
+    0 0 18px rgba(15, 45, 91, .10),
+    0 0 35px rgba(46, 196, 182, .10);
+
+  border: 1px solid rgba(15, 45, 91, .07);
+}
+
+/* Paper edge highlight */
+
+#aroniaSplash .splash-paper span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,1),
+    rgba(235,250,248,.35)
+  );
+  pointer-events: none;
+}
+
+/* Keep the moving pieces visible */
+#aroniaSplash.splash-opening .splash-paper span {
+  opacity: 1 !important;
+}
+
 </style>
 
 </head>
