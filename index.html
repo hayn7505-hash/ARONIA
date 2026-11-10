@@ -4003,6 +4003,36 @@ body.dark-mode .aronia-slider-card .product-image img {
   z-index: 5;
 }
 
+
+/* FIX SPLASH LOGO VISIBILITY */
+
+#aroniaSplash .splash-content {
+  position: relative;
+  z-index: 6 !important;
+}
+
+#aroniaSplash .splash-logo {
+  position: relative;
+  z-index: 7;
+}
+
+#aroniaSplash .splash-logo-image {
+  position: relative;
+  z-index: 7;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hide paper until opening starts */
+#aroniaSplash .splash-paper {
+  visibility: hidden;
+}
+
+#aroniaSplash.splash-opening .splash-paper {
+  visibility: visible;
+}
+
 </style>
 
 </head>
