@@ -3532,12 +3532,38 @@ body.dark-mode .aronia-slider-card .product-image img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF;
+  background: transparent;
+  isolation: isolate;
   opacity: 1;
   visibility: visible;
   transition:
     opacity .5s ease,
     visibility .5s ease;
+}
+
+/* طبقة بيضاء تغطي المتجر في البداية */
+#aroniaSplash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #FFFFFF;
+  pointer-events: none;
+}
+
+/* انكشاف المتجر تدريجياً من الأعلى */
+#aroniaSplash.splash-opening::before {
+  animation: splashCurtainReveal 5s linear forwards;
+}
+
+@keyframes splashCurtainReveal {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+
+  to {
+    clip-path: inset(100% 0 0 0);
+  }
 }
 
 #aroniaSplash.splash-hidden {
