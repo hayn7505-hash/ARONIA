@@ -4120,6 +4120,203 @@ body.dark-mode .aronia-slider-card .product-image img {
   opacity: 1 !important;
 }
 
+
+/* ==============================
+   ARONIA LIQUID COSMETIC INTRO
+============================== */
+
+.splash-liquid {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Main flowing cream layer */
+
+.splash-liquid::before {
+  content: "";
+  position: absolute;
+  width: 140%;
+  height: 150%;
+  left: -20%;
+  top: -140%;
+
+  background: linear-gradient(
+    115deg,
+    #FFFFFF 0%,
+    #FCE8EF 18%,
+    #FFFFFF 38%,
+    #E5FAF7 58%,
+    #FFFFFF 78%,
+    #F8DCE8 100%
+  );
+
+  clip-path: polygon(
+    0 0, 100% 0, 100% 75%,
+    88% 80%, 78% 74%, 65% 83%,
+    52% 76%, 38% 84%, 24% 77%,
+    12% 83%, 0 76%
+  );
+
+  filter: drop-shadow(0 8px 18px rgba(15,45,91,.12));
+}
+
+/* Glossy serum streams */
+
+.liquid-stream {
+  position: absolute;
+  top: -140%;
+  height: 160%;
+  width: 30%;
+  border-radius: 0 0 50% 50%;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,.15),
+    rgba(255,255,255,.95),
+    rgba(46,196,182,.18),
+    rgba(255,255,255,.75)
+  );
+
+  filter: blur(2px);
+  opacity: 0;
+}
+
+.liquid-cream {
+  left: 8%;
+  width: 42%;
+}
+
+.liquid-serum {
+  right: 8%;
+  width: 32%;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,.1),
+    rgba(255,255,255,.95),
+    rgba(210,245,255,.5),
+    rgba(255,255,255,.2)
+  );
+}
+
+.liquid-pink {
+  left: 38%;
+  width: 25%;
+  background: linear-gradient(
+    90deg,
+    rgba(255,220,235,.2),
+    rgba(255,190,215,.85),
+    rgba(255,255,255,.8),
+    rgba(255,220,235,.2)
+  );
+}
+
+/* Falling serum drops */
+
+.liquid-drops span {
+  position: absolute;
+  top: -30px;
+  width: 13px;
+  height: 21px;
+  border-radius: 50% 50% 55% 55%;
+
+  background: linear-gradient(
+    135deg,
+    #FFFFFF,
+    #DDF8F5,
+    #FFFFFF
+  );
+
+  box-shadow: 0 2px 9px rgba(46,196,182,.3);
+  opacity: 0;
+}
+
+/* Start liquid effect */
+
+#aroniaSplash.splash-opening .splash-liquid {
+  visibility: visible;
+}
+
+#aroniaSplash.splash-opening .splash-liquid::before {
+  animation: creamFall 1.3s cubic-bezier(.55,.05,.8,.4) forwards;
+}
+
+#aroniaSplash.splash-opening .liquid-stream {
+  animation: serumFall 1.3s ease-in forwards;
+}
+
+#aroniaSplash.splash-opening .liquid-cream {
+  animation-delay: 0s;
+}
+
+#aroniaSplash.splash-opening .liquid-serum {
+  animation-delay: .08s;
+}
+
+#aroniaSplash.splash-opening .liquid-pink {
+  animation-delay: .15s;
+}
+
+/* Drop positions and timing */
+
+#aroniaSplash.splash-opening .liquid-drops span {
+  animation: dropFall 1s ease-in forwards;
+}
+
+.liquid-drops span:nth-child(1) { left: 12%; animation-delay: 0s; }
+.liquid-drops span:nth-child(2) { left: 27%; animation-delay: .12s; }
+.liquid-drops span:nth-child(3) { left: 42%; animation-delay: .05s; }
+.liquid-drops span:nth-child(4) { left: 58%; animation-delay: .2s; }
+.liquid-drops span:nth-child(5) { left: 73%; animation-delay: .08s; }
+.liquid-drops span:nth-child(6) { left: 88%; animation-delay: .15s; }
+.liquid-drops span:nth-child(7) { left: 35%; animation-delay: .25s; }
+.liquid-drops span:nth-child(8) { left: 65%; animation-delay: .3s; }
+
+/* Animations */
+
+@keyframes creamFall {
+  0% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(75%);
+  }
+  100% {
+    transform: translateY(190%);
+  }
+}
+
+@keyframes serumFall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scaleX(.7);
+  }
+  25% {
+    opacity: .95;
+  }
+  100% {
+    opacity: .8;
+    transform: translateY(190%) scaleX(1.15);
+  }
+}
+
+@keyframes dropFall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(.5);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(110vh) scale(1.2);
+  }
+}
+
 </style>
 
 </head>
