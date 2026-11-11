@@ -3749,50 +3749,124 @@ body.dark-mode .aronia-slider-card .product-image img {
 
 <body>
 
-<!-- ARONIA SPLASH SCREEN -->
 
+<!-- ARONIA SPLASH SCREEN -->
 <div id="aroniaSplash">
 
   <!-- الطبقة اللؤلؤية الخلفية -->
-
   <div class="splash-liquid splash-liquid-back">
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="pearlBack" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#E8D9D9"/>
+          <stop offset="30%" stop-color="#FFFFFF"/>
+          <stop offset="60%" stop-color="#E6D4D8"/>
+          <stop offset="100%" stop-color="#FFFDFB"/>
+        </linearGradient>
 
-    <!-- ضع هنا SVG الخلفية كاملاً -->
+        <filter id="liquidBack" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.008 0.025"
+            numOctaves="2"
+            seed="7"
+            result="noise"/>
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="13"
+            xChannelSelector="R"
+            yChannelSelector="G"/>
+        </filter>
+      </defs>
 
+      <path
+        d="M0 0 H1000 V995
+        C900 1005 850 987 750 998
+        C650 1010 600 986 500 997
+        C400 1008 350 985 250 997
+        C150 1008 90 987 0 1000 Z"
+        fill="url(#pearlBack)"
+        filter="url(#liquidBack)"/>
+
+      <path
+        d="M0 1000
+        C90 987 150 1008 250 997
+        C350 985 400 1008 500 997
+        C600 986 650 1010 750 998
+        C850 987 900 1005 1000 995"
+        fill="none"
+        stroke="#FFFFFF"
+        stroke-width="7"
+        opacity=".8"/>
+    </svg>
   </div>
 
   <!-- الطبقة اللؤلؤية الأمامية -->
-
   <div class="splash-liquid splash-liquid-front">
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="pearlFront" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#FFFFFF"/>
+          <stop offset="25%" stop-color="#F3E7E7"/>
+          <stop offset="48%" stop-color="#FFFFFF"/>
+          <stop offset="72%" stop-color="#E7D6D9"/>
+          <stop offset="100%" stop-color="#FFFEFC"/>
+        </linearGradient>
 
-    <!-- ضع هنا SVG الأمامية كاملاً -->
+        <filter id="liquidFront" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.012 0.035"
+            numOctaves="2"
+            seed="11"
+            result="noise"/>
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="19"
+            xChannelSelector="R"
+            yChannelSelector="G"/>
+        </filter>
+      </defs>
 
+      <path
+        d="M0 0 H1000 V998
+        C920 986 850 1010 760 995
+        C650 980 590 1010 500 995
+        C400 980 340 1010 240 994
+        C150 980 75 1010 0 994 Z"
+        fill="url(#pearlFront)"
+        filter="url(#liquidFront)"/>
+
+      <path
+        d="M0 994
+        C75 1010 150 980 240 994
+        C340 1010 400 980 500 995
+        C590 1010 650 980 760 995
+        C850 1010 920 986 1000 998"
+        fill="none"
+        stroke="#FFFFFF"
+        stroke-width="9"
+        opacity=".95"/>
+    </svg>
   </div>
 
   <!-- محتوى الشعار -->
-
   <div class="splash-content">
 
     <div class="splash-logo">
-
       <img
-
         src="./aronia-logo.png"
-
         alt="ARONIA"
-
         class="splash-logo-image"
-
       >
-
     </div>
 
     <div class="splash-line"></div>
 
     <div class="splash-tagline">
-
       الجمال يبدأ من هنا
-
     </div>
 
     <div class="splash-loader"></div>
@@ -3800,106 +3874,6 @@ body.dark-mode .aronia-slider-card .product-image img {
   </div>
 
 </div>
-  
-<!-- الطبقة اللؤلؤية الخلفية -->
-<div class="splash-liquid splash-liquid-back">
-  <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="pearlBack" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#E8D9D9"/>
-        <stop offset="30%" stop-color="#FFFFFF"/>
-        <stop offset="60%" stop-color="#E6D4D8"/>
-        <stop offset="100%" stop-color="#FFFDFB"/>
-      </linearGradient>
-
-      <filter id="liquidBack" x="-10%" y="-10%" width="120%" height="120%">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.008 0.025"
-          numOctaves="2"
-          seed="7"
-          result="noise"/>
-        <feDisplacementMap
-          in="SourceGraphic"
-          in2="noise"
-          scale="13"
-          xChannelSelector="R"
-          yChannelSelector="G"/>
-      </filter>
-    </defs>
-
-    <path
-      d="M0 0 H1000 V995
-      C900 1005 850 987 750 998
-      C650 1010 600 986 500 997
-      C400 1008 350 985 250 997
-      C150 1008 90 987 0 1000 Z"
-      fill="url(#pearlBack)"
-      filter="url(#liquidBack)"/>
-
-    <path
-      d="M0 1000
-      C90 987 150 1008 250 997
-      C350 985 400 1008 500 997
-      C600 986 650 1010 750 998
-      C850 987 900 1005 1000 995"
-      fill="none"
-      stroke="#FFFFFF"
-      stroke-width="7"
-      opacity=".8"/>
-  </svg>
-</div>
-
-<!-- الطبقة اللؤلؤية الأمامية -->
-<div class="splash-liquid splash-liquid-front">
-  <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="pearlFront" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#FFFFFF"/>
-        <stop offset="25%" stop-color="#F3E7E7"/>
-        <stop offset="48%" stop-color="#FFFFFF"/>
-        <stop offset="72%" stop-color="#E7D6D9"/>
-        <stop offset="100%" stop-color="#FFFEFC"/>
-      </linearGradient>
-
-      <filter id="liquidFront" x="-10%" y="-10%" width="120%" height="120%">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.012 0.035"
-          numOctaves="2"
-          seed="11"
-          result="noise"/>
-        <feDisplacementMap
-          in="SourceGraphic"
-          in2="noise"
-          scale="19"
-          xChannelSelector="R"
-          yChannelSelector="G"/>
-      </filter>
-    </defs>
-
-    <path
-      d="M0 0 H1000 V998
-      C920 986 850 1010 760 995
-      C650 980 590 1010 500 995
-      C400 980 340 1010 240 994
-      C150 980 75 1010 0 994 Z"
-      fill="url(#pearlFront)"
-      filter="url(#liquidFront)"/>
-
-    <path
-      d="M0 994
-      C75 1010 150 980 240 994
-      C340 1010 400 980 500 995
-      C590 1010 650 980 760 995
-      C850 1010 920 986 1000 998"
-      fill="none"
-      stroke="#FFFFFF"
-      stroke-width="9"
-      opacity=".95"/>
-  </svg>
-</div>
-
 
 
 <!-- =====================================================
