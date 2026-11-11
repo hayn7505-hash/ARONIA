@@ -3528,6 +3528,11 @@ body.dark-mode .aronia-slider-card .product-image img {
    ARONIA — LUXURY FLOWING SILK
 ================================= */
 
+
+/* =================================
+   ARONIA — PEARL LIQUID REVEAL
+================================= */
+
 #aroniaSplash {
   position: fixed;
   inset: 0;
@@ -3535,13 +3540,12 @@ body.dark-mode .aronia-slider-card .product-image img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent !important;
+  background: transparent;
   isolation: isolate;
   overflow: hidden;
-  perspective: 1200px;
   opacity: 1;
   visibility: visible;
-  transition: opacity .65s ease, visibility .65s ease;
+  transition: opacity .5s ease, visibility .5s ease;
 }
 
 #aroniaSplash.splash-hidden {
@@ -3550,191 +3554,60 @@ body.dark-mode .aronia-slider-card .product-image img {
   pointer-events: none;
 }
 
-/* جسم القماش */
+/* طبقات السائل */
 
-.splash-curtain {
+.splash-liquid {
   position: absolute;
-  inset: -2% -3%;
-  pointer-events: none;
-  transform-origin: 50% 100%;
-  will-change: transform;
-
-  /* حافة حريرية متموجة */
-  clip-path: polygon(
-    0 0, 100% 0,
-    100% 96%,
-    95% 98%, 90% 96%,
-    85% 99%, 80% 97%,
-    75% 100%, 70% 97%,
-    65% 99%, 60% 96%,
-    55% 99%, 50% 97%,
-    45% 100%, 40% 97%,
-    35% 99%, 30% 96%,
-    25% 99%, 20% 97%,
-    15% 100%, 10% 97%,
-    5% 99%, 0 96%
-  );
-}
-
-/* الحرير الخلفي */
-
-.splash-curtain-back {
+  inset: 0;
   z-index: 1;
-
-  background:
-    linear-gradient(
-      90deg,
-      #DCCACD 0%,
-      #FFFDFC 9%,
-      #E9DADD 19%,
-      #FFFFFF 29%,
-      #DCC9CD 40%,
-      #FFFDFC 51%,
-      #E8D7DA 63%,
-      #FFFFFF 75%,
-      #DCC9CD 87%,
-      #FFFDFC 100%
-    ),
-    linear-gradient(
-      180deg,
-      #F7EEEE,
-      #E6D5D9 55%,
-      #FFFFFF
-    );
-
-  box-shadow: inset 0 -35px 65px rgba(100,65,75,.12);
+  pointer-events: none;
+  will-change: transform;
 }
 
-/* الحرير الأمامي */
+.splash-liquid svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
 
-.splash-curtain-front {
+/* الطبقة الخلفية */
+
+.splash-liquid-back {
+  z-index: 1;
+}
+
+/* الطبقة الأمامية */
+
+.splash-liquid-front {
   z-index: 2;
-
-  background:
-    linear-gradient(
-      90deg,
-      #E8D9DC 0%,
-      #FFFFFF 7%,
-      #D9C6CB 15%,
-      #FFFEFD 23%,
-      #E8D8DB 33%,
-      #FFFFFF 42%,
-      #D9C5CA 51%,
-      #FFFEFD 61%,
-      #E7D7DA 72%,
-      #FFFFFF 82%,
-      #DCC9CE 92%,
-      #FFFEFD 100%
-    ),
-    linear-gradient(
-      180deg,
-      #FFFFFF 0%,
-      #F1E5E6 50%,
-      #E4D1D6 100%
-    );
-
-  box-shadow:
-    inset 0 0 65px rgba(255,255,255,.65),
-    0 20px 55px rgba(75,45,55,.15);
 }
 
-/* طيات القماش والظلال العميقة */
+/* صعود الموجة */
 
-.splash-curtain::before {
-  content: "";
-  position: absolute;
-  inset: -8% -5%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(110,75,85,.16) 5%,
-      rgba(255,255,255,.8) 9%,
-      transparent 14%,
-      rgba(125,85,95,.20) 20%,
-      rgba(255,255,255,.85) 25%,
-      transparent 30%,
-      rgba(115,75,85,.15) 37%,
-      rgba(255,255,255,.9) 43%,
-      transparent 48%,
-      rgba(110,75,85,.18) 55%,
-      rgba(255,255,255,.85) 61%,
-      transparent 67%,
-      rgba(120,80,90,.17) 74%,
-      rgba(255,255,255,.9) 80%,
-      transparent 86%,
-      rgba(110,75,85,.13) 93%,
-      transparent 100%
-    );
-
-  filter: blur(13px);
-  transform: skewX(-8deg) scale(1.08);
-  opacity: .9;
+#aroniaSplash.splash-opening .splash-liquid-front {
+  animation: pearlWaveRise 4.1s cubic-bezier(.65,0,.25,1) forwards;
 }
 
-/* انعكاس ضوئي ناعم */
-
-.splash-curtain::after {
-  content: "";
-  position: absolute;
-  inset: -20%;
-
-  background:
-    linear-gradient(
-      115deg,
-      transparent 30%,
-      rgba(255,255,255,.0) 38%,
-      rgba(255,255,255,.72) 45%,
-      rgba(255,255,255,.12) 49%,
-      transparent 56%
-    );
-
-  transform: translateX(-30%);
-  opacity: .8;
+#aroniaSplash.splash-opening .splash-liquid-back {
+  animation: pearlWaveRise 4.3s cubic-bezier(.65,0,.25,1) .12s forwards;
 }
 
-/* انسياب الحرير من الأسفل إلى الأعلى */
-
-#aroniaSplash.splash-opening .splash-curtain-front {
-  animation:
-    silkRiseFront 4.1s cubic-bezier(.65,.02,.28,1) forwards;
-}
-
-#aroniaSplash.splash-opening .splash-curtain-back {
-  animation:
-    silkRiseBack 4.25s cubic-bezier(.65,.02,.28,1) .12s forwards;
-}
-
-@keyframes silkRiseFront {
+@keyframes pearlWaveRise {
   0% {
-    transform: translateY(0) rotateX(0deg) scaleY(1);
+    transform: translateY(0);
   }
 
-  35% {
-    transform: translateY(-22%) rotateX(-4deg) scaleY(1.025);
+  25% {
+    transform: translateY(-12%);
   }
 
-  70% {
-    transform: translateY(-68%) rotateX(-7deg) scaleY(1.04);
+  55% {
+    transform: translateY(-48%);
   }
 
   100% {
-    transform: translateY(-108%) rotateX(-9deg) scaleY(1.06);
-  }
-}
-
-@keyframes silkRiseBack {
-  0% {
-    transform: translateY(0) rotateX(0deg);
-  }
-
-  40% {
-    transform: translateY(-30%) rotateX(-3deg);
-  }
-
-  100% {
-    transform: translateY(-110%) rotateX(-7deg);
+    transform: translateY(-108%);
   }
 }
 
@@ -3794,11 +3667,9 @@ body.dark-mode .aronia-slider-card .product-image img {
 @keyframes logoFadeOut {
   to {
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translateY(-15px);
   }
 }
-
-
 
 /* =====================================================
    ARONIA — ALIGN ADD TO CART BUTTONS
@@ -3870,34 +3741,106 @@ body.dark-mode .aronia-slider-card .product-image img {
 
 <body>
 
-<!-- ARONIA SPLASH SCREEN -->
-<div id="aroniaSplash">
 
-  <div class="splash-curtain splash-curtain-back"></div>
+<!-- الطبقة اللؤلؤية الخلفية -->
+<div class="splash-liquid splash-liquid-back">
+  <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="pearlBack" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#E8D9D9"/>
+        <stop offset="30%" stop-color="#FFFFFF"/>
+        <stop offset="60%" stop-color="#E6D4D8"/>
+        <stop offset="100%" stop-color="#FFFDFB"/>
+      </linearGradient>
 
-  <div class="splash-curtain splash-curtain-front"></div>
+      <filter id="liquidBack" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.008 0.025"
+          numOctaves="2"
+          seed="7"
+          result="noise"/>
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="noise"
+          scale="13"
+          xChannelSelector="R"
+          yChannelSelector="G"/>
+      </filter>
+    </defs>
 
-  <div class="splash-content">
+    <path
+      d="M0 0 H1000 V995
+      C900 1005 850 987 750 998
+      C650 1010 600 986 500 997
+      C400 1008 350 985 250 997
+      C150 1008 90 987 0 1000 Z"
+      fill="url(#pearlBack)"
+      filter="url(#liquidBack)"/>
 
-    <div class="splash-logo">
-      <img
-        src="./aronia-logo.png"
-        alt="ARONIA"
-        class="splash-logo-image"
-      >
-    </div>
-
-    <div class="splash-line"></div>
-
-    <div class="splash-tagline">
-      الجمال يبدأ من هنا
-    </div>
-
-    <div class="splash-loader"></div>
-
-  </div>
-
+    <path
+      d="M0 1000
+      C90 987 150 1008 250 997
+      C350 985 400 1008 500 997
+      C600 986 650 1010 750 998
+      C850 987 900 1005 1000 995"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="7"
+      opacity=".8"/>
+  </svg>
 </div>
+
+<!-- الطبقة اللؤلؤية الأمامية -->
+<div class="splash-liquid splash-liquid-front">
+  <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="pearlFront" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="25%" stop-color="#F3E7E7"/>
+        <stop offset="48%" stop-color="#FFFFFF"/>
+        <stop offset="72%" stop-color="#E7D6D9"/>
+        <stop offset="100%" stop-color="#FFFEFC"/>
+      </linearGradient>
+
+      <filter id="liquidFront" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.012 0.035"
+          numOctaves="2"
+          seed="11"
+          result="noise"/>
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="noise"
+          scale="19"
+          xChannelSelector="R"
+          yChannelSelector="G"/>
+      </filter>
+    </defs>
+
+    <path
+      d="M0 0 H1000 V998
+      C920 986 850 1010 760 995
+      C650 980 590 1010 500 995
+      C400 980 340 1010 240 994
+      C150 980 75 1010 0 994 Z"
+      fill="url(#pearlFront)"
+      filter="url(#liquidFront)"/>
+
+    <path
+      d="M0 994
+      C75 1010 150 980 240 994
+      C340 1010 400 980 500 995
+      C590 1010 650 980 760 995
+      C850 1010 920 986 1000 998"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="9"
+      opacity=".95"/>
+  </svg>
+</div>
+
 
 
 <!-- =====================================================
@@ -12025,7 +11968,7 @@ if ("serviceWorker" in navigator) {
         splash.remove();
       }, 750);
 
-    }, 4350);
+    }, 4550);
   }
 
   // انتظار تحميل الصفحة بالكامل
