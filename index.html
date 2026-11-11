@@ -3521,8 +3521,9 @@ body.dark-mode .aronia-slider-card .product-image img {
 }
 
 
+
 /* ==============================
-   ARONIA SPLASH SCREEN
+   ARONIA SILK CURTAIN INTRO
 ============================== */
 
 #aroniaSplash {
@@ -3539,26 +3540,77 @@ body.dark-mode .aronia-slider-card .product-image img {
   transition: opacity .5s ease, visibility .5s ease;
 }
 
-/* الخلفية البيضاء الأولية */
-#aroniaSplash::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: #FFFFFF;
-}
-
-/* إخفاء شاشة البداية */
 #aroniaSplash.splash-hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
 
+/* طبقات الحرير */
+
+.splash-curtain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform;
+  clip-path: polygon(
+    0 0, 100% 0, 100% 96%,
+    85% 100%, 70% 97%, 55% 100%,
+    40% 97%, 25% 100%, 10% 97%, 0 100%
+  );
+}
+
+/* الطبقة الوردية */
+
+.splash-curtain-back {
+  z-index: 1;
+  background: linear-gradient(
+    145deg,
+    #FFFFFF 0%,
+    #FCE8EF 35%,
+    #FFFFFF 65%,
+    #F8DCE8 100%
+  );
+}
+
+/* الطبقة التركوازية */
+
+.splash-curtain-front {
+  z-index: 2;
+  background: linear-gradient(
+    145deg,
+    #FFFFFF 0%,
+    #E5FAF7 30%,
+    #FFFFFF 65%,
+    #DDF5F2 100%
+  );
+  box-shadow: 0 10px 35px rgba(15,45,91,.08);
+}
+
+/* حركة انسحاب الستارة */
+
+#aroniaSplash.splash-opening .splash-curtain-front {
+  animation: silkLift 3.8s cubic-bezier(.65,0,.35,1) forwards;
+}
+
+#aroniaSplash.splash-opening .splash-curtain-back {
+  animation: silkLift 3.8s cubic-bezier(.65,0,.35,1) .45s forwards;
+}
+
+@keyframes silkLift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-105%);
+  }
+}
+
 /* محتوى الشعار */
+
 .splash-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3601,92 +3653,18 @@ body.dark-mode .aronia-slider-card .product-image img {
   }
 }
 
-/* ==============================
-   CREAM FLOW
-============================== */
+/* اختفاء الشعار */
 
-.splash-liquid {
-  position: absolute;
-  inset: 0;
-  z-index: 8;
-  overflow: hidden;
-  pointer-events: none;
-  visibility: hidden;
+#aroniaSplash.splash-opening .splash-content {
+  animation: logoFadeOut .8s ease forwards;
 }
 
-.splash-liquid::before {
-  content: "";
-  position: absolute;
-  width: 140%;
-  height: 150%;
-  left: -20%;
-  top: 0;
-
-  background: linear-gradient(
-    115deg,
-    #FFFFFF 0%,
-    #FCE8EF 18%,
-    #FFFFFF 38%,
-    #E5FAF7 58%,
-    #FFFFFF 78%,
-    #F8DCE8 100%
-  );
-
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 75%,
-    88% 80%,
-    78% 74%,
-    65% 83%,
-    52% 76%,
-    38% 84%,
-    24% 77%,
-    12% 83%,
-    0 76%
-  );
-
-  filter: drop-shadow(
-    0 8px 18px rgba(15,45,91,.12)
-  );
-}
-
-/* بدء الانسياب والكشف */
-#aroniaSplash.splash-opening::before {
-  animation: revealStore 5s cubic-bezier(.55,.05,.8,.4) forwards;
-}
-
-#aroniaSplash.splash-opening .splash-liquid {
-  visibility: visible;
-}
-
-#aroniaSplash.splash-opening .splash-liquid::before {
-  animation: creamFall 5s cubic-bezier(.55,.05,.8,.4) forwards;
-}
-
-/* كشف المتجر من الأعلى إلى الأسفل */
-@keyframes revealStore {
-  from {
-    clip-path: inset(0 0 0 0);
-  }
-
+@keyframes logoFadeOut {
   to {
-    clip-path: inset(100% 0 0 0);
+    opacity: 0;
+    transform: translateY(-12px);
   }
 }
-
-/* نزول الكريمات */
-@keyframes creamFall {
-  from {
-    transform: translateY(0);
-  }
-
-  to {
-    transform: translateY(66.6667%);
-  }
-}
-
-
 
 /* =====================================================
    ARONIA — ALIGN ADD TO CART BUTTONS
@@ -3758,14 +3736,12 @@ body.dark-mode .aronia-slider-card .product-image img {
 
 <body>
 
-
-
-
-
 <!-- ARONIA SPLASH SCREEN -->
 <div id="aroniaSplash">
 
-  <div class="splash-liquid"></div>
+  <div class="splash-curtain splash-curtain-back"></div>
+
+  <div class="splash-curtain splash-curtain-front"></div>
 
   <div class="splash-content">
 
@@ -3788,6 +3764,7 @@ body.dark-mode .aronia-slider-card .product-image img {
   </div>
 
 </div>
+
 
 <!-- =====================================================
 LOGIN
