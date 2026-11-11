@@ -3726,6 +3726,23 @@ body.dark-mode .aronia-slider-card .product-image img {
   }
 }
 
+
+/* اختبار حركة الموجة */
+
+#aroniaSplash.splash-opening .splash-liquid {
+  animation: pearlTestMove 4.1s cubic-bezier(.65,0,.25,1) forwards !important;
+}
+
+@keyframes pearlTestMove {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-110%);
+  }
+}
+
 </style>
 
 </head>
