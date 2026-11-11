@@ -3521,7 +3521,6 @@ body.dark-mode .aronia-slider-card .product-image img {
 }
 
 
-
 /* ==============================
    ARONIA SPLASH SCREEN
 ============================== */
@@ -3533,17 +3532,23 @@ body.dark-mode .aronia-slider-card .product-image img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF;
+  background: transparent;
   isolation: isolate;
   opacity: 1;
   visibility: visible;
-  transition:
-    opacity .5s ease,
-    visibility .5s ease;
+  transition: opacity .5s ease, visibility .5s ease;
 }
 
-/* إخفاء شاشة المقدمة */
+/* الخلفية البيضاء الأولية */
+#aroniaSplash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #FFFFFF;
+}
 
+/* إخفاء شاشة البداية */
 #aroniaSplash.splash-hidden {
   opacity: 0;
   visibility: hidden;
@@ -3551,7 +3556,6 @@ body.dark-mode .aronia-slider-card .product-image img {
 }
 
 /* محتوى الشعار */
-
 .splash-content {
   position: relative;
   z-index: 2;
@@ -3598,7 +3602,7 @@ body.dark-mode .aronia-slider-card .product-image img {
 }
 
 /* ==============================
-   ARONIA LIQUID CREAM INTRO
+   CREAM FLOW
 ============================== */
 
 .splash-liquid {
@@ -3610,17 +3614,13 @@ body.dark-mode .aronia-slider-card .product-image img {
   visibility: hidden;
 }
 
-/* طبقة الكريم المنساب */
-
 .splash-liquid::before {
   content: "";
   position: absolute;
-
   width: 140%;
   height: 150%;
-
   left: -20%;
-  top: -140%;
+  top: 0;
 
   background: linear-gradient(
     115deg,
@@ -3651,32 +3651,41 @@ body.dark-mode .aronia-slider-card .product-image img {
   );
 }
 
-/* بدء انسياب الكريم */
+/* بدء الانسياب والكشف */
+#aroniaSplash.splash-opening::before {
+  animation: revealStore 5s cubic-bezier(.55,.05,.8,.4) forwards;
+}
 
 #aroniaSplash.splash-opening .splash-liquid {
   visibility: visible;
 }
 
 #aroniaSplash.splash-opening .splash-liquid::before {
-  animation:
-    creamFall 5s cubic-bezier(.55,.05,.8,.4) forwards;
+  animation: creamFall 5s cubic-bezier(.55,.05,.8,.4) forwards;
 }
 
-/* حركة الانسياب */
+/* كشف المتجر من الأعلى إلى الأسفل */
+@keyframes revealStore {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
 
+  to {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+/* نزول الكريمات */
 @keyframes creamFall {
-  0% {
+  from {
     transform: translateY(0);
   }
 
-  45% {
-    transform: translateY(75%);
-  }
-
-  100% {
-    transform: translateY(190%);
+  to {
+    transform: translateY(66.6667%);
   }
 }
+
 
 
 /* =====================================================
@@ -3752,20 +3761,20 @@ body.dark-mode .aronia-slider-card .product-image img {
 
 
 
+
 <!-- ARONIA SPLASH SCREEN -->
 <div id="aroniaSplash">
 
-  <!-- LIQUID CREAM -->
   <div class="splash-liquid"></div>
 
-  <!-- LOGO CONTENT -->
   <div class="splash-content">
 
     <div class="splash-logo">
       <img
         src="./aronia-logo.png"
         alt="ARONIA"
-        class="splash-logo-image">
+        class="splash-logo-image"
+      >
     </div>
 
     <div class="splash-line"></div>
@@ -3779,8 +3788,6 @@ body.dark-mode .aronia-slider-card .product-image img {
   </div>
 
 </div>
-
-
 
 <!-- =====================================================
 LOGIN
