@@ -1394,7 +1394,79 @@ body.dark-mode .product-order-number{
   color:#aaa;
 
 }
-  
+
+
+/* ==============================
+   ARONIA SALES ANALYTICS
+============================== */
+
+#salesAnalytics {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #E5E9ED;
+}
+
+#salesAnalytics > h3 {
+  margin: 0 0 6px;
+  color: #0F2D5B;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.admin-subsection-description {
+  display: block;
+  margin-bottom: 16px;
+  color: #7B8794;
+  font-size: 12px;
+}
+
+#salesAnalytics .stats {
+  margin-top: 15px;
+  gap: 12px;
+}
+
+#salesAnalytics .stat {
+  background: #FFFFFF;
+  border: 1px solid #E8EEF1;
+  border-radius: 15px;
+  box-shadow: 0 3px 12px rgba(15, 45, 91, 0.04);
+}
+
+#salesAnalytics .stat span {
+  color: #687586;
+}
+
+#salesAnalytics .stat b {
+  color: #0F2D5B;
+  font-size: 19px;
+  overflow-wrap: anywhere;
+}
+
+.sales-chart-card {
+  margin-top: 20px;
+  padding: 16px;
+  background: #FFFFFF;
+  border: 1px solid #E8EEF1;
+  border-radius: 17px;
+  box-shadow: 0 3px 12px rgba(15, 45, 91, 0.04);
+}
+
+.sales-chart-card h3 {
+  margin: 0 0 15px;
+  color: #0F2D5B;
+  font-size: 15px;
+}
+
+#salesChart {
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8A96A3;
+  font-size: 13px;
+  text-align: center;
+}
+
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1579,6 +1651,70 @@ class="container hidden">
       </div>
 
     </div>
+
+    
+<!-- ==============================
+     ARONIA SALES ANALYTICS
+============================== -->
+
+<div class="admin-subsection" id="salesAnalytics">
+
+  <h3>إحصائيات المبيعات</h3>
+
+  <span class="admin-subsection-description">
+    ملخص المبيعات وأداء الطلبات
+  </span>
+
+  <div class="stats">
+
+    <div class="stat">
+      <span>إجمالي المبيعات</span>
+      <b id="salesTotal">0 د.ع</b>
+    </div>
+
+    <div class="stat">
+      <span>مبيعات اليوم</span>
+      <b id="salesToday">0 د.ع</b>
+    </div>
+
+    <div class="stat">
+      <span>مبيعات الشهر</span>
+      <b id="salesMonth">0 د.ع</b>
+    </div>
+
+    <div class="stat">
+      <span>متوسط الطلب</span>
+      <b id="averageOrder">0 د.ع</b>
+    </div>
+
+    <div class="stat">
+      <span>الطلبات المكتملة</span>
+      <b id="completedOrders">0</b>
+    </div>
+
+    <div class="stat">
+      <span>الطلبات قيد التنفيذ</span>
+      <b id="activeAnalyticsOrders">0</b>
+    </div>
+
+    <div class="stat">
+      <span>الطلبات الملغاة</span>
+      <b id="cancelledOrders">0</b>
+    </div>
+
+  </div>
+
+  <div class="sales-chart-card">
+
+    <h3>حركة المبيعات اليومية</h3>
+
+    <div id="salesChart">
+      جاري تحميل بيانات المبيعات...
+    </div>
+
+  </div>
+
+</div>
 
   </div>
 
