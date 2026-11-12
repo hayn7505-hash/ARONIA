@@ -3814,6 +3814,112 @@ body.dark-mode .aronia-slider-card .product-image img {
   }
 }
 
+  
+/* =================================
+   ARONIA — CRYSTAL LIGHT DETAILS
+================================= */
+
+.crystal-light {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* الهالة الأولى */
+
+.crystal-glow {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  filter: blur(65px);
+  opacity: 0;
+}
+
+.crystal-glow-one {
+  top: 50%;
+  left: 50%;
+  background: rgba(46, 196, 182, .22);
+  animation: crystalGlowOne 3s ease-out .3s both;
+}
+
+.crystal-glow-two {
+  top: 50%;
+  left: 50%;
+  background: rgba(220, 225, 245, .55);
+  animation: crystalGlowTwo 3.5s ease-out .5s both;
+}
+
+/* اللمعة الكريستالية */
+
+.crystal-glint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow:
+    0 0 12px 5px rgba(255,255,255,.9),
+    0 0 35px 12px rgba(46,196,182,.25);
+  opacity: 0;
+  animation: crystalGlint 2.5s ease-out .4s both;
+}
+
+/* حركات الضوء */
+
+@keyframes crystalGlowOne {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.2);
+  }
+
+  40% {
+    opacity: .8;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.8);
+  }
+}
+
+@keyframes crystalGlowTwo {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.3);
+  }
+
+  45% {
+    opacity: .65;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2);
+  }
+}
+
+@keyframes crystalGlint {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.2);
+  }
+
+  35% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(2.5);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(5);
+  }
+}
+
 
 </style>
 
