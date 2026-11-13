@@ -3876,14 +3876,19 @@ const imageFile =
      التحقق
   ========================= */
 
-  if(!nameAr || !price){
+    if(
+    !nameAr ||
+    price <= 0 ||
+    !Number.isFinite(costPrice) ||
+    costPrice < 0 ||
+    document.getElementById("productCostPrice").value.trim() === ""
+  ){
 
     message.textContent =
-      "أدخل اسم المنتج والسعر.";
+      "أدخل اسم المنتج وسعر البيع وسعر الشراء بشكل صحيح.";
 
     return;
   }
-
   /* =========================
      الصورة الحالية
      في حالة التعديل
