@@ -4802,6 +4802,18 @@ const netProfit = missingCostData
   document.getElementById("salesTotal").textContent =
     money(totalSales);
 
+const profitElement =
+  document.getElementById("salesNetProfit");
+
+if (profitElement) {
+
+  profitElement.textContent =
+    netProfit === null
+      ? "بيانات التكلفة ناقصة"
+      : money(netProfit);
+
+}
+  
   document.getElementById("salesToday").textContent =
     money(todaySales);
 
