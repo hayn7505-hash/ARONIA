@@ -4085,10 +4085,12 @@ if(imageFile && imageFile.size > 0){
 
   }else{
 
-    result =
+        result =
       await supabaseClient
         .from("products")
-        .insert(productData);
+        .insert(productData)
+        .select("id")
+        .single();
 
   }
 
