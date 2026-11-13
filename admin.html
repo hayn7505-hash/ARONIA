@@ -4945,6 +4945,7 @@ if (profitElement) {
 }
 
 
+
 // =========================================
 // تحميل أرشيف دورات المبيعات
 // =========================================
@@ -4962,6 +4963,8 @@ async function loadSalesArchive() {
       started_at,
       ended_at,
       total_sales,
+      total_cost,
+      net_profit,
       completed_orders,
       average_order,
       status
@@ -4991,6 +4994,14 @@ async function loadSalesArchive() {
     const total = Number(cycle.total_sales || 0)
       .toLocaleString("ar-IQ");
 
+    const cost = cycle.total_cost === null
+      ? "غير متوفر"
+      : Number(cycle.total_cost).toLocaleString("ar-IQ");
+
+    const profit = cycle.net_profit === null
+      ? "غير متوفر"
+      : Number(cycle.net_profit).toLocaleString("ar-IQ");
+
     const average = Number(cycle.average_order || 0)
       .toLocaleString("ar-IQ");
 
@@ -5005,16 +5016,20 @@ async function loadSalesArchive() {
 
         <p>إجمالي المبيعات: ${total} د.ع</p>
 
+        <p>تكلفة المنتجات: ${cost} د.ع</p>
+
+        <p>صافي الأرباح: ${profit} د.ع</p>
+
         <p>الطلبات المكتملة: ${cycle.completed_orders}</p>
 
         <p>متوسط الطلب: ${average} د.ع</p>
 
-<button
-  type="button"
-  class="view-sales-cycle-button"
-  onclick="openSalesCycleDetails(${cycle.id})">
-  عرض التفاصيل
-</button>
+        <button
+          type="button"
+          class="view-sales-cycle-button"
+          onclick="openSalesCycleDetails(${cycle.id})">
+          عرض التفاصيل
+        </button>
 
       </div>
     `;
