@@ -4498,6 +4498,122 @@ async function loadSalesAnalytics(){
 }
 
 
+// =========================================
+// تحميل أرشيف دورات المبيعات
+// =========================================
+
+async function loadSalesArchive() {
+
+  const container = document.getElementById("salesArchive");
+
+  if (!container) return;
+
+  const { data, error } = await supabaseClient
+    .from("sales_analytics_cycles")
+    .select(`
+      id,
+      started_at,
+      ended_at,
+      total_sales,
+      completed_orders,
+      average_order,
+      status
+    `)
+    .eq("status", "مؤرشفة")
+    .order("ended_at", { ascending: false });
+
+  if (error) {
+    console.error("Sales archive error:", error);
+    container.textContent = "تعذر تحميل الأرشيف.";
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    container.textContent = "لا توجد دورات مبيعات مؤرشفة بعد.";
+    return;
+  }
+
+  container.innerHTML = data.map(cycle => {
+
+    const startDate = new Date(cycle.started_at)
+      .toLocaleString("ar-IQ");
+
+    const endDate = new Date(cycle.ended_at)
+      .toLocaleString("ar-IQ");
+
+    const total = Number(cycle.total_sales || 0)
+      .toLocaleString("ar-IQ");
+
+    const average = Number(cycle.average_order || 0)
+      .toLocaleString("ar-IQ");
+
+    return `
+      <div class="sales-archive-item">
+
+        <h4>دورة المبيعات رقم ${cycle.id}</h4>
+
+        <p>بداية الدورة: ${startDate}</p>
+
+        <p>نهاية الدورة: ${endDate}</p>
+
+        <p>إجمالي المبيعات: ${total} د.ع</p>
+
+        <p>الطلبات المكتملة: ${cycle.completed_orders}</p>
+
+        <p>متوسط الطلب: ${average} د.ع</p>
+
+      </div>
+    `;
+
+  }).join("");
+
+}
+
+
+// =========================================
+// تصفير دورة المبيعات وبدء دورة جديدة
+// =========================================
+
+async function resetSalesCycle() {
+
+  if (!hasPermission("orders.view")) {
+    alert("ليس لديك صلاحية.");
+    return;
+  }
+
+  const confirmed = confirm(
+    "سيتم حفظ نتائج الدورة الحالية في الأرشيف وبدء دورة جديدة. هل تريد المتابعة؟"
+  );
+
+  if (!confirmed) return;
+
+  const button = document.querySelector(".reset-sales-button");
+
+  if (button) button.disabled = true;
+
+  const { data, error } = await supabaseClient
+    .rpc("reset_sales_analytics");
+
+  if (error) {
+
+    console.error("Reset sales error:", error);
+
+    alert("تعذر بدء دورة جديدة: " + error.message);
+
+  } else {
+
+    alert("تم حفظ الدورة السابقة وبدء دورة مبيعات جديدة.");
+
+    await loadSalesAnalytics();
+
+    await loadSalesArchive();
+
+  }
+
+  if (button) button.disabled = false;
+
+}
+
 /* ==================================================
    استشارات الصيادلة - ADMIN
 ================================================== */
