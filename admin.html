@@ -4905,7 +4905,19 @@ async function openSalesCycleDetails(cycleId) {
   modal.style.display = "flex";
 
   title.textContent = "تفاصيل دورة المبيعات رقم " + cycleId;
-  content.textContent = "جاري تحميل الطلبات...";
+
+content.innerHTML = `
+  <button
+    type="button"
+    class="delete-sales-cycle-button"
+    onclick="deleteSalesCycle(${cycleId})">
+    حذف هذه الدورة من الأرشيف
+  </button>
+
+  <div id="salesCycleOrdersList">
+    جاري تحميل الطلبات...
+  </div>
+`;
 
   const { data: cycle, error: cycleError } = await supabaseClient
     .from("sales_analytics_cycles")
