@@ -4723,6 +4723,54 @@ async function loadSalesAnalytics(){
     0
   );
 
+  /* حساب تكلفة المنتجات في الطلبات المكتملة */
+
+let totalCost = 0;
+let missingCostData = false;
+
+if (completed.length) {
+
+  const completedIds = completed.map(order => order.id);
+
+  const { data: costItems, error: costError } =
+    await supabaseClient
+      .from("order_items")
+      .select("order_id,quantity,cost_price")
+      .in("order_id", completedIds);
+
+  if (costError) {
+
+    console.error("PROFIT CALCULATION ERROR:", costError);
+
+    document.getElementById("salesNetProfit").textContent =
+      "تعذر الحساب";
+
+    return;
+  }
+
+  const ordersWithItems = new Set(
+    (costItems || []).map(item => item.order_id)
+  );
+
+  missingCostData =
+    costItems.some(item => item.cost_price === null) ||
+    completed.some(order => !ordersWithItems.has(order.id));
+
+  if (!missingCostData) {
+
+    totalCost = costItems.reduce(
+      (sum, item) =>
+        sum + (Number(item.quantity) * Number(item.cost_price)),
+      0
+    );
+
+  }
+}
+
+const netProfit = missingCostData
+  ? null
+  : totalSales - totalCost;
+  
   /* مبيعات اليوم */
 
   const todaySales = completed
