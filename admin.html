@@ -5007,6 +5007,57 @@ function closeSalesCycleDetails() {
 
 }
 
+
+// =========================================
+// حذف دورة مبيعات من الأرشيف
+// =========================================
+
+async function deleteSalesCycle(cycleId) {
+
+  const confirmed = confirm(
+    "هل أنت متأكد من حذف دورة المبيعات رقم " +
+    cycleId +
+    " نهائياً من الأرشيف؟ لا يمكن التراجع عن هذا الإجراء."
+  );
+
+  if (!confirmed) return;
+
+  const button = document.querySelector(
+    ".delete-sales-cycle-button"
+  );
+
+  if (button) {
+    button.disabled = true;
+    button.textContent = "جاري الحذف...";
+  }
+
+  const { data, error } = await supabaseClient
+    .rpc("delete_sales_cycle", {
+      p_cycle_id: cycleId
+    });
+
+  if (error) {
+
+    console.error("Delete sales cycle error:", error);
+
+    alert("تعذر حذف الدورة: " + error.message);
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = "حذف هذه الدورة من الأرشيف";
+    }
+
+    return;
+  }
+
+  closeSalesCycleDetails();
+
+  await loadSalesArchive();
+
+  alert("تم حذف الدورة من الأرشيف بنجاح.");
+
+}
+
 /* ==================================================
    استشارات الصيادلة - ADMIN
 ================================================== */
