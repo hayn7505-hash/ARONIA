@@ -4213,34 +4213,58 @@ async function loadOrders(){
 }
 
 
+
 /* =========================================
    ARONIA SALES ANALYTICS
 ========================================= */
 
 async function loadSalesAnalytics(){
 
-  if(!hasPermission("orders.view")){
-    document.getElementById("salesChart").textContent =
-      "لا تملك صلاحية مشاهدة إحصائيات المبيعات.";
-    return;
-  }
-
   const chart = document.getElementById("salesChart");
 
   if(!chart) return;
 
+  if(!hasPermission("orders.view")){
+    chart.textContent =
+      "لا تملك صلاحية مشاهدة إحصائيات المبيعات.";
+    return;
+  }
+
   chart.textContent = "جاري تحميل بيانات المبيعات...";
+
+  /* جلب تاريخ بداية الدورة النشطة */
+
+  const { data: cycle, error: cycleError } =
+    await supabaseClient
+      .from("sales_analytics_cycles")
+      .select("id,started_at")
+      .eq("status", "نشطة")
+      .single();
+
+  if(cycleError || !cycle){
+
+    console.error("SALES CYCLE ERROR:", cycleError);
+
+    chart.textContent =
+      "تعذر تحميل دورة المبيعات النشطة.";
+
+    return;
+  }
+
+  /* جلب طلبات الدورة الحالية فقط */
 
   const { data, error } = await supabaseClient
     .from("orders")
     .select("id,total_amount,status,created_at")
+    .gte("created_at", cycle.started_at)
     .order("created_at", { ascending:false });
 
   if(error){
 
     console.error("SALES ANALYTICS ERROR:", error);
 
-    chart.textContent = "تعذر تحميل إحصائيات المبيعات.";
+    chart.textContent =
+      "تعذر تحميل إحصائيات المبيعات.";
 
     return;
   }
@@ -4283,18 +4307,32 @@ async function loadSalesAnalytics(){
     return Number(order.total_amount) || 0;
   }
 
+  /* إجمالي المبيعات */
+
   const totalSales = completed.reduce(
     (sum, order) => sum + orderAmount(order),
     0
   );
 
+  /* مبيعات اليوم */
+
   const todaySales = completed
     .filter(order => orderDate(order) >= todayStart)
-    .reduce((sum, order) => sum + orderAmount(order), 0);
+    .reduce(
+      (sum, order) => sum + orderAmount(order),
+      0
+    );
+
+  /* مبيعات الشهر */
 
   const monthSales = completed
     .filter(order => orderDate(order) >= monthStart)
-    .reduce((sum, order) => sum + orderAmount(order), 0);
+    .reduce(
+      (sum, order) => sum + orderAmount(order),
+      0
+    );
+
+  /* متوسط الطلب */
 
   const averageOrder = completed.length
     ? totalSales / completed.length
@@ -4345,6 +4383,7 @@ async function loadSalesAnalytics(){
 
     const sales = completed
       .filter(order => {
+
         const d = orderDate(order);
 
         const orderKey =
@@ -4353,8 +4392,12 @@ async function loadSalesAnalytics(){
           String(d.getDate()).padStart(2,"0");
 
         return orderKey === key;
+
       })
-      .reduce((sum, order) => sum + orderAmount(order), 0);
+      .reduce(
+        (sum, order) => sum + orderAmount(order),
+        0
+      );
 
     days.push({
       label: date.toLocaleDateString("ar-IQ", {
@@ -4431,6 +4474,7 @@ async function loadSalesAnalytics(){
   `;
 
 }
+
 
 /* ==================================================
    استشارات الصيادلة - ADMIN
