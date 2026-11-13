@@ -4725,6 +4725,110 @@ async function resetSalesCycle() {
 
 }
 
+
+// =========================================
+// عرض تفاصيل دورة المبيعات
+// =========================================
+
+async function openSalesCycleDetails(cycleId) {
+
+  const modal = document.getElementById("salesCycleDetailsModal");
+  const title = document.getElementById("salesCycleDetailsTitle");
+  const content = document.getElementById("salesCycleDetailsContent");
+
+  modal.style.display = "flex";
+
+  title.textContent = "تفاصيل دورة المبيعات رقم " + cycleId;
+  content.textContent = "جاري تحميل الطلبات...";
+
+  const { data: cycle, error: cycleError } = await supabaseClient
+    .from("sales_analytics_cycles")
+    .select("id,started_at,ended_at")
+    .eq("id", cycleId)
+    .single();
+
+  if (cycleError || !cycle) {
+    content.textContent = "تعذر تحميل بيانات الدورة.";
+    return;
+  }
+
+  let query = supabaseClient
+    .from("orders")
+    .select("id,customer_name,phone,total_amount,status,created_at")
+    .gte("created_at", cycle.started_at)
+    .order("created_at", { ascending: false });
+
+  if (cycle.ended_at) {
+    query = query.lt("created_at", cycle.ended_at);
+  }
+
+  const { data: orders, error } = await query;
+
+  if (error) {
+    console.error("Cycle orders error:", error);
+    content.textContent = "تعذر تحميل طلبات الدورة.";
+    return;
+  }
+
+  if (!orders || orders.length === 0) {
+    content.textContent = "لا توجد طلبات ضمن هذه الدورة.";
+    return;
+  }
+
+  const escapeHTML = value =>
+    String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[char]);
+
+  content.innerHTML = orders.map(order => {
+
+    const amount = Number(order.total_amount || 0)
+      .toLocaleString("ar-IQ");
+
+    const date = new Date(order.created_at)
+      .toLocaleString("ar-IQ");
+
+    return `
+      <div class="sales-cycle-order">
+
+        <h4>الطلب رقم ${order.id}</h4>
+
+        <p>الزبون: ${escapeHTML(order.customer_name || "غير محدد")}</p>
+
+        <p>رقم الهاتف: ${escapeHTML(order.phone || "غير محدد")}</p>
+
+        <p>المبلغ: ${amount} د.ع</p>
+
+        <p>الحالة: ${escapeHTML(order.status)}</p>
+
+        <p>تاريخ الطلب: ${date}</p>
+
+      </div>
+    `;
+
+  }).join("");
+
+}
+
+
+// =========================================
+// إغلاق نافذة التفاصيل
+// =========================================
+
+function closeSalesCycleDetails() {
+
+  const modal = document.getElementById("salesCycleDetailsModal");
+
+  if (modal) {
+    modal.style.display = "none";
+  }
+
+}
+
 /* ==================================================
    استشارات الصيادلة - ADMIN
 ================================================== */
