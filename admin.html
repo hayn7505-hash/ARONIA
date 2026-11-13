@@ -4113,6 +4113,42 @@ if(imageFile && imageFile.size > 0){
   }
 
 /* =========================
+   حفظ سعر الشراء
+========================= */
+
+const savedProductId =
+  editingId || result.data?.id;
+
+const {
+  error: costError
+} = await supabaseClient
+  .from("product_costs")
+  .upsert(
+    {
+      product_id: savedProductId,
+      cost_price: costPrice,
+      updated_at: new Date().toISOString()
+    },
+    {
+      onConflict: "product_id"
+    }
+  );
+
+if(costError){
+
+  console.error(
+    "Product cost save error:",
+    costError
+  );
+
+  message.textContent =
+    "تم حفظ المنتج لكن تعذر حفظ سعر الشراء: " +
+    costError.message;
+
+  return;
+}
+  
+/* =========================
    إشعار توفر المنتج مجدداً
 ========================= */
 
