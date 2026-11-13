@@ -5086,6 +5086,7 @@ async function resetSalesCycle() {
 }
 
 
+
 // =========================================
 // عرض تفاصيل دورة المبيعات
 // =========================================
@@ -5100,22 +5101,35 @@ async function openSalesCycleDetails(cycleId) {
 
   title.textContent = "تفاصيل دورة المبيعات رقم " + cycleId;
 
-content.innerHTML = `
-  <button
-    type="button"
-    class="delete-sales-cycle-button"
-    onclick="deleteSalesCycle(${cycleId})">
-    حذف هذه الدورة من الأرشيف
-  </button>
+  content.innerHTML = `
+    <button
+      type="button"
+      class="delete-sales-cycle-button"
+      onclick="deleteSalesCycle(${cycleId})">
+      حذف هذه الدورة من الأرشيف
+    </button>
 
-  <div id="salesCycleOrdersList">
-    جاري تحميل الطلبات...
-  </div>
-`;
+    <div id="salesCycleSummary">
+      جاري تحميل ملخص الدورة...
+    </div>
+
+    <div id="salesCycleOrdersList">
+      جاري تحميل الطلبات...
+    </div>
+  `;
 
   const { data: cycle, error: cycleError } = await supabaseClient
     .from("sales_analytics_cycles")
-    .select("id,started_at,ended_at")
+    .select(`
+      id,
+      started_at,
+      ended_at,
+      total_sales,
+      total_cost,
+      net_profit,
+      completed_orders,
+      average_order
+    `)
     .eq("id", cycleId)
     .single();
 
@@ -5123,6 +5137,53 @@ content.innerHTML = `
     content.textContent = "تعذر تحميل بيانات الدورة.";
     return;
   }
+
+  const formatMoney = value =>
+    Number(value || 0).toLocaleString("ar-IQ");
+
+  const totalSales = formatMoney(cycle.total_sales);
+  const totalCost = cycle.total_cost === null
+    ? "غير متوفر"
+    : formatMoney(cycle.total_cost);
+
+  const netProfit = cycle.net_profit === null
+    ? "غير متوفر"
+    : formatMoney(cycle.net_profit);
+
+  const average = formatMoney(cycle.average_order);
+
+  document.getElementById("salesCycleSummary").innerHTML = `
+    <div class="sales-cycle-summary">
+
+      <h4>ملخص الدورة</h4>
+
+      <p>
+        إجمالي المبيعات:
+        <strong>${totalSales} د.ع</strong>
+      </p>
+
+      <p>
+        تكلفة المنتجات:
+        <strong>${totalCost} د.ع</strong>
+      </p>
+
+      <p>
+        صافي الأرباح:
+        <strong>${netProfit} د.ع</strong>
+      </p>
+
+      <p>
+        الطلبات المكتملة:
+        <strong>${cycle.completed_orders ?? 0}</strong>
+      </p>
+
+      <p>
+        متوسط الطلب:
+        <strong>${average} د.ع</strong>
+      </p>
+
+    </div>
+  `;
 
   let query = supabaseClient
     .from("orders")
@@ -5136,14 +5197,16 @@ content.innerHTML = `
 
   const { data: orders, error } = await query;
 
+  const ordersList = document.getElementById("salesCycleOrdersList");
+
   if (error) {
     console.error("Cycle orders error:", error);
-    content.textContent = "تعذر تحميل طلبات الدورة.";
+    ordersList.textContent = "تعذر تحميل طلبات الدورة.";
     return;
   }
 
   if (!orders || orders.length === 0) {
-    content.textContent = "لا توجد طلبات ضمن هذه الدورة.";
+    ordersList.textContent = "لا توجد طلبات ضمن هذه الدورة.";
     return;
   }
 
@@ -5156,10 +5219,9 @@ content.innerHTML = `
       "'": "&#39;"
     })[char]);
 
-  document.getElementById("salesCycleOrdersList").innerHTML = orders.map(order => {
+  ordersList.innerHTML = orders.map(order => {
 
-    const amount = Number(order.total_amount || 0)
-      .toLocaleString("ar-IQ");
+    const amount = formatMoney(order.total_amount);
 
     const date = new Date(order.created_at)
       .toLocaleString("ar-IQ");
@@ -5185,6 +5247,7 @@ content.innerHTML = `
   }).join("");
 
 }
+
 
 
 // =========================================
