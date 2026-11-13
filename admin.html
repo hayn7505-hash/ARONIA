@@ -4962,7 +4962,7 @@ content.innerHTML = `
       "'": "&#39;"
     })[char]);
 
-  content.innerHTML = orders.map(order => {
+  document.getElementById("salesCycleOrdersList").innerHTML = orders.map(order => {
 
     const amount = Number(order.total_amount || 0)
       .toLocaleString("ar-IQ");
