@@ -4200,7 +4200,7 @@ if(
    تعديل المنتج
 ========================= */
 
-function editProduct(id){
+async function editProduct(id){
 
   if(
     !hasPermission("products.update")
@@ -4221,6 +4221,29 @@ function editProduct(id){
 
   if(!product) return;
 
+  /* =========================
+   تحميل سعر الشراء
+========================= */
+
+const {
+  data: costData,
+  error: costLoadError
+} = await supabaseClient
+  .from("product_costs")
+  .select("cost_price")
+  .eq("product_id", id)
+  .maybeSingle();
+
+if(costLoadError){
+
+  alert(
+    "تعذر تحميل سعر الشراء: " +
+    costLoadError.message
+  );
+
+  return;
+}
+  
   editingId = id;
 
   document
@@ -4248,6 +4271,11 @@ function editProduct(id){
     .value =
       product.price || "";
 
+document
+  .getElementById("productCostPrice")
+  .value =
+    costData?.cost_price ?? "";
+  
   document
     .getElementById("productStock")
     .value =
