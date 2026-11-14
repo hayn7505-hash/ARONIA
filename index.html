@@ -6942,6 +6942,97 @@ adminButton.style.display =
 }
 
 /* =====================================================
+ARONIA LOYALTY POINTS
+===================================================== */
+
+async function loadLoyaltyPoints(){
+
+  const balanceEl = document.getElementById("loyaltyBalance");
+  const earnedEl = document.getElementById("loyaltyEarned");
+  const redeemedEl = document.getElementById("loyaltyRedeemed");
+  const transactionsEl = document.getElementById("loyaltyTransactions");
+
+  if(!balanceEl || !earnedEl || !redeemedEl || !transactionsEl){
+    return;
+  }
+
+  if(!currentUser){
+    balanceEl.textContent = "0";
+    earnedEl.textContent = "0";
+    redeemedEl.textContent = "0";
+    transactionsEl.textContent = "سجّل الدخول لمشاهدة نقاطك";
+    return;
+  }
+
+  const { data: points, error: pointsError } = await db
+    .from("loyalty_points")
+    .select("balance, total_earned, total_redeemed")
+    .eq("user_id", currentUser.id)
+    .maybeSingle();
+
+  if(pointsError){
+    console.error("LOYALTY POINTS ERROR:", pointsError);
+    transactionsEl.textContent = "تعذر تحميل النقاط";
+    return;
+  }
+
+  balanceEl.textContent =
+    (points?.balance || 0).toLocaleString("ar-IQ");
+
+  earnedEl.textContent =
+    (points?.total_earned || 0).toLocaleString("ar-IQ");
+
+  redeemedEl.textContent =
+    (points?.total_redeemed || 0).toLocaleString("ar-IQ");
+
+  const { data: transactions, error: transactionsError } = await db
+    .from("loyalty_points_transactions")
+    .select("type, points, description, created_at")
+    .eq("user_id", currentUser.id)
+    .order("created_at", { ascending: false })
+    .limit(5);
+
+  if(transactionsError){
+    console.error("LOYALTY TRANSACTIONS ERROR:", transactionsError);
+    transactionsEl.textContent = "تعذر تحميل سجل النقاط";
+    return;
+  }
+
+  transactionsEl.innerHTML = "";
+
+  if(!transactions || transactions.length === 0){
+    transactionsEl.textContent = "لا توجد حركات نقاط حتى الآن";
+    return;
+  }
+
+  transactions.forEach(item => {
+
+    const row = document.createElement("div");
+    row.className = "loyalty-transaction-item";
+
+    const description = document.createElement("span");
+    description.textContent =
+      item.description || "حركة نقاط";
+
+    const amount = document.createElement("strong");
+
+    const value = Number(item.points || 0);
+
+    amount.textContent =
+      (value > 0 ? "+" : "") +
+      value.toLocaleString("ar-IQ") +
+      " نقطة";
+
+    row.appendChild(description);
+    row.appendChild(amount);
+
+    transactionsEl.appendChild(row);
+
+  });
+
+}
+  
+/* =====================================================
 LOGOUT
 ===================================================== */
 
