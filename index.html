@@ -3920,44 +3920,37 @@ body.dark-mode .aronia-slider-card .product-image img {
   }
 }
 
+
 /* ==============================
    ARONIA LOYALTY POINTS
+   MODERN DESIGN
 ============================== */
 
 .loyalty-card {
   background: #FFFFFF;
-  border: 1px solid rgba(15, 45, 91, 0.08);
-  border-radius: 20px;
-  padding: 20px;
+  border: 1px solid rgba(15, 45, 91, 0.07);
+  border-radius: 24px;
+  padding: 18px;
   margin-top: 18px;
-  box-shadow: 0 5px 18px rgba(15, 45, 91, 0.06);
+  box-shadow: 0 8px 26px rgba(15, 45, 91, 0.07);
   direction: rtl;
+  overflow: hidden;
 }
+
+/* HEADER */
 
 .loyalty-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.loyalty-icon {
-  width: 46px;
-  height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  background: #DDF8F5;
-  color: #2EC4B6;
-  font-size: 27px;
+  gap: 13px;
+  margin-bottom: 18px;
 }
 
 .loyalty-header h3 {
   margin: 0;
   color: #0F2D5B;
   font-size: 17px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .loyalty-header p {
@@ -3966,41 +3959,126 @@ body.dark-mode .aronia-slider-card .product-image img {
   font-size: 12px;
 }
 
-.loyalty-balance {
-  background: #0F2D5B;
+/* PROGRESS CIRCLE */
+
+.loyalty-progress {
+  --progress: 0%;
+
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: conic-gradient(
+    #0F2D5B var(--progress),
+    #B9F0E9 0
+  );
+
+  position: relative;
+}
+
+.loyalty-progress::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  background: #2EC4B6;
+  border-radius: 50%;
+}
+
+.loyalty-progress .loyalty-icon {
+  position: relative;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
   color: #FFFFFF;
-  border-radius: 16px;
-  padding: 20px 15px;
+  font-size: 23px;
+}
+
+/* MAIN BALANCE */
+
+.loyalty-balance {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    #2EC4B6 0%,
+    #25B7AA 100%
+  );
+
+  color: #FFFFFF;
+  border-radius: 20px;
+  padding: 25px 15px;
   text-align: center;
+  overflow: hidden;
+}
+
+.loyalty-balance::before {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 50%;
+  top: -90px;
+  left: -45px;
+}
+
+.loyalty-balance::after {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 50%;
+  bottom: -75px;
+  right: -30px;
 }
 
 .loyalty-balance span,
 .loyalty-balance small {
   display: block;
-  color: #DDF8F5;
+  color: #FFFFFF;
   font-size: 13px;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 
 .loyalty-balance strong {
   display: block;
-  color: #2EC4B6;
-  font-size: 38px;
+  color: #FFFFFF;
+  font-size: 44px;
   font-weight: 900;
+  line-height: 1.3;
   margin: 7px 0;
+  position: relative;
+  z-index: 1;
 }
+
+/* STATISTICS */
 
 .loyalty-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin-top: 12px;
+  margin-top: 13px;
 }
 
 .loyalty-stats > div {
   background: #F5FAFA;
   border: 1px solid #E7F2F1;
-  border-radius: 13px;
-  padding: 13px 9px;
+  border-radius: 15px;
+  padding: 15px 9px;
   text-align: center;
 }
 
@@ -4008,33 +4086,63 @@ body.dark-mode .aronia-slider-card .product-image img {
   display: block;
   color: #778394;
   font-size: 11px;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
 
 .loyalty-stats strong {
   color: #0F2D5B;
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 21px;
+  font-weight: 900;
 }
+
+/* REWARD */
 
 .loyalty-reward {
   margin-top: 13px;
-  padding: 13px;
-  border-radius: 12px;
+  padding: 15px 12px;
+  border-radius: 15px;
   background: #DDF8F5;
+  border: 1px solid rgba(46,196,182,0.18);
   color: #0F2D5B;
   text-align: center;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
+/* TRANSACTIONS */
+
 .loyalty-transactions {
-  margin-top: 16px;
+  margin-top: 18px;
   color: #8993A3;
   font-size: 12px;
   text-align: center;
 }
 
+.loyalty-transaction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 3px;
+  border-bottom: 1px solid #EEF2F5;
+  text-align: right;
+}
+
+.loyalty-transaction-item:last-child {
+  border-bottom: none;
+}
+
+.loyalty-transaction-item span {
+  color: #596779;
+  font-size: 12px;
+}
+
+.loyalty-transaction-item strong {
+  color: #2EC4B6;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
 
 /* =================================
    ARONIA CHECKOUT LOYALTY
