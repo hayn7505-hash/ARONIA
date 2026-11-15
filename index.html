@@ -9700,13 +9700,48 @@ const maxRedeemablePoints = Math.floor(
           placeholder="المحافظة، المنطقة، الشارع..."></textarea>
 
 
-        <label>
-          ملاحظات الطلب
-        </label>
+        <label>ملاحظات الطلب</label>
+<textarea id="customerNotes" placeholder="أي ملاحظة إضافية..."></textarea>
 
-        <textarea
-          id="customerNotes"
-          placeholder="أي ملاحظة إضافية..."></textarea>
+<!-- ARONIA LOYALTY REDEMPTION -->
+
+<div class="checkout-loyalty">
+
+  <div class="checkout-loyalty-header">
+    <span>✦</span>
+    <div>
+      <strong>نقاط ARONIA</strong>
+      <small>استخدم نقاطك واحصل على خصم</small>
+    </div>
+  </div>
+
+  <div class="checkout-loyalty-balance">
+    رصيدك:
+    <strong id="checkoutPointsBalance">0</strong>
+    نقطة
+  </div>
+
+  <label for="checkoutPointsSelect">
+    اختر عدد النقاط المستخدمة
+  </label>
+
+  <select id="checkoutPointsSelect">
+    <option value="0">عدم استخدام النقاط</option>
+  </select>
+
+  <div class="checkout-loyalty-summary">
+    <div>
+      <span>قيمة الخصم</span>
+      <strong id="checkoutPointsDiscount">0 د.ع</strong>
+    </div>
+
+    <div>
+      <span>المبلغ المطلوب</span>
+      <strong id="checkoutFinalTotal">0 د.ع</strong>
+    </div>
+  </div>
+
+</div>
 
 
         <button
