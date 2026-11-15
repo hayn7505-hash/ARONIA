@@ -4417,6 +4417,40 @@ body.dark-mode .aronia-slider-card .product-image img {
   font-size: 11px;
 }
 
+
+/* =====================================
+   ARONIA - ALIGN PRODUCT CART BUTTONS
+===================================== */
+
+/* جعل بطاقات السلايدر بنفس الارتفاع */
+.products-slider {
+  align-items: stretch !important;
+}
+
+/* ترتيب البطاقة عمودياً */
+.products-slider .product-card,
+.products-slider .aronia-slider-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: auto !important;
+}
+
+/* منطقة معلومات المنتج */
+.products-slider .product-info {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* تثبيت منطقة الأزرار أسفل البطاقة */
+.products-slider .product-actions {
+  margin-top: auto !important;
+  width: 100% !important;
+  flex-shrink: 0 !important;
+}
+
 </style>
 
 </head>
