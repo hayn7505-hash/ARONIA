@@ -9765,6 +9765,88 @@ const maxRedeemablePoints = Math.floor(
   );
 
 
+  // إعداد خيارات استبدال نقاط ARONIA
+
+const pointsBalanceEl =
+  document.getElementById("checkoutPointsBalance");
+
+const pointsSelect =
+  document.getElementById("checkoutPointsSelect");
+
+const pointsDiscountEl =
+  document.getElementById("checkoutPointsDiscount");
+
+const finalTotalEl =
+  document.getElementById("checkoutFinalTotal");
+
+
+// عرض الرصيد
+
+pointsBalanceEl.textContent =
+  availablePoints.toLocaleString("ar-IQ");
+
+
+// إضافة خيارات الاستبدال بمضاعفات 500
+
+for(
+  let points = 500;
+  points <= maxRedeemablePoints;
+  points += 500
+){
+
+  const discount = (points / 500) * 2500;
+
+  const option = document.createElement("option");
+
+  option.value = points;
+
+  option.textContent =
+    points.toLocaleString("ar-IQ") +
+    " نقطة — خصم " +
+    discount.toLocaleString("ar-IQ") +
+    " د.ع";
+
+  pointsSelect.appendChild(option);
+
+}
+
+
+// تحديث الخصم والمبلغ النهائي
+
+function updateCheckoutPoints(){
+
+  const selectedPoints =
+    Number(pointsSelect.value || 0);
+
+  const discount =
+    (selectedPoints / 500) * 2500;
+
+  const finalTotal =
+    checkoutSubtotal - discount;
+
+  pointsDiscountEl.textContent =
+    discount.toLocaleString("ar-IQ") +
+    " د.ع";
+
+  finalTotalEl.textContent =
+    finalTotal.toLocaleString("ar-IQ") +
+    " د.ع";
+
+}
+
+
+// عند تغيير اختيار النقاط
+
+pointsSelect.addEventListener(
+  "change",
+  updateCheckoutPoints
+);
+
+
+// الحساب الأولي دون استخدام نقاط
+
+updateCheckoutPoints();
+  
   const nameInput =
     document.getElementById(
       "customerName"
