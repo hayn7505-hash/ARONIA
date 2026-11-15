@@ -9878,35 +9878,16 @@ if(!confirmed){
    العملية تتم داخل Supabase بشكل آمن
 ===================================================== */
 
-const {
-  data:orderId,
-  error
-} =
-await db.rpc(
-  "create_order_and_reduce_stock",
-  {
-    p_user_id:
-      userData.user.id,
-
-    p_customer_name:
-      name,
-
-    p_phone:
-      phone,
-
-    p_shipping_address:
-      address,
-
-    p_total_amount:
-      total,
-
-    p_items:
-      orderItems,
-
-    p_notes:
-      notes
-  }
-);
+const {data:orderId,error} = await db.rpc("create_order_and_reduce_stock", {
+  p_user_id: userData.user.id,
+  p_customer_name: name,
+  p_phone: phone,
+  p_shipping_address: address,
+  p_total_amount: total,
+  p_items: orderItems,
+  p_notes: notes,
+  p_points_to_redeem: 0
+});
 
         if(error){
 
