@@ -4154,6 +4154,54 @@ body.dark-mode .aronia-slider-card .product-image img {
   color: #2EC4B6;
 }
 
+/* دائرة تقدم نقاط ARONIA */
+
+.loyalty-progress {
+  --progress: 0%;
+
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    conic-gradient(
+      #0F2D5B var(--progress),
+      rgba(255,255,255,0.35) 0
+    );
+
+  position: relative;
+}
+
+.loyalty-progress::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  background: #2EC4B6;
+  border-radius: 50%;
+}
+
+.loyalty-progress .loyalty-icon {
+  position: relative;
+  z-index: 1;
+
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  color: #FFFFFF;
+  font-size: 23px;
+}
+  
 </style>
 
 </head>
@@ -4969,7 +5017,9 @@ class="page">
     <div class="loyalty-card">
 
       <div class="loyalty-header">
-        <span class="loyalty-icon">✦</span>
+        <div class="loyalty-progress" id="loyaltyProgress">
+  <span class="loyalty-icon">🎁</span>
+</div>
         <div>
           <h3>نقاط ARONIA</h3>
           <p>كل مشترياتك تقرّبك من مكافأتك</p>
@@ -4997,7 +5047,7 @@ class="page">
       </div>
 
       <div class="loyalty-reward">
-        ✨ 500 نقطة = خصم 5,000 د.ع
+        ✨ 500 نقطة = خصم 2,500 د.ع
       </div>
 
       <div id="loyaltyTransactions" class="loyalty-transactions">
