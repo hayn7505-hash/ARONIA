@@ -7110,8 +7110,9 @@ adminButton.style.display =
 loadLoyaltyPoints();
 }
 
+
 /* =====================================================
-ARONIA LOYALTY POINTS
+   ARONIA LOYALTY POINTS
 ===================================================== */
 
 async function loadLoyaltyPoints(){
@@ -7120,16 +7121,39 @@ async function loadLoyaltyPoints(){
   const earnedEl = document.getElementById("loyaltyEarned");
   const redeemedEl = document.getElementById("loyaltyRedeemed");
   const transactionsEl = document.getElementById("loyaltyTransactions");
+  const progressRing = document.getElementById("loyaltyProgress");
 
   if(!balanceEl || !earnedEl || !redeemedEl || !transactionsEl){
     return;
   }
 
+  /* تصفير الحلقة */
+  function updateLoyaltyProgress(balance){
+
+    if(!progressRing) return;
+
+    const progress = Math.min(
+      (Number(balance || 0) / 500) * 100,
+      100
+    );
+
+    progressRing.style.setProperty(
+      "--progress",
+      `${progress}%`
+    );
+  }
+
   if(!currentUser){
+
     balanceEl.textContent = "0";
     earnedEl.textContent = "0";
     redeemedEl.textContent = "0";
-    transactionsEl.textContent = "سجّل الدخول لمشاهدة نقاطك";
+
+    updateLoyaltyProgress(0);
+
+    transactionsEl.textContent =
+      "سجّل الدخول لمشاهدة نقاطك";
+
     return;
   }
 
@@ -7140,13 +7164,23 @@ async function loadLoyaltyPoints(){
     .maybeSingle();
 
   if(pointsError){
+
     console.error("LOYALTY POINTS ERROR:", pointsError);
-    transactionsEl.textContent = "تعذر تحميل النقاط";
+
+    transactionsEl.textContent =
+      "تعذر تحميل النقاط";
+
     return;
   }
 
+  /* الرصيد الحالي */
+  const currentBalance = Number(points?.balance || 0);
+
   balanceEl.textContent =
-    (points?.balance || 0).toLocaleString("ar-IQ");
+    currentBalance.toLocaleString("ar-IQ");
+
+  /* تحديث الحلقة */
+  updateLoyaltyProgress(currentBalance);
 
   earnedEl.textContent =
     (points?.total_earned || 0).toLocaleString("ar-IQ");
@@ -7154,6 +7188,7 @@ async function loadLoyaltyPoints(){
   redeemedEl.textContent =
     (points?.total_redeemed || 0).toLocaleString("ar-IQ");
 
+  /* تحميل سجل الحركات */
   const { data: transactions, error: transactionsError } = await db
     .from("loyalty_points_transactions")
     .select("type, points, description, created_at")
@@ -7162,15 +7197,22 @@ async function loadLoyaltyPoints(){
     .limit(5);
 
   if(transactionsError){
+
     console.error("LOYALTY TRANSACTIONS ERROR:", transactionsError);
-    transactionsEl.textContent = "تعذر تحميل سجل النقاط";
+
+    transactionsEl.textContent =
+      "تعذر تحميل سجل النقاط";
+
     return;
   }
 
   transactionsEl.innerHTML = "";
 
   if(!transactions || transactions.length === 0){
-    transactionsEl.textContent = "لا توجد حركات نقاط حتى الآن";
+
+    transactionsEl.textContent =
+      "لا توجد حركات نقاط حتى الآن";
+
     return;
   }
 
@@ -7180,6 +7222,7 @@ async function loadLoyaltyPoints(){
     row.className = "loyalty-transaction-item";
 
     const description = document.createElement("span");
+
     description.textContent =
       item.description || "حركة نقاط";
 
@@ -7200,6 +7243,7 @@ async function loadLoyaltyPoints(){
   });
 
 }
+
   
 /* =====================================================
 LOGOUT
