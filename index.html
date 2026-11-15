@@ -10043,7 +10043,10 @@ const {data:orderId,error} = await db.rpc("create_order_and_reduce_stock", {
   p_total_amount: total,
   p_items: orderItems,
   p_notes: notes,
-  p_points_to_redeem: 0
+  p_points_to_redeem: Number(
+  document.getElementById("checkoutPointsSelect").value || 0
+)
+  
 });
 
         if(error){
