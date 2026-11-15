@@ -9543,7 +9543,7 @@ function removeFromCart(id){
 CHECKOUT
 ===================================================== */
 
-function checkout(){
+async function checkout(){
 
   if(cart.length === 0){
 
@@ -9570,7 +9570,47 @@ function checkout(){
 
   }
 
+// جلب رصيد نقاط ARONIA
 
+const { data: loyaltyData, error: loyaltyError } = await db
+  .from("loyalty_points")
+  .select("balance")
+  .eq("user_id", currentUser.id)
+  .maybeSingle();
+
+if(loyaltyError){
+  console.error("LOYALTY ERROR:", loyaltyError);
+  alert("تعذر تحميل رصيد النقاط. حاول مرة أخرى.");
+  return;
+}
+
+const availablePoints = Number(loyaltyData?.balance || 0);
+
+// حساب مجموع المنتجات في السلة
+
+const checkoutSubtotal = cart.reduce((sum, item) => {
+
+  const product = allProducts.find(p => p.id === item.id);
+
+  if(!product) return sum;
+
+  const price = item.price !== undefined
+    ? Number(item.price)
+    : Number(product.price || 0);
+
+  return sum + price * Number(item.quantity || 1);
+
+}, 0);
+
+// كل 500 نقطة = 2,500 دينار خصم
+
+const maxRedeemablePoints = Math.floor(
+  Math.min(
+    availablePoints,
+    Math.floor(checkoutSubtotal / 2500) * 500
+  ) / 500
+) * 500;
+  
   const oldModal =
     document.getElementById(
       "checkoutModal"
