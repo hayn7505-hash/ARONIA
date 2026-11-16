@@ -4453,28 +4453,80 @@ body.dark-mode .aronia-slider-card .product-image img {
 
 
 /* =========================================
-   ARONIA — SHADOWLESS 3D RAISED CARDS
+   ARONIA — SCULPTED 3D PRODUCT CARDS
 ========================================= */
 
 .products-slider .product-card,
 .products-slider .aronia-slider-card,
 .category-products-grid .category-product-card,
 .category-products-grid .product-card {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
 
-  background: #FFFFFF !important;
+  background:
+    linear-gradient(
+      145deg,
+      #FFFFFF 0%,
+      #FBFFFF 48%,
+      #EDF9F8 100%
+    ) !important;
 
   border: 2px solid #FFFFFF !important;
-
-  border-radius: 20px !important;
-
-  transform: translateY(-3px) !important;
+  border-radius: 24px !important;
 
   box-shadow:
     inset 3px 3px 5px rgba(255,255,255,1),
-    inset -2px -2px 4px rgba(220,235,234,.35) !important;
+    inset -3px -3px 7px rgba(46,196,182,.12),
+    inset 0 0 0 1px rgba(210,239,236,.7) !important;
 
-  outline: 1px solid rgba(255,255,255,.9) !important;
+  transform: none !important;
 }
+
+/* الانحناء المصبوب داخل البطاقة */
+.products-slider .product-card::before,
+.products-slider .aronia-slider-card::before,
+.category-products-grid .category-product-card::before,
+.category-products-grid .product-card::before {
+  content: "";
+  position: absolute;
+  top: -35%;
+  right: -18%;
+  width: 92%;
+  height: 72%;
+
+  border-radius: 0 0 0 100%;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.95),
+      rgba(235,250,248,.45)
+    );
+
+  border-bottom: 2px solid rgba(255,255,255,.95);
+  border-left: 1px solid rgba(46,196,182,.10);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* حافة بارزة ناعمة */
+.products-slider .product-card::after,
+.products-slider .aronia-slider-card::after,
+.category-products-grid .category-product-card::after,
+.category-products-grid .product-card::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 19px;
+
+  pointer-events: none;
+  z-index: 2;
+}
+
 
 
 
