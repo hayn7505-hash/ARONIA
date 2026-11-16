@@ -4451,6 +4451,40 @@ body.dark-mode .aronia-slider-card .product-image img {
   flex-shrink: 0 !important;
 }
 
+
+/* =========================================
+   ARONIA — FULL 3D FLOATING PRODUCT CARDS
+========================================= */
+
+.products-slider .product-card,
+.products-slider .aronia-slider-card,
+.category-products-grid .category-product-card,
+.category-products-grid .product-card {
+  background: #FFFFFF !important;
+  border: 1px solid #E5EDF2 !important;
+  border-radius: 17px !important;
+
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 1px 0 1px #E4EBF0,
+    0 3px 0 1px #D5DFE7,
+    0 6px 0 1px #C3CFD9,
+    0 9px 0 1px #B7C4CF,
+    0 16px 22px rgba(15, 45, 91, 0.18),
+    0 25px 35px rgba(15, 45, 91, 0.09) !important;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease !important;
+}
+
+/* مساحة لإظهار عمق البطاقات في السلايدر */
+.products-slider {
+  padding-top: 12px !important;
+  padding-bottom: 24px !important;
+}
+
 </style>
 
 </head>
