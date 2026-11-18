@@ -8749,86 +8749,47 @@ ${
 
       </h3>
 
-      <div class="price">
+  <div class="price">
 
   ${
-    (() => {
+    hasDiscount
+      ? `
+        <div
+          style="
+            margin-top:5px;
+            display:flex;
+            align-items:center;
+            gap:7px;
+            flex-wrap:wrap;
+          "
+        >
 
-      const offer =
-        featuredOffers.find(
-          item =>
-            Number(item.product_id) ===
-            Number(product.id)
-        );
-
-      const originalPrice =
-        Number(product.price || 0);
-
-      const offerPrice =
-        Number(
-          offer?.offer_price || 0
-        );
-
-      /* المنتج عليه عرض */
-      if(
-        offerPrice > 0 &&
-        offerPrice < originalPrice
-      ){
-
-        const discount =
-          Math.round(
-            (
-              (originalPrice - offerPrice) /
-              originalPrice
-            ) * 100
-          );
-
-        return `
-          <div
+          <span
             style="
-              margin-top:5px;
-              display:flex;
-              align-items:center;
-              gap:8px;
-              flex-wrap:wrap;
+              color:#0F2D5B;
+              font-size:16px;
+              font-weight:800;
             "
           >
+            ${formatIQD(offerPrice)}
+          </span>
 
-            <span
-              style="
-                text-decoration:line-through;
-                color:#999;
-                font-size:12px;
-                margin-left:5px;
-              "
-            >
-              ${formatIQD(originalPrice)}
-            </span>
+          <span
+            style="
+              color:#999;
+              font-size:12px;
+              text-decoration:line-through;
+            "
+          >
+            ${formatIQD(originalPrice)}
+          </span>
 
-            <span
-              style="
-                color:#b45f5f;
-                font-size:16px;
-                font-weight:bold;
-              "
-            >
-              ${formatIQD(offerPrice)}
-            </span>
+        </div>
+      `
+      : formatIQD(originalPrice)
+  }
 
-            <span
-              style="
-                color:#8d6868;
-                font-size:12px;
-                font-weight:bold;
-              "
-            >
-              خصم ${discount}%
-            </span>
-
-          </div>
-        `;
-
-      }
+</div>
 
       /* المنتج العادي — لا نغير تنسيقه */
       return formatIQD(originalPrice);
