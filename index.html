@@ -8624,6 +8624,35 @@ function renderProducts(
 
       stock <= 0;
 
+  /* =========================
+   بيانات خصم المنتج
+========================= */
+
+const offer =
+  featuredOffers.find(
+    item =>
+      Number(item.product_id) ===
+      Number(product.id)
+  );
+
+const originalPrice =
+  Number(product.price || 0);
+
+const offerPrice =
+  Number(offer?.offer_price || 0);
+
+const hasDiscount =
+  offerPrice > 0 &&
+  offerPrice < originalPrice;
+
+const discount =
+  hasDiscount
+    ? Math.round(
+        ((originalPrice - offerPrice) /
+        originalPrice) * 100
+      )
+    : 0;
+    
     card.innerHTML = `
 
     
