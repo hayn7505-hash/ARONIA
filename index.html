@@ -8749,153 +8749,103 @@ ${
 
       </h3>
 
-  <div class="price">
 
-  ${
-    hasDiscount
-      ? `
-        <div
-          style="
-            margin-top:5px;
-            display:flex;
-            align-items:center;
-            gap:7px;
-            flex-wrap:wrap;
-          "
-        >
+      <div class="price">
 
-          <span
-            style="
-              color:#0F2D5B;
-              font-size:16px;
-              font-weight:800;
-            "
-          >
-            ${formatIQD(offerPrice)}
-          </span>
+        ${
+          hasDiscount
+            ? `
+              <div
+                style="
+                  margin-top:5px;
+                  display:flex;
+                  align-items:center;
+                  gap:7px;
+                  flex-wrap:wrap;
+                "
+              >
 
-          <span
-            style="
-              color:#999;
-              font-size:12px;
-              text-decoration:line-through;
-            "
-          >
-            ${formatIQD(originalPrice)}
-          </span>
+                <span
+                  style="
+                    color:#0F2D5B;
+                    font-size:16px;
+                    font-weight:800;
+                  "
+                >
+                  ${formatIQD(offerPrice)}
+                </span>
 
-        </div>
-      `
-      : formatIQD(originalPrice)
-  }
+                <span
+                  style="
+                    color:#999;
+                    font-size:12px;
+                    text-decoration:line-through;
+                  "
+                >
+                  ${formatIQD(originalPrice)}
+                </span>
 
-</div>
+              </div>
+            `
+            : formatIQD(originalPrice)
+        }
 
-      /* المنتج العادي — لا نغير تنسيقه */
-      return formatIQD(originalPrice);
-
-    })()
-
-  }
-
-</div>
+      </div>
 
       <div class="product-actions">
 
         ${
-
           isOutOfStock
-
             ? `
-
               <button
-
                 class="add-btn"
-
                 disabled>
-
                 غير متوفر
-
               </button>
-
             `
-
             : cart.some(
-
                 item =>
-
                   item.id === product.id
-
               )
-
             ? `
-
               <div class="product-quantity">
 
                 <button
-
                   class="qty-minus"
-
                   onclick="changeQuantity(${product.id},-1)">
-
                   −
-
                 </button>
 
                 <span class="qty-number">
-
                   ${
-
                     cart.find(
-
                       item =>
-
                         item.id === product.id
-
                     )?.quantity || 1
-
                   }
-
                 </span>
 
                 <button
-
                   class="qty-plus"
-
                   onclick="changeQuantity(${product.id},1)">
-
                   +
-
                 </button>
 
                 <button
-
                   class="qty-delete"
-
                   onclick="removeFromCart(${product.id})">
-
                   🗑️
-
                 </button>
 
               </div>
-
             `
-
             : `
-
               <button
-
                 class="add-btn"
-
                 onclick="addToCart(${product.id})">
-
                 أضف إلى السلة
-
               </button>
-
             `
-
         }
 
       </div>
