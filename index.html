@@ -10019,26 +10019,32 @@ for(
 
 
 // تحديث الخصم والمبلغ النهائي
-
 function updateCheckoutPoints(){
 
-  const selectedPoints =
-    Number(pointsSelect.value || 0);
+  const selectedPoints = Number(pointsSelect.value || 0);
 
-  const discount =
-    (selectedPoints / 500) * 2500;
+  const pointsDiscount = (selectedPoints / 500) * 2500;
+
+  // التأكد من أن مجموع الخصمين لا يتجاوز قيمة الطلب
+  if(appliedCouponDiscount + pointsDiscount > checkoutSubtotal){
+
+    pointsSelect.value = "0";
+
+    alert("قيمة خصم النقاط تتجاوز المبلغ المتبقي بعد الكوبون");
+
+    return updateCheckoutPoints();
+  }
 
   const finalTotal =
-    checkoutSubtotal - discount;
+    checkoutSubtotal -
+    appliedCouponDiscount -
+    pointsDiscount;
 
   pointsDiscountEl.textContent =
-    discount.toLocaleString("ar-IQ") +
-    " د.ع";
+    pointsDiscount.toLocaleString("ar-IQ") + " د.ع";
 
   finalTotalEl.textContent =
-    finalTotal.toLocaleString("ar-IQ") +
-    " د.ع";
-
+    Math.max(0, finalTotal).toLocaleString("ar-IQ") + " د.ع";
 }
 
 
