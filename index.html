@@ -10258,7 +10258,9 @@ const {data:orderId,error} = await db.rpc("create_order_and_reduce_stock", {
   p_notes: notes,
   p_points_to_redeem: Number(
   document.getElementById("checkoutPointsSelect").value || 0
-)
+),
+
+p_coupon_code: appliedCouponCode || null
   
 });
 
