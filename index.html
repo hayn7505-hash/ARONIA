@@ -9691,6 +9691,10 @@ const checkoutSubtotal = cart.reduce((sum, item) => {
 
 }, 0);
 
+// حالة كوبون الخصم
+let appliedCouponCode = "";
+let appliedCouponDiscount = 0;
+  
 // كل 500 نقطة = 2,500 دينار خصم
 
 const maxRedeemablePoints = Math.floor(
