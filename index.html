@@ -9792,6 +9792,40 @@ const maxRedeemablePoints = Math.floor(
         <label>ملاحظات الطلب</label>
 <textarea id="customerNotes" placeholder="أي ملاحظة إضافية..."></textarea>
 
+<!-- ARONIA DISCOUNT COUPON -->
+
+<div class="checkout-coupon">
+
+  <div class="checkout-coupon-header">
+    <strong>🎟️ كود الخصم</strong>
+    <small>أدخل كود الخصم للاستفادة من العرض</small>
+  </div>
+
+  <div class="checkout-coupon-input">
+    <input
+      type="text"
+      id="checkoutCouponCode"
+      placeholder="أدخل كود الخصم"
+      autocomplete="off"
+    >
+
+    <button
+      type="button"
+      id="applyCouponButton"
+    >
+      تطبيق
+    </button>
+  </div>
+
+  <div id="checkoutCouponMessage"></div>
+
+  <div id="checkoutCouponDiscountRow" style="display:none;">
+    <span>خصم الكوبون</span>
+    <strong id="checkoutCouponDiscount">0 د.ع</strong>
+  </div>
+
+</div>
+
 <!-- ARONIA LOYALTY REDEMPTION -->
 
 <div class="checkout-loyalty">
