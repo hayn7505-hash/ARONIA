@@ -3215,6 +3215,7 @@ await checkAdmin();
    ADMIN PERMISSIONS
 ===================================================== */
 
+
 let currentAdminPermissions = [];
 
 
@@ -3254,31 +3255,53 @@ async function loadAdminPermissions(){
 
 
   /* =========================
-     المساعد
+     جلب المستخدم الحالي
   ========================= */
 
   const {
-    data,
-    error
+    data:{
+      user
+    }
   } =
   await supabaseClient
-    .from("admin_user_permissions")
-    .select("permission")
+    .auth
+    .getUser();
+
+
+  if(!user){
+
+    return false;
+
+  }
+
+
+  /* =========================
+     جلب دور المدير المساعد
+  ========================= */
+
+  const {
+    data:adminUser,
+    error:adminUserError
+  } =
+  await supabaseClient
+    .from("admin_users")
+    .select("role")
     .eq(
       "user_id",
-      (
-        await supabaseClient
-          .auth
-          .getUser()
-      ).data.user?.id
-    );
+      user.id
+    )
+    .eq(
+      "is_active",
+      true
+    )
+    .maybeSingle();
 
 
-  if(error){
+  if(adminUserError){
 
     console.error(
-      "Admin permissions error:",
-      error
+      "Admin role error:",
+      adminUserError
     );
 
     return false;
@@ -3286,12 +3309,96 @@ async function loadAdminPermissions(){
   }
 
 
-  currentAdminPermissions =
-    (data || [])
-      .map(
-        item =>
-          item.permission
+  /* =========================
+     الصلاحيات الفردية
+  ========================= */
+
+  const {
+    data:userPermissions,
+    error:userPermissionsError
+  } =
+  await supabaseClient
+    .from("admin_user_permissions")
+    .select("permission")
+    .eq(
+      "user_id",
+      user.id
+    );
+
+
+  if(userPermissionsError){
+
+    console.error(
+      "User permissions error:",
+      userPermissionsError
+    );
+
+    return false;
+
+  }
+
+
+  /* =========================
+     صلاحيات الدور
+  ========================= */
+
+  let rolePermissions = [];
+
+
+  if(adminUser?.role){
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+      .from("admin_permissions")
+      .select("permission")
+      .eq(
+        "role",
+        adminUser.role
       );
+
+
+    if(error){
+
+      console.error(
+        "Role permissions error:",
+        error
+      );
+
+      return false;
+
+    }
+
+
+    rolePermissions =
+      (data || [])
+        .map(
+          item =>
+            item.permission
+        );
+
+  }
+
+
+  /* =========================
+     دمج الصلاحيات
+  ========================= */
+
+  currentAdminPermissions = [
+    ...new Set([
+
+      ...(userPermissions || [])
+        .map(
+          item =>
+            item.permission
+        ),
+
+      ...rolePermissions
+
+    ])
+  ];
 
 
   return true;
@@ -3321,7 +3428,8 @@ function hasPermission(permission){
     .includes(permission);
 
 }
-  
+
+
 /* =========================
    التحقق من المدير
 ========================= */
@@ -3333,7 +3441,9 @@ async function checkAdmin(){
       session
     }
   } =
-  await supabaseClient.auth.getSession();
+  await supabaseClient
+    .auth
+    .getSession();
 
 
   /* =========================
@@ -3454,70 +3564,79 @@ async function checkAdmin(){
 
 
   /* =========================
-     تحميل البيانات
+     تحميل الصلاحيات
   ========================= */
 
   const permissionsLoaded =
-  await loadAdminPermissions();
+    await loadAdminPermissions();
 
-if(!permissionsLoaded){
 
-  alert(
-    "تعذر تحميل صلاحيات المدير."
-  );
+  if(!permissionsLoaded){
 
-  return;
-
-}
-
-/* =========================
-   تحميل المدراء
-   المدير الرئيسي فقط
-========================= */
-
-if(
-  isMainAdmin === true
-){
-
-  const adminsSection =
-    document.getElementById(
-      "adminsManagementSection"
+    alert(
+      "تعذر تحميل صلاحيات المدير."
     );
 
-  if(adminsSection){
-
-    adminsSection.style.display =
-      "";
+    return;
 
   }
 
-  await loadAdmins();
 
-}else{
+  /* =========================
+     تحميل المدراء
+     المدير الرئيسي فقط
+  ========================= */
 
-  const adminsSection =
-    document.getElementById(
-      "adminsManagementSection"
-    );
+  if(
+    isMainAdmin === true
+  ){
 
-  if(adminsSection){
+    const adminsSection =
+      document.getElementById(
+        "adminsManagementSection"
+      );
 
-    adminsSection.style.display =
-      "none";
+
+    if(adminsSection){
+
+      adminsSection.style.display =
+        "";
+
+    }
+
+
+    await loadAdmins();
+
+  }else{
+
+    const adminsSection =
+      document.getElementById(
+        "adminsManagementSection"
+      );
+
+
+    if(adminsSection){
+
+      adminsSection.style.display =
+        "none";
+
+    }
 
   }
 
-}
 
+  /* =========================
+     تحميل بيانات لوحة المدير
+  ========================= */
 
-await loadProducts();
+  await loadProducts();
 
-await loadOrders();
+  await loadOrders();
 
-await loadSalesAnalytics();
+  await loadSalesAnalytics();
 
-await loadSalesArchive();
-  
+  await loadSalesArchive();
+
   await loadBanners();
 
   await loadCategoriesAdmin();
@@ -3527,6 +3646,7 @@ await loadSalesArchive();
   await loadOffersAdmin();
 
 }
+
   
 /* =========================
    تسجيل الخروج
